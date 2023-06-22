@@ -1,0 +1,25 @@
+@import "../Abstracts/mixins";
+
+
+.header{
+    background-color: black;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 4em;
+
+    .logout{
+        cursor: pointer;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+
+
+@include breakpoint-up(large){
+
+    .header{
+        background-color: yellow;
+    }
+}

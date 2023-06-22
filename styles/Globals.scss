@@ -1,4 +1,5 @@
-
+@import "./Abstracts/mixins";
+@import "./Abstracts/variables";
 
 * {
   box-sizing: border-box;
@@ -13,8 +14,9 @@ body {
 }
 
 body {
-  color: black;
-  background: white;
+  color: var(--color-gray-dark);
+  background: var(--color-white);
+  font-size: $font-sm;
 }
 
 a {
@@ -26,13 +28,4 @@ a {
   html {
     color-scheme: dark;
   }
-}
-
-
-.business{
-  margin-bottom: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
