@@ -1,38 +1,23 @@
-:root {
-    --color-primary: #F9F9F9;
-    --color-secondary: #769D8D;
-    --color-button: #769D8D;
-    --color-button-hover: rgba(118, 157, 141, 0.7);
-    --color-paragraph: #000;
-    --color-error: #EF476F;
-    --color-gray: #EDEFF1;
-    --color-orange: #FFBC42;
-    --color-red: #EF476F;
-    --color-blue: #1B9AAA;
-    --color-green: #06D6A0;
-    --color-gray-dark: #454545;
-    --color-gray-light: #eaeaea;
+$color-primary: #f9f9f9;
+$color-secondary: #EDEDED;
+$color-tertiary: #769d8d;
 
-    --color-white: #ffff;
-    --color-border: #d9d9d9;
+$color-border: #b3b3b3;
+$text-color: #333;
 
-    --font-p-tablet: 20px;
-}   
-
-[data-theme='dark'] {
-    --color-primary: #000;
-    --color-secondary: #00ED64;
-    --color-button: #00ED64;
-    --color-button-hover: hsla(145, 100%, 46%, 0.80);  
-    --color-paragraph: #ffff;
-    --color-error: rgb(207, 0, 0);
+.dark {
+  $color-primary: black;
+  $color-secondary: #769d8d;
+  $text-color: white;
 }
 
+
 //Font-size
-$font-big: 60px;  //60px
-$font-med: 40px;  //40px
-$font-sm: 16px; // 16px
+$font-big: 60px; //60px
+$font-med: 40px; //40px
+$font-normal: 14px; // 16px
+$font-sm: 12px; // 16px
 
 //Font family
-$font-primary: 'Gilroy';
-$font-secondary: 'CenturyGGG';
+$font-primary: "Gilroy";
+$font-secondary: "CenturyGGG";

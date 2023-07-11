@@ -1,22 +1,14 @@
-//Breakpoints
-@media (min-width: 64em){
-    //styles go here
-}
-
-// 640px, 1024px, 1400px
-$breakpoints-up: ("medium": "40em", "large": "64em", "xlarge": "87.5em");
-
-// 639px, 1023px, 1399px
-$breakpoints-down: ("medium": "39.9375em", "large": "63.9375em", "xlarge": "87.4375em");
-
-@mixin breakpoint-up($size) {
-    @media (min-width: map-get($breakpoints-up, $size)) {
-        @content;
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37.5em) { @content };    //600px
     }
-}
-
-@mixin breakpoint-down($size) {
-    @media (max-width: map-get($breakpoints-down, $size)) {
-        @content;
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) { @content };     //900px
+    }
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) { @content };    //1200px
+    }
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) { @content };    //1800
     }
 }

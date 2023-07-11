@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import { api } from '@/api/api'
 import { GetServerSideProps } from 'next'
@@ -12,7 +11,7 @@ export default function Home({ products }: any) {
         <main className={styles.main}>
 
           <h1 style={{ marginBottom: "50px" }}>OleiWeb</h1>
-          <div>
+          {/* <div>
             {
               products?.map((product: any, index: number) => {
                 return (
@@ -32,7 +31,7 @@ export default function Home({ products }: any) {
                 )
               })
             }
-          </div>
+          </div> */}
         </main>
       </Layout>
     </>
@@ -43,7 +42,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const { data } = await api.get('/api/product');
 
-    console.log({ data : data.products })
     return {
       props: {
         products : data.products
