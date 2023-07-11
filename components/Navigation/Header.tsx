@@ -1,18 +1,15 @@
 import { api } from '@/api/api';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Search } from '../Inputs/search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faSquare, faFile } from '@fortawesome/free-solid-svg-icons';
 import styles from "./../../styles/Navigation/Header.module.scss"
-import { ThemeContext } from '@/context/Theme/ThemeContext';
-import DarkMode from '../DarkMode';
 
 const Header = () => {
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace } = useRouter()
-    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
     const onLogOut = async () => {
         try {
