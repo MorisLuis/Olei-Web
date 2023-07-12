@@ -13,16 +13,12 @@ body {
   overflow-x: hidden;
   font-family: "Poppins";
   font-size: $font-normal;
-
-  background: $color-primary;
   color: $text-color;
   font-weight: 400;
 }
 
 body {
-  background: $color-primary;
-  color: $text-color;
-  font-weight: 400;
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(255,171,60,0.1) 80%, rgba(245,147,212,0.1) 87%, rgba(237,237,237,1) 100%);
 }
 
 a {
@@ -56,4 +52,10 @@ input{
     &:valid{
       padding: 0em 1em;
     }
+}
+
+.warning{
+  color: $color-red;
+  padding: 0px;
+  margin-bottom: 1em;
 }

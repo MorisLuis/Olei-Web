@@ -16,7 +16,7 @@ const Table = ({
             <div className={`${styles.headers} display-flex space-between`}>
                 <p>Nombre</p>
                 <p>Codigo</p>
-                <p>Precio (MNX)</p>
+                <p>Precio (MXN)</p>
                 <p>Familia</p>
                 <p>Existencia</p>
                 <p></p>

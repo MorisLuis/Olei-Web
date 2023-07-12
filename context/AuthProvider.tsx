@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 //import UserInterface from '@/interfaces/user';
 import { api } from '@/api/api';
@@ -22,6 +22,7 @@ const AUTH_INITIAL_STATE: AuthState = {
 export const AuthProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
+    const [loggingIn, setLoggingIn] = useState(false)
 
     const { replace } = useRouter()
 
@@ -47,13 +48,16 @@ export const AuthProvider = ({ children }: any) => {
     } */
 
     const loginUser = async (email: string, password: string) => {
+        setLoggingIn(true)
         try {
             const data = await api.post('/api/auth/login', { email, password });
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
             replace("/")
+            setLoggingIn(false)
         } catch (error: any) {
+            setLoggingIn(false)
             toast.error(error?.response?.data?.error)
             console.log(error?.response?.data?.error)
         }
@@ -76,6 +80,7 @@ export const AuthProvider = ({ children }: any) => {
     return (
         <AuthContext.Provider value={{
             ...state,
+            loggingIn,
 
             // Methods
             loginUser,

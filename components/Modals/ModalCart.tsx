@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from "../../styles/Modal.module.scss";
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProductCartCard from '../Cards/ProductCartCard';
 
 interface Props {
     visible: boolean;
@@ -34,7 +35,7 @@ const ModalCart = ({
                 </div>
 
                 <div className={styles.content}>
-                    Content
+                    <ProductCartCard/>
                 </div>
             </div>
         </>

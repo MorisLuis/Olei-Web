@@ -1,0 +1,13 @@
+
+.button{
+    height: 36px;
+    background-color: $color-tertiary;
+    border: 1px solid transparent;
+    color: $text-color-secondary;
+    border-radius: 0.5em;
+    cursor: pointer;
+    
+    &:hover{
+        opacity: 70%;
+    }
+}

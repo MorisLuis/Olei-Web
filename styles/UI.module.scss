@@ -3,7 +3,7 @@
 .table {
     font-size: $font-sm;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    
+
     .headers {
         padding: 0.75em;
         border-radius: 0.5em 0.5em 0em 0em;
@@ -51,22 +51,22 @@
                 font-weight: bold;
             }
 
-            .secondaryData{
+            .secondaryData {
                 flex: 1 1 70%;
 
-                .headersMovil{
+                .headersMovil {
                     display: none;
                 }
 
-                .notCounter{
+                .notCounter {
                     width: 80%;
 
-                    >div{
+                    >div {
                         width: 100%;
                     }
                 }
 
-                .counter {
+                /* .counter {
                     width: 20%;
                     .action {
                         background-color: $color-secondary;
@@ -74,41 +74,40 @@
                         border-radius: 2.5px;
                         border: 1px solid $color-secondary;
                     }
-                }
+                } */
             }
 
             @include respond(phone) {
                 flex-direction: column;
 
-                .secondaryData{
+                .secondaryData {
                     flex-direction: column;
 
-                    
-                    .notCounter{
+
+                    .notCounter {
                         width: 100%;
                         height: 30px;
 
-                        > div:not(:first-child) {
+                        >div:not(:first-child) {
                             margin-left: 1em;
                         }
                     }
 
-                    .counter{
+                    /* .counter {
                         justify-content: flex-end;
                         width: 100%;
-                        //height: 30px;
                         padding-top: 1em;
 
-                        .action{
+                        .action {
                             height: 30px;
                         }
 
-                        .number{
+                        .number {
                             padding: 0em 1em;
                         }
-                    }
+                    } */
 
-                    .headersMovil{
+                    .headersMovil {
                         display: block;
                         margin-right: 0.5em;
                     }
@@ -135,7 +134,7 @@
             &:hover {
                 background-color: $color-secondary;
 
-                .counter {
+                /* .counter {
                     .action {
                         background-color: $color-primary;
 
@@ -144,14 +143,13 @@
                         }
                     }
 
-                }
+                } */
             }
         }
     }
 }
 
 .tag {
-
     .content {
         padding: 0.25em 0.75em;
         width: fit-content;
@@ -176,6 +174,51 @@
         @include respond(tab-port) {
             max-width: 80px;
         }
+
+        @include respond(phone) {
+            max-width: 120px;
+        }
     }
 
+}
+
+.counter {
+    width: 20%;
+
+    .action {
+        background-color: $color-secondary;
+        padding: 0.25em 0.75em;
+        border-radius: 2.5px;
+        border: 1px solid $color-secondary;
+    }
+    .number {
+        padding: 0em 0.1em;
+    }
+
+    &:hover {
+
+        .action {
+            background-color: $color-primary;
+
+            &:hover {
+                border: 1px solid $text-color;
+            }
+        }
+
+    }
+
+    @include respond(phone) {
+
+        justify-content: flex-end;
+        width: 100%;
+        padding-top: 1em;
+
+        .action {
+            height: 30px;
+        }
+
+        .number {
+            padding: 0em 1em;
+        }
+    }
 }

@@ -1,0 +1,19 @@
+@import "../main.scss";
+
+.productCard{
+    width: 100%;
+    padding: 1em;
+    border-bottom: 1px solid $color-border-secondary;
+
+    .productInfo{
+        >div :not(:last-child){
+            margin-right: 0.5em;
+        }
+        p {
+            color: $text-color-secondary;
+        }
+        span {
+            color: $text-color-secondary;
+        }
+    }
+}

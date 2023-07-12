@@ -13,7 +13,7 @@
         align-items: center;
     }
 
-    &.justifiy {
+    &.justify {
         display: flex;
         justify-content: center;
     }
@@ -27,24 +27,32 @@
         display: flex;
         justify-content: space-between;
     }
+
+    &.column{
+        flex-direction: column;
+    }
+
+    &.row{
+        flex-direction: row;
+    }
 }
 
 
 //Margin
 
-.u-margin-bottom-small {
-    margin-bottom: 1.5rem !important;
+.mb-small {
+    margin-bottom: 1em !important;
 }
 
-.u-margin-bottom-medium {
-    margin-bottom: 4rem !important;
+.mb-medium {
+    margin-bottom: 2rem !important;
 
     @include respond(tab-port) {
         margin-bottom: 3rem !important;
     }
 }
 
-.u-margin-bottom-big {
+.mb-big {
     margin-bottom: 8rem !important;
 
     @include respond(tab-port) {

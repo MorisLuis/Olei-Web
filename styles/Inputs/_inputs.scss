@@ -1,5 +1,21 @@
 
-.inputGlobal{
+.input {
+    border: 1px solid $color-border;
+    height: 36px;
+    border-radius: 0.5em;
+
+    &:focus {
+        border: 1px solid transparent;
+        outline: none;
+        box-shadow: $color-secondary 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+    }
+
+    &:valid {
+        padding: 0em 1em;
+    }
+}
+
+.inputGlobal {
     height: 100%;
     border-radius: 0.5em;
     width: 100%;
