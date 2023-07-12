@@ -37,6 +37,13 @@ a {
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Bold.ttf");
+  font-weight: bold;
+  font-display: swap;
+}
+
 input{
     border: 1px solid $color-border;
 

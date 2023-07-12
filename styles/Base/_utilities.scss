@@ -1,22 +1,24 @@
-.u-center-text { text-align: center !important; }
+.u-center-text {
+    text-align: center !important;
+}
 
 
 //Display flex
 .display-flex {
     display: flex;
 
-    &.allCenter{
+    &.allCenter {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    &.justifiy{
+    &.justifiy {
         display: flex;
         justify-content: center;
     }
 
-    &.align{
+    &.align {
         display: flex;
         align-items: center;
     }
@@ -30,7 +32,10 @@
 
 //Margin
 
-.u-margin-bottom-small { margin-bottom: 1.5rem !important; }
+.u-margin-bottom-small {
+    margin-bottom: 1.5rem !important;
+}
+
 .u-margin-bottom-medium {
     margin-bottom: 4rem !important;
 
@@ -39,7 +44,7 @@
     }
 }
 
-.u-margin-bottom-big { 
+.u-margin-bottom-big {
     margin-bottom: 8rem !important;
 
     @include respond(tab-port) {
@@ -47,27 +52,41 @@
     }
 }
 
-.u-margin-top-big { margin-top: 8rem !important; }
-.u-margin-top-huge { margin-top: 10rem !important; }
+.u-margin-top-big {
+    margin-top: 8rem !important;
+}
+
+.u-margin-top-huge {
+    margin-top: 10rem !important;
+}
 
 
 //Icons
 
-.icon{
+.icon {
     width: 16px;
     height: 16px;
 
-    &__small{
-        width: 14px;
-        height: 14px;
+    &__small {
+        width: 12px;
+        height: 12px;
     }
-    &__medium{
+
+    &__medium {
         width: 20px;
         height: 20px;
     }
 }
 
 //Cursor
-.cursor{
+.cursor {
     cursor: pointer;
+}
+
+//Others
+.text-ellipsis {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

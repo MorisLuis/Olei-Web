@@ -1,0 +1,33 @@
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        //transform: scale(0.90);
+    }
+
+    100% {
+        opacity: 1;
+        //transform: scale(1);
+    }
+}
+
+@keyframes appear-Right-to-Left {
+    0% {
+        //width: 0;
+        transform: translateX(100%);
+    }
+
+    100% {
+        //width: 100%;
+        transform: translateX(0);
+    }
+}
+@keyframes disappear-Left-to-Right {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

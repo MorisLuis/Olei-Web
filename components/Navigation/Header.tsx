@@ -7,7 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faSquare, faFile } from '@fortawesome/free-solid-svg-icons';
 import styles from "./../../styles/Navigation/Header.module.scss"
 
-const Header = () => {
+interface Props {
+    setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const Header = ({
+    setOpenModalCart
+}: Props) => {
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace } = useRouter()
 
@@ -40,10 +46,9 @@ const Header = () => {
                         </div>
                     </div>
 
-
                     <div className={`${styles.right} display-flex`}>
 
-                        <div className={`${styles.item} display-flex allCenter`}>
+                        <div className={`${styles.item} display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
                             <FontAwesomeIcon icon={faBagShopping} className={`icon`} />
                         </div>
                         <div className={`${styles.item} ${styles.profile} display-flex allCenter`} onClick={() => setProfileOpen(!profileOpen)}>

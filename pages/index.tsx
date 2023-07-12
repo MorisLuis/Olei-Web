@@ -1,40 +1,20 @@
-import styles from '@/styles/Home.module.css'
-import { api } from '@/api/api'
-import { GetServerSideProps } from 'next'
-import { Layout } from '@/components/Layouts/Layout'
+import { api } from '@/api/api';
+import { GetServerSideProps } from 'next';
+import { Layout } from '@/components/Layouts/Layout';
+import Table from '@/components/Ui/Table';
+import styles from "../styles/Pages/Home.module.scss";
 
 export default function Home({ products }: any) {
 
   return (
-    <>
-      <Layout>
+    <Layout>
+      <div className={styles.home}>
+        <h1 style={{ marginBottom : "1em"}}>OleiWeb</h1>
         <main className={styles.main}>
-
-          <h1 style={{ marginBottom: "50px" }}>OleiWeb</h1>
-          {/* <div>
-            {
-              products?.map((product: any, index: number) => {
-                return (
-                  <>
-                    <div key={index} style={{ display: "flex", justifyContent: "center", textAlign: "center" }}>
-                      <p>Descripción : {product.Descripcion} </p>
-                      <span style={{ margin: "0px 20px" }}>/</span>
-                      <p>Codigo : {product.Codigo} </p>
-                      <span style={{ margin: "0px 20px" }}>/</span>
-                      <p>Precio: {product.Precio ? product.Precio + "$" : "No tiene precio"}</p>
-                      <span style={{ margin: "0px 20px" }}>/</span>
-                      <p>Categoria: {product.Nombre}</p>
-                      <span style={{ margin: "0px 20px" }}>/</span>
-                      <p>Exisencias: {product.Existencia}</p>
-                    </div>
-                  </>
-                )
-              })
-            }
-          </div> */}
+          <Table  data={products}/>
         </main>
-      </Layout>
-    </>
+      </div>
+    </Layout>
   )
 }
 
@@ -44,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
     return {
       props: {
-        products : data.products
+        products: data.products
       }
     };
   } catch (error) {
