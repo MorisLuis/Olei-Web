@@ -53,7 +53,7 @@
                 border: 1px solid $color-border;
             }
 
-            p { color: $text-color-secondary; }
+            p { color: $text-color-tertiary; }
 
             @include respond(tab-port) {
                 width: 35%;

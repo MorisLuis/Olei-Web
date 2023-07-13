@@ -47,10 +47,6 @@ const Header = ({
                     </div>
 
                     <div className={`${styles.right} display-flex`}>
-
-                        <div className={`${styles.item} display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
-                            <FontAwesomeIcon icon={faBagShopping} className={`icon`} />
-                        </div>
                         <div className={`${styles.item} ${styles.profile} display-flex allCenter`} onClick={() => setProfileOpen(!profileOpen)}>
                             <FontAwesomeIcon icon={faSquare} className={`icon`} />
                             {
@@ -67,6 +63,13 @@ const Header = ({
 
                                 </div>
                             }
+                        </div>
+
+                        <div className={`${styles.item}  ${styles.cart}  display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
+                            <div className={`${styles.circle} display-flex allCenter`}>
+                                <p>3</p>
+                            </div>
+                            <FontAwesomeIcon icon={faBagShopping} className={`icon`} />
                         </div>
                     </div>
                 </div>

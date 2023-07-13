@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
 import ModalCart from '../Modals/ModalCart'
+import Footer from '../Navigation/Footer'
 import Header from '../Navigation/Header'
 
 interface Props {
@@ -25,6 +26,8 @@ export const Layout = ({ children }: Props) => {
             <div>
                 {children}
             </div>
+
+            <Footer/>
 
             <ModalCart
                 visible={openModalCart}

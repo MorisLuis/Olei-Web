@@ -1,0 +1,33 @@
+@import "../main.scss";
+
+.footer {
+    height: 40px;
+    width: 100%;
+    padding: 0em 10em;
+    justify-content: flex-end;
+    color: $text-color-tertiary;
+
+
+    @include respond(tab-port) {
+        padding: 0em 4em;
+    }
+
+    @include respond(phone) {
+        padding: 0em 1em;
+    }
+
+    p{
+        font-size: 14px;
+    }
+
+    span{
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+
+}

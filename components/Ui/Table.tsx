@@ -3,6 +3,7 @@ import { Tag } from './Tag'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import styles from "../../styles/UI.module.scss"
+import Counter from './Counter';
 
 interface Props {
     data: any
@@ -36,13 +37,13 @@ const Table = ({
                                 <div className={`${styles.secondaryData} display-flex space-between`}>
                                     <div className={`${styles.notCounter} display-flex space-between allCenter`}>
                                         <div>
-                                            <p className='text-ellipsis'>{item.Codigo}</p>
+                                            <p className='text-ellipsis display-flex align'>{item.Codigo}</p>
                                         </div>
-                                        <div>
+                                        <div className={styles.price}>
                                             {
                                                 item.Precio ?
                                                     <p>${item.Precio}</p> :
-                                                    <Tag color="green">No tiene precio</Tag>
+                                                    <Tag color="blue">No tiene precio</Tag>
                                             }
                                         </div>
 
@@ -62,16 +63,8 @@ const Table = ({
                                         </div>
                                     </div>
 
-                                    <div className={`${styles.counter} display-flex space-between`}>
-                                        <span className={`${styles.action} cursor display-flex align`} >
-                                            <FontAwesomeIcon icon={faMinus} className={`icon__small`} />
-                                        </span>
-                                        <span className={`${styles.number} display-flex allCenter`}>
-                                            0
-                                        </span>
-                                        <span className={`${styles.action} cursor display-flex align`} >
-                                            <FontAwesomeIcon icon={faPlus} className={`icon__small`} />
-                                        </span>
+                                    <div className={`${styles.counterColumn} display-flex`}>
+                                        <Counter/>
                                     </div>
                                 </div>
                             </div>

@@ -19,4 +19,7 @@
     height: 100%;
     border-radius: 0.5em;
     width: 100%;
+    background-color: transparent;
+    border: 1px solid $color-tertiary;
+    opacity: 50%;
 }

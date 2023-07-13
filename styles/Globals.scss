@@ -15,10 +15,15 @@ body {
   font-size: $font-normal;
   color: $text-color;
   font-weight: 400;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(245,147,212,0.05) 86%, rgba(9,118,223,0.05) 98%);
+  height: 100vh;
 }
 
 body {
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(255,171,60,0.1) 80%, rgba(245,147,212,0.1) 87%, rgba(237,237,237,1) 100%);
+  //background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(255,171,60,0.1) 80%, rgba(245,147,212,0.1) 87%, rgba(237,237,237,1) 100%);
+
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(245,147,212,0.05) 86%, rgba(9,118,223,0.05) 98%);
+
 }
 
 a {
@@ -47,6 +52,7 @@ input{
       border: 0px solid;
       outline: none;
       box-shadow: $color-secondary 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;    
+      opacity: 100%;
     }
 
     &:valid{

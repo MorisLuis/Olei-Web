@@ -1,15 +1,16 @@
 $color-primary: #f9f9f9;
 $color-secondary: #EDEDED;
-$color-tertiary: black;
+$color-tertiary: rgb(29 42 54/1);
 
 $color-red: #ff0000;
-
+$color-blue: #068FFF;
 
 $color-border: #e8e8e8;
 $color-border-secondary: #e2e2e2;
 
-$text-color: #333;
-$text-color-secondary: #aaaaaa;
+$text-color:black;
+$text-color-secondary: #e2e2e2;
+$text-color-tertiary: rgb(101 116 130/1);
 
 .dark {
   $color-primary: black;

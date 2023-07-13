@@ -11,3 +11,22 @@
         opacity: 70%;
     }
 }
+
+.button-small{
+    height: 26px;
+    background-color: $color-secondary;
+    border: 1px solid transparent;
+    color: $text-color;
+    border-radius: 0.5em;
+    cursor: pointer;
+    padding: 0em 1em;
+    font-size: 12px;
+
+    svg{
+        margin-left: 0.5em;
+    }
+    
+    &:hover{
+        opacity: 70%;
+    }
+}

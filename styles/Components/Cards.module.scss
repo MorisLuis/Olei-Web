@@ -1,19 +1,54 @@
 @import "../main.scss";
 
-.productCard{
+.productCard {
     width: 100%;
-    padding: 1em;
+    padding: 1em 0em;
     border-bottom: 1px solid $color-border-secondary;
+    font-size: 12px;
 
-    .productInfo{
-        >div :not(:last-child){
+
+    .productInfo {
+
+        @include respond(phone) {
+            flex-direction: column;
+
+            .counter {
+                width: 100%;
+
+                div {
+                    justify-content: flex-end;
+                }
+            }
+        }
+
+        .data{
+            .code{
+                p { 
+                    width: 130px;
+                }
+            }
+
+            .price{
+                font-weight: bold;
+            }
+        }
+
+
+        >div :not(:last-child) {
             margin-right: 0.5em;
         }
+
         p {
-            color: $text-color-secondary;
+            color: $text-color-tertiary;
         }
+
         span {
-            color: $text-color-secondary;
+            color: $text-color-tertiary;
         }
+
+    }
+
+    .productName{
+        font-weight: bold;
     }
 }
