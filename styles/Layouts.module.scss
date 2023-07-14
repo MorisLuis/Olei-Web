@@ -1,0 +1,13 @@
+@import "./main.scss";
+
+.layoutProfile{
+    padding: 2em 16em;
+
+    @include respond(tab-land) {
+        padding: 2em 8em 0em 8em;
+    }
+
+    @include respond(phone) {
+        padding: 2em 1em 0em 1em;
+    }
+}

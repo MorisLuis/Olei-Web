@@ -3,6 +3,7 @@ import { faAnglesRight, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductCartCard from '../Cards/ProductCartCard';
 import styles from "../../styles/Modal.module.scss";
+import { useRouter } from 'next/router';
 
 interface Props {
     visible: boolean;
@@ -13,6 +14,7 @@ const ModalCart = ({
     visible,
     onClose
 }: Props) => {
+    const { push } = useRouter()
     const [closing, setClosing] = useState(false);
 
     const handleClose = () => {
@@ -32,7 +34,7 @@ const ModalCart = ({
                     <div className={`${styles.close} align`}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon cursor display-flex align`} />
                     </div>
-                    <button className='button-small display-flex align'>
+                    <button className='button-small display-flex align' onClick={() => push("/cart")}>
                         Ver carrito
                         <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotat45`} />
                     </button>
@@ -50,7 +52,6 @@ const ModalCart = ({
                     <ProductCartCard />
                     <ProductCartCard />
                     <ProductCartCard />
-
                 </div>
 
                 <div className={styles.footer}>

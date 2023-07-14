@@ -1,0 +1,55 @@
+@import "../main.scss";
+
+.navigationProfile{
+    width: 100%;
+    height: 20%;
+    position: relative;
+    padding: 2em 16em 0em 16em;
+    cursor: pointer;
+
+    @include respond(tab-land) {
+        padding: 2em 8em 0em 8em;
+    }
+
+    @include respond(phone) {
+        padding: 2em 1em 0em 1em;
+    }
+
+    h1{
+        padding-bottom: 0.5em;
+    }
+
+    .menu{
+        padding-bottom: 1em;
+
+        .link{
+            padding: 0.25em 1em;
+            border-radius: 0.5em;
+            font-size: 14px;
+            color: $text-color-tertiary;
+
+            &:not(:last-child){
+                padding-right: 1em;
+            }
+
+            &:hover{
+                color: $text-color;
+            }
+        }
+        .active{
+            background-color: $text-color-secondary;
+            border: 1px solid $color-border;
+            color: $text-color;
+        }
+    }
+
+    ::before{
+        content: "";
+        height: 1px;
+        width: 100%;
+        background: radial-gradient(circle, rgba(101,116,130,0.5) 0%, rgba(101,116,130,0.5) 35%, rgba(249,249,249,1) 100%);
+        position: absolute;
+        bottom:0px;
+        right: 0px
+    }
+}

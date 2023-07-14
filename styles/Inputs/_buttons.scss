@@ -6,6 +6,12 @@
     color: $text-color-secondary;
     border-radius: 0.5em;
     cursor: pointer;
+    padding: 0em 1em;
+
+        svg{
+        margin-right: 0.5em;
+    }
+    
     
     &:hover{
         opacity: 70%;

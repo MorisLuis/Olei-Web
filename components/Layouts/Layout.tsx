@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import ModalCart from '../Modals/ModalCart'
 import Footer from '../Navigation/Footer'
@@ -12,6 +13,8 @@ export const Layout = ({ children }: Props) => {
 
     const [openModalCart, setOpenModalCart] = useState(false)
 
+    const { pathname } = useRouter() 
+
     return (
         <>
             <Head>
@@ -23,11 +26,16 @@ export const Layout = ({ children }: Props) => {
             <Header
                 setOpenModalCart={setOpenModalCart}
             />
+
             <div>
                 {children}
             </div>
 
-            <Footer/>
+            {
+                pathname !== "/cart" &&
+                <Footer/>
+            }
+
 
             <ModalCart
                 visible={openModalCart}

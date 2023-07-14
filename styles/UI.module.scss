@@ -155,13 +155,15 @@
 
 .counter {
     width: 100%;
+    height: auto;
 
     .action {
         background-color: $color-secondary;
-        padding: 0.25em 0.75em;
         border-radius: 2.5px;
         border: 1px solid $color-secondary;
+        padding: 0.25em 0.75em;
     }
+
     .number {
         padding: 0em 0.1em;
     }
@@ -181,7 +183,7 @@
     @include respond(phone) {
         justify-content: flex-end;
         width: 100%;
-        padding-top: 1em;
+        //padding-top: 1em;
 
         .action {
             height: 30px;

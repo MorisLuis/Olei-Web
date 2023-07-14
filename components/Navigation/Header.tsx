@@ -15,7 +15,7 @@ const Header = ({
     setOpenModalCart
 }: Props) => {
     const [profileOpen, setProfileOpen] = useState(false)
-    const { replace } = useRouter()
+    const { replace, push } = useRouter()
 
     const onLogOut = async () => {
         try {
@@ -34,7 +34,7 @@ const Header = ({
                 <div className={`${styles.content} display-flex space-between`}>
 
                     <div className={`${styles.left} display-flex align`}>
-                        <div className={styles.logo}>
+                        <div className={`${styles.logo} cursor`} onClick={() => push("/")}>
                             Rosco
                         </div>
                         <div className={styles.search}>
@@ -52,7 +52,7 @@ const Header = ({
                             {
                                 profileOpen &&
                                 <div className={styles.profileBox}>
-                                    <div className={styles.link}>Perfil</div>
+                                    <div className={styles.link} onClick={() => push("/profile")}>Perfil</div>
 
                                     <div
                                         className={`${styles.link} ${styles.logout}`}
