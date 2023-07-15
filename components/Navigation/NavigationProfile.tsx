@@ -11,7 +11,12 @@ const Menu = [
     },
     {
         name: "Pedidos",
-        pathname: "/profile/pedidos",
+        pathname: "/profile/request",
+        key: 2
+    },
+    {
+        name: "Pedidos Anteriores",
+        pathname: "/profile/past-request",
         key: 2
     }
 ]
