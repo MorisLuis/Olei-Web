@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Counter from '@/components/Ui/Counter';
 
 import styles from "../styles/Pages/Cart.module.scss";
+import { productsUtils } from '@/utils/products';
+import PorductInterface from '@/interfaces/product';
+import { ProductCard } from '@/components/Cards/ProductCard';
 
 const Cart = () => {
 
@@ -27,62 +30,11 @@ const Cart = () => {
                     </div>
 
                     <div className={styles.table}>
-                        <div className={`${styles.info} cursor`}>
-                            <div className={`${styles.item} display-flex space-between`}>
-                                <div className={styles.name}>
-                                    <p className={styles.title}>BALERO DOBLE ESCAPE,MARINER</p>
-                                    <p className={styles.code}>0069 0069 0069</p>
-                                </div>
-
-                                <div className={styles.data}>
-                                    <p className={styles.price}>Precio: $450</p>
-                                    <p className={styles.existen}>Existencia : 10</p>
-                                </div>
-
-                                <div className={styles.counter}>
-                                    <Counter />
-                                    <p className={styles.subtotal}>Subtotal : $2,000</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`${styles.info} cursor`}>
-                            <div className={`${styles.item} display-flex space-between`}>
-                                <div className={styles.name}>
-                                    <p className={styles.title}>BALERO DOBLE ESCAPE,MARINER</p>
-                                    <p className={styles.code}>0069 0069 0069</p>
-                                </div>
-
-                                <div className={styles.data}>
-                                    <p className={styles.price}>Precio: $450</p>
-                                    <p className={styles.existen}>Existencia : 10</p>
-                                </div>
-
-                                <div className={styles.counter}>
-                                    <Counter />
-                                    <p className={styles.subtotal}>Subtotal : $2,000</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`${styles.info} cursor`}>
-                            <div className={`${styles.item} display-flex space-between`}>
-                                <div className={styles.name}>
-                                    <p className={styles.title}>BALERO DOBLE ESCAPE,MARINER</p>
-                                    <p className={styles.code}>0069 0069 0069</p>
-                                </div>
-
-                                <div className={styles.data}>
-                                    <p className={styles.price}>Precio: $450</p>
-                                    <p className={styles.existen}>Existencia : 10</p>
-                                </div>
-
-                                <div className={styles.counter}>
-                                    <Counter />
-                                    <p className={styles.subtotal}>Subtotal : $2,000</p>
-                                </div>
-                            </div>
-                        </div>
+                        {
+                            productsUtils.map((product: PorductInterface, Index) =>
+                                <ProductCard product={product} key={Index} />
+                            )
+                        }
                     </div>
 
                     <div className={styles.request}>
@@ -91,7 +43,7 @@ const Cart = () => {
                                 <p className={styles.text}>
                                     Ver peticiones de productos actualmente inexistentes
                                 </p>
-                                <FontAwesomeIcon icon={faAngleDoubleDown} className={ requestOpen ? `icon__small rotate180` : `icon__small` } />
+                                <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
                             </div>
                         </div>
 

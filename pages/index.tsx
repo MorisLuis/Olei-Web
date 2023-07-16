@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import { Layout } from '@/components/Layouts/Layout';
 import Table from '@/components/Ui/Table';
 import styles from "../styles/Pages/Home.module.scss";
+import PorductInterface from '@/interfaces/product';
 
 export default function Home({ products }: any) {
 
@@ -21,10 +22,11 @@ export default function Home({ products }: any) {
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const { data } = await api.get('/api/product');
+    const products : PorductInterface[] = data.products
 
     return {
       props: {
-        products: data.products
+        products
       }
     };
   } catch (error) {

@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductCartCard from '../Cards/ProductCartCard';
 import styles from "../../styles/Modal.module.scss";
 import { useRouter } from 'next/router';
+import { productsUtils } from '@/utils/products';
+import ProductInterface from '@/interfaces/product';
 
 interface Props {
     visible: boolean;
@@ -41,17 +43,11 @@ const ModalCart = ({
                 </div>
 
                 <div className={styles.content}>
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
-                    <ProductCartCard />
+                    {
+                        productsUtils.map((product : ProductInterface, Index) => 
+                        <ProductCartCard product={product} key={Index}/>
+                        )
+                    }
                 </div>
 
                 <div className={styles.footer}>

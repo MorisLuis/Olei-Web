@@ -80,37 +80,6 @@
 
         @include respond(phone) {
             padding: 1em;
-
-            .item {
-                display: grid;
-                grid-template-rows: auto auto;
-                grid-template-columns: 1fr;
-            }
-
-            .name {
-                grid-row: 1;
-            }
-
-            .data {
-                grid-row: 1;
-            }
-
-            .counter {
-                grid-row: 2;
-                grid-column: 1 / span 2;
-                display: flex;
-                flex-direction: row-reverse;
-                padding-top: 0.5em;
-                >div{
-                    width: 50%;
-                }
-
-                .subtotal{
-                    width: 100%;
-                    display: flex;
-                    justify-content: flex-start;
-                }
-            }
         }
 
         .table{
@@ -139,62 +108,6 @@
             }
         }
 
-        .info {
-            width: 100%;
-            height: 100%;
-            font-size: $font-sm;
-            background-color: $color-primary;
-            box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-
-            &:first-child{
-                border-radius: 1em 1em 0em 0em;
-            }
-
-            &:last-child{
-                border-radius: 0em 0em 1em 1em;
-            }
-
-            :hover{
-                background-color: $color-secondary;
-            }
-        }
-
-        .item {
-            padding: 1em;
-            position: relative;
-
-            ::before {
-                content: "";
-                height: 1px;
-                width: 100%;
-                background: $color-border;
-                position: absolute;
-                bottom: 0px;
-                right: 0px
-            }
-
-            .name {
-                .title {
-                    font-weight: bold;
-                    margin-bottom: 0.5em;
-                    min-height: 20px;
-                }
-            }
-
-            .data {
-                .price {
-                    font-weight: bold;
-                    margin-bottom: 0.5em;
-                    min-height: 20px;
-                }
-            }
-
-            .counter {
-                .subtotal {
-                    margin-top: 0.5em;
-                }
-            }
-        }
     }
 
     .footer {

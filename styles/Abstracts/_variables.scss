@@ -1,21 +1,30 @@
 $color-primary: #f9f9f9;
 $color-secondary: #EDEDED;
 $color-tertiary: rgb(29 42 54/1);
+$color-cuaternary: #e2e2e2;
 
 $color-red: #ff0000;
 $color-blue: #068FFF;
 
 $color-border: #e8e8e8;
 $color-border-secondary: #e2e2e2;
+$color-border-tertiary: #b3b3b3;
 
-$text-color:black;
-$text-color-secondary: #e2e2e2;
+$text-color:rgb(29 42 54/1);
+$text-color-secondary: #068FFF;
 $text-color-tertiary: rgb(101 116 130/1);
+$text-color-white: #e2e2e2;
 
 .dark {
   $color-primary: black;
   $color-secondary: #769d8d;
   $text-color: white;
+}
+
+.blur{
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 

@@ -11,7 +11,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: "Poppins";
+  font-family: "Poppins", "VictorMono";
   font-size: $font-normal;
   color: $text-color;
   font-weight: 400;
@@ -20,10 +20,7 @@ body {
 }
 
 body {
-  //background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(255,171,60,0.1) 80%, rgba(245,147,212,0.1) 87%, rgba(237,237,237,1) 100%);
-
   background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(245,147,212,0.05) 86%, rgba(9,118,223,0.05) 98%);
-
 }
 
 a {
@@ -42,6 +39,20 @@ a {
   font-family: "Poppins";
   src: url("/fonts/Poppins-Bold.ttf");
   font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VictorMono";
+  src: url("/fonts/VictorMono-Bold.ttf");
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VictorMono";
+  src: url("/fonts/VictorMono-Regular.ttf");
+  font-weight: normal;
   font-display: swap;
 }
 

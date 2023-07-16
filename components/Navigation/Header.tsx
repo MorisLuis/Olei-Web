@@ -40,7 +40,7 @@ const Header = ({
                         <div className={styles.search}>
                             <Search />
                         </div>
-                        <div className={`${styles.orders} display-flex align cursor`}>
+                        <div className={`${styles.orders} display-flex align cursor`} onClick={() => push("/profile/request")}>
                             <FontAwesomeIcon icon={faFile} className={`icon__small`} />
                             <p>Pedidos</p>
                         </div>
@@ -48,7 +48,7 @@ const Header = ({
 
                     <div className={`${styles.right} display-flex`}>
                         <div className={`${styles.item} ${styles.profile} display-flex allCenter`} onClick={() => setProfileOpen(!profileOpen)}>
-                            <FontAwesomeIcon icon={faSquare} className={`icon`} />
+                            <FontAwesomeIcon icon={faSquare} className={`icon`}/>
                             {
                                 profileOpen &&
                                 <div className={styles.profileBox}>

@@ -1,5 +1,4 @@
-
-.button{
+.button {
     height: 36px;
     background-color: $color-tertiary;
     border: 1px solid transparent;
@@ -8,17 +7,16 @@
     cursor: pointer;
     padding: 0em 1em;
 
-        svg{
+    svg {
         margin-right: 0.5em;
     }
-    
-    
-    &:hover{
+
+    &:hover {
         opacity: 70%;
     }
 }
 
-.button-small{
+.button-small {
     height: 26px;
     background-color: $color-secondary;
     border: 1px solid transparent;
@@ -28,11 +26,16 @@
     padding: 0em 1em;
     font-size: 12px;
 
-    svg{
+    &.black {
+        background-color: $color-tertiary;
+        color: $text-color-white;
+    }
+
+    svg {
         margin-left: 0.5em;
     }
-    
-    &:hover{
+
+    &:hover {
         opacity: 70%;
     }
 }

@@ -92,6 +92,55 @@
     }
 }
 
+.modalRequest{
+    background-color: $color-primary;
+    width: 60%;
+    height: 80%;
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 1em;
+    border: 1px solid $color-border;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    overflow: hidden;
+    
+    
+    &.receipt{
+        font-family: "VictorMono";
+    }
+
+    .header {
+        border-radius: 1em 1em 0em 0em;
+        background-color: $color-primary;
+        padding: 0.5em 2em;
+        border: 1px solid $color-border;
+        border-style: none none solid none;
+
+        @include respond(phone) {
+            border-radius: 0.5em 0.5em 0em 0em;
+        }
+
+        .close {
+            width: fit-content;
+            padding: 0.5em;
+            border-radius: 3px;
+            height: fit-content;
+
+            &:hover {
+                background-color: $color-secondary;
+            }
+        }
+    }
+
+    .content{
+        padding: 2em 2em 6em 2em;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 100%;
+    }
+}
 
 .modalBackground {
     width: 100%;

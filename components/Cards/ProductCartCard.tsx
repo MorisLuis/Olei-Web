@@ -1,33 +1,35 @@
+import ProductInterface from '@/interfaces/product';
 import React from 'react';
-import styles from "../../styles/Components/Cards.module.scss";
 import Counter from '../Ui/Counter';
+import styles from "../../styles/Components/Cards.module.scss";
 
 interface Props {
-    product?: any
+    product?: ProductInterface
 }
 
-const ProductCartCard = ({ product }: Props) => {
+const ProductCartCard = ({ product } : Props) => {
+
     return (
-        <div className={`${styles.productCard} displar-flex align`}>
+        <div className={`${styles.productCardCard} displar-flex align`}>
             <div className={styles.productName}>
-                Herramienta
+                {product?.Descripcion}
             </div>
             <div className={`${styles.productInfo} display-flex space-between`}>
                 <div className={`${styles.data} display-flex align`}>
                     <div className={`${styles.code} display-flex`}>
-                        <p className={`text-ellipsis`}> <span>Codigo: </span> 011 29299 2929</p>
+                        <p className={`text-ellipsis`}> <span>Codigo: </span> {product?.CodigoProducto}</p>
                     </div>
 
                     <span>·</span>
 
                     <div className={styles.price}>
-                        <p>$430</p>
+                        <p>${product?.Precio} MXN</p>
                     </div>
 
                     <span>·</span>
 
                     <div className={`display-flex`}>
-                        <p> <span>Existencia: </span> 10</p>
+                        <p> <span>Existencia: </span> {product?.Existencia}</p>
                     </div>
                 </div>
                 <div className={styles.counter}>

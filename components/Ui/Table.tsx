@@ -37,7 +37,7 @@ const Table = ({
                                 <div className={`${styles.secondaryData} display-flex space-between`}>
                                     <div className={`${styles.notCounter} display-flex space-between allCenter`}>
                                         <div>
-                                            <p className='text-ellipsis display-flex align'>{item.Codigo}</p>
+                                            <p className='text-ellipsis display-flex align'>{item.CodigoProducto}</p>
                                         </div>
                                         <div className={styles.price}>
                                             {
@@ -48,7 +48,7 @@ const Table = ({
                                         </div>
 
                                         <div>
-                                            <p>{item.Nombre}</p>
+                                            <p>{item.Familia}</p>
                                         </div>
 
                                         <div>
