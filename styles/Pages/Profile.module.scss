@@ -4,11 +4,21 @@
     padding: 2em 0em;
     position: relative;
 
+
+
     .info{
         padding: 0em 10em;
 
+        @include respond(tab-land) {
+            padding: 0em 4em;
+        }
+    
+        @include respond(phone) {
+            padding: 0em 2em;
+        }
+
         .header{
-            p{ color : $text-color-tertiary}
+            p{ color : $text-color-light}
             padding-bottom: 1em;
         }
 
@@ -27,7 +37,7 @@
         content: "";
         height: 1px;
         width: 100%;
-        background-color: $color-border-secondary;
+        background-color: $color-border;
         position: absolute;
         bottom: 0px;
         right: 0px;

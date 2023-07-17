@@ -18,7 +18,7 @@
 
 .button-small {
     height: 26px;
-    background-color: $color-secondary;
+    background-color: $color-cuaternary;
     border: 1px solid transparent;
     color: $text-color;
     border-radius: 0.5em;
@@ -28,7 +28,7 @@
 
     &.black {
         background-color: $color-tertiary;
-        color: $text-color-white;
+        color: $text-color-secondary;
     }
 
     svg {

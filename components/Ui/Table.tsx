@@ -1,9 +1,8 @@
-import React from 'react'
-import { Tag } from './Tag'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import styles from "../../styles/UI.module.scss"
+import React from 'react';
+import { Tag } from './Tag';
 import Counter from './Counter';
+
+import styles from "../../styles/UI.module.scss";
 
 interface Props {
     data: any
@@ -28,8 +27,8 @@ const Table = ({
                     data.slice(50, 100).map((item: any, index: number) => {
                         return (
                             <div className={`${styles.item} cursor display-flex`} key={index}>
-                                <div className={styles.principalData}>
-                                    <div>
+                                <div className={`${styles.principalData} display-flex align`}>
+                                    <div className='display-flex align'>
                                         <p>{item.Descripcion}</p>
                                     </div>
                                 </div>
@@ -51,7 +50,7 @@ const Table = ({
                                             <p>{item.Familia}</p>
                                         </div>
 
-                                        <div>
+                                        <div className='display-flex align'>
                                             {
                                                 item.Existencia <= 0 ?
                                                     <Tag color="red">No Stock</Tag> :

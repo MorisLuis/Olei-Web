@@ -1,7 +1,7 @@
 import React from 'react';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { faExpand, faClose } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 import styles from "../../styles/Modal.module.scss";
 
 interface Props {
@@ -18,17 +18,24 @@ const ModalRequest = ({
     children
 }: Props) => {
 
+    const { push } = useRouter();
+
     return visible ?
         <>
             <div className={styles.modalBackground}></div>
             <div className={
-                receipt ? `${styles.modalRequest} ${styles.receipt}` :`${styles.modalRequest}`
+                receipt ? `${styles.modalRequest} ${styles.receipt}` : `${styles.modalRequest}`
             }>
-                <div className={`${styles.header} display-flex space-between align`} onClick={onClose}>
-                    <h3>
-                        Recibo
-                    </h3>
-                    <div className={`${styles.close} cursor`}>
+                <div className={`${styles.header} display-flex space-between align`} >
+                    <div className={`${styles.left} display-flex align`}>
+                        <h3>Recibo</h3>
+                        <button className={`${styles.expand} button-small display-flex align`} onClick={() => push("/1")}>
+                            Expandir
+                            <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align rotat45`} />
+                        </button>
+                    </div>
+
+                    <div className={`${styles.close} cursor`} onClick={onClose}>
                         <FontAwesomeIcon icon={faClose} className={`icon cursor display-flex align`} />
                     </div>
                 </div>

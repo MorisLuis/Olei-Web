@@ -2,13 +2,13 @@
 
 .table {
     font-size: $font-sm;
-    background-color: $color-primary;
+    background-color: $background-color;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    border-radius: 0.5em 0.5em 0em 0em;
+    border-radius: 1em;
 
     .headers {
         padding: 0.75em;
-        border-radius: 0.5em 0.5em 0em 0em;
+        border-radius: 1em 1em 0em 0em;
         border: 1px solid $color-border;
         padding-left: 1em;
 
@@ -33,6 +33,10 @@
             border: 1px solid $color-border;
             border-style: none solid solid solid;
             padding-left: 1em;
+
+            &:last-child{
+                border-radius: 0em 0em 1em 1em;
+            }
 
             .principalData {
                 flex: 0 0 30%;
@@ -129,8 +133,8 @@
         height: fit-content;
 
         &.red {
-            background-color: rgba($color-red, 0.2);
-            color: $color-red;
+            background-color: rgba($color-green, 0.2);
+            color: $color-green;
         }
 
         &.blue {
@@ -160,7 +164,7 @@
     .action {
         background-color: $color-secondary;
         border-radius: 2.5px;
-        border: 1px solid $color-secondary;
+        border: 1px solid $color-cuaternary;
         padding: 0.25em 0.75em;
     }
 
@@ -171,7 +175,7 @@
     &:hover {
 
         .action {
-            background-color: $color-primary;
+            background-color: $background-color;
 
             &:hover {
                 border: 1px solid $text-color;

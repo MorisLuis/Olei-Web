@@ -15,7 +15,7 @@ const Header = ({
     setOpenModalCart
 }: Props) => {
     const [profileOpen, setProfileOpen] = useState(false)
-    const { replace, push } = useRouter()
+    const { replace, push, pathname } = useRouter()
 
     const onLogOut = async () => {
         try {
@@ -30,16 +30,20 @@ const Header = ({
 
     return (
         <>
-            <div className={`${styles.header}`}>
+            <div className={`${styles.header} blur`}>
                 <div className={`${styles.content} display-flex space-between`}>
 
                     <div className={`${styles.left} display-flex align`}>
                         <div className={`${styles.logo} cursor`} onClick={() => push("/")}>
                             Rosco
                         </div>
-                        <div className={styles.search}>
-                            <Search />
-                        </div>
+                        {
+                            pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
+                                <></> :
+                                <div className={styles.search}>
+                                    <Search />
+                                </div>
+                        }
                         <div className={`${styles.orders} display-flex align cursor`} onClick={() => push("/profile/request")}>
                             <FontAwesomeIcon icon={faFile} className={`icon__small`} />
                             <p>Pedidos</p>
@@ -48,7 +52,7 @@ const Header = ({
 
                     <div className={`${styles.right} display-flex`}>
                         <div className={`${styles.item} ${styles.profile} display-flex allCenter`} onClick={() => setProfileOpen(!profileOpen)}>
-                            <FontAwesomeIcon icon={faSquare} className={`icon`}/>
+                            <FontAwesomeIcon icon={faSquare} className={`icon`} />
                             {
                                 profileOpen &&
                                 <div className={styles.profileBox}>
@@ -65,12 +69,17 @@ const Header = ({
                             }
                         </div>
 
-                        <div className={`${styles.item}  ${styles.cart}  display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
-                            <div className={`${styles.circle} display-flex allCenter`}>
-                                <p>3</p>
-                            </div>
-                            <FontAwesomeIcon icon={faBagShopping} className={`icon`} />
-                        </div>
+                        {
+                            pathname === "/cart" ?
+                                <></> :
+                                <div className={`${styles.item}  ${styles.cart}  display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
+                                    <div className={`${styles.circle} display-flex allCenter`}>
+                                        <p>3</p>
+                                    </div>
+                                    <FontAwesomeIcon icon={faBagShopping} className={`icon`} />
+                                </div>
+                        }
+
                     </div>
                 </div>
 

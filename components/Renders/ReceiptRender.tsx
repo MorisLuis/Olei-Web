@@ -28,7 +28,7 @@ export const ReceiptRender = () => {
                             <p><span>Subtotal:</span> $19,000 MXN</p>
                         </div>
                         <div className={styles.item}>
-                            <p><span>Total (Subtotal + IVA ):</span> $21,000 MXN</p>
+                            <p className={styles.totalprice}><span>Total (Subtotal + IVA ):</span> $21,000 MXN</p>
                         </div>
                     </div>
                 </div>

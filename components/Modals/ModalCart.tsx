@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { faAnglesRight, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductCartCard from '../Cards/ProductCartCard';
-import styles from "../../styles/Modal.module.scss";
 import { useRouter } from 'next/router';
 import { productsUtils } from '@/utils/products';
 import ProductInterface from '@/interfaces/product';
+import styles from "../../styles/Modal.module.scss";
 
 interface Props {
     visible: boolean;

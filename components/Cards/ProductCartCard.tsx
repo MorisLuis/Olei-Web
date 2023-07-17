@@ -9,6 +9,8 @@ interface Props {
 
 const ProductCartCard = ({ product } : Props) => {
 
+    console.log({product})
+
     return (
         <div className={`${styles.productCardCard} displar-flex align`}>
             <div className={styles.productName}>

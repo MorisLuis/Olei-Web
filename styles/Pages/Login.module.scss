@@ -39,21 +39,21 @@
             height: 55%;
             padding: 1em 1.5em;
             border-radius: 1em;
-            border: 1px solid $color-border-secondary;
+            border: 1px solid $color-border;
             box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
             position: relative;
             z-index: 9999;
             background-color: transparent;
 
             .iconLogin{
-                background-color: $color-primary;
+                background-color: $background-color;
                 width: fit-content;
                 padding: 1.5em;
                 border-radius: 100%;
                 border: 1px solid $color-border;
             }
 
-            p { color: $text-color-tertiary; }
+            p { color: $text-color-light; }
 
             @include respond(tab-port) {
                 width: 35%;

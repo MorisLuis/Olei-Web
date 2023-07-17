@@ -3,6 +3,10 @@
 .header {
     height: 60px;
     padding: 0.75em 4em;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid rgba($color-border, 0.3);
+    z-index: 999;
 
     @include respond(tab-port) {
         padding: 0.75em 2em;
@@ -69,7 +73,7 @@
                 position: relative;
 
                 .profileBox {
-                    background-color: $color-primary;
+                    background-color: $background-color;
                     border:1px solid $color-border;
                     position: absolute;
                     top: 120%;

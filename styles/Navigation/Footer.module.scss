@@ -5,7 +5,7 @@
     width: 100%;
     padding: 2em 10em 2em 10em;
     justify-content: flex-end;
-    color: $text-color-tertiary;
+    color: $text-color-light;
     margin-top: 2em;
 
     @include respond(tab-port) {

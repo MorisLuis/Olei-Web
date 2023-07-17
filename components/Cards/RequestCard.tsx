@@ -16,6 +16,7 @@ const RequestCard = () => {
                     <p><span>Productos:</span> 30</p>
                 </div>
             </div>
+
             <div className={`${styles.action} display-flex`}>
                 <div className={`${styles.content} display-flex`}>
                     <Link

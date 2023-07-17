@@ -1,9 +1,18 @@
+@import "../main.scss";
+
 .request{
     padding: 2em 0em;
 
     .info{
         padding: 0em 10em;
 
+        @include respond(tab-land) {
+            padding: 0em 8em;
+        }
+    
+        @include respond(phone) {
+            padding: 0em 0em;
+        }
         .header{
             padding-bottom: 1em;
         }

@@ -1,29 +1,34 @@
 $color-primary: #f9f9f9;
-$color-secondary: #EDEDED;
-$color-tertiary: rgb(29 42 54/1);
+$color-secondary: hsla(207, 20%, 76%, 0.1);
+$color-tertiary: #0E2954;  //blue
 $color-cuaternary: #e2e2e2;
+
 
 $color-red: #ff0000;
 $color-blue: #068FFF;
+$color-green: #1F8A70;
 
-$color-border: #e8e8e8;
-$color-border-secondary: #e2e2e2;
+$color-border: #e2e2e2;
+$color-border-secondary: #cacaca;
 $color-border-tertiary: #b3b3b3;
 
 $text-color:rgb(29 42 54/1);
-$text-color-secondary: #068FFF;
-$text-color-tertiary: rgb(101 116 130/1);
-$text-color-white: #e2e2e2;
+$text-color-light: rgb(101 116 130/1);
+$text-color-secondary: #f9f9f9;
+
+$background-color: #f9f9f9;
+$background-color-gradient: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(245,147,212,0.05) 86%, rgba(9,118,223,0.05) 98%);
+
 
 .dark {
-  $color-primary: black;
-  $color-secondary: #769d8d;
+  $background-color: black;
+  $color-primary: #769d8d;
   $text-color: white;
 }
 
 .blur{
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.2);
 }
 

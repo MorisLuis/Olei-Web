@@ -3,8 +3,8 @@
 .productCard {
     width: 100%;
     font-size: $font-sm;
-    background-color: $color-primary;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    background-color: $background-color;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 
     &:first-child{
         border-radius: 1em 1em 0em 0em;
@@ -14,20 +14,8 @@
         border-radius: 0em 0em 1em 1em;
     }
 
-    :hover{
+    &:hover{
         background-color: $color-secondary;
-    }
-
-    &:not(:last-child){
-        ::before {
-            content: "";
-            height: 1px;
-            width: 100%;
-            background: $color-border;
-            position: absolute;
-            bottom: 0px;
-            right: 0px
-        }
     }
 
     .info {
@@ -130,13 +118,10 @@
     }
 }
 
-
 .productCardCard {
     width: 100%;
     padding: 1em 0em;
-    border-bottom: 1px solid $color-border-secondary;
     font-size: 12px;
-
 
     .productInfo {
 
@@ -164,11 +149,11 @@
         }
 
         p {
-            color: $text-color-tertiary;
+            color: $text-color;
         }
 
         span {
-            color: $text-color-tertiary;
+            color: $text-color;
         }
 
     }
@@ -181,10 +166,10 @@
 .requestCart{
     width: 100%;
     font-size: 12px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-
+    
+    
     .info{
-        border: 1px solid $color-border-tertiary;
+        border: 1px solid $color-border-secondary;
         border-style: solid solid none solid;
 
         color: $text-color;
@@ -199,7 +184,7 @@
     }
 
     .action{
-        border: 1px solid $color-border-tertiary;
+        border: 1px solid $color-border-secondary;
         width: 100%;
         color: $text-color;
         border-radius: 0em 0em 0.5em 0.5em;

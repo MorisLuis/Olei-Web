@@ -21,7 +21,7 @@
 
         .title{
             .paragraph{
-                color: $text-color-tertiary;
+                color: $text-color-light;
             }
         }
 
@@ -88,7 +88,7 @@
 
         .request{
             font-size: $font-sm;
-            background-color: $color-primary;
+            background-color: $background-color;
             box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
             border-radius: 1em;
 
@@ -116,7 +116,7 @@
         position: fixed;
         bottom: 0px;
         left: 0px;
-        background-color: $color-primary;
+        background-color: $background-color;
 
         &__content {
             position: relative;
