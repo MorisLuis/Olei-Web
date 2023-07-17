@@ -1,0 +1,44 @@
+@import "../main.scss";
+
+.success{
+    padding: 8em 16em;
+
+    @include respond(tab-land) {
+        padding: 8em;
+    }
+
+    @include respond(phone) {
+        padding: 2em;
+    }
+
+
+    h1{
+        font-size: 80px;
+        color: $color-blue;
+        width: 80%;
+        line-height: 80px;
+        padding-bottom: 1rem;
+    
+        @include respond(phone) {
+            font-size: 65px;
+            color: $color-blue;
+            width: 80%;
+            line-height: 70px;
+            padding-bottom: 1rem;
+        }
+    }
+
+    
+
+    .message{
+        padding-bottom: 1em;
+    }
+
+    .actions{
+
+        :nth-child(2){
+            margin-left: 1em;
+        }
+    }
+
+}

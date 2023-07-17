@@ -2,16 +2,17 @@ import { Layout } from '@/components/Layouts/Layout';
 import React, { useState } from 'react';
 import { faCheck, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Counter from '@/components/Ui/Counter';
-
-import styles from "../styles/Pages/Cart.module.scss";
 import { productsUtils } from '@/utils/products';
 import PorductInterface from '@/interfaces/product';
 import { ProductCard } from '@/components/Cards/ProductCard';
+import { useRouter } from 'next/router';
+
+import styles from "../../styles/Pages/Cart.module.scss";
 
 const Cart = () => {
 
     const [requestOpen, setRequestOpen] = useState(false)
+    const { push } = useRouter()
 
     return (
         <Layout>
@@ -75,7 +76,7 @@ const Cart = () => {
                 <div className={styles.footer}>
                     <div className={`${styles.footer__content} display-flex align`}>
                         <p className={styles.total}>Total (Incluye IVA) : $21,200 MXN </p>
-                        <button className='button display-flex allCenter'>
+                        <button className='button display-flex allCenter' onClick={() => push("/cart/success")}>
                             <FontAwesomeIcon icon={faCheck} className={`icon__small`} />
                             Confirmar pedido
                         </button>

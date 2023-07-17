@@ -5,6 +5,7 @@ import ProductCartCard from '../Cards/ProductCartCard';
 import { useRouter } from 'next/router';
 import { productsUtils } from '@/utils/products';
 import ProductInterface from '@/interfaces/product';
+
 import styles from "../../styles/Modal.module.scss";
 
 interface Props {
