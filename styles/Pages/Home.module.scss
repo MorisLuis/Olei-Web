@@ -3,6 +3,15 @@
 .home{
     padding: 2em 10em;
 
+    .filters{
+        margin-bottom: 1em;
+        position: relative;
+
+        span{
+            margin-left: 1em;
+        }
+    }
+
     @include respond(tab-port) {
         padding: 2em;
     }

@@ -7,7 +7,7 @@ import '../styles/Globals.scss';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <NextNProgress color="#068FFF" height={4} />
+      <NextNProgress color="#068FFF"  height={4} />
       <AuthProvider>
         <Component {...pageProps} />
       </AuthProvider>

@@ -112,3 +112,13 @@
     background-color: $color-border;
     margin: 3em 0em;
 }
+
+.backdropTransparent{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 9998;
+    background-color: transparent;
+}

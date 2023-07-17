@@ -130,7 +130,12 @@
         width: fit-content;
         border-radius: 5px;
         max-width: 120px;
-        height: fit-content;
+        height: 100%;
+        font-size: $font-sm;
+
+        svg{
+            margin-left: 0.5em;
+        }
 
         &.red {
             background-color: rgba($color-green, 0.2);
@@ -155,6 +160,11 @@
         }
     }
 
+    &.option{
+        &:hover{
+            opacity: 70%;
+        }
+    }
 }
 
 .counter {
@@ -197,4 +207,71 @@
             padding: 0em 1em;
         }
     }
+}
+
+.filter{
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    left: 0px;
+    top: 125%;
+    z-index: 9999;
+
+    @include respond(phone) {
+        width: 100%;
+    }
+    
+    .titles{
+        width: 50%;
+        padding: 0.5em;
+        background-color: $color-primary;
+        border-radius: 0.5em 0em 0em  0.5em;
+        border: 1px solid $color-border-secondary;
+
+        .titleOption{
+            margin-bottom: 0.5em;
+            padding: 0em 0.5em;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            &.active{
+                background-color: $color-secondary;
+                border: 1px solid $color-border;
+            }
+        }
+
+
+        :hover{
+            background-color: $color-secondary;
+            border: 1px solid $color-border;
+        }
+    }
+
+    .options{
+        width: 50%;
+        border-radius:0em 0.5em 0.5em 0em;
+        background-color: $color-primary;
+        padding: 1em;
+        border: 1px solid $color-border-secondary;
+        border-left: 0px solid transparent;
+
+
+
+        label{
+            margin-bottom: 0.5em;
+        }
+
+        p{
+            margin-left: 0.5em;
+        }
+    }
+}
+
+.backdropTransparent{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 9998;
+    background-color: aqua;
 }

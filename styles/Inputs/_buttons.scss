@@ -31,6 +31,15 @@
         color: $text-color-secondary;
     }
 
+    &.white{
+        background-color: $color-secondary;
+        border: 1px solid $color-border;
+
+        &:hover {
+            border: 1px solid $color-border-tertiary;
+        }
+    }
+
     svg {
         margin-left: 0.5em;
     }

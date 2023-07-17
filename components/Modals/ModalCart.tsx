@@ -38,20 +38,20 @@ const ModalCart = ({
                     </div>
                     <button className='button-small display-flex align' onClick={() => push("/cart")}>
                         Ver carrito
-                        <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotat45`} />
+                        <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
                     </button>
                 </div>
 
                 <div className={styles.content}>
                     {
-                        productsUtils.map((product : ProductInterface, Index) => 
-                        <ProductCartCard product={product} key={Index}/>
+                        productsUtils.map((product: ProductInterface, Index) =>
+                            <ProductCartCard product={product} key={Index} />
                         )
                     }
                 </div>
 
-                <div className={styles.footer}>
-                    footer
+                <div className={`${styles.footer} display-flex`}>
+                    <h4 className='display-flex'>Subtotal (7 productos): $346.90 MXN</h4>
                 </div>
             </div>
         </>
