@@ -14,14 +14,14 @@ interface Props {
 
 export const Tag = ({ 
     children, 
-    color= "red", 
+    color= "green", 
     close= false, 
     onClose,
     cursor= false
 }: Props) => {
     return (
         <p className={cursor ? `${styles.tag} ${styles.option} display-flex align cursor` : `${styles.tag} display-flex align`} onClick={onClose}>
-            <span className={`${styles.content} ${styles[color]} display-flex align text-ellipsis`} style={{ fontWeight: "normal" }}>
+            <span className={`${styles.content} ${styles[color]} display-flex align text-ellipsis cursor`} style={{ fontWeight: "normal" }}>
                 {children}
                 {
                     close &&

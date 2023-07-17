@@ -137,14 +137,24 @@
             margin-left: 0.5em;
         }
 
-        &.red {
+        &.green {
             background-color: rgba($color-green, 0.2);
             color: $color-green;
+        }
+
+        &.red {
+            background-color: rgba($color-red, 0.2);
+            color: $color-red;
         }
 
         &.blue {
             background-color: rgba($color-blue, 0.2);
             color: $color-blue;
+        }
+
+        &.gray{
+            background-color: rgba($color-gray, 0.2);
+            color: $color-gray;
         }
 
         @include respond(tab-land) {

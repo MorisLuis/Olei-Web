@@ -37,11 +37,14 @@
                 @include respond(phone) {
                     display: none;
                 }
+
+                &:hover{
+                    opacity: 100%;
+                }
             }
 
             .search {
                 height: 100%;
-                width: 20%;
             }
 
             .orders{
@@ -50,6 +53,9 @@
                 p{
                     margin-left: 0.5em;
                     font-size: $font-sm;
+                }
+                &:hover{
+                    opacity: 100%;
                 }
             }
 
@@ -63,9 +69,6 @@
                 }
             }
 
-            :hover{
-                opacity: 100%;
-            }
         }
 
         .right {

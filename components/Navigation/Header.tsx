@@ -2,25 +2,28 @@ import { api } from '@/api/api';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
-import { Search } from '../Inputs/search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faSquare, faFile } from '@fortawesome/free-solid-svg-icons';
 import styles from "./../../styles/Navigation/Header.module.scss"
+import { SearchGlobal } from '../Inputs/searchGlobal';
 
 interface Props {
-    setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>,
+    setFilterActive?: any,
+    filterActive?: any
 }
 
 const Header = ({
-    setOpenModalCart
+    setOpenModalCart,
+    filterActive,
+    setFilterActive
 }: Props) => {
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
 
     const onLogOut = async () => {
         try {
-            const data = await api.post('/api/auth/logout');
-            console.log({ data })
+            await api.post('/api/auth/logout');
             Cookies.remove("token")
             replace("/login")
         } catch (error) {
@@ -41,7 +44,7 @@ const Header = ({
                             pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
                                 <></> :
                                 <div className={styles.search}>
-                                    <Search />
+                                    <SearchGlobal filterActive={filterActive} setFilterActive={setFilterActive}/>
                                 </div>
                         }
                         <div className={`${styles.orders} display-flex align cursor`} onClick={() => push("/profile/request")}>

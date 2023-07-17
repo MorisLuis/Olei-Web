@@ -31,10 +31,10 @@ export default function Home({ products }: Props) {
   };
 
 
-
+  console.log({filterActive})
   return (
     <>
-      <Layout>
+      <Layout filterActive={filterActive} setFilterActive={setFilterActive}>
         <div className={styles.home}>
 
           <div className={`${styles.filters} display-flex`}>
@@ -58,6 +58,9 @@ export default function Home({ products }: Props) {
                   cursor
                 >{filter}</Tag>
               )
+            }
+            {
+              filterActive.length > 0 && <Tag close color='gray' onClose={() => setFilterActive([])}>Limpiar filtros</Tag>
             }
           </div>
 

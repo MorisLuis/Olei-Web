@@ -1,15 +1,17 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ModalCart from '../Modals/ModalCart'
 import Footer from '../Navigation/Footer'
 import Header from '../Navigation/Header'
 
 interface Props {
-    children: any
+    children: any,
+    filterActive?: any,
+    setFilterActive?: any
 }
 
-export const Layout = ({ children }: Props) => {
+export const Layout = ({ children, filterActive, setFilterActive}: Props) => {
 
     const [openModalCart, setOpenModalCart] = useState(false)
     const { pathname } = useRouter()
@@ -24,6 +26,8 @@ export const Layout = ({ children }: Props) => {
             </Head>
             <Header
                 setOpenModalCart={setOpenModalCart}
+                filterActive={filterActive}
+                setFilterActive={setFilterActive}
             />
 
             <div>
