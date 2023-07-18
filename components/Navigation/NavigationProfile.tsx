@@ -16,8 +16,8 @@ const Menu = [
     },
     {
         name: "Pedidos Anteriores",
-        pathname: "/profile/past-request",
-        key: 2
+        pathname: "/profile/pastrequest",
+        key: 3
     }
 ]
 
