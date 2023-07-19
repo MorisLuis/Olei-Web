@@ -1,5 +1,4 @@
 export default interface ProductInterface {
-
     Descripcion: string,
     Id_Familia: number
     CodigoProducto: string,

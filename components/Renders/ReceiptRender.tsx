@@ -1,7 +1,7 @@
 import ProductInterface from '@/interfaces/product';
 import { productsUtils } from '@/utils/products';
 import React from 'react'
-import { ProductCard } from '../Cards/ProductCard';
+import {ProductCardShort} from '../Cards/ProductCardShort';
 
 import styles from "../../styles/Pages/Receipt.module.scss";
 
@@ -37,7 +37,7 @@ export const ReceiptRender = () => {
             <div className={styles.productsDetails}>
                 {
                     productsUtils.map((product: ProductInterface, Index) =>
-                        <ProductCard key={Index} product={product} counterVisible={false} />
+                        <ProductCardShort key={Index} product={product} counterVisible={false} />
                     )
                 }
             </div>

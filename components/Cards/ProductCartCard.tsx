@@ -36,7 +36,7 @@ const ProductCartCard = ({ product } : Props) => {
                 </div>
                 <div className={styles.counter}>
                     <div className='display-flex'>
-                        <Counter/>
+                        {/* <Counter/> */}
                     </div>
                 </div>
             </div>

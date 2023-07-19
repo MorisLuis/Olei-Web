@@ -1,6 +1,5 @@
 import { useReducer, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-//import UserInterface from '@/interfaces/user';
 import { api } from '@/api/api';
 import { AuthContext, authReducer } from '.';
 import { useRouter } from 'next/router';
@@ -26,14 +25,15 @@ export const AuthProvider = ({ children }: any) => {
 
     const { replace } = useRouter()
 
-    /* useEffect(() => {
+    useEffect(() => {
         checkToken();
-    }, []) */
+    }, [])
 
 
-    /* const checkToken = async () => {
+    const checkToken = async () => {
         try {
             const token = Cookies.get('token')
+            console.log({token})
             const { data } = await api.get<any>('/api/auth/renew', {
                 headers: {
                     'Content-type': 'application/json',
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: any) => {
         } catch (error) {
             Cookies.remove('token');
         }
-    } */
+    }
 
     const loginUser = async (email: string, password: string) => {
         setLoggingIn(true)

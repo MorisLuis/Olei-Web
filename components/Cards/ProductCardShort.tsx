@@ -8,7 +8,7 @@ interface Props {
     counterVisible?: boolean
 }
 
-export const ProductCard = ({ product, counterVisible = true }: Props) => {
+export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
     return (
         <div className={`${styles.productCard} ${styles.receipt} cursor`}>
             <div className={`${styles.info} display-flex space-between`}>
@@ -26,7 +26,8 @@ export const ProductCard = ({ product, counterVisible = true }: Props) => {
                 <div className={styles.counter}>
                     {
                         counterVisible &&
-                        <Counter />
+                        <p>counter</p>
+                        //<Counter />
                     }
                     <p className={styles.subtotal}>Subtotal : $2,000</p>
                 </div>

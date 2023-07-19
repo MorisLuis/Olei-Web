@@ -1,4 +1,3 @@
-//import UserInterface from '@/interfaces/user';
 import { createContext } from 'react';
 
 interface ContextProps {

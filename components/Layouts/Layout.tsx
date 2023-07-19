@@ -24,6 +24,7 @@ export const Layout = ({ children, filterActive, setFilterActive}: Props) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/circle-solid.svg" />
             </Head>
+
             <Header
                 setOpenModalCart={setOpenModalCart}
                 filterActive={filterActive}

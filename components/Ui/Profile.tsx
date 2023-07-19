@@ -12,7 +12,7 @@ export const ProfileBox = () => {
             {
                 profileOpen &&
                 <div>
-                    Abierto
+                    <p>Abierto</p>
                 </div>
             }
         </>

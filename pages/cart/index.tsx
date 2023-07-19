@@ -4,7 +4,7 @@ import { faCheck, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { productsUtils } from '@/utils/products';
 import PorductInterface from '@/interfaces/product';
-import { ProductCard } from '@/components/Cards/ProductCard';
+import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 
 import styles from "../../styles/Pages/Cart.module.scss";
@@ -33,7 +33,7 @@ const Cart = () => {
                     <div className={styles.table}>
                         {
                             productsUtils.map((product: PorductInterface, Index) =>
-                                <ProductCard product={product} key={Index} />
+                                <ProductCardShort product={product} key={Index} />
                             )
                         }
                     </div>
@@ -52,7 +52,7 @@ const Cart = () => {
                             requestOpen &&
                             
                             productsUtils.slice(0,2).map((product: PorductInterface, Index) =>
-                                <ProductCard product={product} key={Index} />
+                                <ProductCardShort product={product} key={Index} />
                             )
                             
                         }
