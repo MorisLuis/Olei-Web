@@ -1,8 +1,7 @@
-import { FC, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import Cookie from 'js-cookie';
 
 import { CartContext, cartReducer } from '../index';
-import ProductInterface from '@/interfaces/product';
 import { ProductCartInterface } from '@/interfaces/productCart';
 
 export interface CartState {
@@ -43,11 +42,9 @@ export const CartProvider = ({ children }: any) => {
 
 
     useEffect(() => {
-
         const numberOfItems = state.cart.reduce((prev, current : any) => current.Cantidad + prev, 0);
         const subTotal = state.cart.reduce((prev, current : any) => (current.Precio * current.Cantidad) + prev, 0);
         const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
-
 
         const orderSummary = {
             numberOfItems,
@@ -56,16 +53,12 @@ export const CartProvider = ({ children }: any) => {
             total: subTotal * (taxRate + 1)
         }
 
-        console.log({orderSummary})
-
-
         dispatch({ type: '[Cart] - Update order summary', payload: orderSummary });
     }, [state.cart]);
 
 
 
     const addProductToCart = (product: ProductCartInterface) => {
-
 
         const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
@@ -84,12 +77,8 @@ export const CartProvider = ({ children }: any) => {
         });
 
         dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
-
     }
 
-    const updateCartQuantity = (product: ProductCartInterface) => {
-        dispatch({ type: '[Cart] - Change cart quantity', payload: product });
-    }
 
     const removeCartProduct = (product: ProductCartInterface) => {
         dispatch({ type: '[Cart] - Remove product in cart', payload: product });
@@ -103,7 +92,6 @@ export const CartProvider = ({ children }: any) => {
             // Methods
             addProductToCart,
             removeCartProduct,
-            updateCartQuantity,
         }}>
             {children}
         </CartContext.Provider>

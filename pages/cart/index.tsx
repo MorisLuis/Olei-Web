@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PorductInterface from '@/interfaces/product';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
-
-import styles from "../../styles/Pages/Cart.module.scss";
 import { CartContext } from '@/context';
 import { ProductCartInterface } from '@/interfaces/productCart';
+
+import styles from "../../styles/Pages/Cart.module.scss";
 
 const Cart = () => {
 
@@ -16,7 +16,6 @@ const Cart = () => {
     const { push } = useRouter()
 
     const { cart, numberOfItems, subTotal, total } = useContext(CartContext);
-
 
     return (
         <Layout>

@@ -29,13 +29,11 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
                 cart: [...action.payload]
             }
 
-
         case '[Cart] - Update products in cart':
             return {
                 ...state,
                 cart: [...action.payload]
             }
-
 
         case '[Cart] - Change cart quantity':
             return {
@@ -46,18 +44,13 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
                 })
             }
 
-
         case '[Cart] - Remove product in cart':
             return {
                 ...state,
-                //cart: state.cart.filter((product : ProductCartInterface) => !(product._id === action.payload._id && product.size === action.payload.size))
+                cart: state.cart.filter((product : ProductCartInterface) => !(product.CodigoProducto === action.payload.CodigoProducto && product.Id_Marca === action.payload.Id_Marca))
             }
 
-        case '[Cart] - Update order summary':
-            return {
-                ...state,
-                ...action.payload
-            }
+            
 
         default:
             return state;
