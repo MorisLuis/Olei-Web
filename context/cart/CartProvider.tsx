@@ -27,7 +27,6 @@ export const CartProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
-    // 
     useEffect(() => {
         try {
             const cookieProducts = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
@@ -45,9 +44,10 @@ export const CartProvider = ({ children }: any) => {
 
     useEffect(() => {
 
-        const numberOfItems = state.cart.reduce((prev, current : any) => current.quantity + prev, 0);
-        const subTotal = state.cart.reduce((prev, current : any) => (current.price * current.quantity) + prev, 0);
+        const numberOfItems = state.cart.reduce((prev, current : any) => current.Cantidad + prev, 0);
+        const subTotal = state.cart.reduce((prev, current : any) => (current.Precio * current.Cantidad) + prev, 0);
         const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
+
 
         const orderSummary = {
             numberOfItems,
@@ -56,6 +56,9 @@ export const CartProvider = ({ children }: any) => {
             total: subTotal * (taxRate + 1)
         }
 
+        console.log({orderSummary})
+
+
         dispatch({ type: '[Cart] - Update order summary', payload: orderSummary });
     }, [state.cart]);
 
@@ -63,17 +66,20 @@ export const CartProvider = ({ children }: any) => {
 
     const addProductToCart = (product: ProductCartInterface) => {
 
-        return console.log({product})
 
         const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
 
-        // Acumular
-        const updatedProducts = state.cart.map((p : any) => {
-            if (p.CodigoProducto !== product.CodigoProducto) return p;
+        const productInCartAndSameMarca = state.cart.some( p => p.CodigoProducto === product.CodigoProducto && p.Id_Marca === product.Id_Marca );
+        if ( !productInCartAndSameMarca ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] })
 
-            // Actualizar la cantidad
-            p.Cantidad += product.Cantidad;
+        // Acumular
+        const updatedProducts = state.cart.map((p : ProductCartInterface) => {
+            if (p.CodigoProducto !== product.CodigoProducto) return p;
+            if ( p.Id_Marca !== product.Id_Marca ) return p;
+
+            // Actualizar la cantidad 
+            p.Cantidad = product.Cantidad;
             return p;
         });
 

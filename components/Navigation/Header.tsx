@@ -1,11 +1,12 @@
 import { api } from '@/api/api';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faSquare, faFile } from '@fortawesome/free-solid-svg-icons';
 import styles from "./../../styles/Navigation/Header.module.scss"
 import { SearchGlobal } from '../Inputs/searchGlobal';
+import { CartContext } from '@/context';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>,
@@ -20,6 +21,7 @@ const Header = ({
 }: Props) => {
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
+    const { numberOfItems } = useContext(CartContext);
 
     const onLogOut = async () => {
         try {
@@ -77,7 +79,7 @@ const Header = ({
                                 <></> :
                                 <div className={`${styles.item}  ${styles.cart}  display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
                                     <div className={`${styles.circle} display-flex allCenter`}>
-                                        <p>3</p>
+                                        <p>{numberOfItems}</p>
                                     </div>
                                     <FontAwesomeIcon icon={faBagShopping} className={`icon`} />
                                 </div>

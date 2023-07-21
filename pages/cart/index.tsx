@@ -1,5 +1,5 @@
 import { Layout } from '@/components/Layouts/Layout';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { faCheck, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { productsUtils } from '@/utils/products';
@@ -8,11 +8,16 @@ import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 
 import styles from "../../styles/Pages/Cart.module.scss";
+import { CartContext } from '@/context';
+import { ProductCartInterface } from '@/interfaces/productCart';
 
 const Cart = () => {
 
     const [requestOpen, setRequestOpen] = useState(false)
     const { push } = useRouter()
+
+    const { cart, numberOfItems, subTotal, total } = useContext(CartContext);
+
 
     return (
         <Layout>
@@ -32,7 +37,7 @@ const Cart = () => {
 
                     <div className={styles.table}>
                         {
-                            productsUtils.map((product: PorductInterface, Index) =>
+                            cart.map((product: ProductCartInterface, Index) =>
                                 <ProductCardShort product={product} key={Index} />
                             )
                         }
@@ -62,13 +67,13 @@ const Cart = () => {
 
                     <div className={`${styles.cost} display-flex column`}>
                         <div className={styles.cost__data}>
-                            <p> <span>Subtotal:</span> $19,000 MXN</p>
+                            <p> <span>Subtotal:</span> {subTotal}</p>
                         </div>
                         <div className={styles.cost__data}>
-                            <p><span>I.V.A:</span> 15%</p>
+                            <p><span>I.V.A:</span> {Number(process.env.NEXT_PUBLIC_TAX_RATE) * 100}%</p>
                         </div>
                         <div className={styles.cost__data}>
-                            <p> <span>Total:</span> 21,200 MXN</p>
+                            <p> <span>Total:</span> {total}</p>
                         </div>
                     </div>
                 </div>

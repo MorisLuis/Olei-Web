@@ -68,7 +68,6 @@ export const SearchGlobal = ({ setFilterActive, filterActive }: Props) => {
                 {
                     products.map((producto: string, index: number) =>
                         <SearchItemCard key={index} productName={producto} onclick={(value: string) => {
-                            console.log({ value })
                             setFilterActive([...filterActive, value])
                         }} />
                     )

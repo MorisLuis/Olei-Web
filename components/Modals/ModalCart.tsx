@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { faAnglesRight, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductCartCard from '../Cards/ProductCartCard';
 import { useRouter } from 'next/router';
-import { productsUtils } from '@/utils/products';
-import ProductInterface from '@/interfaces/product';
+import { CartContext } from '@/context';
+import { ProductCartInterface } from '@/interfaces/productCart';
+import { format } from '@/utils/currency';
 
 import styles from "../../styles/Modal.module.scss";
 
@@ -20,6 +21,9 @@ const ModalCart = ({
     const { push } = useRouter()
     const [closing, setClosing] = useState(false);
 
+    const { cart, numberOfItems, subTotal } = useContext(CartContext);
+
+
     const handleClose = () => {
         setClosing(true);
         setTimeout(() => {
@@ -27,6 +31,7 @@ const ModalCart = ({
             onClose();
         }, 300);
     };
+
 
     return visible ? (
         <>
@@ -45,14 +50,14 @@ const ModalCart = ({
 
                 <div className={styles.content}>
                     {
-                        productsUtils.map((product: ProductInterface, Index) =>
+                        cart.map((product: ProductCartInterface, Index) =>
                             <ProductCartCard product={product} key={Index} />
                         )
                     }
                 </div>
 
                 <div className={`${styles.footer} display-flex`}>
-                    <h4 className='display-flex'>Subtotal (7 productos): $346.90 MXN</h4>
+                    <h4 className='display-flex'>Subtotal ({numberOfItems} productos): {format(subTotal)}</h4>
                 </div>
             </div>
         </>

@@ -33,7 +33,6 @@ export const AuthProvider = ({ children }: any) => {
     const checkToken = async () => {
         try {
             const token = Cookies.get('token')
-            console.log({token})
             const { data } = await api.get<any>('/api/auth/renew', {
                 headers: {
                     'Content-type': 'application/json',

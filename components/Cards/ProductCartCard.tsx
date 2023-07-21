@@ -1,16 +1,43 @@
 import ProductInterface from '@/interfaces/product';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Counter from '../Ui/Counter';
 import styles from "../../styles/Components/Cards.module.scss";
+import { ProductCartInterface } from '@/interfaces/productCart';
+import { CartContext } from '@/context';
 
 interface Props {
-    product?: ProductInterface
+    product: ProductCartInterface
 }
 
-const ProductCartCard = ({ product } : Props) => {
+const ProductCartCard = ({ product }: Props) => {
 
-    console.log({product})
+    const { addProductToCart } = useContext(CartContext)
 
+    const [tempCartProduct, setTempCartProduct] = useState<ProductCartInterface>({
+        Descripcion: product.Descripcion,
+        CodigoProducto: product.CodigoProducto,
+
+        Precio: product.Precio,
+
+        Id_Familia: product.Id_Familia,
+        Familia: product.Familia,
+        
+        Id_Marca: product.Id_Marca,
+        Marca: product.Marca,
+        Cantidad: product.Cantidad,
+    })
+
+    const onUpdateQuantity = async (Cantidad: number) => {
+        setTempCartProduct(currentProduct => ({
+            ...currentProduct,
+            Cantidad
+        }));
+
+        addProductToCart({
+            ...tempCartProduct,
+            Cantidad
+        });
+    }
     return (
         <div className={`${styles.productCardCard} displar-flex align`}>
             <div className={styles.productName}>
@@ -36,7 +63,11 @@ const ProductCartCard = ({ product } : Props) => {
                 </div>
                 <div className={styles.counter}>
                     <div className='display-flex'>
-                        {/* <Counter/> */}
+                        <Counter
+                            currentValue={product?.Cantidad || 0}
+                            maxValue={10}
+                            updatedQuantity={onUpdateQuantity}
+                        />
                     </div>
                 </div>
             </div>

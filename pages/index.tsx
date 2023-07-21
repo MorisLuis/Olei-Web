@@ -6,6 +6,7 @@ import PorductInterface from '@/interfaces/product';
 import { useState } from 'react';
 import Filter from '@/components/Ui/Filter';
 import { Tag } from '@/components/Ui/Tag';
+
 import styles from "../styles/Pages/Home.module.scss";
 
 interface Props {
@@ -24,11 +25,11 @@ export default function Home({ products }: Props) {
     }
   });
 
-  const handleTagClose = (index: number) => {
+  /* const handleTagClose = (index: number) => {
     const updatedFilters = filterActive.filter((_: any, i: any) => i !== index);
     setFilterActive(updatedFilters);
     localStorage.setItem('activeFilters', JSON.stringify(updatedFilters));
-  };
+  }; */
 
 
   return (

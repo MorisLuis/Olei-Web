@@ -7,7 +7,7 @@ import Counter from '../Ui/Counter';
 import { Tag } from '../Ui/Tag';
 
 interface Props {
-    product: ProductInterface
+    product: ProductInterface | ProductCartInterface
 }
 
 const ProductCart = ({
@@ -16,33 +16,31 @@ const ProductCart = ({
 
     const { addProductToCart } = useContext(CartContext)
 
-
     const [tempCartProduct, setTempCartProduct] = useState<ProductCartInterface>({
         Descripcion: product.Descripcion,
+        CodigoProducto: product.CodigoProducto,
+
+        Precio: product.Precio,
+
         Id_Familia: product.Id_Familia,
         Familia: product.Familia,
-        CodigoProducto: product.CodigoProducto,
-        Precio: product.Precio,
-        Cantidad: 1
+        
+        Id_Marca: product.Id_Marca,
+        Marca: product.Marca,
+        Cantidad: 0,
     })
 
-    const onUpdateQuantity = (Cantidad: number) => {
-
-        /* addProductToCart(currentProduct => ({
+    const onUpdateQuantity = async (Cantidad: number) => {
+        setTempCartProduct(currentProduct => ({
             ...currentProduct,
             Cantidad
-        })); */
+        }));
 
         addProductToCart({
-            ...tempCartProduct, // Utiliza los valores actuales del producto
-            Cantidad, // Actualiza la cantidad con el valor proporcionado
+            ...tempCartProduct,
+            Cantidad
         });
     }
-
-    const onAddProduct = () => {
-        addProductToCart(tempCartProduct);
-    }
-
 
     return (
         <div className={`${styles.item} cursor display-flex`}>
@@ -57,6 +55,11 @@ const ProductCart = ({
                     <div>
                         <p className='text-ellipsis display-flex align'>{product?.CodigoProducto}</p>
                     </div>
+
+                    <div>
+                        <p>{product.Marca}</p>
+                    </div>
+
                     <div className={styles.price}>
                         {
                             product?.Precio ?
@@ -71,7 +74,7 @@ const ProductCart = ({
 
                     <div className='display-flex align'>
                         {
-                            product?.Existencia <= 0 ?
+                            product?.Existencia || 0 <= 0 ?
                                 <Tag color="red">No Stock</Tag> :
                                 <div className='display-flex'>
                                     <p className={styles.headersMovil}>Existencia: </p>
@@ -83,7 +86,7 @@ const ProductCart = ({
 
                 <div className={`${styles.counterColumn} display-flex`}>
                     <Counter
-                        currentValue={tempCartProduct.Cantidad}
+                        currentValue={product?.Cantidad  ? product?.Cantidad : tempCartProduct.Cantidad || 0}
                         maxValue={10}
                         updatedQuantity={onUpdateQuantity}
                     />
