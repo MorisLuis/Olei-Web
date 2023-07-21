@@ -2,7 +2,6 @@ import { Layout } from '@/components/Layouts/Layout';
 import React, { useContext, useState } from 'react';
 import { faCheck, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { productsUtils } from '@/utils/products';
 import PorductInterface from '@/interfaces/product';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
@@ -53,14 +52,14 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        {
+                        {/* {
                             requestOpen &&
                             
                             productsUtils.slice(0,2).map((product: PorductInterface, Index) =>
                                 <ProductCardShort product={product} key={Index} />
                             )
                             
-                        }
+                        } */}
                     </div>
 
                     <div className='divider'></div>

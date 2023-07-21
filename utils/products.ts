@@ -1,6 +1,6 @@
 import PorductInterface from "@/interfaces/product";
 
-export const productsUtils: PorductInterface[] = [
+/* export const productsUtils: PorductInterface[] = [
     {
         Descripcion: 'Camiseta Nike',
         Id_Familia: 1,
@@ -81,4 +81,4 @@ export const productsUtils: PorductInterface[] = [
         CodigoExsitencia: 'CE008',
         Existencia: 2,
     },
-];
+]; */
