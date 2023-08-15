@@ -1,21 +1,20 @@
+import { useState } from 'react';
+import styles from "../styles/Pages/Home.module.scss";
+
 import { api } from '@/api/api';
 import { GetServerSideProps } from 'next';
 import { Layout } from '@/components/Layouts/Layout';
 import Table from '@/components/Ui/Table';
 import PorductInterface from '@/interfaces/product';
-import { useState } from 'react';
 import Filter from '@/components/Ui/Filter';
 import { Tag } from '@/components/Ui/Tag';
-
-import styles from "../styles/Pages/Home.module.scss";
+import { ProductCartInterface } from '@/interfaces/productCart';
 
 interface Props {
-  products: PorductInterface[]
+  products: ProductCartInterface[]
 }
 
 export default function Home({ products }: Props) {
-
-  console.log({products})
 
   const [openFilterModal, setOpenFilterModal] = useState(false)
   const [filterActive, setFilterActive] = useState(() => {

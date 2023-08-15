@@ -1,8 +1,9 @@
-import ProductInterface from '@/interfaces/product';
 import React from 'react'
+import styles from "../../styles/Pages/Receipt.module.scss";
+
+import ProductInterface from '@/interfaces/product';
 import {ProductCardShort} from '../Cards/ProductCardShort';
 
-import styles from "../../styles/Pages/Receipt.module.scss";
 
 export const ReceiptRender = () => {
     return (

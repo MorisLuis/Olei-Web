@@ -1,11 +1,11 @@
 import React from 'react';
+import styles from "../../styles/Pages/Request.module.scss";
+
 import RequestCard from '@/components/Cards/RequestCard';
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import ModalRequest from '@/components/Modals/ModalRequest';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
-
-import styles from "../../styles/Pages/Request.module.scss";
 import Cookies from 'js-cookie';
 
 const Pedidos = () => {

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
-import Counter from '../Ui/Counter'
 import styles from "../../styles/Components/Cards.module.scss";
+
+import Counter from '../Ui/Counter'
 import { ProductCartInterface } from '@/interfaces/productCart';
 import { CartContext } from '@/context';
 import { format } from '@/utils/currency';
@@ -11,6 +12,8 @@ interface Props {
     product: ProductCartInterface,
     counterVisible?: boolean
 }
+
+// ProductCardShort - IS USED PRINCIPAL IN REQUEST PAGE.
 
 export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
 
@@ -42,8 +45,6 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
             Cantidad
         });
     }
-
-
 
     return (
         <div className={`${styles.productCard} ${styles.receipt} cursor`}>

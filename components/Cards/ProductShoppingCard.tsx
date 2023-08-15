@@ -1,14 +1,18 @@
 import React, { useContext, useState } from 'react';
-import Counter from '../Ui/Counter';
 import styles from "../../styles/Components/Cards.module.scss";
+
+import Counter from '../Ui/Counter';
 import { ProductCartInterface } from '@/interfaces/productCart';
 import { CartContext } from '@/context';
+import { Tag } from '../Ui/Tag';
 
 interface Props {
     product: ProductCartInterface
 }
 
-const ProductCartCard = ({ product }: Props) => {
+// ProductShoppingCard - IS USED PRINCIPAL IN CART MODAL
+
+const ProductShoppingCard = ({ product }: Props) => {
 
     const { addProductToCart } = useContext(CartContext)
 
@@ -38,11 +42,13 @@ const ProductCartCard = ({ product }: Props) => {
             Cantidad
         });
     }
+
     return (
         <div className={`${styles.productCardCard} displar-flex align`}>
             <div className={styles.productName}>
                 {product?.Descripcion}
             </div>
+
             <div className={`${styles.productInfo} display-flex space-between`}>
                 <div className={`${styles.data} display-flex align`}>
                     <div className={`${styles.code} display-flex`}>
@@ -58,7 +64,14 @@ const ProductCartCard = ({ product }: Props) => {
                     <span>·</span>
 
                     <div className={`display-flex`}>
-                        <p> <span>Existencia: </span> {product?.Existencia}</p>
+                    {
+                            product?.Existencia && product?.Existencia < 1 ?
+                                <Tag color="red">No Stock</Tag> :
+                                <div className='display-flex'>
+                                    <p className={styles.headersMovil}>Existencia: </p>
+                                    <p>{product?.Existencia}</p>
+                                </div>
+                        }
                     </div>
                 </div>
                 <div className={styles.counter}>
@@ -75,4 +88,4 @@ const ProductCartCard = ({ product }: Props) => {
     )
 }
 
-export default ProductCartCard
+export default ProductShoppingCard

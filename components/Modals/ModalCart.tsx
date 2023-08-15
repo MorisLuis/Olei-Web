@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
+import styles from "../../styles/Modal.module.scss";
+
 import { faAnglesRight, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProductCartCard from '../Cards/ProductCartCard';
+import ProductShoppingCard from '../Cards/ProductShoppingCard';
 import { useRouter } from 'next/router';
 import { CartContext } from '@/context';
 import { ProductCartInterface } from '@/interfaces/productCart';
 import { format } from '@/utils/currency';
 
-import styles from "../../styles/Modal.module.scss";
 
 interface Props {
     visible: boolean;
@@ -18,14 +19,12 @@ const ModalCart = ({
     visible,
     onClose
 }: Props) => {
+
     const { push } = useRouter()
     const [closing, setClosing] = useState(false);
-
     const { cart, numberOfItems, subTotal } = useContext(CartContext);
 
-
-
-    const handleClose = () => {
+    const handleCloseModal = () => {
         setClosing(true);
         setTimeout(() => {
             setClosing(false)
@@ -33,13 +32,12 @@ const ModalCart = ({
         }, 300);
     };
 
-
     return visible ? (
         <>
             <div className={styles.modalBackground}></div>
 
             <div className={`${styles.modalCart} ${closing ? styles.closing : ''}`}>
-                <div className={`${styles.header} display-flex space-between cursor`} onClick={handleClose}>
+                <div className={`${styles.header} display-flex space-between cursor`} onClick={handleCloseModal}>
                     <div className={`${styles.close} align`}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon cursor display-flex align`} />
                     </div>
@@ -52,7 +50,7 @@ const ModalCart = ({
                 <div className={styles.content}>
                     {
                         cart.map((product: ProductCartInterface, Index) =>
-                            <ProductCartCard product={product} key={Index} />
+                            <ProductShoppingCard product={product} key={Index} />
                         )
                     }
                 </div>

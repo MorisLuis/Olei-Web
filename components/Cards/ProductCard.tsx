@@ -3,16 +3,17 @@ import ProductInterface from '@/interfaces/product';
 import { ProductCartInterface } from '@/interfaces/productCart';
 import React, { useContext, useState } from 'react'
 import styles from "../../styles/UI.module.scss";
+
 import Counter from '../Ui/Counter';
 import { Tag } from '../Ui/Tag';
 
 interface Props {
-    product: ProductInterface | ProductCartInterface
+    product: ProductCartInterface
 }
 
-const ProductCart = ({
-    product
-}: Props) => {
+// ProductCard - IS USED PRINCIPAL IN INDEX PAGE
+
+const ProductCard = ({ product }: Props) => {
 
     const { addProductToCart } = useContext(CartContext)
 
@@ -25,7 +26,7 @@ const ProductCart = ({
 
         Id_Familia: product.Id_Familia,
         Familia: product.Familia,
-        
+
         Id_Marca: product.Id_Marca,
         Marca: product.Marca,
         Cantidad: 0,
@@ -42,7 +43,6 @@ const ProductCart = ({
             Cantidad
         });
     }
-
 
     return (
         <div className={`${styles.item} cursor display-flex`}>
@@ -88,7 +88,7 @@ const ProductCart = ({
 
                 <div className={`${styles.counterColumn} display-flex`}>
                     <Counter
-                        currentValue={product?.Cantidad  ? product?.Cantidad : tempCartProduct.Cantidad || 0}
+                        currentValue={product?.Cantidad ? product?.Cantidad : tempCartProduct.Cantidad || 0}
                         maxValue={10}
                         updatedQuantity={onUpdateQuantity}
                     />
@@ -98,4 +98,4 @@ const ProductCart = ({
     )
 }
 
-export default ProductCart
+export default ProductCard
