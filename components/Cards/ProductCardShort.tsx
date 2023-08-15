@@ -28,6 +28,7 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
         Id_Marca: product.Id_Marca,
         Marca: product.Marca,
         Cantidad: product.Cantidad,
+        Existencia: product.Existencia
     })
 
     const onUpdateQuantity = async (Cantidad: number) => {
