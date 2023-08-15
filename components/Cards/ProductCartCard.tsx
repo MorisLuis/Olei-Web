@@ -1,4 +1,3 @@
-import ProductInterface from '@/interfaces/product';
 import React, { useContext, useState } from 'react';
 import Counter from '../Ui/Counter';
 import styles from "../../styles/Components/Cards.module.scss";

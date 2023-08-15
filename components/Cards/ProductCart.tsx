@@ -19,6 +19,7 @@ const ProductCart = ({
     const [tempCartProduct, setTempCartProduct] = useState<ProductCartInterface>({
         Descripcion: product.Descripcion,
         CodigoProducto: product.CodigoProducto,
+        Existencia: product.Existencia,
 
         Precio: product.Precio,
 
@@ -41,6 +42,7 @@ const ProductCart = ({
             Cantidad
         });
     }
+
 
     return (
         <div className={`${styles.item} cursor display-flex`}>
@@ -74,7 +76,7 @@ const ProductCart = ({
 
                     <div className='display-flex align'>
                         {
-                            product?.Existencia || 0 <= 0 ?
+                            product?.Existencia && product?.Existencia < 1 ?
                                 <Tag color="red">No Stock</Tag> :
                                 <div className='display-flex'>
                                     <p className={styles.headersMovil}>Existencia: </p>

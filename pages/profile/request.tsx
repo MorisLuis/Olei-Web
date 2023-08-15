@@ -13,7 +13,6 @@ const Pedidos = () => {
     const { query, back } = useRouter()
     const orderCookies = Cookies.get('order') ? JSON.parse(Cookies.get('order')!) : []
 
-    console.log({orderCookies})
     return (
         <>
             <LayoutProfile>

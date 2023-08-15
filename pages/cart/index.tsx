@@ -16,7 +16,7 @@ import Cookies from 'js-cookie';
 const Cart = () => {
 
     const { push } = useRouter()
-    const { cart, subTotal, total, tax, numberOfItems, removeCartProduct} = useContext(CartContext);
+    const { cart, subTotal, total, tax, numberOfItems, removeCartProduct } = useContext(CartContext);
     const [requestOpen, setRequestOpen] = useState(false)
 
     const submitOrder = () => {
@@ -56,10 +56,13 @@ const Cart = () => {
 
         Cookies.set('order', JSON.stringify(Order));
         Cookies.remove('cart');
-        console.log({ Order })
         push("/cart/success")
     }
 
+    const productsExistent = cart.filter((product) => product.Existencia && product.Existencia > 0)
+    const productNoStock = cart.filter((product) => product.Existencia && product.Existencia < 0)
+
+    console.log({ productsExistent })
 
     return (
         <Layout>
@@ -79,7 +82,7 @@ const Cart = () => {
 
                     <div className={styles.table}>
                         {
-                            cart.map((product: ProductCartInterface, Index) =>
+                            productsExistent.map((product: ProductCartInterface, Index) =>
                                 <ProductCardShort product={product} key={Index} />
                             )
                         }
@@ -95,14 +98,12 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        {/* {
+                        {
                             requestOpen &&
-                            
-                            productsUtils.slice(0,2).map((product: PorductInterface, Index) =>
+                            productNoStock.slice(0, 2).map((product: ProductCartInterface, Index) =>
                                 <ProductCardShort product={product} key={Index} />
                             )
-                            
-                        } */}
+                        }
                     </div>
 
                     <div className='divider'></div>

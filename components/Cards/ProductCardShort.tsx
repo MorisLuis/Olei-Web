@@ -1,9 +1,11 @@
-import ProductInterface from '@/interfaces/product'
 import React, { useContext, useState } from 'react'
 import Counter from '../Ui/Counter'
 import styles from "../../styles/Components/Cards.module.scss";
 import { ProductCartInterface } from '@/interfaces/productCart';
 import { CartContext } from '@/context';
+import { format } from '@/utils/currency';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     product: ProductCartInterface,
@@ -12,7 +14,7 @@ interface Props {
 
 export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
 
-    const { addProductToCart } = useContext(CartContext)
+    const { addProductToCart, removeCartProduct } = useContext(CartContext)
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductCartInterface>({
         Descripcion: product.Descripcion,
@@ -40,6 +42,8 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
         });
     }
 
+
+
     return (
         <div className={`${styles.productCard} ${styles.receipt} cursor`}>
             <div className={`${styles.info} display-flex space-between`}>
@@ -50,7 +54,7 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
                 </div>
 
                 <div className={styles.data}>
-                    <p className={`${styles.price} display-flex`}><span>Precio:</span> ${product.Precio} MXN</p>
+                    <p className={`${styles.price} display-flex`}><span>Precio:</span> {format(product.Precio)} </p>
                     <p className={styles.existen}>Existencia : {product.Existencia}</p>
                 </div>
 
@@ -63,8 +67,10 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
                             updatedQuantity={onUpdateQuantity}
                         />
                     }
-                    <p className={styles.subtotal}>Subtotal : $2,000</p>
+                    <p className={styles.subtotal}>Subtotal : {product.Cantidad && format(product.Precio * product.Cantidad)}</p>
                 </div>
+
+                <FontAwesomeIcon icon={faTrashCan} className={`icon`} onClick={() => removeCartProduct(product)}/>
             </div>
         </div>
     )

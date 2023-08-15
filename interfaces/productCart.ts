@@ -9,7 +9,7 @@ export interface ProductCartInterface {
     Precio: number,
     CodigoPrecio?: string,
 
-    Existencia?: number,
+    Existencia: number,
     CodigoExsitencia?: string,
 
     Marca: string,
@@ -18,6 +18,6 @@ export interface ProductCartInterface {
     Id_Almacen?: number,
     Id_ListaPrecios?: number
 
-    Cantidad?: number,
+    Cantidad: number,
 
 }

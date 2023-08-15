@@ -15,6 +15,8 @@ interface Props {
 
 export default function Home({ products }: Props) {
 
+  console.log({products})
+
   const [openFilterModal, setOpenFilterModal] = useState(false)
   const [filterActive, setFilterActive] = useState(() => {
     if (typeof window !== 'undefined') {

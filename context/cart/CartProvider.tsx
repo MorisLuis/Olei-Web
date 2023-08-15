@@ -3,7 +3,6 @@ import Cookie from 'js-cookie';
 
 import { CartContext, cartReducer } from '../index';
 import { ProductCartInterface } from '@/interfaces/productCart';
-import OrderInterface from '@/interfaces/Order';
 
 export interface CartState {
     cart: ProductCartInterface[];
@@ -28,10 +27,13 @@ export const CartProvider = ({ children }: any) => {
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
     useEffect(() => {
+        if (Cookie.get('cart') === "[]") return;
+
         try {
-            const cookieProducts = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
+            const cookieProducts: ProductCartInterface[] = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
+            console.log({ error })
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: [] });
         }
     }, []);
@@ -43,8 +45,20 @@ export const CartProvider = ({ children }: any) => {
 
 
     useEffect(() => {
-        const numberOfItems = state.cart.reduce((prev, current : any) => current.Cantidad + prev, 0);
-        const subTotal = state.cart.reduce((prev, current : any) => (current.Precio * current.Cantidad) + prev, 0);
+        const numberOfItems = state.cart.reduce((prev, current: ProductCartInterface) => {
+            if (current?.Existencia >= 1) {
+                return current?.Cantidad + prev;
+            }
+            return prev;
+        }, 0);
+
+        const subTotal = state.cart.reduce((prev, current: any) => {
+            if (current.Existencia >= 1) {
+                return prev + current.Precio * current.Cantidad;
+            }
+            return prev;
+        }, 0);
+
         const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
 
         const orderSummary = {
@@ -64,13 +78,13 @@ export const CartProvider = ({ children }: any) => {
         const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
 
-        const productInCartAndSameMarca = state.cart.some( p => p.CodigoProducto === product.CodigoProducto && p.Id_Marca === product.Id_Marca );
-        if ( !productInCartAndSameMarca ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] })
+        const productInCartAndSameMarca = state.cart.some(p => p.CodigoProducto === product.CodigoProducto && p.Id_Marca === product.Id_Marca);
+        if (!productInCartAndSameMarca) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
 
         // Acumular
-        const updatedProducts = state.cart.map((p : ProductCartInterface) => {
+        const updatedProducts = state.cart.map((p: ProductCartInterface) => {
             if (p.CodigoProducto !== product.CodigoProducto) return p;
-            if ( p.Id_Marca !== product.Id_Marca ) return p;
+            if (p.Id_Marca !== product.Id_Marca) return p;
 
             // Actualizar la cantidad 
             p.Cantidad = product.Cantidad;

@@ -8,7 +8,7 @@ type CartActionType =
     | { type: '[Cart] - Update products in cart', payload: ProductCartInterface[] }
     | { type: '[Cart] - Change cart quantity', payload: ProductCartInterface }
     | { type: '[Cart] - Remove product in cart', payload: ProductCartInterface }
-    | { type: '[Order] - Create order', payload: OrderInterface}
+    | { type: '[Order] - Create order', payload: OrderInterface }
     | {
         type: '[Cart] - Update order summary',
         payload: {
