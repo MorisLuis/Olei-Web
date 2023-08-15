@@ -3,6 +3,7 @@ import Cookie from 'js-cookie';
 
 import { CartContext, cartReducer } from '../index';
 import { ProductCartInterface } from '@/interfaces/productCart';
+import OrderInterface from '@/interfaces/Order';
 
 export interface CartState {
     cart: ProductCartInterface[];

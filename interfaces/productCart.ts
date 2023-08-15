@@ -18,7 +18,6 @@ export interface ProductCartInterface {
     Id_Almacen?: number,
     Id_ListaPrecios?: number
 
-    Cantidad?: number
-
+    Cantidad?: number,
 
 }

@@ -1,5 +1,4 @@
-
-
+import OrderInterface from '@/interfaces/Order';
 import { ProductCartInterface } from '@/interfaces/productCart';
 import { CartState } from '../index';
 
@@ -9,6 +8,7 @@ type CartActionType =
     | { type: '[Cart] - Update products in cart', payload: ProductCartInterface[] }
     | { type: '[Cart] - Change cart quantity', payload: ProductCartInterface }
     | { type: '[Cart] - Remove product in cart', payload: ProductCartInterface }
+    | { type: '[Order] - Create order', payload: OrderInterface}
     | {
         type: '[Cart] - Update order summary',
         payload: {
@@ -38,7 +38,7 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
         case '[Cart] - Change cart quantity':
             return {
                 ...state,
-                cart: state.cart.map((product : ProductCartInterface) => {
+                cart: state.cart.map((product: ProductCartInterface) => {
                     if (product.CodigoProducto !== action.payload.CodigoProducto) return product;
                     return action.payload;
                 })
@@ -47,10 +47,14 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
         case '[Cart] - Remove product in cart':
             return {
                 ...state,
-                cart: state.cart.filter((product : ProductCartInterface) => !(product.CodigoProducto === action.payload.CodigoProducto && product.Id_Marca === action.payload.Id_Marca))
+                cart: state.cart.filter((product: ProductCartInterface) => !(product.CodigoProducto === action.payload.CodigoProducto && product.Id_Marca === action.payload.Id_Marca))
             }
 
-            
+        case '[Cart] - Update order summary':
+            return {
+                ...state,
+                ...action.payload
+            }
 
         default:
             return state;

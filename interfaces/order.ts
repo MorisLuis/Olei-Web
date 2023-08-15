@@ -1,33 +1,11 @@
+import ProductOrderInterface from "./productOrder";
+
 export default interface OrderInterface {
-
-    Id_Almacen: number,
-    TipoDoc: number,
-    Serie: number,
-    Folio: number,
-    Partida: number,
-    Codigo: number,
-    Id_Marca: number,
-    Id_ListaPrecios: number,
+    products: ProductOrderInterface[],
     Cantidad: number,
-    Precio: number,
-    Importe: number,
+    Subtotal: number,
     Impuesto: number,
-    Retencion: number,
-    RetencionIVA: number,
-    Descripcion: string,
-    Descuento: number,
-    PrecioOrg: number,
-    Costo: number,
-    Id_Unidad: number,
-    NumsdeSerie: number,
-    SwNs: number,
-    CodigoCupon: number,
-    TasaImpuesto: number,
-    TasaRetencion: number,
-    TasaRetencionIVA: number,
-    SKU: number,
-    TipoDoc_org: number,
-    Serie_org:  number,
-    Folio_org: number,
-
+    Total: number,
+    Folio: number,
+    Fecha: string
 }

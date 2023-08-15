@@ -24,6 +24,7 @@ const ModalCart = ({
     const { cart, numberOfItems, subTotal } = useContext(CartContext);
 
 
+
     const handleClose = () => {
         setClosing(true);
         setTimeout(() => {

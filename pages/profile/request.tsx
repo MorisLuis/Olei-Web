@@ -6,11 +6,14 @@ import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 
 import styles from "../../styles/Pages/Request.module.scss";
+import Cookies from 'js-cookie';
 
 const Pedidos = () => {
 
     const { query, back } = useRouter()
+    const orderCookies = Cookies.get('order') ? JSON.parse(Cookies.get('order')!) : []
 
+    console.log({orderCookies})
     return (
         <>
             <LayoutProfile>
