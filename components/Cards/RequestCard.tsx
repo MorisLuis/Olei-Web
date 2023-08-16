@@ -9,11 +9,10 @@ import OrderInterface from '@/interfaces/Order';
 
 interface Props {
     order: OrderInterface[],
-    onclick?: (arg0: OrderInterface) => void,
     setOrderSelect: React.Dispatch<React.SetStateAction<OrderInterface | undefined>>
 }
 
-const RequestCard = ({ order, onclick, setOrderSelect}: Props) => {
+const RequestCard = ({ order, setOrderSelect}: Props) => {
 
     return (
         <>

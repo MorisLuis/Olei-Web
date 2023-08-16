@@ -16,7 +16,7 @@ import ProductInterface from '@/interfaces/product';
 const Cart = () => {
 
     const { push } = useRouter()
-    const { cart, subTotal, total, tax, numberOfItems, removeCartProduct } = useContext(CartContext);
+    const { cart, subTotal, total, tax, numberOfItems } = useContext(CartContext);
     const [requestOpen, setRequestOpen] = useState(false)
 
     const submitOrder = () => {
@@ -74,7 +74,7 @@ const Cart = () => {
         localStorage.setItem('order', JSON.stringify(updatedOrders));
 
         Cookies.remove('cart');
-        push("/cart/success")
+        push(`/cart/success?order=${Order.Folio}`)
     }
 
     const productsExistent = cart.filter((product) => product.Existencia && product.Existencia > 0)
@@ -146,7 +146,6 @@ const Cart = () => {
                         </button>
                     </div>
                 </div>
-
             </div>
         </Layout>
     )
