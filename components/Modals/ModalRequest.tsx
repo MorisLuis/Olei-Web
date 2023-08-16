@@ -13,7 +13,7 @@ interface Props {
 
     //Methods
     onClose: () => void;
-    handleOpenModalMessage: () => void;
+    handleOpenModalMessage?: () => void;
 }
 
 const ModalRequest = ({

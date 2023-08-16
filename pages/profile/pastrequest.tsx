@@ -26,7 +26,7 @@ const PedidosAnteriores = () => {
                         </div> */}
 
                         <MessageCard
-                        title="No hay pedidos anteriores"
+                            title="No hay pedidos anteriores"
                         >
                             No hay pedidos anteriores en este momento, apareceran una vez que hagas pedidos.
                         </MessageCard>
@@ -39,7 +39,7 @@ const PedidosAnteriores = () => {
                 onClose={() => back()}
                 receipt
             >
-                <ReceiptRender/>
+                <ReceiptRender />
             </ModalRequest>
         </>
 

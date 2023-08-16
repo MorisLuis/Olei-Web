@@ -12,6 +12,7 @@ import moment from "moment";
 import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
 import ProductInterface from '@/interfaces/product';
+import { MessageCard } from '@/components/Cards/MessageCard';
 
 const Cart = () => {
 
@@ -90,60 +91,77 @@ const Cart = () => {
                     </div>
                 </div>
 
-                <div className={styles.content}>
-                    <div className={`${styles.search} display-flex space-between`}>
-                        <input type="text" className='input' placeholder='Buscar producto...' />
-                        <button className='button'>Buscar</button>
-                    </div>
+                {
+                    productsExistent.length > 0 ?
+                        <div className={styles.content}>
+                            <div className={`${styles.search} display-flex space-between`}>
+                                <input type="text" className='input' placeholder='Buscar producto...' />
+                                <button className='button'>Buscar</button>
+                            </div>
 
-                    <div className={styles.table}>
-                        {
-                            productsExistent.map((product: ProductInterface, Index) =>
-                                <ProductCardShort product={product} key={Index} />
-                            )
-                        }
-                    </div>
+                            <div className={styles.table}>
+                                {
+                                    productsExistent.map((product: ProductInterface, Index) =>
+                                        <ProductCardShort product={product} key={Index} />
+                                    )
+                                }
+                            </div>
 
-                    <div className={styles.request}>
-                        <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
-                            <div className={`${styles.content} display-flex space-between align`}>
-                                <p className={styles.text}>
-                                    Ver peticiones de productos actualmente inexistentes
-                                </p>
-                                <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
+                            <div className={styles.request}>
+                                <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
+                                    <div className={`${styles.content} display-flex space-between align`}>
+                                        <p className={styles.text}>
+                                            Ver peticiones de productos actualmente inexistentes
+                                        </p>
+                                        <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
+                                    </div>
+                                </div>
+
+                                {
+                                    requestOpen &&
+                                    productNoStock.slice(0, 2).map((product: ProductInterface, Index) =>
+                                        <ProductCardShort product={product} key={Index} />
+                                    )
+                                }
+                            </div>
+
+                            <div className='divider'></div>
+
+                            <div className={`${styles.cost} display-flex column`}>
+                                <div className={styles.cost__data}>
+                                    <p> <span>Subtotal:</span> {format(subTotal)}</p>
+                                </div>
+                                <div className={styles.cost__data}>
+                                    <p><span>I.V.A:</span> {Number(process.env.NEXT_PUBLIC_TAX_RATE) * 100}%</p>
+                                </div>
+                                <div className={styles.cost__data}>
+                                    <p> <span>Total:</span> {format(total)}</p>
+                                </div>
                             </div>
                         </div>
-
-                        {
-                            requestOpen &&
-                            productNoStock.slice(0, 2).map((product: ProductInterface, Index) =>
-                                <ProductCardShort product={product} key={Index} />
-                            )
-                        }
-                    </div>
-
-                    <div className='divider'></div>
-
-                    <div className={`${styles.cost} display-flex column`}>
-                        <div className={styles.cost__data}>
-                            <p> <span>Subtotal:</span> {format(subTotal)}</p>
+                        :
+                        <div className={styles.content}>
+                            <MessageCard
+                                title="No has agregado productos aún."
+                                icon="faFileInvoice"
+                            >
+                                No hay productos en tu orden, apareceran una vez que agregues productos.
+                            </MessageCard>
                         </div>
-                        <div className={styles.cost__data}>
-                            <p><span>I.V.A:</span> {Number(process.env.NEXT_PUBLIC_TAX_RATE) * 100}%</p>
-                        </div>
-                        <div className={styles.cost__data}>
-                            <p> <span>Total:</span> {format(total)}</p>
-                        </div>
-                    </div>
-                </div>
+                }
 
                 <div className={styles.footer}>
                     <div className={`${styles.footer__content} display-flex align`}>
-                        <p className={styles.total}>Total (Incluye IVA) : {format(total)} </p>
-                        <button className='button display-flex allCenter' onClick={submitOrder}>
-                            <FontAwesomeIcon icon={faCheck} className={`icon__small`} />
-                            Confirmar pedido
-                        </button>
+                        {
+                            productsExistent.length > 0 &&
+                            <>
+                                <p className={styles.total}>Total (Incluye IVA) : {format(total)} </p>
+                                <button className='button display-flex allCenter' onClick={submitOrder}>
+                                    <FontAwesomeIcon icon={faCheck} className={`icon__small`} />
+                                    Confirmar pedido
+                                </button>
+                            </>
+                        }
                     </div>
                 </div>
             </div>

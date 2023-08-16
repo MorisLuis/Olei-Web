@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
+import { MessageCard } from '../Cards/MessageCard';
 
 
 interface Props {
@@ -49,9 +50,18 @@ const ModalCart = ({
 
                 <div className={styles.content}>
                     {
-                        cart.map((product: ProductInterface, Index) =>
+                        cart.length > 0 ? cart.map((product: ProductInterface, Index) =>
                             <ProductShoppingCard product={product} key={Index} />
                         )
+                            :
+                            <>
+                                <MessageCard
+                                    title="No has agregado productos aún"
+                                    icon="faCartShopping"
+                                >
+                                    No hay productos en tu orden, apareceran una vez que agregues productos.
+                                </MessageCard>
+                            </>
                     }
                 </div>
 
