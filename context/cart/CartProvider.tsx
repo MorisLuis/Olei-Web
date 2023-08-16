@@ -76,6 +76,8 @@ export const CartProvider = ({ children }: any) => {
 
     const addProductToCart = (product: ProductInterface) => {
 
+        console.log({product})
+
         const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
 
@@ -95,6 +97,10 @@ export const CartProvider = ({ children }: any) => {
         dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
     }
 
+    const addOrderToCart = (product: ProductInterface[]) => {
+        dispatch({ type: '[Cart] - Update products in cart', payload: product });
+    }
+
 
     const removeCartProduct = (product: ProductInterface) => {
         dispatch({ type: '[Cart] - Remove product in cart', payload: product });
@@ -108,6 +114,7 @@ export const CartProvider = ({ children }: any) => {
             // Methods
             addProductToCart,
             removeCartProduct,
+            addOrderToCart
         }}>
             {children}
         </CartContext.Provider>

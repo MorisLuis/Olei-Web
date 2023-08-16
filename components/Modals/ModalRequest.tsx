@@ -9,15 +9,20 @@ import ProductInterface from '@/interfaces/product';
 interface Props {
     visible: string | any;
     receipt?: boolean;
+    children: any;
+
+    //Methods
     onClose: () => void;
-    children: any
+    handleOpenModalMessage: () => void;
 }
 
 const ModalRequest = ({
     visible,
-    onClose,
     receipt = false,
-    children
+    children,
+
+    onClose,
+    handleOpenModalMessage
 }: Props) => {
 
     const { push, query } = useRouter();
@@ -33,6 +38,10 @@ const ModalRequest = ({
                         <h3>Recibo</h3>
                         <button className={`${styles.expand} button-small display-flex align`} onClick={() => push(`/${query?.receipt}`)}>
                             Expandir
+                            <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align rotat45`} />
+                        </button>
+                        <button className={`${styles.expand} button-small display-flex align`} onClick={handleOpenModalMessage}>
+                            Usar en carrito
                             <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align rotat45`} />
                         </button>
                     </div>

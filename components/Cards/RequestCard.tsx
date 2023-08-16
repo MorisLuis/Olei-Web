@@ -4,20 +4,22 @@ import styles from "../../styles/Components/Cards.module.scss";
 import Link from 'next/link';
 import { faFileLines, faFilePen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import OrderInterface from '@/interfaces/Order';
 import { format } from '@/utils/currency';
+import OrderInterface from '@/interfaces/Order';
 
 interface Props {
-    order: OrderInterface[]
+    order: OrderInterface[],
+    onclick?: (arg0: OrderInterface) => void,
+    setOrderSelect: React.Dispatch<React.SetStateAction<OrderInterface | undefined>>
 }
 
-const RequestCard = ({ order }: Props) => {
+const RequestCard = ({ order, onclick, setOrderSelect}: Props) => {
 
     return (
         <>
             {
                 order.map((item: OrderInterface, index: number) => (
-                    <div key={index} className={styles.requestCart}>
+                    <div key={index} className={styles.requestCart} onClick={() => setOrderSelect(item)}>
                         <div className={styles.info}>
                             <div className={styles.header}>
                                 <p><span>Fecha:</span> {item?.Fecha}</p>

@@ -52,7 +52,7 @@ const Cart = () => {
             return productDetails
         })
 
-        const existingOrderString = Cookies.get('order'); //TEMPORAL
+        const existingOrderString = localStorage.getItem('order'); //TEMPORAL
         const existingOrder = existingOrderString ? JSON.parse(existingOrderString) : []; //TEMPORAL
         const ordersArray = Array.isArray(existingOrder) ? existingOrder : [existingOrder]; //TEMPORAL
 
@@ -68,9 +68,11 @@ const Cart = () => {
             Entregado: false
         }
 
+
         const updatedOrders = [...ordersArray, Order]; //TEMPORAL
 
-        Cookies.set('order', JSON.stringify(updatedOrders)); //TEMPORAL
+        localStorage.setItem('order', JSON.stringify(updatedOrders));
+
         Cookies.remove('cart');
         push("/cart/success")
     }

@@ -10,8 +10,8 @@ import { format } from '@/utils/currency';
 
 
 export const ReceiptRender = () => {
-    const { query, push } = useRouter()
-    const orderCookies: OrderInterface[] = Cookies.get('order') ? JSON.parse(Cookies.get('order')!) : []
+    const { query } = useRouter()
+    const orderCookies: OrderInterface[] = localStorage.getItem('order')  ? JSON.parse(localStorage.getItem('order') !) : []
     const orderSelect : OrderInterface | undefined = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt)
 
 
