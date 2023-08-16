@@ -1,7 +1,7 @@
 import React from "react";
 
 const DarkMode = () => {
-    let clickedClass = "clicked";
+    /* let clickedClass = "clicked";
     const body : any = document?.body;
     const lightTheme = "light";
     const darkTheme = "dark";
@@ -37,7 +37,7 @@ const DarkMode = () => {
             id="darkMode"
             onClick={(e) => switchTheme(e)}
         >Theme</button>
-    );
+    ); */
 };
 
 export default DarkMode;
