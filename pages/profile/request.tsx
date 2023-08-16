@@ -7,7 +7,7 @@ import ModalRequest from '@/components/Modals/ModalRequest';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 import Cookies from 'js-cookie';
-import OrderInterface from '@/interfaces/Order';
+import OrderInterface from '@/interfaces/order';
 import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';

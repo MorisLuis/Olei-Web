@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 import Cookies from 'js-cookie';
 import ProductInterface from '@/interfaces/product';
-import OrderInterface from '@/interfaces/Order';
+import OrderInterface from '@/interfaces/order';
 
 const ReceiptPage = () => {
 

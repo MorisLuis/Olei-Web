@@ -5,7 +5,7 @@ import { Layout } from '@/components/Layouts/Layout';
 import { faArrowUp, faExpand } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
-import OrderInterface from '@/interfaces/Order';
+import OrderInterface from '@/interfaces/order';
 
 const Success = () => {
     const { push, query } = useRouter()

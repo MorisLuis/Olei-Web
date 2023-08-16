@@ -5,7 +5,7 @@ import ProductInterface from '@/interfaces/product';
 import {ProductCardShort} from '../Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import OrderInterface from '@/interfaces/Order';
+import OrderInterface from '@/interfaces/order';
 import { format } from '@/utils/currency';
 
 

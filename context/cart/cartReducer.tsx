@@ -1,4 +1,4 @@
-import OrderInterface from '@/interfaces/Order';
+import OrderInterface from '@/interfaces/order';
 import ProductInterface from '@/interfaces/product';
 import { CartState } from '../index';
 
