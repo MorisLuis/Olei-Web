@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { faFileLines, faFilePen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from '@/utils/currency';
-import OrderInterface from '@/interfaces/Order';
+import OrderInterface from '@/interfaces/order';
 
 interface Props {
     order: OrderInterface[],

@@ -4,8 +4,6 @@ import styles from "../../styles/Components/Cards.module.scss";
 import Counter from '../Ui/Counter'
 import { CartContext } from '@/context';
 import { format } from '@/utils/currency';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import ProductInterface from '@/interfaces/product';
 
 interface Props {
