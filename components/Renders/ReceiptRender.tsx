@@ -3,9 +3,18 @@ import styles from "../../styles/Pages/Receipt.module.scss";
 
 import ProductInterface from '@/interfaces/product';
 import {ProductCardShort} from '../Cards/ProductCardShort';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import OrderInterface from '@/interfaces/Order';
+import { format } from '@/utils/currency';
 
 
 export const ReceiptRender = () => {
+    const { query, push } = useRouter()
+    const orderCookies: OrderInterface[] = Cookies.get('order') ? JSON.parse(Cookies.get('order')!) : []
+    const orderSelect : OrderInterface | undefined = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt)
+
+
     return (
         <div className={styles.receiptRender}>
             <div className={styles.brief}>
@@ -13,7 +22,7 @@ export const ReceiptRender = () => {
                 <div className={`${styles.details} display-flex space-between`}>
                     <div className={`${styles.date} display-flex column`}>
                         <div className={styles.item}>
-                            <p><span>Fecha:</span> 21 Septiembre 2023</p>
+                            <p><span>Fecha:</span> {orderSelect?.Fecha}</p>
                         </div>
                         <div className={styles.item}>
                             <p><span>Pedido por:</span> Luis Morado Campos</p>
@@ -22,24 +31,24 @@ export const ReceiptRender = () => {
 
                     <div className={`${styles.price} display-flex column`}>
                         <div className={styles.item}>
-                            <p><span>Total de productos:</span> 211</p>
+                            <p><span>Total de productos:</span> {orderSelect?.Cantidad}</p>
                         </div>
                         <div className={styles.item}>
-                            <p><span>Subtotal:</span> $19,000 MXN</p>
+                            <p><span>Subtotal:</span> {format(orderSelect?.Subtotal as number)}</p>
                         </div>
                         <div className={styles.item}>
-                            <p className={styles.totalprice}><span>Total (Subtotal + IVA ):</span> $21,000 MXN</p>
+                            <p className={styles.totalprice}><span>Total (Subtotal + IVA ):</span> {format(orderSelect?.Total as number)}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className={styles.productsDetails}>
-                {/* {
-                    productsUtils.map((product: ProductInterface, Index) =>
+                {
+                    orderSelect?.products.map((product: ProductInterface, Index) =>
                         <ProductCardShort key={Index} product={product} counterVisible={false} />
                     )
-                } */}
+                }
             </div>
         </div>
     )

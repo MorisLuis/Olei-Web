@@ -1,12 +1,18 @@
 import React from 'react'
+import styles from "../styles/Pages/Receipt.module.scss";
+
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
-import styles from "../styles/Pages/Receipt.module.scss";
+import Cookies from 'js-cookie';
+import ProductInterface from '@/interfaces/product';
+import OrderInterface from '@/interfaces/Order';
 
 const ReceiptPage = () => {
-    const { push } = useRouter()
+
+    const { query, push } = useRouter()
+
     return (
         <div className={styles.receipt}>
             <div className={`${styles.content} display-flex column`}>
@@ -18,9 +24,8 @@ const ReceiptPage = () => {
                 </div>
 
                 <div className={styles.render}>
-                    <ReceiptRender/>
+                    <ReceiptRender />
                 </div>
-
             </div>
         </div>
     )

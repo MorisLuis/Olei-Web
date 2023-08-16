@@ -1,17 +1,17 @@
 import React, { useContext, useState } from 'react';
+import styles from "../../styles/Pages/Cart.module.scss";
+
 import { Layout } from '@/components/Layouts/Layout';
 import { faCheck, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 import { CartContext } from '@/context';
-import { ProductCartInterface } from '@/interfaces/productCart';
 import { format } from '@/utils/currency';
-import ProductOrderInterface from '@/interfaces/productOrder';
 import moment from "moment";
-
-import styles from "../../styles/Pages/Cart.module.scss";
+import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
+import ProductInterface from '@/interfaces/product';
 
 const Cart = () => {
 
@@ -21,9 +21,9 @@ const Cart = () => {
 
     const submitOrder = () => {
 
-        const productOrdered: ProductOrderInterface[] = cart.map((product: any) => {
+        const productOrdered: ProductInterface[] = cart.map((product: any) => {
 
-            const productDetails: ProductOrderInterface = {
+            const productDetails: ProductInterface = {
                 Precio: product.Precio,
                 Cantidad: product.Cantidad,
                 Subtotal: product.Cantidad && (product.Precio * product.Cantidad),
@@ -37,12 +37,25 @@ const Cart = () => {
                 Id_Cliente: 1,
                 Id_Formapago: "Efectivo",
 
-                Folio: 1,
-                Fecha: moment().format('YYYY-MM-DD HH:mm:ss')
+                Folio: uuidv4(),
+                Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
+
+                Descripcion: product.Descripcion,
+                CodigoProducto: product.CodigoProducto,
+                Familia: product.Familia,
+                CodigoPrecio: product.CodigoPrecio,
+                CodigoExsitencia: product.CodigoExsitencia,
+                Existencia: product.Existencia,
+                Marca: product.Marca,
             }
 
             return productDetails
         })
+
+        const existingOrderString = Cookies.get('order'); //TEMPORAL
+        const existingOrder = existingOrderString ? JSON.parse(existingOrderString) : []; //TEMPORAL
+        const ordersArray = Array.isArray(existingOrder) ? existingOrder : [existingOrder]; //TEMPORAL
+
 
         const Order = {
             products: productOrdered,
@@ -50,11 +63,14 @@ const Cart = () => {
             Subtotal: subTotal,
             Impuesto: tax,
             Total: total,
-            Folio: 1,
-            Fecha: moment().format('YYYY-MM-DD HH:mm:ss')
+            Folio: uuidv4(),
+            Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
+            Entregado: false
         }
 
-        Cookies.set('order', JSON.stringify(Order));
+        const updatedOrders = [...ordersArray, Order]; //TEMPORAL
+
+        Cookies.set('order', JSON.stringify(updatedOrders)); //TEMPORAL
         Cookies.remove('cart');
         push("/cart/success")
     }
@@ -80,7 +96,7 @@ const Cart = () => {
 
                     <div className={styles.table}>
                         {
-                            productsExistent.map((product: ProductCartInterface, Index) =>
+                            productsExistent.map((product: ProductInterface, Index) =>
                                 <ProductCardShort product={product} key={Index} />
                             )
                         }
@@ -98,7 +114,7 @@ const Cart = () => {
 
                         {
                             requestOpen &&
-                            productNoStock.slice(0, 2).map((product: ProductCartInterface, Index) =>
+                            productNoStock.slice(0, 2).map((product: ProductInterface, Index) =>
                                 <ProductCardShort product={product} key={Index} />
                             )
                         }

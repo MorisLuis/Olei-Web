@@ -1,6 +1,5 @@
 import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
-import { ProductCartInterface } from '@/interfaces/productCart';
 import React, { useContext, useState } from 'react'
 import styles from "../../styles/UI.module.scss";
 
@@ -8,7 +7,7 @@ import Counter from '../Ui/Counter';
 import { Tag } from '../Ui/Tag';
 
 interface Props {
-    product: ProductCartInterface
+    product: ProductInterface
 }
 
 // ProductCard - IS USED PRINCIPAL IN INDEX PAGE
@@ -17,19 +16,18 @@ const ProductCard = ({ product }: Props) => {
 
     const { addProductToCart } = useContext(CartContext)
 
-    const [tempCartProduct, setTempCartProduct] = useState<ProductCartInterface>({
+    const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
+        Precio: product.Precio,
+        Cantidad: 0,
+
+        Id_Familia: product.Id_Familia,
+        Id_Marca: product.Id_Marca,
+
         Descripcion: product.Descripcion,
         CodigoProducto: product.CodigoProducto,
         Existencia: product.Existencia,
-
-        Precio: product.Precio,
-
-        Id_Familia: product.Id_Familia,
         Familia: product.Familia,
-
-        Id_Marca: product.Id_Marca,
         Marca: product.Marca,
-        Cantidad: 0,
     })
 
     const onUpdateQuantity = async (Cantidad: number) => {

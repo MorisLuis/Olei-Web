@@ -8,10 +8,10 @@ import Table from '@/components/Ui/Table';
 import PorductInterface from '@/interfaces/product';
 import Filter from '@/components/Ui/Filter';
 import { Tag } from '@/components/Ui/Tag';
-import { ProductCartInterface } from '@/interfaces/productCart';
+import ProductInterface from '@/interfaces/product';
 
 interface Props {
-  products: ProductCartInterface[]
+  products: ProductInterface[]
 }
 
 export default function Home({ products }: Props) {

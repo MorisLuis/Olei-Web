@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react'
 import styles from "../../styles/Components/Cards.module.scss";
 
 import Counter from '../Ui/Counter'
-import { ProductCartInterface } from '@/interfaces/productCart';
 import { CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import ProductInterface from '@/interfaces/product';
 
 interface Props {
-    product: ProductCartInterface,
+    product: ProductInterface,
     counterVisible?: boolean
 }
 
@@ -19,7 +19,7 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
 
     const { addProductToCart, removeCartProduct } = useContext(CartContext)
 
-    const [tempCartProduct, setTempCartProduct] = useState<ProductCartInterface>({
+    const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Descripcion: product.Descripcion,
         CodigoProducto: product.CodigoProducto,
 
@@ -51,13 +51,13 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
             <div className={`${styles.info} display-flex space-between`}>
 
                 <div className={styles.name}>
-                    <p className={styles.title}>{product.Descripcion}</p>
-                    <p className={styles.code}>{product.CodigoProducto}</p>
+                    <p className={styles.title}>{product?.Descripcion}</p>
+                    <p className={styles.code}>{product?.CodigoProducto}</p>
                 </div>
 
                 <div className={styles.data}>
-                    <p className={`${styles.price} display-flex`}><span>Precio:</span> {format(product.Precio)} </p>
-                    <p className={styles.existen}>Existencia : {product.Existencia}</p>
+                    <p className={`${styles.price} display-flex`}><span>Precio:</span> {format(product?.Precio)} </p>
+                    <p className={styles.existen}>Existencia : {product?.Existencia}</p>
                 </div>
 
                 <div className={styles.counter}>
@@ -69,10 +69,8 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
                             updatedQuantity={onUpdateQuantity}
                         />
                     }
-                    <p className={styles.subtotal}>Subtotal : {product.Cantidad && format(product.Precio * product.Cantidad)}</p>
+                    <p className={styles.subtotal}>Subtotal : {product?.Cantidad && format(product?.Precio * product?.Cantidad)}</p>
                 </div>
-
-                <FontAwesomeIcon icon={faTrashCan} className={`icon`} onClick={() => removeCartProduct(product)}/>
             </div>
         </div>
     )

@@ -3,19 +3,19 @@ import styles from "../../styles/UI.module.scss";
 
 import ProductCard from '../Cards/ProductCard';
 import { CartContext } from '@/context';
-import { ProductCartInterface } from '@/interfaces/productCart';
+import ProductInterface from '@/interfaces/product';
 
 
 interface Props {
-    data: ProductCartInterface[]
+    data: ProductInterface[]
 }
 
 const Table = ({ data }: Props) => {
 
     const { cart } = useContext(CartContext)
-    const productsToDisplay: ProductCartInterface[] = [...data];
+    const productsToDisplay: ProductInterface[] = [...data];
 
-    const productsWithCartInfo: ProductCartInterface[] = productsToDisplay.map((product: ProductCartInterface) => {
+    const productsWithCartInfo: ProductInterface[] = productsToDisplay.map((product: ProductInterface) => {
         const cartProduct = cart.find((cartItem) => cartItem.CodigoProducto === product.CodigoProducto && cartItem.Id_Marca === product.Id_Marca);
 
         const quantity = cartProduct !== undefined ? cartProduct.Cantidad : 0;
@@ -36,7 +36,7 @@ const Table = ({ data }: Props) => {
 
             <div className={styles.content}>
                 {
-                    productsWithCartInfo?.slice(0, 100).map((product: ProductCartInterface, index: number) => {
+                    productsWithCartInfo?.slice(0, 100).map((product: ProductInterface, index: number) => {
                         return (
                             <ProductCard product={product} key={index} />
                         )

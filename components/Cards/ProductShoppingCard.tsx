@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
 
 import Counter from '../Ui/Counter';
-import { ProductCartInterface } from '@/interfaces/productCart';
 import { CartContext } from '@/context';
 import { Tag } from '../Ui/Tag';
+import ProductInterface from '@/interfaces/product';
 
 interface Props {
-    product: ProductCartInterface
+    product: ProductInterface
 }
 
 // ProductShoppingCard - IS USED PRINCIPAL IN CART MODAL
@@ -16,7 +16,7 @@ const ProductShoppingCard = ({ product }: Props) => {
 
     const { addProductToCart } = useContext(CartContext)
 
-    const [tempCartProduct, setTempCartProduct] = useState<ProductCartInterface>({
+    const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Descripcion: product.Descripcion,
         CodigoProducto: product.CodigoProducto,
 

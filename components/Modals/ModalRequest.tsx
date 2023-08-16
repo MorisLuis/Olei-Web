@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faClose } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import styles from "../../styles/Modal.module.scss";
+import Cookies from 'js-cookie';
+import ProductInterface from '@/interfaces/product';
 
 interface Props {
     visible: string | any;
@@ -18,7 +20,7 @@ const ModalRequest = ({
     children
 }: Props) => {
 
-    const { push } = useRouter();
+    const { push, query } = useRouter();
 
     return visible ?
         <>
@@ -29,7 +31,7 @@ const ModalRequest = ({
                 <div className={`${styles.header} display-flex space-between align`} >
                     <div className={`${styles.left} display-flex align`}>
                         <h3>Recibo</h3>
-                        <button className={`${styles.expand} button-small display-flex align`} onClick={() => push("/1")}>
+                        <button className={`${styles.expand} button-small display-flex align`} onClick={() => push(`/${query?.receipt}`)}>
                             Expandir
                             <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align rotat45`} />
                         </button>

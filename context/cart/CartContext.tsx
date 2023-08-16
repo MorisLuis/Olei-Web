@@ -1,17 +1,17 @@
-import { ProductCartInterface } from '@/interfaces/productCart';
+import ProductInterface from '@/interfaces/product';
 import { createContext } from 'react';
 
 
 interface ContextProps {
-    cart: ProductCartInterface[];
+    cart: ProductInterface[];
     numberOfItems: number;
     subTotal: number;
     tax: number;
     total: number;
 
     // Methods
-    addProductToCart: (product: ProductCartInterface) => void;
-    removeCartProduct: (product: ProductCartInterface) => void;
+    addProductToCart: (product: ProductInterface) => void;
+    removeCartProduct: (product: ProductInterface) => void;
 }
 
 

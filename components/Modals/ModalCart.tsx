@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductShoppingCard from '../Cards/ProductShoppingCard';
 import { useRouter } from 'next/router';
 import { CartContext } from '@/context';
-import { ProductCartInterface } from '@/interfaces/productCart';
 import { format } from '@/utils/currency';
+import ProductInterface from '@/interfaces/product';
 
 
 interface Props {
@@ -49,7 +49,7 @@ const ModalCart = ({
 
                 <div className={styles.content}>
                     {
-                        cart.map((product: ProductCartInterface, Index) =>
+                        cart.map((product: ProductInterface, Index) =>
                             <ProductShoppingCard product={product} key={Index} />
                         )
                     }
