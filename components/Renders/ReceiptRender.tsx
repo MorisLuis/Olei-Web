@@ -1,19 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "../../styles/Pages/Receipt.module.scss";
 
 import ProductInterface from '@/interfaces/product';
-import {ProductCardShort} from '../Cards/ProductCardShort';
+import { ProductCardShort } from '../Cards/ProductCardShort';
 import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
 import OrderInterface from '@/interfaces/order';
 import { format } from '@/utils/currency';
 
 
 export const ReceiptRender = () => {
-    const { query } = useRouter()
-    const orderCookies: OrderInterface[] = localStorage?.getItem('order')  ? JSON.parse(localStorage?.getItem('order') !) : []
-    const orderSelect : OrderInterface | undefined = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt)
+    const { query } = useRouter();
+    const [orderSelect, setOrderSelect] = useState<OrderInterface | undefined>(undefined);
 
+    useEffect(() => {
+        const orderCookies: OrderInterface[] = localStorage?.getItem('order') ? JSON.parse(localStorage?.getItem('order')!) : [];
+        const selectedOrder = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt);
+        setOrderSelect(selectedOrder);
+    }, [query.receipt]);
 
     return (
         <div className={styles.receiptRender}>
@@ -45,7 +48,7 @@ export const ReceiptRender = () => {
 
             <div className={styles.productsDetails}>
                 {
-                    orderSelect?.products.map((product: ProductInterface, Index) =>
+                    orderSelect?.products.map((product: ProductInterface, Index: number) =>
                         <ProductCardShort key={Index} product={product} counterVisible={false} />
                     )
                 }
