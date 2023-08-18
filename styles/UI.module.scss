@@ -1,7 +1,6 @@
 @import "./main.scss";
 
 .table {
-    font-size: $font-sm;
     background-color: $background-color;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     border-radius: 1em;
@@ -81,7 +80,6 @@
                         margin-bottom: 0.5em;
                         display: flex;
                         flex-direction: column;
-                        font-size: $font-sm-phone;
 
                         >div {
                             margin-left: 1em;
@@ -93,6 +91,7 @@
 
                             p {
                                 max-width: none;
+                                font-size: $font-sm-phone;
                             }
                         }
                     }
