@@ -78,7 +78,7 @@
                         margin-bottom: 0.5em;
                         display: flex;
                         flex-direction: column;
-                        font-size: 10px;
+                        font-size: $font-sm;
 
                         >div{
                             margin-left: 1em;
@@ -186,7 +186,7 @@
 
         @include respond(phone) {
             max-width: 120px;
-            font-size: 10px;
+            font-size: $font-sm;
         }
     }
 
