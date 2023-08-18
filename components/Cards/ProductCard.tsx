@@ -56,13 +56,9 @@ const ProductCard = ({ product }: Props) => {
                         <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product?.CodigoProducto}</p>
                     </div>
 
-                    <div>
-                        <p className="align"><strong>Marca: </strong>{product.Marca}</p>
-                    </div>
+                    <div><p className="align"><strong>Marca: </strong>{product.Marca}</p></div>
 
-                    <div>
-                        <p className='text-ellipsis align'><strong>Familia: </strong>{product?.Familia}</p>
-                    </div>
+                    <div><p className='text-ellipsis align'><strong>Familia: </strong>{product?.Familia}</p></div>
 
                     <div className='display-flex align'>
                         {
