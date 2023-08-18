@@ -56,10 +56,16 @@ const ProductCard = ({ product }: Props) => {
                         <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product?.CodigoProducto}</p>
                     </div>
 
-                    <div><p className="align"><strong>Marca: </strong>{product.Marca}</p></div>
+                    <div>
+                        <p className="align"><strong>Marca: </strong>{product.Marca}</p>
+                    </div>
 
-                    <div><p className='text-ellipsis align'><strong>Familia: </strong>{product?.Familia}</p></div>
+                    <div>
+                        <p className='text-ellipsis align'><strong>Familia: </strong>{product?.Familia}</p>
+                    </div>
+                </div>
 
+                <div className={`${styles.counterColumn} display-flex`}>
                     <div className='display-flex align'>
                         {
                             product?.Existencia && product?.Existencia < 1 ?
@@ -70,9 +76,6 @@ const ProductCard = ({ product }: Props) => {
                                 </div>
                         }
                     </div>
-                </div>
-
-                <div className={`${styles.counterColumn} display-flex`}>
                     <div className={styles.price}>
                         {
                             product?.Precio ?

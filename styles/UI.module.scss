@@ -34,8 +34,6 @@
             border-style: none solid solid solid;
             padding-left: 1em;
 
-            
-
             &:last-child {
                 border-radius: 0em 0em 1em 1em;
             }
@@ -66,12 +64,17 @@
                 }
 
                 .notCounter {
-                    width: calc((100% / 6) * 4);
+                    width: calc((100% / 6) * 3);
 
                     >div {
                         margin-right: 1em;
                         width: 100%;
+
+                        >p>strong {
+                            display: none;
+                        }
                     }
+
 
                     @include respond(phone) {
                         width: 100%;
@@ -80,10 +83,15 @@
                         flex-direction: column;
                         font-size: $font-sm;
 
-                        >div{
+                        >div {
                             margin-left: 1em;
 
-                            p{
+                            >p>strong {
+                                display: inline;
+                                margin-right: 0.5em;
+                            }
+
+                            p {
                                 max-width: none;
                             }
                         }
@@ -98,7 +106,11 @@
                 }
 
                 .counterColumn {
-                    width: calc((100% / 6) * 2);
+                    width: calc((100% / 6) * 3);
+
+                    >div{
+                        width: 100%;
+                    }
 
                     .price {
                         font-weight: bold;
@@ -109,8 +121,13 @@
                     @include respond(phone) {
                         width: 100%;
                         justify-content: flex-end;
-    
-                        
+                        flex-direction: column;
+
+                        >div{
+                            justify-content: flex-end;
+                            display: flex;
+                            margin-bottom: 0.5em;
+                        }
                     }
                 }
 
@@ -203,9 +220,9 @@
 
     .action {
         background-color: $color-secondary;
-        border-radius: 2.5px;
-        border: 1px solid $color-cuaternary;
-        padding: 0.25em 0.75em;
+        border-radius: 5px;
+        border: 1px solid $color-border-secondary;
+        padding: 0.5em 0.75em;
     }
 
     .number {
@@ -225,7 +242,6 @@
     @include respond(phone) {
         justify-content: flex-end;
         width: 100%;
-        //padding-top: 1em;
 
         .action {
             height: 30px;
