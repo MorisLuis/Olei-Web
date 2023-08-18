@@ -17,7 +17,7 @@
         }
 
         p:not(:nth-child(1)) {
-            flex: 1 1 calc(70% / 6);
+            flex: 0 0 calc(70% / 6);
         }
 
         @include respond(phone) {
@@ -34,13 +34,23 @@
             border-style: none solid solid solid;
             padding-left: 1em;
 
-            &:last-child{
+            
+
+            &:last-child {
                 border-radius: 0em 0em 1em 1em;
             }
 
             .principalData {
                 flex: 0 0 30%;
                 font-weight: bold;
+
+                >div {
+                    margin-right: 1em;
+                }
+
+                @include respond(phone) {
+                    margin-bottom: 0.5em;
+                }
             }
 
             .secondaryData {
@@ -48,60 +58,64 @@
 
                 .headersMovil {
                     display: none;
-                }
 
-                .notCounter {
-                    width: 80%;
-
-                    .price{
-                        font-weight: bold;
-                    }
-
-                    >div {
-                        width: 100%;
-                    }
-                }
-
-                .counterColumn{
-                    width: 20%;
-                }
-
-                @include respond(phone) {
-                    .counterColumn{
-                        width: 100%;
-                        justify-content: flex-end;
-
-                        div{
-                            width: 30%;
-                        }
-                    }
-                }
-            }
-
-            @include respond(phone) {
-                flex-direction: column;
-
-                .secondaryData {
-                    flex-direction: column;
-
-
-                    .notCounter {
-                        width: 100%;
-                        height: 30px;
-
-                        >div:not(:first-child) {
-                            margin-left: 1em;
-                        }
-                    }
-                    .headersMovil {
+                    @include respond(phone) {
                         display: block;
                         margin-right: 0.5em;
                     }
+                }
 
-                    div:nth-child(3) {
-                        display: none;
+                .notCounter {
+                    width: calc((100% / 6) * 4);
+
+                    >div {
+                        margin-right: 1em;
+                        width: 100%;
                     }
 
+                    @include respond(phone) {
+                        width: 100%;
+                        margin-bottom: 0.5em;
+                        display: flex;
+                        flex-direction: column;
+                        font-size: 10px;
+
+                        >div{
+                            margin-left: 1em;
+
+                            p{
+                                max-width: none;
+                            }
+                        }
+                    }
+
+                    @include respond(tab-port) {
+                        p {
+                            width: 100%;
+                            max-width: 80px;
+                        }
+                    }
+                }
+
+                .counterColumn {
+                    width: calc((100% / 6) * 2);
+
+                    .price {
+                        font-weight: bold;
+                        width: 100%;
+                        margin-right: 0.5em;
+                    }
+
+                    @include respond(phone) {
+                        width: 100%;
+                        justify-content: flex-end;
+    
+                        
+                    }
+                }
+
+                @include respond(phone) {
+                    flex-direction: column;
                 }
             }
 
@@ -115,6 +129,11 @@
                 p:not(:nth-child(1)) {
                     max-width: 80px;
                 }
+            }
+
+            @include respond(phone) {
+                display: flex;
+                flex-direction: column;
             }
 
             &:hover {
@@ -133,7 +152,7 @@
         height: 100%;
         font-size: $font-sm;
 
-        svg{
+        svg {
             margin-left: 0.5em;
         }
 
@@ -152,7 +171,7 @@
             color: $color-blue;
         }
 
-        &.gray{
+        &.gray {
             background-color: rgba($color-gray, 0.2);
             color: $color-gray;
         }
@@ -167,11 +186,12 @@
 
         @include respond(phone) {
             max-width: 120px;
+            font-size: 10px;
         }
     }
 
-    &.option{
-        &:hover{
+    &.option {
+        &:hover {
             opacity: 70%;
         }
     }
@@ -193,7 +213,6 @@
     }
 
     &:hover {
-
         .action {
             background-color: $background-color;
 
@@ -201,7 +220,6 @@
                 border: 1px solid $text-color;
             }
         }
-
     }
 
     @include respond(phone) {
@@ -219,7 +237,7 @@
     }
 }
 
-.filter{
+.filter {
     width: 400px;
     height: 300px;
     position: absolute;
@@ -230,58 +248,55 @@
     @include respond(phone) {
         width: 100%;
     }
-    
-    .titles{
+
+    .titles {
         width: 50%;
         padding: 0.5em;
         background-color: $color-primary;
-        border-radius: 0.5em 0em 0em  0.5em;
+        border-radius: 0.5em 0em 0em 0.5em;
         border: 1px solid $color-border-secondary;
 
-        .titleOption{
+        .titleOption {
             margin-bottom: 0.5em;
             padding: 0em 0.5em;
             border: 1px solid transparent;
             border-radius: 3px;
-            &.active{
+
+            &.active {
                 background-color: $color-secondary;
                 border: 1px solid $color-border;
             }
         }
 
-
-        :hover{
+        :hover {
             background-color: $color-secondary;
             border: 1px solid $color-border;
         }
     }
 
-    .options{
+    .options {
         width: 50%;
-        border-radius:0em 0.5em 0.5em 0em;
+        border-radius: 0em 0.5em 0.5em 0em;
         background-color: $color-primary;
         padding: 1em;
         border: 1px solid $color-border-secondary;
         border-left: 0px solid transparent;
 
-
-
-        label{
+        label {
             margin-bottom: 0.5em;
         }
 
-        p{
+        p {
             margin-left: 0.5em;
         }
     }
 }
 
-.backdropTransparent{
+.backdropTransparent {
     width: 100vw;
     height: 100vh;
     position: absolute;
     top: 0px;
     left: 0px;
     z-index: 9998;
-    background-color: aqua;
 }

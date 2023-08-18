@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from "../../styles/UI.module.scss";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
-import styles from "../../styles/UI.module.scss";
 
 interface Props {
     children: any;
@@ -21,7 +22,7 @@ export const Tag = ({
 }: Props) => {
     return (
         <div className={cursor ? `${styles.tag} ${styles.option} display-flex align cursor` : `${styles.tag} display-flex align`} onClick={onClose}>
-            <p className={`${styles.content} ${styles[color]} display-flex align text-ellipsis cursor`} style={{ fontWeight: "normal" }}>
+            <p className={`${styles.content} ${styles[color]} display-flex text-ellipsis cursor`} style={{ fontWeight: "normal" }}>
                 {children}
                 {
                     close &&

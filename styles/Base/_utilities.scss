@@ -100,10 +100,10 @@
 
 //Others
 .text-ellipsis {
-    display: inline-block;
+    //display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 .divider{

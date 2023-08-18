@@ -1,8 +1,8 @@
-import { CartContext } from '@/context';
-import ProductInterface from '@/interfaces/product';
 import React, { useContext, useState } from 'react'
 import styles from "../../styles/UI.module.scss";
 
+import { CartContext } from '@/context';
+import ProductInterface from '@/interfaces/product';
 import Counter from '../Ui/Counter';
 import { Tag } from '../Ui/Tag';
 
@@ -53,23 +53,15 @@ const ProductCard = ({ product }: Props) => {
             <div className={`${styles.secondaryData} display-flex space-between`}>
                 <div className={`${styles.notCounter} display-flex space-between allCenter`}>
                     <div>
-                        <p className='text-ellipsis display-flex align'>{product?.CodigoProducto}</p>
+                        <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product?.CodigoProducto}</p>
                     </div>
 
                     <div>
-                        <p>{product.Marca}</p>
-                    </div>
-
-                    <div className={styles.price}>
-                        {
-                            product?.Precio ?
-                                <p>$ {product?.Precio}</p> :
-                                <Tag color="blue">No tiene precio</Tag>
-                        }
+                        <p className="align"><strong>Marca: </strong>{product.Marca}</p>
                     </div>
 
                     <div>
-                        <p>{product?.Familia}</p>
+                        <p className='text-ellipsis align'><strong>Familia: </strong>{product?.Familia}</p>
                     </div>
 
                     <div className='display-flex align'>
@@ -85,6 +77,13 @@ const ProductCard = ({ product }: Props) => {
                 </div>
 
                 <div className={`${styles.counterColumn} display-flex`}>
+                    <div className={styles.price}>
+                        {
+                            product?.Precio ?
+                                <p>$ {product?.Precio}</p> :
+                                <Tag color="blue">No tiene precio</Tag>
+                        }
+                    </div>
                     <Counter
                         currentValue={product?.Cantidad ? product?.Cantidad : tempCartProduct.Cantidad || 0}
                         maxValue={10}

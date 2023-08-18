@@ -28,9 +28,9 @@ const Table = ({ data }: Props) => {
                 <p>Nombre</p>
                 <p>Codigo</p>
                 <p>Marca</p>
-                <p>Precio (MXN)</p>
                 <p>Familia</p>
                 <p>Existencia</p>
+                <p>Precio (MXN)</p>
                 <p></p>
             </div>
 
