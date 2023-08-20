@@ -76,8 +76,6 @@ export const CartProvider = ({ children }: any) => {
 
     const addProductToCart = (product: ProductInterface) => {
 
-        console.log({product})
-
         const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
 

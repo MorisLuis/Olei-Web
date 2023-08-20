@@ -1,17 +1,18 @@
 import { api } from '@/api/api';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import React, { useContext, useState } from 'react'
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faSquare, faFile } from '@fortawesome/free-solid-svg-icons';
 import styles from "./../../styles/Navigation/Header.module.scss"
 import { SearchGlobal } from '../Inputs/searchGlobal';
 import { CartContext } from '@/context';
+import FiltersInterface from '@/interfaces/filters';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>,
-    setFilterActive?: any,
-    filterActive?: any
+    filterActive?: FiltersInterface,
+    setFilterActive: Dispatch<SetStateAction<FiltersInterface>>
 }
 
 const Header = ({

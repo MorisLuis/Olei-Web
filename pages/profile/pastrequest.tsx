@@ -35,8 +35,14 @@ const PedidosAnteriores = () => {
 
             <ModalRequest
                 visible={query.receipt}
-                onClose={() => back()}
+                title="Recibo"
+
+                //Conditions
                 receipt
+                actionsVisible
+
+                //Methods
+                onClose={() => back()}
             >
                 <ReceiptRender />
             </ModalRequest>

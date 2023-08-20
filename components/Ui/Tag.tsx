@@ -22,7 +22,7 @@ export const Tag = ({
 }: Props) => {
     return (
         <div className={cursor ? `${styles.tag} ${styles.option} display-flex align cursor` : `${styles.tag} display-flex align`} onClick={onClose}>
-            <p className={`${styles.content} ${styles[color]} display-flex text-ellipsis cursor`} style={{ fontWeight: "normal" }}>
+            <p className={`${styles.content} ${styles[color]} display-flex align text-ellipsis cursor`} style={{ fontWeight: "normal" }}>
                 {children}
                 {
                     close &&

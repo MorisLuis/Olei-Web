@@ -1,15 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { ModalSearch } from '../Modals/ModalSearch';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import styles from "../../styles/Components/SearchGlobal.module.scss";
+import FiltersInterface from '@/interfaces/filters';
 
 const products = [
     "Producto 1", "Bujias", "Tornillos", "Clavos"
 ]
 
 interface Props {
-    setFilterActive?: any,
-    filterActive?: any
+    filterActive?: FiltersInterface,
+    setFilterActive: Dispatch<SetStateAction<FiltersInterface>>
 }
 
 export const SearchGlobal = ({ setFilterActive, filterActive }: Props) => {
@@ -32,12 +33,16 @@ export const SearchGlobal = ({ setFilterActive, filterActive }: Props) => {
 
     const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
-            setFilterActive([...filterActive, inputValue])
+
             setInputValue('');
             setModalSearchVisible(false);
             if (inputRef.current) {
                 inputRef.current.blur();
             }
+            setFilterActive((prevState: FiltersInterface) => ({
+                ...prevState,
+                name: inputValue
+            }))
         }
     };
 
@@ -68,7 +73,10 @@ export const SearchGlobal = ({ setFilterActive, filterActive }: Props) => {
                 {
                     products.map((producto: string, index: number) =>
                         <SearchItemCard key={index} productName={producto} onclick={(value: string) => {
-                            setFilterActive([...filterActive, value])
+                            setFilterActive((prevState: FiltersInterface) => ({
+                                ...prevState,
+                                name: producto
+                            }))
                         }} />
                     )
                 }

@@ -1,14 +1,15 @@
+import FiltersInterface from '@/interfaces/filters'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { Dispatch, ReactNode, SetStateAction, useState } from 'react'
 import ModalCart from '../Modals/ModalCart'
 import Footer from '../Navigation/Footer'
 import Header from '../Navigation/Header'
 
 interface Props {
-    children: any,
-    filterActive?: any,
-    setFilterActive?: any
+    children: ReactNode,
+    filterActive?: FiltersInterface,
+    setFilterActive: Dispatch<SetStateAction<FiltersInterface>>
 }
 
 export const Layout = ({ children, filterActive, setFilterActive}: Props) => {
