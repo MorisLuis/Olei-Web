@@ -139,6 +139,7 @@ export default function Home({ productsProps }: Props) {
     </>
   )
 }
+
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const page = ctx.query.page;
   const limit = ctx.query.limit;

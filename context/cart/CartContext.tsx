@@ -13,6 +13,8 @@ interface ContextProps {
     addProductToCart: (product: ProductInterface) => void;
     removeCartProduct: (product: ProductInterface) => void;
     addOrderToCart: (product: ProductInterface[]) => void;
+    removeAllCart: () => void;
+
 }
 
 

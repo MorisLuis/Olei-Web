@@ -37,24 +37,23 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
     const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
 
-            // Construir la URL base con page y limit
+            // Construct the base URL with pagination settings.
             let url = `/products?page=${page}&limit=${limit}`;
 
-            // Función auxiliar para agregar un parámetro de consulta si está definido
+            //Add a query parameter to the URL if the value is defined and not empty.
             const addQueryParam = (paramName: string, value: any) => {
                 if (value !== null && value !== "" && value !== undefined) {
                     url += `&${paramName}=${value}`;
                 }
             };
 
-            // Agregar los parámetros de consulta utilizando la función auxiliar
+            // Add specific query parameters based on filters.
             addQueryParam("nombre", query.nombre);
             addQueryParam("marca", filtersActive?.marca);
             addQueryParam("familia", filtersActive?.familia);
             addQueryParam("folio", filtersActive?.folio);
             addQueryParam("enStock", filtersActive?.enStock);
 
-            // Finalmente, redirigir a la URL construida
             push(url);
 
             setInputValue('');
@@ -64,10 +63,38 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
             }
             setFiltersActive?.((prevState: FiltersInterface) => ({
                 ...prevState,
-                name: inputValue
+                nombre: inputValue
             }))
         }
     };
+
+    const handleSelectOption = (producto: string) => {
+        console.log({producto})
+        setFiltersActive?.((prevState: FiltersInterface) => ({
+            ...prevState,
+            nombre: producto
+        }))
+
+        // Construct the base URL with pagination settings.
+        let url = `/products?page=${page}&limit=${limit}`;
+
+        //Add a query parameter to the URL if the value is defined and not empty.
+        const addQueryParam = (paramName: string, value: any) => {
+            if (value !== null && value !== "" && value !== undefined) {
+                url += `&${paramName}=${value}`;
+            }
+        };
+
+        // Add specific query parameters based on filters.
+        addQueryParam("nombre", producto);
+        addQueryParam("marca", filtersActive?.marca);
+        addQueryParam("familia", filtersActive?.familia);
+        addQueryParam("folio", filtersActive?.folio);
+        addQueryParam("enStock", filtersActive?.enStock);
+
+        push(url);
+
+    }
 
     const handleInputChange = async (event: any) => {
         setInputValue(event.target.value);
@@ -76,34 +103,6 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
         const { data: { products } } = await api.get(`/api/search?term=${term}`);
         setSearchResults(products)
     };
-
-    const handleSelectOption = (producto: string) => {
-        setFiltersActive?.((prevState: FiltersInterface) => ({
-            ...prevState,
-            name: producto
-        }))
-
-        // Construir la URL base con page y limit
-        let url = `/products?page=${page}&limit=${limit}`;
-
-        // Función auxiliar para agregar un parámetro de consulta si está definido
-        const addQueryParam = (paramName: string, value: any) => {
-            if (value !== null && value !== "" && value !== undefined) {
-                url += `&${paramName}=${value}`;
-            }
-        };
-
-        // Agregar los parámetros de consulta utilizando la función auxiliar
-        addQueryParam("nombre", producto);
-        addQueryParam("marca", filtersActive?.marca);
-        addQueryParam("familia", filtersActive?.familia);
-        addQueryParam("folio", filtersActive?.folio);
-        addQueryParam("enStock", filtersActive?.enStock);
-
-        // Finalmente, redirigir a la URL construida
-        push(url);
-
-    }
 
     return (
         <>

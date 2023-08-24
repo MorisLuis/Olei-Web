@@ -27,13 +27,15 @@ export const CartProvider = ({ children }: any) => {
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
     useEffect(() => {
+        console.log({cartcookie: Cookie.get('cart')})
         if (Cookie.get('cart') === "[]") return;
+
+        console.log("kekekekek")
 
         try {
             const cookieProducts: ProductInterface[] = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
-            console.log({ error })
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: [] });
         }
     }, []);
@@ -45,6 +47,7 @@ export const CartProvider = ({ children }: any) => {
 
 
     useEffect(() => {
+        console.log({cart: state.cart})
         const numberOfItems = state.cart.reduce((prev, current: ProductInterface) => {
             if(!current.Existencia)  return prev;
             if (current?.Existencia >= 1) {
@@ -99,9 +102,13 @@ export const CartProvider = ({ children }: any) => {
         dispatch({ type: '[Cart] - Update products in cart', payload: product });
     }
 
-
     const removeCartProduct = (product: ProductInterface) => {
         dispatch({ type: '[Cart] - Remove product in cart', payload: product });
+    }
+
+    const removeAllCart = () => {
+        dispatch({ type: '[Cart] - Remove All cart', payload: [] });
+
     }
 
 
@@ -112,7 +119,8 @@ export const CartProvider = ({ children }: any) => {
             // Methods
             addProductToCart,
             removeCartProduct,
-            addOrderToCart
+            addOrderToCart,
+            removeAllCart
         }}>
             {children}
         </CartContext.Provider>

@@ -7,8 +7,10 @@ type CartActionType =
     | { type: '[Cart] - LoadCart from cookies | storage', payload: ProductInterface[] }
     | { type: '[Cart] - Update products in cart', payload: ProductInterface[] }
     | { type: '[Cart] - Change cart quantity', payload: ProductInterface }
+    | { type: '[Cart] - Remove All cart', payload: [] }
     | { type: '[Cart] - Remove product in cart', payload: ProductInterface }
     | { type: '[Order] - Create order', payload: OrderInterface }
+
     | {
         type: '[Cart] - Update order summary',
         payload: {
@@ -48,6 +50,12 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
             return {
                 ...state,
                 cart: state.cart.filter((product: ProductInterface) => !(product.CodigoProducto === action.payload.CodigoProducto && product.Id_Marca === action.payload.Id_Marca))
+            }
+
+        case '[Cart] - Remove All cart':
+            return {
+                ...state,
+                cart: []
             }
 
         case '[Cart] - Update order summary':

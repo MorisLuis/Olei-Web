@@ -17,7 +17,7 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 const Cart = () => {
 
     const { push } = useRouter()
-    const { cart, subTotal, total, tax, numberOfItems } = useContext(CartContext);
+    const { cart, subTotal, total, tax, numberOfItems,removeAllCart} = useContext(CartContext);
     const [requestOpen, setRequestOpen] = useState(false)
 
     const submitOrder = () => {
@@ -57,7 +57,6 @@ const Cart = () => {
         const existingOrder = existingOrderString ? JSON.parse(existingOrderString) : []; //TEMPORAL
         const ordersArray = Array.isArray(existingOrder) ? existingOrder : [existingOrder]; //TEMPORAL
 
-
         const Order = {
             products: productOrdered,
             Cantidad: numberOfItems,
@@ -69,13 +68,15 @@ const Cart = () => {
             Entregado: false
         }
 
-
         const updatedOrders = [...ordersArray, Order]; //TEMPORAL
 
         localStorage.setItem('order', JSON.stringify(updatedOrders));
 
-        Cookies.remove('cart');
-        push(`/cart/success?order=${Order.Folio}`)
+        if (updatedOrders) {
+            removeAllCart()
+            push(`/cart/success?order=${Order.Folio}`)
+        }
+
     }
 
     const productsExistent = cart.filter((product) => product.Existencia && product.Existencia > 0)
