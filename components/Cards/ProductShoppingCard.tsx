@@ -78,7 +78,9 @@ const ProductShoppingCard = ({ product }: Props) => {
                     <div className='display-flex'>
                         <Counter
                             currentValue={product?.Cantidad || 0}
-                            maxValue={10}
+                            maxValue={
+                                product?.Existencia && product?.Existencia < 0 ? null: product?.Existencia 
+                            }
                             updatedQuantity={onUpdateQuantity}
                         />
                     </div>

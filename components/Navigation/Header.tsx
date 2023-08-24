@@ -40,7 +40,7 @@ const Header = ({
                 <div className={`${styles.content} display-flex space-between`}>
 
                     <div className={`${styles.left} display-flex align`}>
-                        <div className={`${styles.logo} cursor`} onClick={() => push("/")}>
+                        <div className={`${styles.logo} cursor`} onClick={() => push("/products?page=1&limit=20")}>
                             Rosco
                         </div>
                         {

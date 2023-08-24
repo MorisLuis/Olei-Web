@@ -6,7 +6,7 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     currentValue: number;
-    maxValue?: number;
+    maxValue?: number | null;
 
     // Methods
     updatedQuantity: (newValue: number) => void;
@@ -17,10 +17,12 @@ const Counter = ({
     maxValue,
     updatedQuantity
 }: Props) => {
+    
 
     const addOrRemove = (value: number) => {
+
         if (value === -1) {
-            if (currentValue <= 0) return;
+            if (currentValue < 0) return;
             return updatedQuantity(currentValue - 1);
         }
 

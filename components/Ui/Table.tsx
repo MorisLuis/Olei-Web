@@ -12,15 +12,26 @@ interface Props {
 
 const Table = ({ data }: Props) => {
 
-    const { cart } = useContext(CartContext)
+    const { cart, cartPending } = useContext(CartContext)
     const productsToDisplay: ProductInterface[] = [...data];
 
+    // Define an array of ProductInterface objects to represent products to be displayed
     const productsWithCartInfo: ProductInterface[] = productsToDisplay.map((product: ProductInterface) => {
+        // Find the corresponding product in the 'cart' array using matching properties
         const cartProduct = cart.find((cartItem) => cartItem.CodigoProducto === product.CodigoProducto && cartItem.Id_Marca === product.Id_Marca);
 
+        // Find the corresponding product in the 'cartPending' array using matching properties
+        const cartProductPending = cartPending.find((cartItem) => cartItem.CodigoProducto === product.CodigoProducto && cartItem.Id_Marca === product.Id_Marca);
+
+        // Calculate the quantity of the product in the active cart ('cart') and pending cart ('cartPending')
         const quantity = cartProduct !== undefined ? cartProduct.Cantidad : 0;
-        return { ...product, Cantidad: quantity };
+        const quantityPending = cartProductPending !== undefined ? cartProductPending.Cantidad : 0;
+
+        // Create a new object that combines the product information with the calculated quantities
+        // If 'quantity' from 'cart' is available, use it; otherwise, use 'quantityPending' from 'cartPending'
+        return { ...product, Cantidad: quantity || quantityPending };
     });
+
 
     return (
         <div className={`${styles.table}`}>
@@ -36,7 +47,7 @@ const Table = ({ data }: Props) => {
 
             <div className={styles.content}>
                 {
-                    productsWithCartInfo?.slice(0, 100).map((product: ProductInterface, index: number) => {
+                    productsWithCartInfo?.map((product: ProductInterface, index: number) => {
                         return (
                             <ProductCard product={product} key={index} />
                         )

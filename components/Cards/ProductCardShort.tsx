@@ -63,7 +63,9 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
                         counterVisible &&
                         <Counter
                             currentValue={product?.Cantidad || 0}
-                            maxValue={10}
+                            maxValue={
+                                product?.Existencia && product?.Existencia < 0 ? null: product?.Existencia 
+                            }
                             updatedQuantity={onUpdateQuantity}
                         />
                     }

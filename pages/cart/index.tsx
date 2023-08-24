@@ -16,7 +16,7 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 const Cart = () => {
 
     const { push } = useRouter()
-    const { cart, subTotal, total, tax, numberOfItems,removeAllCart} = useContext(CartContext);
+    const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart} = useContext(CartContext);
     const [requestOpen, setRequestOpen] = useState(false)
 
     const submitOrder = () => {
@@ -92,7 +92,7 @@ const Cart = () => {
                 </div>
 
                 {
-                    productsExistent.length > 0 ?
+                    cart.length > 0 ?
                         <div className={styles.content}>
                             <div className={`${styles.search} display-flex space-between`}>
                                 <input type="text" className='input' placeholder='Buscar producto...' />
@@ -101,7 +101,7 @@ const Cart = () => {
 
                             <div className={styles.table}>
                                 {
-                                    productsExistent.map((product: ProductInterface, Index) =>
+                                    cart.map((product: ProductInterface, Index) =>
                                         <ProductCardShort product={product} key={Index} />
                                     )
                                 }
@@ -119,7 +119,7 @@ const Cart = () => {
 
                                 {
                                     requestOpen &&
-                                    productNoStock.slice(0, 2).map((product: ProductInterface, Index) =>
+                                    cartPending.map((product: ProductInterface, Index) =>
                                         <ProductCardShort product={product} key={Index} />
                                     )
                                 }
@@ -153,7 +153,7 @@ const Cart = () => {
                 <div className={styles.footer}>
                     <div className={`${styles.footer__content} display-flex align`}>
                         {
-                            productsExistent.length > 0 &&
+                            cart.length > 0 &&
                             <>
                                 <p className={styles.total}>Total (Incluye IVA) : {format(total)} </p>
                                 <button className='button display-flex allCenter' onClick={submitOrder}>

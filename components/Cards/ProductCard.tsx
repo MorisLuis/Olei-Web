@@ -31,6 +31,7 @@ const ProductCard = ({ product }: Props) => {
     })
 
     const onUpdateQuantity = async (Cantidad: number) => {
+
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
             Cantidad
@@ -41,6 +42,7 @@ const ProductCard = ({ product }: Props) => {
             Cantidad
         });
     }
+
 
     return (
         <div className={`${styles.item} cursor display-flex`}>
@@ -85,7 +87,9 @@ const ProductCard = ({ product }: Props) => {
                     </div>
                     <Counter
                         currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
-                        maxValue={product?.Existencia}
+                        maxValue={
+                            product?.Existencia && product?.Existencia < 0 ? null: product?.Existencia 
+                        }
                         updatedQuantity={onUpdateQuantity}
                     />
                 </div>

@@ -6,7 +6,7 @@ import ProductInterface from '@/interfaces/product';
 
 export interface CartState {
     cart: ProductInterface[];
-    cartPending:  ProductInterface[];
+    cartPending: ProductInterface[];
     numberOfItems: number;
     subTotal: number;
     tax: number;
@@ -41,13 +41,26 @@ export const CartProvider = ({ children }: any) => {
 
 
     useEffect(() => {
+        if (Cookie.get('cartPending') === "[]") return;
+
+        try {
+            const cookieProducts: ProductInterface[] = Cookie.get('cartPending') ? JSON.parse(Cookie.get('cartPending')!) : []
+            dispatch({ type: '[CartPending] - LoadCart from cookies | storage', payload: cookieProducts });
+        } catch (error) {
+            dispatch({ type: '[CartPending] - LoadCart from cookies | storage', payload: [] });
+        }
+    }, []);
+
+
+    useEffect(() => {
         Cookie.set('cart', JSON.stringify(state.cart));
-    }, [state.cart]);
+        Cookie.set('cartPending', JSON.stringify(state.cartPending));
+    }, [state.cart, state.cartPending]);
 
 
     useEffect(() => {
         const numberOfItems = state.cart.reduce((prev, current: ProductInterface) => {
-            if(!current.Existencia)  return prev;
+            if (!current.Existencia) return prev;
             if (current?.Existencia >= 1) {
                 return current?.Cantidad + prev;
             }
@@ -76,25 +89,50 @@ export const CartProvider = ({ children }: any) => {
 
 
     const addProductToCart = (product: ProductInterface) => {
-        if(product.Cantidad < 0) return;
 
-        const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
-        if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
+        if (product.Existencia && product.Existencia <= 0) {
+            const productInCartPending = state.cartPending.some(p => p.CodigoProducto === product.CodigoProducto);
+            if (!productInCartPending) {
+                return dispatch({ type: '[CartPending] - Update products in cartPending', payload: [...state.cartPending, product] })
+            }
 
-        const productInCartAndSameMarca = state.cart.some(p => p.CodigoProducto === product.CodigoProducto && p.Id_Marca === product.Id_Marca);
-        if (!productInCartAndSameMarca) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
+            const productInCartPendingAndSameMarca = state.cartPending.some(p => p.CodigoProducto === product.CodigoProducto && p.Id_Marca === product.Id_Marca);
+            if (!productInCartPendingAndSameMarca) {
+                return dispatch({ type: '[CartPending] - Update products in cartPending', payload: [...state.cartPending, product] })
+            }
 
-        // Acumular
-        const updatedProducts = state.cart.map((p: ProductInterface) => {
-            if (p.CodigoProducto !== product.CodigoProducto) return p;
-            if (p.Id_Marca !== product.Id_Marca) return p;
+            const updatedProducts = state.cartPending.map((p: ProductInterface) => {
+                if (p.CodigoProducto !== product.CodigoProducto) return p;
+                if (p.Id_Marca !== product.Id_Marca) return p;
 
-            // Actualizar la cantidad 
-            p.Cantidad = product.Cantidad;
-            return p;
-        });
+                p.Cantidad = product.Cantidad;
+                return p;
+            });
 
-        dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
+            return dispatch({ type: '[CartPending] - Update products in cartPending', payload: updatedProducts })
+
+        } else {
+            const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
+            if (!productInCart) {
+                return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
+            }
+
+            const productInCartAndSameMarca = state.cart.some(p => p.CodigoProducto === product.CodigoProducto && p.Id_Marca === product.Id_Marca);
+            if (!productInCartAndSameMarca) {
+                return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
+            }
+
+            const updatedProducts = state.cart.map((p: ProductInterface) => {
+                if (p.CodigoProducto !== product.CodigoProducto) return p;
+                if (p.Id_Marca !== product.Id_Marca) return p;
+
+                p.Cantidad = product.Cantidad;
+                return p;
+            });
+
+            dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
+        }
+
     }
 
     const addOrderToCart = (product: ProductInterface[]) => {
