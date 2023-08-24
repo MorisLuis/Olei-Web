@@ -84,8 +84,8 @@ const ProductCard = ({ product }: Props) => {
                         }
                     </div>
                     <Counter
-                        currentValue={product?.Cantidad ? product?.Cantidad : tempCartProduct.Cantidad || 0}
-                        maxValue={10}
+                        currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
+                        maxValue={product?.Existencia}
                         updatedQuantity={onUpdateQuantity}
                     />
                 </div>

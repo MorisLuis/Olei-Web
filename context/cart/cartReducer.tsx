@@ -52,6 +52,8 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
                 cart: state.cart.filter((product: ProductInterface) => !(product.CodigoProducto === action.payload.CodigoProducto && product.Id_Marca === action.payload.Id_Marca))
             }
 
+
+
         case '[Cart] - Remove All cart':
             return {
                 ...state,

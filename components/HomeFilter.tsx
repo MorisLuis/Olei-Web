@@ -62,8 +62,6 @@ const HomeFilter = ({
         .filter((filter) => filter[1] !== null && filter[1] !== false)
         .map((filter) => filter[1] === true ? [filter[0], "En Stock"] : filter)
 
-    console.log({filtersActive})
-
     return (
         <>
             {

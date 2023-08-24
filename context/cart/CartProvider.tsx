@@ -6,6 +6,7 @@ import ProductInterface from '@/interfaces/product';
 
 export interface CartState {
     cart: ProductInterface[];
+    cartPending:  ProductInterface[];
     numberOfItems: number;
     subTotal: number;
     tax: number;
@@ -15,6 +16,7 @@ export interface CartState {
 
 const CART_INITIAL_STATE: CartState = {
     cart: [],
+    cartPending: [],
     numberOfItems: 0,
     subTotal: 0,
     tax: 0,
@@ -27,10 +29,7 @@ export const CartProvider = ({ children }: any) => {
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
     useEffect(() => {
-        console.log({cartcookie: Cookie.get('cart')})
         if (Cookie.get('cart') === "[]") return;
-
-        console.log("kekekekek")
 
         try {
             const cookieProducts: ProductInterface[] = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
@@ -47,7 +46,6 @@ export const CartProvider = ({ children }: any) => {
 
 
     useEffect(() => {
-        console.log({cart: state.cart})
         const numberOfItems = state.cart.reduce((prev, current: ProductInterface) => {
             if(!current.Existencia)  return prev;
             if (current?.Existencia >= 1) {
@@ -78,6 +76,7 @@ export const CartProvider = ({ children }: any) => {
 
 
     const addProductToCart = (product: ProductInterface) => {
+        if(product.Cantidad < 0) return;
 
         const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
         if (!productInCart) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })

@@ -10,7 +10,6 @@ import { CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import moment from "moment";
 import { v4 as uuidv4 } from 'uuid';
-import Cookies from 'js-cookie';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '@/components/Cards/MessageCard';
 

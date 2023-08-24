@@ -221,6 +221,10 @@
         border-radius: 5px;
         border: 1px solid $color-border-secondary;
         padding: 0.5em 0.75em;
+
+        &.active{
+            border: 1px solid $color-tertiary;
+        }
     }
 
     .number {

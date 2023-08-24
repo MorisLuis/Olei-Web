@@ -69,7 +69,6 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
     };
 
     const handleSelectOption = (producto: string) => {
-        console.log({producto})
         setFiltersActive?.((prevState: FiltersInterface) => ({
             ...prevState,
             nombre: producto

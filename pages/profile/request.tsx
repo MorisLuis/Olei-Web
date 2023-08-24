@@ -23,7 +23,6 @@ const Pedidos = () => {
 
     useEffect(() => {
         const orderFromCookies: any[] =  localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')!) : [];
-        console.log({orderFromCookies})
         setOrders(orderFromCookies);
     }, []);
 
@@ -33,8 +32,6 @@ const Pedidos = () => {
         addOrderToCart(orderSelect?.products)
         setOpenModalMessage(false)
     }
-
-    console.log({orders})
 
     return (
         <>

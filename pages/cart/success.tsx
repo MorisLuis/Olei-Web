@@ -10,12 +10,10 @@ import OrderInterface from '@/interfaces/order';
 const Success = () => {
     const { push, query } = useRouter()
     const [actualOrder, setActualOrder] = useState<OrderInterface>()
-    console.log({query})
 
     useEffect(() => {
         const ordersFromCookies: any[] =  localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')!) : [];
         const actualOrder = ordersFromCookies.find((order) => order.Folio === query.order)
-        console.log({actualOrder})
         setActualOrder(actualOrder)
     }, []);
 

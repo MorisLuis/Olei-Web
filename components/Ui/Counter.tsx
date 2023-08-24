@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import styles from "../../styles/UI.module.scss";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import styles from "../../styles/UI.module.scss"
 
 interface Props {
     currentValue: number;
-    maxValue: number;
+    maxValue?: number;
 
     // Methods
     updatedQuantity: (newValue: number) => void;
@@ -19,25 +20,35 @@ const Counter = ({
 
     const addOrRemove = (value: number) => {
         if (value === -1) {
-            if (currentValue === 1) return;
-
+            if (currentValue <= 0) return;
             return updatedQuantity(currentValue - 1);
         }
 
-        if (currentValue >= maxValue) return;
-
+        if(maxValue){
+            if (currentValue >= maxValue) return;
+        }
         updatedQuantity(currentValue + 1);
     }
 
     return (
         <div className={`${styles.counter} display-flex space-between `}>
-            <div className={`${styles.action} cursor display-flex allCenter`} onClick={ () => addOrRemove(-1)}>
+            <div
+                className={
+                    currentValue < 1 ? `${styles.action} cursor display-flex allCenter disabled` :
+                        currentValue >= 1 ? `${styles.action} ${styles.active} cursor display-flex allCenter` :
+                            `${styles.action} cursor display-flex allCenter`
+                }
+                onClick={() => addOrRemove(-1)}>
                 <FontAwesomeIcon icon={faMinus} className={`icon__small`} />
             </div>
             <div className={`${styles.number} display-flex allCenter`}>
                 {currentValue}
             </div>
-            <div className={`${styles.action} cursor display-flex allCenter`} onClick={ () => addOrRemove(+1)}>
+            <div
+                className={
+                        currentValue >= 1 ? `${styles.action} ${styles.active} cursor display-flex allCenter` :
+                            `${styles.action} cursor display-flex allCenter`
+                } onClick={() => addOrRemove(+1)}>
                 <FontAwesomeIcon icon={faPlus} className={`icon__small`} />
             </div>
         </div>
