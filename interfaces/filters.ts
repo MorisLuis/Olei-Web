@@ -3,5 +3,5 @@ export default interface FiltersInterface {
     marca: string | null,
     familia: string | null,
     folio: string | null,
-    noStock: boolean
+    enStock: boolean
 }

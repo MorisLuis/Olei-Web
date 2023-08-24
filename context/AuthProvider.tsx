@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: any) => {
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
-            replace("/")
+            replace("/products?page=1&limit=20")
             setLoggingIn(false)
         } catch (error: any) {
             setLoggingIn(false)

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 interface Props {
     visible: string | any;
     children: any;
-    title: string;
+    title?: string;
 
     //Conditions
     small?: boolean;
@@ -20,6 +20,7 @@ interface Props {
     //Methods
     onClose: () => void;
     handleOpenModalMessage?: () => void;
+    onclick?: () => void;
 }
 
 const ModalRequest = ({
@@ -33,7 +34,8 @@ const ModalRequest = ({
     modalBlack,
 
     onClose,
-    handleOpenModalMessage
+    handleOpenModalMessage,
+    onclick
 }: Props) => {
 
     const { push, query } = useRouter();
@@ -79,7 +81,7 @@ const ModalRequest = ({
                 </div>
 
                 <div className={`${styles.footer} display-flex`}>
-                    <h4 className='display-flex'>footer</h4>
+                    <button onClick={onclick}>onclick</button>
                 </div>
             </div>
         </>

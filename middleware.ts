@@ -11,7 +11,7 @@ export default async function middleware(req: NextRequest) {
     }
 
     try {
-        const { payload } = await jwtVerify(jwt, new TextEncoder().encode("s3Cr3t"));
+        await jwtVerify(jwt, new TextEncoder().encode("s3Cr3t"));
 
         return NextResponse.next();
     } catch (error) {

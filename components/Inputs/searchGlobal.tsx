@@ -1,19 +1,22 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import styles from "../../styles/Components/SearchGlobal.module.scss";
+
 import { ModalSearch } from '../Modals/ModalSearch';
 import { SearchItemCard } from '../Cards/SearchItemCard';
-import styles from "../../styles/Components/SearchGlobal.module.scss";
 import FiltersInterface from '@/interfaces/filters';
-
-const products = [
-    "Producto 1", "Bujias", "Tornillos", "Clavos"
-]
+import { api } from '@/api/api';
+import { useRouter } from 'next/router';
+import ProductInterface from '@/interfaces/product';
 
 interface Props {
-    filterActive?: FiltersInterface,
-    setFilterActive: Dispatch<SetStateAction<FiltersInterface>>
+    filtersActive?: FiltersInterface,
+    setFiltersActive: Dispatch<SetStateAction<FiltersInterface>> | undefined
 }
 
-export const SearchGlobal = ({ setFilterActive, filterActive }: Props) => {
+export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
+
+    const { push, query: { page, limit }, query } = useRouter()
+    const [searchResults, setSearchResults] = useState([])
     const [modalSearchVisible, setModalSearchVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -34,21 +37,73 @@ export const SearchGlobal = ({ setFilterActive, filterActive }: Props) => {
     const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
 
+            // Construir la URL base con page y limit
+            let url = `/products?page=${page}&limit=${limit}`;
+
+            // Función auxiliar para agregar un parámetro de consulta si está definido
+            const addQueryParam = (paramName: string, value: any) => {
+                if (value !== null && value !== "" && value !== undefined) {
+                    url += `&${paramName}=${value}`;
+                }
+            };
+
+            // Agregar los parámetros de consulta utilizando la función auxiliar
+            addQueryParam("nombre", query.nombre);
+            addQueryParam("marca", filtersActive?.marca);
+            addQueryParam("familia", filtersActive?.familia);
+            addQueryParam("folio", filtersActive?.folio);
+            addQueryParam("enStock", filtersActive?.enStock);
+
+            // Finalmente, redirigir a la URL construida
+            push(url);
+
             setInputValue('');
             setModalSearchVisible(false);
             if (inputRef.current) {
                 inputRef.current.blur();
             }
-            setFilterActive((prevState: FiltersInterface) => ({
+            setFiltersActive?.((prevState: FiltersInterface) => ({
                 ...prevState,
                 name: inputValue
             }))
         }
     };
 
-    const handleInputChange = (event: any) => {
+    const handleInputChange = async (event: any) => {
         setInputValue(event.target.value);
+        const term = event.target.value
+
+        const { data: { products } } = await api.get(`/api/search?term=${term}`);
+        setSearchResults(products)
     };
+
+    const handleSelectOption = (producto: string) => {
+        setFiltersActive?.((prevState: FiltersInterface) => ({
+            ...prevState,
+            name: producto
+        }))
+
+        // Construir la URL base con page y limit
+        let url = `/products?page=${page}&limit=${limit}`;
+
+        // Función auxiliar para agregar un parámetro de consulta si está definido
+        const addQueryParam = (paramName: string, value: any) => {
+            if (value !== null && value !== "" && value !== undefined) {
+                url += `&${paramName}=${value}`;
+            }
+        };
+
+        // Agregar los parámetros de consulta utilizando la función auxiliar
+        addQueryParam("nombre", producto);
+        addQueryParam("marca", filtersActive?.marca);
+        addQueryParam("familia", filtersActive?.familia);
+        addQueryParam("folio", filtersActive?.folio);
+        addQueryParam("enStock", filtersActive?.enStock);
+
+        // Finalmente, redirigir a la URL construida
+        push(url);
+
+    }
 
     return (
         <>
@@ -71,13 +126,8 @@ export const SearchGlobal = ({ setFilterActive, filterActive }: Props) => {
                     <p>Busca un producto por su nombre o codigo</p>
                 </div>
                 {
-                    products.map((producto: string, index: number) =>
-                        <SearchItemCard key={index} productName={producto} onclick={(value: string) => {
-                            setFilterActive((prevState: FiltersInterface) => ({
-                                ...prevState,
-                                name: producto
-                            }))
-                        }} />
+                    searchResults.map((producto: string, index: number) =>
+                        <SearchItemCard key={index} productName={producto} onclick={() => handleSelectOption(producto)} />
                     )
                 }
             </ModalSearch>

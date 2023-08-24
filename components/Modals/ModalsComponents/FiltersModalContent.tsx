@@ -1,21 +1,51 @@
-import SelectReact from '@/components/Inputs/select'
-import ToggleSwitch from '@/components/Inputs/toggleSwitch'
-import FiltersInterface from '@/interfaces/filters'
-import { Studies } from '@/utils/studies'
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { api } from '@/api/api';
+import Input from '@/components/Inputs/inputs';
+import SelectReact from '@/components/Inputs/select';
+import ToggleSwitch from '@/components/Inputs/toggleSwitch';
+import FiltersInterface from '@/interfaces/filters';
+import Cookies from 'js-cookie';
 
 interface Props {
-    handleFiltersToQuery: any,
-    filterState: FiltersInterface
+    setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>,
+    temporalFilters: FiltersInterface,
+    visible: boolean
 }
 
-
 const FiltersModalContent = ({
-    handleFiltersToQuery,
-    filterState
+    setTemporalFilters,
+    temporalFilters,
+    visible
 }: Props) => {
 
-    const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
+    const [familiasFilter, setFamiliasFilter] = useState([])
+    const [marcasFilter, setMarcasFilter] = useState([])
+
+    
+    // Get the different Familias & Marcas from database.
+    useEffect(() => {
+        if (visible === false) return;
+
+        const fetchTable = async () => {
+            const { data: { Familias, Marca } } = await api.get("/api/tables")
+            setFamiliasFilter(Familias)
+            setMarcasFilter(Marca)
+
+            const { enStock, familia, folio, marca } = JSON.parse(Cookies.get("activeFilters")!)
+            setTemporalFilters((prevState: FiltersInterface) => ({
+                ...prevState,
+                enStock: enStock,
+                familia: familia,
+                folio: folio,
+                marca: marca
+            }))
+        }
+
+        fetchTable()
+
+    }, [visible])
+
+
 
     return (
         <div>
@@ -26,57 +56,58 @@ const FiltersModalContent = ({
                 </div>
                 <ToggleSwitch
                     name='stock'
-                    initialState={temporalFilters?.noStock}
+                    initialState={temporalFilters?.enStock}
+                    value={temporalFilters.enStock}
                     onChange={(value: boolean) => {
                         setTemporalFilters((prevState: FiltersInterface) => ({
                             ...prevState,
-                            noStock: value
+                            enStock: value
                         }))
                     }}
                 />
             </div>
 
             <div className='divider'></div>
+
             <SelectReact
-                options={Studies?.map((study) => ({
-                    label: study?.name,
-                    value: study?._id,
+                options={familiasFilter?.map((familia) => ({
+                    label: familia,
+                    value: familia,
                 }))}
-                label="Marca"
+                label="Familia"
+                value={temporalFilters.familia && { value: temporalFilters.familia, label: temporalFilters.familia }}
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
                         ...prevState, //@ts-ignore
-                        marca: value.label
+                        familia: value.value
                     }))
                 }}
             />
             <SelectReact
-                options={Studies?.map((study) => ({
-                    label: study?.name,
-                    value: study?._id,
+                options={marcasFilter?.map((marca) => ({
+                    label: marca,
+                    value: marca,
                 }))}
-                label="Familia"
+                label="Marca"
+                value={temporalFilters.marca && { value: temporalFilters.marca, label: temporalFilters.marca }}
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
-                        ...prevState,//@ts-ignore
-                        familia: value.label
+                        ...prevState, //@ts-ignore
+                        marca: value.values
                     }))
                 }}
             />
-            <SelectReact
-                options={Studies?.map((study) => ({
-                    label: study?.name,
-                    value: study?._id,
-                }))}
+
+            <Input
                 label="Folio"
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
-                        ...prevState,//@ts-ignore
-                        folio: value.label
+                        ...prevState,
+                        folio: value !== "" ? value : null
                     }))
                 }}
+                value={temporalFilters.folio as string}
             />
-            <button onClick={() => handleFiltersToQuery(temporalFilters)}>Filtrar</button>
         </div>
     )
 }

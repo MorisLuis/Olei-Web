@@ -8,11 +8,11 @@ import Header from '../Navigation/Header'
 
 interface Props {
     children: ReactNode,
-    filterActive?: FiltersInterface,
-    setFilterActive: Dispatch<SetStateAction<FiltersInterface>>
+    filtersActive?: FiltersInterface,
+    setFiltersActive?: Dispatch<SetStateAction<FiltersInterface>>
 }
 
-export const Layout = ({ children, filterActive, setFilterActive}: Props) => {
+export const Layout = ({ children, filtersActive, setFiltersActive}: Props) => {
 
     const [openModalCart, setOpenModalCart] = useState(false)
     const { pathname } = useRouter()
@@ -28,8 +28,8 @@ export const Layout = ({ children, filterActive, setFilterActive}: Props) => {
 
             <Header
                 setOpenModalCart={setOpenModalCart}
-                filterActive={filterActive}
-                setFilterActive={setFilterActive}
+                filtersActive={filtersActive}
+                setFiltersActive={setFiltersActive}
             />
 
             <div>

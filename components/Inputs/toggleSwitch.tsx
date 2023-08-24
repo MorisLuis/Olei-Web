@@ -4,20 +4,21 @@ interface ToggleSwitchProps {
     initialState?: boolean;
     label?: string;
     name?: string;
-    onChange: any
+    onChange: any;
+    value?: boolean
 }
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
     initialState = false,
     label,
     name,
-    onChange
+    onChange,
+    value
 }) => {
     const [checked, setChecked] = useState(initialState);
 
     const handleToggle = () => {
         const newChecked = !checked;
-        console.log({newChecked})
         setChecked(newChecked)
         onChange(newChecked);
     };
@@ -33,7 +34,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
                     type="checkbox"
                     name={name}
                     id={name}
-                    checked={checked}
+                    checked={checked || value}
                     onChange={handleToggle}
                     className="checkbox"
                 />

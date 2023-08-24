@@ -5,22 +5,29 @@ interface Props {
     options: any,
     placeholder?: string,
     label?: string,
-    onChange: any
+    onChange: any,
+    value: any
 }
 
 const SelectReact = ({
     options,
     placeholder = "Buscar...",
     label,
-    onChange
+    onChange,
+    value
 }: Props) => {
+
+    const optionsWithNull = [
+        { value: null, label: 'SIN VALOR' },
+        ...options
+    ];
 
     return (
         <div>
             <label htmlFor="Categoria">{label}</label>
             <Select
                 placeholder={placeholder}
-                options={options}
+                options={optionsWithNull}
                 isClearable
                 styles={customStyles}
                 onChange={(value) => {
@@ -28,6 +35,7 @@ const SelectReact = ({
                         onChange(value);
                     }
                 }}
+                value={value}
             />
         </div>
     )

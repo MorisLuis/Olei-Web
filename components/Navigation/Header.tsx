@@ -11,14 +11,14 @@ import FiltersInterface from '@/interfaces/filters';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>,
-    filterActive?: FiltersInterface,
-    setFilterActive: Dispatch<SetStateAction<FiltersInterface>>
+    filtersActive?: FiltersInterface,
+    setFiltersActive: Dispatch<SetStateAction<FiltersInterface>> | undefined
 }
 
 const Header = ({
     setOpenModalCart,
-    filterActive,
-    setFilterActive
+    filtersActive,
+    setFiltersActive
 }: Props) => {
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
@@ -47,7 +47,7 @@ const Header = ({
                             pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
                                 <></> :
                                 <div className={styles.search}>
-                                    <SearchGlobal filterActive={filterActive} setFilterActive={setFilterActive}/>
+                                    <SearchGlobal filtersActive={filtersActive} setFiltersActive={setFiltersActive}/>
                                 </div>
                         }
                         <div className={`${styles.orders} display-flex align cursor`} onClick={() => push("/profile/request")}>
