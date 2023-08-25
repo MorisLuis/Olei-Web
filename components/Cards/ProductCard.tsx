@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from "../../styles/UI.module.scss";
 
 import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
 import Counter from '../Ui/Counter';
 import { Tag } from '../Ui/Tag';
+import Skeleton from 'react-loading-skeleton'; // Importa Skeleton
+
 
 interface Props {
     product: ProductInterface
@@ -48,14 +50,22 @@ const ProductCard = ({ product }: Props) => {
         <div className={`${styles.item} cursor display-flex`}>
             <div className={`${styles.principalData} display-flex align`}>
                 <div className='display-flex align'>
-                    <p>{product?.Descripcion}</p>
+                    {product ? (
+                        <p>{product.Descripcion}</p>
+                    ) : (
+                        <Skeleton width={200} height={20} /> // Esqueleto para el nombre del producto
+                    )}
                 </div>
             </div>
 
             <div className={`${styles.secondaryData} display-flex space-between`}>
                 <div className={`${styles.notCounter} display-flex space-between allCenter`}>
                     <div>
-                        <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product?.CodigoProducto}</p>
+                        {product ? (
+                            <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product.CodigoProducto}</p>
+                        ) : (
+                            <Skeleton width={100} height={20} /> // Esqueleto para el código del producto
+                        )}
                     </div>
 
                     <div>
@@ -88,7 +98,7 @@ const ProductCard = ({ product }: Props) => {
                     <Counter
                         currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
                         maxValue={
-                            product?.Existencia && product?.Existencia < 0 ? null: product?.Existencia 
+                            product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                         }
                         updatedQuantity={onUpdateQuantity}
                     />

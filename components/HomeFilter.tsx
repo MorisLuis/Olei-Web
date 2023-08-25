@@ -65,13 +65,29 @@ const HomeFilter = ({
     return (
         <>
             {
-                filtersActive?.nombre && <h2>{filtersActive?.nombre}</h2>
+                filtersActive?.nombre && <h1 className={styles.nameFilter}>{filtersActive?.nombre}</h1>
             }
             <div className={`${styles.filters} display-flex`}>
-                <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                    <p>Filtros</p>
-                    <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                </button>
+
+                {
+                    filterMapped.length < 0 ?
+                        <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                            <p>Filtros</p>
+                            <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                        </button>
+                        :
+                        <div className={styles.buttonFilter}>
+                            <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                                <p>Filtros</p>
+                                <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                            </button>
+                            <div className={`${styles.filtersCount}`}>
+                                <p className={`display-flex allCenter`}>{filterMapped.length}</p>
+                            </div>
+                        </div>
+                }
+
+
                 <>
                     {
                         filterMapped.map((filter: any, Index) => (

@@ -28,7 +28,6 @@ const filterState: FiltersInterface = {
 export default function Home({ productsProps }: Props) {
 
   const { query: { page, limit }, push, query, asPath } = useRouter()
-  const router = useRouter()
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
   const [filtersActive, setFiltersActive] = useState<FiltersInterface>(filterState);
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
@@ -135,8 +134,6 @@ export default function Home({ productsProps }: Props) {
   }, [])
 
 
-  console.log({ router })
-
   return (
     <>
       <Layout filtersActive={filtersActive} setFiltersActive={setFiltersActive}>
@@ -151,7 +148,7 @@ export default function Home({ productsProps }: Props) {
           />
 
           <main className={styles.main}>
-            <Table data={products} loadMoreProducts={loadMoreProducts} isLoading={isLoading}/>
+            <Table data={products} loadMoreProducts={loadMoreProducts} isLoading={isLoading} />
           </main>
         </div>
       </Layout>

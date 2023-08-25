@@ -3,6 +3,10 @@
 .home{
     padding: 2em 10em;
 
+    .nameFilter{
+        padding-bottom: 1em;
+    }
+
     .filters{
         margin-bottom: 1em;
         position: relative;
@@ -13,6 +17,32 @@
 
         >div{
             margin-left: 0.5em;
+        }
+
+        .buttonFilter{
+            display: flex;
+            position: relative;
+
+            button{
+                border: 1px solid black;
+            }
+
+            .filtersCount{
+                background-color: black;
+                color: $text-color-secondary;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                border-radius: 1em;
+                transform: translate(50%, -50%);
+                border: 1px solid $color-border;
+
+                p{
+                    width: 16px;
+                    height: 16px;
+                    font-size: 10px;
+                }
+            }
         }
     }
 

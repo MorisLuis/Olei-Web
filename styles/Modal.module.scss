@@ -1,6 +1,5 @@
 @import "./main.scss";
 
-
 .modalCart {
     background-color: $background-color;
     width: 32.5%;
@@ -63,7 +62,6 @@
             padding: 1em 1.5em;
         }
 
-
         &::-webkit-scrollbar {
             width: 0.5em;
             background-color: transparent;
@@ -90,11 +88,14 @@
         border-top: 1px solid $color-border;
         justify-content: flex-end;
 
-        h4{
+        h4 {
             height: fit-content;
             border-radius: 3px;
             padding: 0.25em 0.5em;
-            background: linear-gradient(90deg, rgba(9,118,223,0.2) 0%, rgba(245,147,212,0.5) 50%, rgba(9,118,223,0.2) 100%);
+            background: linear-gradient(90deg,
+                    rgba(9, 118, 223, 0.2) 0%,
+                    rgba(245, 147, 212, 0.5) 50%,
+                    rgba(9, 118, 223, 0.2) 100%);
         }
     }
 
@@ -110,13 +111,19 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.8);
     border-radius: 1em;
     border: 1px solid $color-border;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     overflow: hidden;
     z-index: 99999;
     padding-bottom: 4em;
+    animation: modal-open 0.1s ease-in-out forwards;
+    opacity: 0;
+
+    &.closing {
+        animation: modal-close 0.2s ease-in-out forwards;
+    }
 
     @include respond(tab-land) {
         width: 50%;
@@ -132,12 +139,11 @@
         height: 100%;
     }
 
-
     &.receipt {
         font-family: "VictorMono";
     }
 
-    &.small{
+    &.small {
         width: 30%;
         height: 60%;
         top: 37.5%;
@@ -150,19 +156,19 @@
             transform: translate(0%, 0%);
         }
 
-        .content{
-            height: 80%;
+        .content {
+            height: 87.5%;
 
             @include respond(phone) {
-                height:  90%;
+                height: 90%;
             }
         }
 
-        .footer{
-            height: 20%;
+        .footer {
+            height: 7.5%;
 
             @include respond(phone) {
-                height:  10%;
+                height: 10%;
             }
         }
     }
@@ -178,13 +184,13 @@
             border-radius: 0.5em 0.5em 0em 0em;
         }
 
-        .left{
-            h3{
+        .left {
+            h3 {
                 margin-right: 1em;
             }
 
             @include respond(phone) {
-                .expand{
+                .expand {
                     display: none;
                 }
             }
@@ -231,17 +237,10 @@
         padding: 1em;
         border-top: 1px solid $color-border;
         justify-content: flex-end;
-
-        /* h4{
-            height: fit-content;
-            border-radius: 3px;
-            padding: 0.25em 0.5em;
-            background: linear-gradient(90deg, rgba(9,118,223,0.2) 0%, rgba(245,147,212,0.5) 50%, rgba(9,118,223,0.2) 100%);
-        } */
     }
 }
 
-.modalSearch{
+.modalSearch {
     background-color: $color-primary;
     border: 1px solid $color-border;
     height: auto;
@@ -252,7 +251,7 @@
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
 }
 
-.modalMessage{
+.modalMessage {
     background-color: $background-color;
     width: 350px;
     height: 175px;
@@ -265,7 +264,6 @@
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     z-index: 99999;
 }
-
 
 //Backgrounds
 
