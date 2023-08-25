@@ -34,6 +34,7 @@ export default function Home({ productsProps }: Props) {
   const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState(false)
   const [nextPage, setNextPage] = useState<number>(parseInt(page as string))
+  const [loadingData, setLoadingData] = useState(true);
 
   const handleFiltersToQuery = () => {
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
@@ -125,9 +126,10 @@ export default function Home({ productsProps }: Props) {
   }
 
   useEffect(() => {
+    setLoadingData(true);
     UseFetchPagination()
+    setLoadingData(false);
   }, [query])
-
 
   useEffect(() => {
     loadMoreProducts()
@@ -138,7 +140,6 @@ export default function Home({ productsProps }: Props) {
     <>
       <Layout filtersActive={filtersActive} setFiltersActive={setFiltersActive}>
         <div className={styles.home}>
-
           <HomeFilter
             filterState={filterState}
             setFiltersActive={setFiltersActive}
@@ -148,7 +149,12 @@ export default function Home({ productsProps }: Props) {
           />
 
           <main className={styles.main}>
-            <Table data={products} loadMoreProducts={loadMoreProducts} isLoading={isLoading} />
+            <Table
+              data={products}
+              loadMoreProducts={loadMoreProducts}
+              isLoading={isLoading}
+              loadingData={loadingData}
+            />
           </main>
         </div>
       </Layout>

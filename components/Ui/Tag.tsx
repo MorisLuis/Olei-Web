@@ -13,22 +13,24 @@ interface Props {
     cursor?: boolean
 }
 
-export const Tag = ({ 
-    children, 
-    color= "green", 
-    close= false, 
+export const Tag = ({
+    children,
+    color = "green",
+    close = false,
     onClose,
-    cursor= false
+    cursor = false
 }: Props) => {
     return (
-        <div className={cursor ? `${styles.tag} ${styles.option} display-flex align cursor` : `${styles.tag} display-flex align`} onClick={onClose}>
-            <p className={`${styles.content} ${styles[color]} display-flex align text-ellipsis cursor`} style={{ fontWeight: "normal" }}>
-                {children}
+        <div className={cursor ? `${styles.tag} ${styles.option} display-flex align allCenter cursor` : `${styles.tag} display-flex align`} onClick={onClose}>
+            <div className={`${styles.content} ${styles[color]} display-flex allCenter cursor`} style={{ fontWeight: "normal" }}>
+                <p>
+                    {children}
+                </p>
                 {
                     close &&
                     <FontAwesomeIcon icon={faClose} className="icon__small cursor" />
                 }
-            </p>
+            </div>
         </div>
     );
 };

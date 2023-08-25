@@ -167,6 +167,9 @@
         max-width: 120px;
         height: 100%;
         font-size: $font-sm;
+        max-height: 40px;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         svg {
             margin-left: 0.5em;

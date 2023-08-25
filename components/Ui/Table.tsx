@@ -11,10 +11,11 @@ import TableSkeleton from '../Skeletons/TableSkeleton';
 interface Props {
     data: ProductInterface[],
     loadMoreProducts: () => Promise<void>,
-    isLoading: boolean
+    isLoading: boolean,
+    loadingData: boolean
 }
 
-const Table = ({ data, loadMoreProducts, isLoading }: Props) => {
+const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
     const { cart, cartPending } = useContext(CartContext)
     const productsToDisplay: ProductInterface[] = [...data];
@@ -36,38 +37,43 @@ const Table = ({ data, loadMoreProducts, isLoading }: Props) => {
         return { ...product, Cantidad: quantity || quantityPending };
     });
 
+    console.log({ loadingData })
+
     return (
         <>
             {
-                productsWithCartInfo.length > 0 ?
-                    <>
-                        <div className={`${styles.table}`}>
-                            <div className={`${styles.headers} display-flex space-between`}>
-                                <p>Nombre</p>
-                                <p>Codigo</p>
-                                <p>Marca</p>
-                                <p>Familia</p>
-                                <p>Existencia</p>
-                                <p>Precio (MXN)</p>
-                                <p></p>
-                            </div>
-
-                            <div className={styles.content}>
-                                {
-                                    productsWithCartInfo?.map((product: ProductInterface, index: number) => {
-                                        return (
-                                            <ProductCard product={product} key={index} />
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
-                        <button onClick={loadMoreProducts} className="button white" disabled={isLoading}>Cargar mas</button>
-                    </>
+                loadingData ?
+                    <TableSkeleton />
                     :
-                    <>
-                        <TableSkeleton/>
-                    </>
+                    !loadingData && productsWithCartInfo.length === 0 ?
+                        <MessageCard title='No hay coincidencias exactas'>
+                            <p>Cambia o elimina algunos de los filtros o modifica el área de búsqueda.</p>
+                        </MessageCard>
+                        :
+                        <>
+                            <div className={`${styles.table}`}>
+                                <div className={`${styles.headers} display-flex space-between`}>
+                                    <p>Nombre</p>
+                                    <p>Codigo</p>
+                                    <p>Marca</p>
+                                    <p>Familia</p>
+                                    <p>Existencia</p>
+                                    <p>Precio (MXN)</p>
+                                    <p></p>
+                                </div>
+
+                                <div className={styles.content}>
+                                    {
+                                        productsWithCartInfo?.map((product: ProductInterface, index: number) => {
+                                            return (
+                                                <ProductCard product={product} key={index} />
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            <button onClick={loadMoreProducts} className="button white" disabled={isLoading}>Cargar mas</button>
+                        </>
             }
         </>
     )

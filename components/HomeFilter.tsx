@@ -87,7 +87,6 @@ const HomeFilter = ({
                         </div>
                 }
 
-
                 <>
                     {
                         filterMapped.map((filter: any, Index) => (
@@ -103,7 +102,6 @@ const HomeFilter = ({
                     }
                 </>
             </div>
-
         </>
     )
 }

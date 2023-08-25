@@ -1,10 +1,11 @@
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
+import styles from "./../../styles/Navigation/Header.module.scss";
+
 import { api } from '@/api/api';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faSquare, faFile } from '@fortawesome/free-solid-svg-icons';
-import styles from "./../../styles/Navigation/Header.module.scss"
 import { SearchGlobal } from '../Inputs/searchGlobal';
 import { CartContext } from '@/context';
 import FiltersInterface from '@/interfaces/filters';
@@ -47,7 +48,7 @@ const Header = ({
                             pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
                                 <></> :
                                 <div className={styles.search}>
-                                    <SearchGlobal filtersActive={filtersActive} setFiltersActive={setFiltersActive}/>
+                                    <SearchGlobal filtersActive={filtersActive} setFiltersActive={setFiltersActive} />
                                 </div>
                         }
                         <div className={`${styles.orders} display-flex align cursor`} onClick={() => push("/profile/request")}>
@@ -57,8 +58,11 @@ const Header = ({
                     </div>
 
                     <div className={`${styles.right} display-flex`}>
-                        <div className={`${styles.item} ${styles.profile} display-flex allCenter`} onClick={() => setProfileOpen(!profileOpen)}>
-                            <FontAwesomeIcon icon={faSquare} className={`icon`} />
+                        <div className={`${styles.item} ${styles.profile} display-flex allCenter`} >
+                            <div className={`${styles.icon} display-flex allCenter`} onClick={() => setProfileOpen(!profileOpen)}>
+                                <p>M</p>
+                            </div>
+
                             {
                                 profileOpen &&
                                 <div className={styles.profileBox}>

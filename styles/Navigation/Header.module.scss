@@ -12,7 +12,6 @@
         padding: 0.75em 2em;
     }
 
-
     @include respond(phone) {
         padding: 1em;
     }
@@ -23,6 +22,7 @@
 
         .left {
             width: 100%;
+
             >div {
                 &:not(:last-child) {
                     margin-right: 1em;
@@ -38,7 +38,7 @@
                     display: none;
                 }
 
-                &:hover{
+                &:hover {
                     opacity: 100%;
                 }
             }
@@ -47,14 +47,16 @@
                 height: 100%;
             }
 
-            .orders{
+            .orders {
                 height: 100%;
                 opacity: 50%;
-                p{
+
+                p {
                     margin-left: 0.5em;
                     font-size: $font-sm;
                 }
-                &:hover{
+
+                &:hover {
                     opacity: 100%;
                 }
             }
@@ -64,20 +66,36 @@
                     width: 100%;
                 }
 
-                .orders{
+                .orders {
                     display: none;
                 }
             }
-
         }
 
         .right {
+
             .profile {
                 position: relative;
+                
+                
+                .icon {
+                    background-color: #A9C9FF;
+                    background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+                    
+                    
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 100%;
+                    
+                    p{
+                        color: $text-color-secondary;
+                        font-size: 16px;
+                    }
+                }
 
                 .profileBox {
                     background-color: $background-color;
-                    border:1px solid $color-border;
+                    border: 1px solid $color-border;
                     position: absolute;
                     top: 120%;
                     right: 0px;
@@ -86,21 +104,22 @@
                     border-radius: 0.5em;
                     z-index: 999;
 
-                    .link{
+                    .link {
                         padding: 0.5em 1em;
                         border-radius: 0.5em;
                         cursor: pointer;
 
-                        &:hover{
+                        &:hover {
                             background-color: $color-secondary;
                         }
                     }
                 }
             }
 
-            .cart{
+            .cart {
                 position: relative;
-                .circle{
+
+                .circle {
                     width: 18px;
                     height: 18px;
                     background-color: $color-red;
@@ -110,7 +129,7 @@
                     top: 0px;
                     right: 0px;
 
-                    p{
+                    p {
                         font-size: 12px;
                         color: $text-color-secondary;
                     }
@@ -133,5 +152,4 @@
             }
         }
     }
-
 }
