@@ -27,11 +27,14 @@ const filterState: FiltersInterface = {
 
 export default function Home({ productsProps }: Props) {
 
-  const { query: { page, limit }, push, query } = useRouter()
+  const { query: { page, limit }, push, query, asPath } = useRouter()
+  const router = useRouter()
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
   const [filtersActive, setFiltersActive] = useState<FiltersInterface>(filterState);
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
   const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [nextPage, setNextPage] = useState<number>(parseInt(page as string))
 
   const handleFiltersToQuery = () => {
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
@@ -96,12 +99,43 @@ export default function Home({ productsProps }: Props) {
     push(url);
   }
 
-  useEffect(() => {
-    const UseFetchPagination = () => {
-      setProducts(productsProps)
+  const loadMoreProducts = async () => {
+    setIsLoading(true);
+
+    const limitIndex = asPath.indexOf('limit=20');
+    const paramsAfterLimit = limitIndex !== -1 ? asPath.slice(limitIndex + 'limit=20'.length) : '';
+    const newUrl = `/api/product?page=${nextPage}&limit=20${paramsAfterLimit}`;
+
+
+    try {
+      setNextPage(nextPage + 1);
+      if (!page) return;
+      if (nextPage === 1) return;
+
+      const { data: { products } } = await api.get(newUrl);
+      setProducts((prevItems) => [...prevItems, ...products]);
+    } catch (error) {
+      console.error('Error loading more items:', error);
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const UseFetchPagination = () => {
+    setProducts(productsProps)
+  }
+
+  useEffect(() => {
     UseFetchPagination()
   }, [query])
+
+
+  useEffect(() => {
+    loadMoreProducts()
+  }, [])
+
+
+  console.log({ router })
 
   return (
     <>
@@ -117,7 +151,7 @@ export default function Home({ productsProps }: Props) {
           />
 
           <main className={styles.main}>
-            <Table data={products} />
+            <Table data={products} loadMoreProducts={loadMoreProducts} isLoading={isLoading}/>
           </main>
         </div>
       </Layout>
@@ -141,8 +175,6 @@ export default function Home({ productsProps }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const page = ctx.query.page;
-  const limit = ctx.query.limit;
   const nombre = ctx.query.nombre;
   const enStock = ctx.query.enStock;
   const marca = ctx.query.marca;
@@ -150,7 +182,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const familia = ctx.query.familia;
 
   // Construir la URL base con page y limit
-  let url = `/api/product?page=${page}&limit=${limit}`;
+  let url = `/api/product?page=1&limit=20`;
 
   // Agregar los parámetros de consulta según las condiciones
   if (nombre) {

@@ -5,7 +5,7 @@ import FiltersInterface from '@/interfaces/filters';
 import Cookies from 'js-cookie';
 import { Tag } from './Ui/Tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileLines } from '@fortawesome/free-solid-svg-icons';
+import { faSliders } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     filterState: FiltersInterface,
@@ -70,7 +70,7 @@ const HomeFilter = ({
             <div className={`${styles.filters} display-flex`}>
                 <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
                     <p>Filtros</p>
-                    <FontAwesomeIcon icon={faFileLines} className={`icon`} />
+                    <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
                 </button>
                 <>
                     {

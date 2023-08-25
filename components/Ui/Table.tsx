@@ -7,10 +7,12 @@ import ProductInterface from '@/interfaces/product';
 
 
 interface Props {
-    data: ProductInterface[]
+    data: ProductInterface[],
+    loadMoreProducts: () => Promise<void>,
+    isLoading: boolean
 }
 
-const Table = ({ data }: Props) => {
+const Table = ({ data, loadMoreProducts, isLoading}: Props) => {
 
     const { cart, cartPending } = useContext(CartContext)
     const productsToDisplay: ProductInterface[] = [...data];
@@ -34,27 +36,30 @@ const Table = ({ data }: Props) => {
 
 
     return (
-        <div className={`${styles.table}`}>
-            <div className={`${styles.headers} display-flex space-between`}>
-                <p>Nombre</p>
-                <p>Codigo</p>
-                <p>Marca</p>
-                <p>Familia</p>
-                <p>Existencia</p>
-                <p>Precio (MXN)</p>
-                <p></p>
-            </div>
+        <>
+            <div className={`${styles.table}`}>
+                <div className={`${styles.headers} display-flex space-between`}>
+                    <p>Nombre</p>
+                    <p>Codigo</p>
+                    <p>Marca</p>
+                    <p>Familia</p>
+                    <p>Existencia</p>
+                    <p>Precio (MXN)</p>
+                    <p></p>
+                </div>
 
-            <div className={styles.content}>
-                {
-                    productsWithCartInfo?.map((product: ProductInterface, index: number) => {
-                        return (
-                            <ProductCard product={product} key={index} />
-                        )
-                    })
-                }
+                <div className={styles.content}>
+                    {
+                        productsWithCartInfo?.map((product: ProductInterface, index: number) => {
+                            return (
+                                <ProductCard product={product} key={index} />
+                            )
+                        })
+                    }
+                </div>
             </div>
-        </div>
+            <button onClick={loadMoreProducts} className="button white" disabled={isLoading}>Cargar mas</button>
+        </>
     )
 }
 

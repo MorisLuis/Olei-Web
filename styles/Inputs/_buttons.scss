@@ -6,6 +6,7 @@
     border-radius: 0.5em;
     cursor: pointer;
     padding: 0em 1em;
+    width: 100%;
 
     svg {
         margin-right: 0.5em;
@@ -13,6 +14,18 @@
 
     &:hover {
         opacity: 70%;
+    }
+
+    &.white {
+        background-color: $color-primary;
+        color: $text-color;
+        border: 1px solid $color-border-secondary;
+
+        &:hover {
+            background-color: $color-tertiary;
+            border: 1px solid transparent;
+            color: $text-color-secondary;        
+        }
     }
 }
 
@@ -31,7 +44,7 @@
         color: $text-color-secondary;
     }
 
-    &.white{
+    &.white {
         background-color: $color-secondary;
         border: 1px solid $color-border;
 
