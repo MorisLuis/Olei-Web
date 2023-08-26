@@ -1,7 +1,15 @@
+
 .u-center-text {
     text-align: center !important;
 }
 
+.skeleton {
+    width: 100%;
+    height: 20px;
+    background-color: $color-border;
+    animation: loading 1s infinite;
+    border-radius: 3px;
+}
 
 //Display flex
 .display-flex {
@@ -127,4 +135,18 @@
 
 .disabled{
     opacity: 25%;
+}
+
+@keyframes loading {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
 }

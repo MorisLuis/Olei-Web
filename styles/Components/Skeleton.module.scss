@@ -8,12 +8,28 @@
     border-radius: 3px;
 }
 
-.tableSkeleton{
+.tableSkeleton {
     background-color: $background-color;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     border-radius: 1em;
     margin-bottom: 1em;
     padding: 1em;
+}
+
+.homeFiltersSkeleton {
+
+    h1 {
+        width: 900px;
+        margin-bottom: 0.5em;
+    }
+
+    .buttonFilter {
+        display: flex;
+        position: relative;
+        margin-right: 1em;
+        margin-bottom: 1em;
+        width: 80px;
+    }
 }
 
 @keyframes loading {

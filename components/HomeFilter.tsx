@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from "../styles/Pages/Home.module.scss";
 
 import FiltersInterface from '@/interfaces/filters';
@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { SearchGlobal } from './Inputs/searchGlobal';
 import { useRouter } from 'next/router';
+import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 
 interface Props {
     filterState: FiltersInterface,
@@ -28,6 +29,13 @@ const HomeFilter = ({
 }: Props) => {
 
     const { pathname } = useRouter()
+    const [visible, setVisible] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setVisible(true)
+        }, 100);
+    })
 
     // Retrieve the saved filters string from cookies.
     useEffect(() => {
@@ -66,12 +74,13 @@ const HomeFilter = ({
         .filter((filter) => filter[1] !== null && filter[1] !== false)
         .map((filter) => filter[1] === true ? [filter[0], "En Stock"] : filter)
 
-    return (
+    return visible ? (
         <>
             {/* DESKTOP VERSION */}
             {
                 filtersActive?.nombre && <h1 className={styles.nameFilter}>{filtersActive?.nombre}</h1>
             }
+
             <div className={`${styles.filters} display-flex`}>
                 {
                     filterMapped.length < 0 ?
@@ -113,37 +122,41 @@ const HomeFilter = ({
             {/* MOBIL VERSION */}
             {/* Search / Visible just in mobil version */}
             <div className={styles.filtersMobil}>
-            {
-                pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
-                    <></> :
-                    <div className={styles.search}>
-                        <SearchGlobal filtersActive={filtersActive} setFiltersActive={setFiltersActive} />
-                    </div>
-            }
-
-            {
-                filterMapped.length < 0 ?
-                    <div className={styles.buttonFilter}>
-                        <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                            <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                        </button>
-                    </div>
-                    :
-                    <div className={styles.buttonFilter}>
-                        <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                            <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                        </button>
-                        <div className={`${styles.filtersCount}`}>
-                            <p className={`display-flex allCenter`}>{filterMapped.length}</p>
+                {
+                    pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
+                        <></> :
+                        <div className={styles.search}>
+                            <SearchGlobal filtersActive={filtersActive} setFiltersActive={setFiltersActive} />
                         </div>
-                    </div>
-            }
+                }
+
+                {
+                    filterMapped.length < 0 ?
+                        <div className={styles.buttonFilter}>
+                            <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                                <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                            </button>
+                        </div>
+                        :
+                        <div className={styles.buttonFilter}>
+                            <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                                <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                            </button>
+                            <div className={`${styles.filtersCount}`}>
+                                <p className={`display-flex allCenter`}>{filterMapped.length}</p>
+                            </div>
+                        </div>
+                }
             </div>
             {
                 filtersActive?.nombre && <h2 className={styles.nameFilterMobil}>{filtersActive?.nombre}</h2>
             }
         </>
+
     )
+    :
+    <HomeFiltersSkeleton/>
+
 }
 
 export default HomeFilter
