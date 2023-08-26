@@ -6,7 +6,6 @@ import { SearchItemCard } from '../Cards/SearchItemCard';
 import FiltersInterface from '@/interfaces/filters';
 import { api } from '@/api/api';
 import { useRouter } from 'next/router';
-import ProductInterface from '@/interfaces/product';
 
 interface Props {
     filtersActive?: FiltersInterface,

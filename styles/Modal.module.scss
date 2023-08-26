@@ -135,8 +135,18 @@
 
     @include respond(phone) {
         width: 100%;
-        border-radius: 0.5em;
         height: 100%;
+        transform: translate(0%, 0%) scale(0.8);
+        left: 0%;
+        top: 0%;
+        animation: modal-open-mobil 0.1s ease-in-out forwards;
+
+        &.closing {
+            transform: translate(0%, 0%) scale(0.8);
+            left: 0%;
+            top: 0%;
+            animation: modal-close-mobil 0.2s ease-in-out forwards;
+        }
     }
 
     &.receipt {
@@ -241,14 +251,27 @@
 }
 
 .modalSearch {
+    height: auto;
+    min-width: 300px;
+    position: absolute;
+    padding: 1em 0.5em;
+
     background-color: $color-primary;
     border: 1px solid $color-border;
-    height: auto;
-    padding: 1em 0.5em;
-    min-width: 300px;
     border-radius: 0.5em;
-    position: absolute;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+
+    @include respond(phone) {
+        top: 100%;
+        left: 0px;
+        z-index: 9999;
+        border-radius: 0px;
+        width: 100%;
+        max-width: none;
+        //height: 100%;
+        border: none;
+        border-bottom: 1px solid $color-border;
+    }
 }
 
 .modalMessage {
@@ -263,6 +286,7 @@
     border: 1px solid $color-border;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     z-index: 99999;
+
 }
 
 //Backgrounds

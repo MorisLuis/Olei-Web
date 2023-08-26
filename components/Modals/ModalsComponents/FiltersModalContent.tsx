@@ -97,7 +97,6 @@ const FiltersModalContent = ({
                     }))
                 }}
             />
-
             <Input
                 label="Folio"
                 onChange={(value: string) => {

@@ -32,8 +32,8 @@ export default function Home({ productsProps }: Props) {
   const [filtersActive, setFiltersActive] = useState<FiltersInterface>(filterState);
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
   const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
-  const [isLoading, setIsLoading] = useState(false)
   const [nextPage, setNextPage] = useState<number>(parseInt(page as string))
+  const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
 
   const handleFiltersToQuery = () => {

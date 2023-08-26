@@ -42,11 +42,36 @@
 
 @keyframes modal-close {
     0% {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
     }
+
     100% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
     }
-  }
+}
+
+@keyframes modal-open-mobil {
+    0% {
+        opacity: 0;
+        transform: translate(0%, 0%) scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0%, 0%) scale(1);
+    }
+}
+
+@keyframes modal-close-mobil {
+    0% {
+        opacity: 1;
+        transform: translate(0%, 0%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(0%, 0%) scale(0.8);
+    }
+}

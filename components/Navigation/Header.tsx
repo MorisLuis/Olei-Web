@@ -5,7 +5,7 @@ import { api } from '@/api/api';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBagShopping, faSquare, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faBagShopping, faFile } from '@fortawesome/free-solid-svg-icons';
 import { SearchGlobal } from '../Inputs/searchGlobal';
 import { CartContext } from '@/context';
 import FiltersInterface from '@/interfaces/filters';
@@ -39,7 +39,6 @@ const Header = ({
         <>
             <div className={`${styles.header} blur`}>
                 <div className={`${styles.content} display-flex space-between`}>
-
                     <div className={`${styles.left} display-flex align`}>
                         <div className={`${styles.logo} cursor`} onClick={() => push("/products?page=1&limit=20")}>
                             Rosco
@@ -74,14 +73,14 @@ const Header = ({
                                     >
                                         Cerrar Sesión
                                     </div>
-
                                 </div>
                             }
                         </div>
 
                         {
                             pathname === "/cart" ?
-                                <></> :
+                                <></> 
+                                :
                                 <div className={`${styles.item}  ${styles.cart}  display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
                                     <div className={`${styles.circle} display-flex allCenter`}>
                                         <p>{numberOfItems}</p>
@@ -89,7 +88,6 @@ const Header = ({
                                     <FontAwesomeIcon icon={faBagShopping} className={`icon`} />
                                 </div>
                         }
-
                     </div>
                 </div>
 

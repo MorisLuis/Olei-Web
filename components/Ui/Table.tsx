@@ -72,7 +72,11 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                     }
                                 </div>
                             </div>
-                            <button onClick={loadMoreProducts} className="button white" disabled={isLoading}>Cargar mas</button>
+                            <button
+                                onClick={loadMoreProducts}
+                                className="button white"
+                                disabled={isLoading}
+                            >Cargar mas</button>
                         </>
             }
         </>

@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 import { Tag } from './Ui/Tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
+import { SearchGlobal } from './Inputs/searchGlobal';
+import { useRouter } from 'next/router';
 
 interface Props {
     filterState: FiltersInterface,
@@ -24,6 +26,8 @@ const HomeFilter = ({
     handleCloseTag,
     setOpenModalFilter
 }: Props) => {
+
+    const { pathname } = useRouter()
 
     // Retrieve the saved filters string from cookies.
     useEffect(() => {
@@ -64,17 +68,19 @@ const HomeFilter = ({
 
     return (
         <>
-            {
+            {/* DESKTOP VERSION */}
+            {/* {
                 filtersActive?.nombre && <h1 className={styles.nameFilter}>{filtersActive?.nombre}</h1>
-            }
+            } */}
             <div className={`${styles.filters} display-flex`}>
-
                 {
                     filterMapped.length < 0 ?
-                        <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                            <p>Filtros</p>
-                            <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                        </button>
+                        <div className={styles.buttonFilter}>
+                            <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                                <p>Filtros</p>
+                                <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                            </button>
+                        </div>
                         :
                         <div className={styles.buttonFilter}>
                             <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
@@ -87,7 +93,7 @@ const HomeFilter = ({
                         </div>
                 }
 
-                <>
+                <div className={styles.filtersTag}>
                     {
                         filterMapped.map((filter: any, Index) => (
                             <Tag key={Index} onClose={() => handleCloseTag(filter)} close cursor>
@@ -95,12 +101,43 @@ const HomeFilter = ({
                             </Tag>
                         ))
                     }
-                </>
-                <>
+                </div>
+                <div className={styles.filtersTag}>
                     {
                         filterMapped.length > 0 ? <Tag close color='gray' onClose={() => setFiltersActive(filterState)}>Limpiar filtros</Tag> : <></>
                     }
-                </>
+                </div>
+            </div>
+
+
+            {/* MOBIL VERSION */}
+            {/* Search / Visible just in mobil version */}
+            <div className={styles.filtersMobil}>
+            {
+                pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
+                    <></> :
+                    <div className={styles.search}>
+                        <SearchGlobal filtersActive={filtersActive} setFiltersActive={setFiltersActive} />
+                    </div>
+            }
+
+            {
+                filterMapped.length < 0 ?
+                    <div className={styles.buttonFilter}>
+                        <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                            <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                        </button>
+                    </div>
+                    :
+                    <div className={styles.buttonFilter}>
+                        <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                            <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                        </button>
+                        <div className={`${styles.filtersCount}`}>
+                            <p className={`display-flex allCenter`}>{filterMapped.length}</p>
+                        </div>
+                    </div>
+            }
             </div>
         </>
     )
