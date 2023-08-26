@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Request.module.scss";
 
-import RequestCard from '@/components/Cards/RequestCard';
+import RequestCard from '@/components/Ui/TableRequest';
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import ModalRequest from '@/components/Modals/ModalRequest';
 import { useRouter } from 'next/router';
