@@ -20,7 +20,8 @@ interface Props {
     //Methods
     onClose: () => void;
     handleOpenModalMessage?: () => void;
-    onclick?: () => void;
+    handleFiltersToQuery?: () => void;
+    handleCleanAllFilters?: () => void;
 }
 
 const ModalRequest = ({
@@ -35,7 +36,8 @@ const ModalRequest = ({
 
     onClose,
     handleOpenModalMessage,
-    onclick
+    handleFiltersToQuery,
+    handleCleanAllFilters
 }: Props) => {
 
     const { push, query } = useRouter();
@@ -55,7 +57,7 @@ const ModalRequest = ({
             {
                 !modalBlack ?
                     <div className={styles.modalBackground} onClick={handleClose}></div> :
-                    <div className={styles.modalBackgroundSecondary}  onClick={handleClose}></div>
+                    <div className={styles.modalBackgroundSecondary} onClick={handleClose}></div>
             }
 
             <div className={`${styles.modalPrincipal} ${receipt ? styles.receipt : ''} ${small ? styles.small : ''} ${isClosing ? styles.closing : ''}`}>
@@ -91,13 +93,20 @@ const ModalRequest = ({
                     {children}
                 </div>
 
-                <div className={`${styles.footer} display-flex`}>
+                <div className={`${styles.footer} display-flex space-between`}>
                     <button
-                    style={{width: "30%"}}
+                        style={{ width: "30%" }}
+                        className='button-small transparent'
+                        onClick={() => {
+                            handleClose()
+                            handleCleanAllFilters?.()
+                        }}>Quitar filtros</button>
+                    <button
+                        style={{ width: "30%" }}
                         className='button-small black'
                         onClick={() => {
                             handleClose()
-                            onclick?.()
+                            handleFiltersToQuery?.()
                         }}>Filtrar</button>
                 </div>
             </div>

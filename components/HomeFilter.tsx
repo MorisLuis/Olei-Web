@@ -69,9 +69,9 @@ const HomeFilter = ({
     return (
         <>
             {/* DESKTOP VERSION */}
-            {/* {
+            {
                 filtersActive?.nombre && <h1 className={styles.nameFilter}>{filtersActive?.nombre}</h1>
-            } */}
+            }
             <div className={`${styles.filters} display-flex`}>
                 {
                     filterMapped.length < 0 ?
@@ -139,6 +139,9 @@ const HomeFilter = ({
                     </div>
             }
             </div>
+            {
+                filtersActive?.nombre && <h2 className={styles.nameFilterMobil}>{filtersActive?.nombre}</h2>
+            }
         </>
     )
 }

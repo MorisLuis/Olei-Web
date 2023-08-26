@@ -54,6 +54,11 @@
         }
     }
 
+    &.transparent{
+        background-color: transparent;
+        text-decoration: underline;
+    }
+
     svg {
         margin-left: 0.5em;
     }

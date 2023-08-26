@@ -65,6 +65,13 @@ export default function Home({ productsProps }: Props) {
     push(url);
   };
 
+  const handleCleanAllFilters = () => {
+    setFiltersActive(filterState)
+    setOpenModalFilter(false);
+    let url = `/products?page=${page}&limit=${limit}`;
+    push(url);
+  }
+
   const handleCloseTag = (filter: any) => {
     // Delete tag, setting filters active.
     if (filter === "enStock") {
@@ -164,8 +171,11 @@ export default function Home({ productsProps }: Props) {
         title="Filtros"
         small
         modalBlack
+
+        //Methods
         onClose={() => setOpenModalFilter(false)}
-        onclick={handleFiltersToQuery}
+        handleFiltersToQuery={handleFiltersToQuery}
+        handleCleanAllFilters={handleCleanAllFilters}
       >
         <FiltersModalContent
           setTemporalFilters={setTemporalFilters}
