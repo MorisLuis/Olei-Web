@@ -2,6 +2,7 @@ import FiltersInterface from '@/interfaces/filters'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { Dispatch, ReactNode, SetStateAction, useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 import ModalCart from '../Modals/ModalCart'
 import Footer from '../Navigation/Footer'
 import Header from '../Navigation/Header'
@@ -12,7 +13,7 @@ interface Props {
     setFiltersActive?: Dispatch<SetStateAction<FiltersInterface>>
 }
 
-export const Layout = ({ children, filtersActive, setFiltersActive}: Props) => {
+export const Layout = ({ children, filtersActive, setFiltersActive }: Props) => {
 
     const [openModalCart, setOpenModalCart] = useState(false)
     const { pathname } = useRouter()
@@ -46,6 +47,8 @@ export const Layout = ({ children, filtersActive, setFiltersActive}: Props) => {
                 visible={openModalCart}
                 onClose={() => setOpenModalCart(false)}
             />
+
+            <Toaster />
         </>
     )
 }

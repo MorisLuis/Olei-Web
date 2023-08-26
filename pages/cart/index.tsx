@@ -78,8 +78,8 @@ const Cart = () => {
 
     }
 
-    const productsExistent = cart.filter((product) => product.Existencia && product.Existencia > 0)
-    const productNoStock = cart.filter((product) => product.Existencia && product.Existencia < 0)
+    /* const productsExistent = cart.filter((product) => product.Existencia && product.Existencia > 0)
+    const productNoStock = cart.filter((product) => product.Existencia && product.Existencia < 0) */
 
     return (
         <Layout>
