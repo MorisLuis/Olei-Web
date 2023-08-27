@@ -171,6 +171,7 @@ export default function Home({ productsProps }: Props) {
         title="Filtros"
         small
         modalBlack
+        decisionVisible
 
         //Methods
         onClose={() => setOpenModalFilter(false)}
