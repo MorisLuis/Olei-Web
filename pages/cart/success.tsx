@@ -21,6 +21,8 @@ const Success = () => {
     //Code confetti animation.
     const [showConfetti, setShowConfetti] = useState(true);
     const [confettiOpacity, setConfettiOpacity] = useState(1);
+    const [confettiSize, setConfettiSize] = useState({ width: 0, height: 0 });
+
     useEffect(() => {
         const confettiTimeout = setTimeout(() => {
             // Start fading out the confetti
@@ -42,6 +44,7 @@ const Success = () => {
                 setShowConfetti(false);
             };
         }, 5000); // Adjust the initial duration as needed
+        setConfettiSize({ width: window.innerWidth, height: window.innerHeight });
 
         return () => clearTimeout(confettiTimeout);
     }, []);
@@ -65,8 +68,8 @@ const Success = () => {
                 </div>
                 {showConfetti && (
                     <Confetti
-                        width={window.innerWidth}
-                        height={window.innerHeight}
+                        width={confettiSize.width}
+                        height={confettiSize.height}
                         numberOfPieces={300}
                         style={{ opacity: confettiOpacity, transition: 'opacity 0.5s ease-out' }}
                     />
