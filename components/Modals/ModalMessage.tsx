@@ -2,9 +2,10 @@ import React from 'react'
 import styles from "../../styles/Modal.module.scss";
 
 interface Props {
-    visible: Boolean;
+    visible: boolean;
     receipt?: boolean;
     children: any;
+    title: string,
 
     //Methods
     onClose?: () => void;
@@ -14,6 +15,7 @@ interface Props {
 export const ModalMessage = ({
     visible,
     children,
+    title,
 
     onClose,
     onAccept,
@@ -23,9 +25,14 @@ export const ModalMessage = ({
             <div className={styles.modalBackgroundSecondary}></div>
 
             <div className={styles.modalMessage}>
-                <p onClick={onClose}>Close</p><br/>
-                <p onClick={onAccept}>Aceptar</p>
-                {children}
+                <div className={styles.content}>
+                    <h2>{title}</h2>
+                    {children}
+                </div>
+                <div className={`${styles.footer} display-flex space-between`}>
+                    <button className='button-small white' onClick={onClose}>Cerrar</button><br/>
+                    <button className='button-small black' onClick={onAccept}>Aceptar</button>
+                </div>
             </div>
         </>
         : null

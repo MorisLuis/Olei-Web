@@ -15,6 +15,7 @@ interface Props {
     small?: boolean;
     receipt?: boolean;
     actionsVisible?: boolean;
+    decisionVisible?: boolean;
     modalBlack?: boolean;
 
     //Methods
@@ -33,6 +34,7 @@ const ModalRequest = ({
     actionsVisible,
     receipt = false,
     modalBlack,
+    decisionVisible,
 
     onClose,
     handleOpenModalMessage,
@@ -68,7 +70,7 @@ const ModalRequest = ({
                         {
                             actionsVisible &&
                             <>
-                                <button className={`${styles.expand} button-small display-flex align`} onClick={() => push(`/${query?.receipt}`)}>
+                                <button className={`${styles.expand} button-small display-flex align m-right`} onClick={() => push(`/${query?.receipt}`)}>
                                     Expandir
                                     <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align rotat45`} />
                                 </button>
@@ -93,22 +95,26 @@ const ModalRequest = ({
                     {children}
                 </div>
 
-                <div className={`${styles.footer} display-flex space-between`}>
-                    <button
-                        style={{ width: "30%" }}
-                        className='button-small transparent'
-                        onClick={() => {
-                            handleClose()
-                            handleCleanAllFilters?.()
-                        }}>Quitar filtros</button>
-                    <button
-                        style={{ width: "30%" }}
-                        className='button-small black'
-                        onClick={() => {
-                            handleClose()
-                            handleFiltersToQuery?.()
-                        }}>Filtrar</button>
-                </div>
+                {
+                    decisionVisible &&
+                    <div className={`${styles.footer} display-flex space-between`}>
+                        <button
+                            style={{ width: "30%" }}
+                            className='button-small transparent'
+                            onClick={() => {
+                                handleClose()
+                                handleCleanAllFilters?.()
+                            }}>Quitar filtros</button>
+                        <button
+                            style={{ width: "30%" }}
+                            className='button-small black'
+                            onClick={() => {
+                                handleClose()
+                                handleFiltersToQuery?.()
+                            }}>Filtrar</button>
+                    </div>
+                }
+
             </div>
         </>
         : null

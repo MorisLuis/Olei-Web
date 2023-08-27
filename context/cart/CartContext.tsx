@@ -14,7 +14,7 @@ interface ContextProps {
     // Methods
     addProductToCart: (product: ProductInterface) => void;
     removeCartProduct: (product: ProductInterface) => void;
-    addOrderToCart: (product: ProductInterface[]) => void;
+    addOrderToCart: (product: ProductInterface[]) => Promise<unknown>
     removeAllCart: () => void;
 
 }

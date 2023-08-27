@@ -1,12 +1,13 @@
 import React from 'react';
-import styles from "../../styles/Tables.module.scss";
+import styles from "../../../styles/Tables.module.scss";
 
 import Link from 'next/link';
 import { faFileLines, faFilePen, faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from '@/utils/currency';
 import OrderInterface from '@/interfaces/order';
-import { Tag } from './Tag';
+import { Tag } from '../Tag';
+import Action from '../Action';
 
 interface Props {
     order: OrderInterface[],
@@ -38,16 +39,20 @@ const TableRequest = ({ order, setOrderSelect }: Props) => {
 
                             <div className={`${styles.action} display-flex`}>
                                 <div className={`${styles.content} display-flex`}>
-                                    <Link
-                                        href={`/profile/request/?receipt=${item.Folio}`}
-                                        as={`/profile/request/?receipt=${item.Folio}`}
-                                        className={styles.item}
-                                    >
-                                        <FontAwesomeIcon icon={faFileLines} className={`icon__small cursor display-flex align`} />
-                                    </Link>
-                                    <button className={styles.item}>
-                                        <FontAwesomeIcon icon={faFilePen} className={`icon__small cursor display-flex align`} />
-                                    </button>
+                                    <Action textHover='Resumen del pedido'>
+                                        <Link
+                                            href={`/profile/request/?receipt=${item.Folio}`}
+                                            as={`/profile/request/?receipt=${item.Folio}`}
+                                        >
+                                            <FontAwesomeIcon icon={faFileLines} className={`icon__small cursor display-flex align`} />
+                                        </Link>
+                                    </Action>
+
+                                    <Action textHover="Editar">
+                                        <button>
+                                            <FontAwesomeIcon icon={faFilePen} className={`icon__small cursor display-flex align`} />
+                                        </button>
+                                    </Action>
                                 </div>
                             </div>
                         </div>

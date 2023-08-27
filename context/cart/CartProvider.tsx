@@ -132,12 +132,24 @@ export const CartProvider = ({ children }: any) => {
 
             dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
         }
-
     }
 
-    const addOrderToCart = (product: ProductInterface[]) => {
-        dispatch({ type: '[Cart] - Update products in cart', payload: product });
-    }
+
+    const addOrderToCart = (product: ProductInterface[]): Promise<void> => {
+        //Simulate a promise to react hot toas. We dont really need a promise.
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const isSuccess = true;
+                if (isSuccess) {
+                    dispatch({ type: '[Cart] - Update products in cart', payload: product });
+                    resolve();
+                } else {
+                    reject(new Error("Something went wrong"));
+                }
+            }, 2000);
+        });
+    };
+
 
     const removeCartProduct = (product: ProductInterface) => {
         dispatch({ type: '[Cart] - Remove product in cart', payload: product });

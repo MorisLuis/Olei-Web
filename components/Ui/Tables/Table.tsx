@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import styles from "../../styles/UI.module.scss";
+import styles from "../../../styles/UI.module.scss";
 
-import ProductCard from '../Cards/ProductCard';
+import ProductCard from '../../Cards/ProductCard';
 import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
-import { MessageCard } from '../Cards/MessageCard';
-import TableSkeleton from '../Skeletons/TableSkeleton';
+import { MessageCard } from '../../Cards/MessageCard';
+import TableSkeleton from '../../Skeletons/TableSkeleton';
 
 
 interface Props {

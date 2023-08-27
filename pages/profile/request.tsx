@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Request.module.scss";
 
-import RequestCard from '@/components/Ui/TableRequest';
+import RequestCard from '@/components/Ui/Tables/TableRequest';
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import ModalRequest from '@/components/Modals/ModalRequest';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import Cookies from 'js-cookie';
 import OrderInterface from '@/interfaces/order';
 import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
-import ProductInterface from '@/interfaces/product';
+import toast from 'react-hot-toast';
 
 const Pedidos = () => {
 
@@ -22,16 +22,25 @@ const Pedidos = () => {
     const [orderSelect, setOrderSelect] = useState<OrderInterface>()
 
     useEffect(() => {
-        const orderFromCookies: any[] =  localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')!) : [];
+        const orderFromCookies: any[] = localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')!) : [];
         setOrders(orderFromCookies);
     }, []);
 
 
-    const onSubmitOrderToCart = () => {
-        if(!orderSelect?.products) return;
-        addOrderToCart(orderSelect?.products)
+
+    const onSubmitOrderToCart = async () => {
+        if (!orderSelect?.products) return;
+
         setOpenModalMessage(false)
-    }
+        back()
+
+        const myPromise = addOrderToCart(orderSelect?.products)
+        toast.promise(myPromise, {
+            loading: 'Cargando carrito...',
+            success: 'Listo! Ya tienes tu carrito lleno',
+            error: 'Error when fetching',
+        });
+    };
 
     return (
         <>
@@ -54,6 +63,7 @@ const Pedidos = () => {
                 onClose={() => back()}
                 handleOpenModalMessage={() => setOpenModalMessage(true)}
                 receipt
+                actionsVisible
             >
                 <ReceiptRender />
             </ModalRequest>
@@ -62,7 +72,11 @@ const Pedidos = () => {
                 visible={openModalMessage}
                 onClose={() => setOpenModalMessage(false)}
                 onAccept={onSubmitOrderToCart}
+                title="Usar esta lista en carrito"
             >
+                <p>
+                    Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.
+                </p>
             </ModalMessage>
         </>
 

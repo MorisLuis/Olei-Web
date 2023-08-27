@@ -4,7 +4,6 @@ import styles from "../styles/Pages/Home.module.scss";
 import { api } from '@/api/api';
 import { GetServerSideProps } from 'next';
 import { Layout } from '@/components/Layouts/Layout';
-import Table from '@/components/Ui/Table';
 import PorductInterface from '@/interfaces/product';
 import ProductInterface from '@/interfaces/product';
 import ModalRequest from '@/components/Modals/ModalRequest';
@@ -12,6 +11,7 @@ import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersMod
 import FiltersInterface from '@/interfaces/filters';
 import HomeFilter from '@/components/HomeFilter';
 import { useRouter } from 'next/router';
+import Table from '@/components/Ui/Tables/Table';
 
 interface Props {
   productsProps: ProductInterface[]
