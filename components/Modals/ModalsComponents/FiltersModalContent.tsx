@@ -28,6 +28,8 @@ const FiltersModalContent = ({
 
         const fetchTable = async () => {
             const { data: { Familias, Marca } } = await api.get("/api/tables")
+            console.log({Familias})
+            console.log({Marca})
             setFamiliasFilter(Familias)
             setMarcasFilter(Marca)
 
@@ -44,7 +46,6 @@ const FiltersModalContent = ({
         fetchTable()
 
     }, [visible])
-
 
 
     return (
