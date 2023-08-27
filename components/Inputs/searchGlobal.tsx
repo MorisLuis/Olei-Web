@@ -98,6 +98,8 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
         setInputValue(event.target.value);
         const term = event.target.value
 
+        console.log({term})
+
         try {
             const { data: { products } } = await api.get(`/api/search?term=${term}`);
             setSearchResults(products)
