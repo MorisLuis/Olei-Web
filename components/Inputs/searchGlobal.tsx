@@ -102,6 +102,7 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
 
         try {
             const { data: { products } } = await api.get(`/api/search?term=${term}`);
+            console.log({products})
             setSearchResults(products)
         } catch (error) {
             console.log({error})
