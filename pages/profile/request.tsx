@@ -39,6 +39,7 @@ const Pedidos = () => {
             loading: 'Cargando carrito...',
             success: 'Listo! Ya tienes tu carrito lleno',
             error: 'Error when fetching',
+            
         });
     };
 

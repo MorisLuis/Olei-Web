@@ -3,6 +3,7 @@
     border: 1px solid $color-border;
     height: 36px;
     border-radius: 0.5em;
+    font-size: $font-normal;
 
     &:focus {
         border: 1px solid transparent;

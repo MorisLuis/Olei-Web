@@ -23,8 +23,15 @@
 .messageModal{
     padding: 0em 1em;
     //width: 300px;
-    font-size: $font-sm;
     border-bottom: 1px solid $color-border;
     padding-bottom: 0.5em;
     margin-bottom: 0.5em;
+
+    @include respond(phone){
+        text-align: center;
+    }
+}
+
+.messageEmpty{
+    padding: 1em;
 }
