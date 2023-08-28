@@ -37,7 +37,7 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
         return { ...product, Cantidad: quantity || quantityPending };
     });
 
-    console.log({ loadingData })
+    console.log({ productsWithCartInfo })
 
     return (
         <>
@@ -72,11 +72,14 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                     }
                                 </div>
                             </div>
-                            <button
-                                onClick={loadMoreProducts}
-                                className="button white"
-                                disabled={isLoading}
-                            >Cargar mas</button>
+                            {
+                                (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0 ) &&
+                                <button
+                                    onClick={loadMoreProducts}
+                                    className="button white"
+                                    disabled={isLoading}
+                                >Cargar mas</button>
+                            }
                         </>
             }
         </>

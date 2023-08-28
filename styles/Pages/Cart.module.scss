@@ -56,12 +56,9 @@
             padding-bottom: 1em;
 
             input{
-                width: 75%;
+                width: 100%;
             }
 
-            button{
-                width: 20%;
-            }
 
             @include respond(phone) {
                 input{

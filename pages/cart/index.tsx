@@ -16,8 +16,9 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 const Cart = () => {
 
     const { push } = useRouter()
-    const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart} = useContext(CartContext);
+    const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart } = useContext(CartContext);
     const [requestOpen, setRequestOpen] = useState(false)
+    const [cartShowed, setCartShowed] = useState(cart)
 
     const submitOrder = () => {
 
@@ -78,6 +79,17 @@ const Cart = () => {
 
     }
 
+
+    const searchProductInCart = (term: string) => {
+        if (term === "") {
+            setCartShowed(cart);
+            return;
+        }
+        const productFiltered = cart.filter((product) => product.Descripcion?.toLowerCase().includes(term.toLowerCase()))
+
+        setCartShowed(productFiltered)
+    }
+
     return (
         <Layout>
             <div className={styles.cart}>
@@ -92,13 +104,12 @@ const Cart = () => {
                     cart.length > 0 ?
                         <div className={styles.content}>
                             <div className={`${styles.search} display-flex space-between`}>
-                                <input type="text" className='input' placeholder='Buscar producto...' />
-                                <button className='button'>Buscar</button>
+                                <input type="text" className='input' placeholder='Buscar producto...' onChange={(e: any) => searchProductInCart(e.target.value)} />
                             </div>
 
                             <div className={styles.table}>
                                 {
-                                    cart.map((product: ProductInterface, Index) =>
+                                    cartShowed.map((product: ProductInterface, Index) =>
                                         <ProductCardShort product={product} key={Index} />
                                     )
                                 }

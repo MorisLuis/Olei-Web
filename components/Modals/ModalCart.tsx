@@ -38,8 +38,8 @@ const ModalCart = ({
             <div className={styles.modalBackground}></div>
 
             <div className={`${styles.modalCart} ${closing ? styles.closing : ''}`}>
-                <div className={`${styles.header} display-flex space-between cursor`} onClick={handleCloseModal}>
-                    <div className={`${styles.close} align`}>
+                <div className={`${styles.header} display-flex space-between`} >
+                    <div className={`${styles.close} align cursor`} onClick={handleCloseModal}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon cursor display-flex align`} />
                     </div>
                     <button className='button-small display-flex align' onClick={() => push("/cart")}>
