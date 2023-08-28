@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
+import { useRouter } from "next/router";
 
 export default async function middleware(req: NextRequest) {
     const jwtCookie = req.cookies.get("token");
-
     const jwt = jwtCookie && jwtCookie.value;
 
     if (!jwt) {
@@ -21,7 +21,6 @@ export default async function middleware(req: NextRequest) {
 }
 export const config = {
     matcher: [
-        '/',
         // match all paths not starting with 'public' or 'static'
     ],
 }

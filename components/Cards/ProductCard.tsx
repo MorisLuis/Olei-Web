@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from "../../styles/UI.module.scss";
 
 import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
 import Counter from '../Ui/Counter';
 import { Tag } from '../Ui/Tag';
-import Skeleton from 'react-loading-skeleton'; // Importa Skeleton
+import Skeleton from 'react-loading-skeleton';
 
 
 interface Props {
@@ -53,7 +53,7 @@ const ProductCard = ({ product }: Props) => {
                     {product ? (
                         <p>{product.Descripcion}</p>
                     ) : (
-                        <Skeleton width={200} height={20} /> // Esqueleto para el nombre del producto
+                        <Skeleton width={200} height={20} />
                     )}
                 </div>
             </div>
@@ -64,7 +64,7 @@ const ProductCard = ({ product }: Props) => {
                         {product ? (
                             <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product.CodigoProducto}</p>
                         ) : (
-                            <Skeleton width={100} height={20} /> // Esqueleto para el código del producto
+                            <Skeleton width={100} height={20} />
                         )}
                     </div>
 

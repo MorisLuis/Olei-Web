@@ -25,6 +25,7 @@
         width: 100%;
         top: 3%;
         border-radius: 0.5em;
+        height: calc(100vh - 3%);
     }
 
     .header {
@@ -34,6 +35,7 @@
         border: 1px solid $color-border;
         border-style: none none solid none;
         max-height: 10%;
+        height: 10%;
 
         @include respond(phone) {
             border-radius: 0.5em 0.5em 0em 0em;
@@ -89,6 +91,7 @@
         justify-content: flex-end;
 
         h4 {
+
             height: fit-content;
             border-radius: 3px;
             padding: 0.25em 0.5em;
@@ -96,6 +99,10 @@
                     rgba(9, 118, 223, 0.2) 0%,
                     rgba(245, 147, 212, 0.5) 50%,
                     rgba(9, 118, 223, 0.2) 100%);
+
+            @include respond(phone) {
+                font-size: 14px;
+            }
         }
     }
 
@@ -140,6 +147,7 @@
         left: 0%;
         top: 0%;
         animation: modal-open-mobil 0.1s ease-in-out forwards;
+        border-radius: 1em 1em 0em 0em;
 
         &.closing {
             transform: translate(0%, 0%) scale(0.8);
@@ -176,7 +184,7 @@
 
         .footer {
             height: 7.5%;
-            
+
             @include respond(phone) {
                 height: 10%;
             }
@@ -246,7 +254,7 @@
         width: 100%;
         padding: 1em;
         border-top: 1px solid $color-border;
-        
+
     }
 }
 
@@ -290,13 +298,13 @@
     animation: modal-open 0.1s ease-in-out forwards;
     opacity: 0;
 
-    .content{
+    .content {
         height: 70%;
         padding: 2em;
     }
 
 
-    .footer{
+    .footer {
         border-top: 1px solid $color-border;
         height: 30%;
         padding: 2em;

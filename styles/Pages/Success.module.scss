@@ -20,10 +20,10 @@
         padding-bottom: 1rem;
     
         @include respond(phone) {
-            font-size: 65px;
+            font-size: 45px;
             color: $color-blue;
             width: 80%;
-            line-height: 70px;
+            line-height: 50px;
             padding-bottom: 1rem;
         }
     }

@@ -122,6 +122,12 @@
 
                     >div {
                         width: 100%;
+
+                        @include respond(phone) {
+                            &:not(:last-child){
+                                margin-bottom: 0.25em;
+                            }
+                        }
                     }
 
                     .price {

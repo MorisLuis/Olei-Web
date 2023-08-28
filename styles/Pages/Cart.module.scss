@@ -58,17 +58,6 @@
             input{
                 width: 100%;
             }
-
-
-            @include respond(phone) {
-                input{
-                    width: 60%;
-                }
-    
-                button{
-                    width: 35%;
-                }
-            }
         }
 
         @include respond(tab-land) {
@@ -130,7 +119,7 @@
             button{
                 width: 20%;
                 @include respond(tab-land) {
-                    width: 100%;
+                    width: 75%;
                 }
 
             }
