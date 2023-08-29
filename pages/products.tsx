@@ -13,6 +13,7 @@ import HomeFilter from '@/components/HomeFilter';
 import { useRouter } from 'next/router';
 import Table from '@/components/Ui/Tables/Table';
 import { FiltersContext } from '@/context';
+import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
 
 interface Props {
   productsProps: ProductInterface[]

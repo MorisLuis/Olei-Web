@@ -6,6 +6,7 @@ import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '../../Cards/MessageCard';
 import TableSkeleton from '../../Skeletons/TableSkeleton';
+import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
 
 
 interface Props {
@@ -71,12 +72,11 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                 </div>
                             </div>
                             {
-                                (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0 ) &&
-                                <button
-                                    onClick={loadMoreProducts}
-                                    className="button white"
+                                (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
+                                <ButtonAnimated
+                                    onclick={loadMoreProducts}
                                     disabled={isLoading}
-                                >Cargar mas</button>
+                                />
                             }
                         </>
             }
