@@ -121,6 +121,9 @@ export const SearchGlobal = () => {
         }
     };
 
+    console.log({ searchResults })
+    console.log({ inputValue })
+
     return (
         <>
             <div className={`${styles.searchGlobal} display-flex`}>
@@ -140,7 +143,6 @@ export const SearchGlobal = () => {
                         inputValue !== "" &&
                         <div className="iconClean display-flex allCenter cursor" onClick={() => {
                             setInputValue("")
-                            //searchProductInCart("")
                         }}>
                             <FontAwesomeIcon icon={faXmark} className={`icon__small`} />
                         </div>
@@ -152,19 +154,26 @@ export const SearchGlobal = () => {
                     <p>Busca un producto por su nombre o codigo</p>
                 </div>
                 {
-                    searchResults.length > 0 ? searchResults.map((producto: string, index: number) =>
+                    (inputValue !== "" && searchResults.length > 0) ? searchResults.map((producto: string, index: number) =>
                         <SearchItemCard key={index} productName={producto} onclick={() => handleSelectOption(producto)} />
                     )
                         :
-                        <div className={`${styles.messageEmpty} display-flex column allCenter`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='icon  m-right'>
-                                <path d="M18.546 3h-13.069l-5.477 8.986v9.014h24v-9.014l-5.454-8.986zm-11.946 2h10.82l3.642 6h-4.476l-3 3h-3.172l-3-3h-4.471l3.657-6zm15.4 14h-20v-6h4.586l3 3h4.828l3-3h4.586v6z" />
-                            </svg>
-                            <div className={`display-flex column allCenter`}>
-                                <h3>No hay resultados.</h3>
-                                <p>Verifica haberlo escrito bien.</p>
+                        searchResults.length === 0 && inputValue !== "" ?
+                            <div className={`${styles.messageEmpty} display-flex column allCenter`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='icon  m-right'>
+                                    <path d="M18.546 3h-13.069l-5.477 8.986v9.014h24v-9.014l-5.454-8.986zm-11.946 2h10.82l3.642 6h-4.476l-3 3h-3.172l-3-3h-4.471l3.657-6zm15.4 14h-20v-6h4.586l3 3h4.828l3-3h4.586v6z" />
+                                </svg>
+                                <div className={`display-flex column allCenter`}>
+                                    <h3>No hay resultados.</h3>
+                                    <p>Verifica haberlo escrito bien.</p>
+                                </div>
                             </div>
-                        </div>
+                            :
+                            <div className={`${styles.messageEmpty} display-flex column allCenter`}>
+                                <div className={`display-flex column allCenter`}>
+                                    <h3>Inicia tu busqueda.</h3>
+                                </div>
+                            </div>
                 }
             </ModalSearch>
         </>

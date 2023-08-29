@@ -90,6 +90,7 @@ const Cart = () => {
         setCartShowed(productFiltered)
     }
 
+    console.log({ cartShowed })
     return (
         <Layout>
             <div className={styles.cart}>
@@ -123,9 +124,13 @@ const Cart = () => {
 
                             <div className={styles.table}>
                                 {
-                                    cartShowed.map((product: ProductInterface, Index) =>
+                                    cartShowed.length > 0 ? cartShowed.map((product: ProductInterface, Index) =>
                                         <ProductCardShort product={product} key={Index} />
                                     )
+                                        :
+                                        <MessageCard title='No hay productos.'>
+                                            <p>En tu orden no hay productos con ese nombre.</p>
+                                        </MessageCard>
                                 }
                             </div>
 

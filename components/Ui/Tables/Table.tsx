@@ -78,6 +78,10 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                     disabled={isLoading}
                                 />
                             }
+                            {
+                                !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
+                                <p style={{ textAlign:"center", paddingTop:"1em", color:"gray"}}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
+                            }
                         </>
             }
         </>
