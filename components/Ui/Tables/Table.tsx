@@ -37,8 +37,6 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
         return { ...product, Cantidad: quantity || quantityPending };
     });
 
-    console.log({ productsWithCartInfo })
-
     return (
         <>
             {

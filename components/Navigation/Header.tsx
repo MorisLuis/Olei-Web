@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from "./../../styles/Navigation/Header.module.scss";
 
 import { api } from '@/api/api';
@@ -8,18 +8,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faFile } from '@fortawesome/free-solid-svg-icons';
 import { SearchGlobal } from '../Inputs/searchGlobal';
 import { CartContext } from '@/context';
-import FiltersInterface from '@/interfaces/filters';
 
 interface Props {
-    setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>,
-    filtersActive?: FiltersInterface,
-    setFiltersActive: Dispatch<SetStateAction<FiltersInterface>> | undefined
+    setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Header = ({
     setOpenModalCart,
-    filtersActive,
-    setFiltersActive
 }: Props) => {
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
@@ -40,14 +35,14 @@ const Header = ({
             <div className={`${styles.header} blur`}>
                 <div className={`${styles.content} display-flex space-between`}>
                     <div className={`${styles.left} display-flex align`}>
-                        <div className={`${styles.logo} cursor`} onClick={() => push("/products?page=1&limit=20")}>
+                        <div className={`${styles.logo} cursor`} onClick={() => push("/products")}>
                             Rosco
                         </div>
                         {
                             pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
                                 <></> :
                                 <div className={styles.search}>
-                                    <SearchGlobal filtersActive={filtersActive} setFiltersActive={setFiltersActive} />
+                                    <SearchGlobal/>
                                 </div>
                         }
                         <div className={`${styles.orders} display-flex align cursor`} onClick={() => push("/profile/request")}>

@@ -28,12 +28,12 @@ const FiltersModalContent = ({
 
         const fetchTable = async () => {
             const { data: { Familias, Marca } } = await api.get("/api/tables")
-            console.log({Familias})
-            console.log({Marca})
             setFamiliasFilter(Familias)
             setMarcasFilter(Marca)
 
+            if(!JSON.parse(Cookies.get("activeFilters")!)) return;
             const { enStock, familia, folio, marca } = JSON.parse(Cookies.get("activeFilters")!)
+
             setTemporalFilters((prevState: FiltersInterface) => ({
                 ...prevState,
                 enStock: enStock,
@@ -45,7 +45,7 @@ const FiltersModalContent = ({
 
         fetchTable()
 
-    }, [visible])
+    }, [visible, setTemporalFilters])
 
 
     return (
@@ -94,7 +94,7 @@ const FiltersModalContent = ({
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
                         ...prevState, //@ts-ignore
-                        marca: value.values
+                        marca: value.value
                     }))
                 }}
             />

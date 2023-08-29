@@ -1,19 +1,17 @@
-import FiltersInterface from '@/interfaces/filters'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import React, { Dispatch, ReactNode, SetStateAction, useState } from 'react'
-import { Toaster } from 'react-hot-toast'
-import ModalCart from '../Modals/ModalCart'
-import Footer from '../Navigation/Footer'
-import Header from '../Navigation/Header'
+import React, {  ReactNode, useState } from 'react';
+
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { Toaster } from 'react-hot-toast';
+import ModalCart from '../Modals/ModalCart';
+import Footer from '../Navigation/Footer';
+import Header from '../Navigation/Header';
 
 interface Props {
-    children: ReactNode,
-    filtersActive?: FiltersInterface,
-    setFiltersActive?: Dispatch<SetStateAction<FiltersInterface>>
+    children: ReactNode
 }
 
-export const Layout = ({ children, filtersActive, setFiltersActive }: Props) => {
+export const Layout = ({ children }: Props) => {
 
     const [openModalCart, setOpenModalCart] = useState(false)
     const { pathname } = useRouter()
@@ -29,8 +27,6 @@ export const Layout = ({ children, filtersActive, setFiltersActive }: Props) => 
 
             <Header
                 setOpenModalCart={setOpenModalCart}
-                filtersActive={filtersActive}
-                setFiltersActive={setFiltersActive}
             />
 
             <div>

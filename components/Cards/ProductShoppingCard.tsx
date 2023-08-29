@@ -66,7 +66,7 @@ const ProductShoppingCard = ({ product }: Props) => {
                     <div className={`display-flex`}>
                     {
                             product?.Existencia && product?.Existencia < 1 ?
-                                <Tag color="red">No Stock</Tag> :
+                                <Tag color="red">En Stock</Tag> :
                                 <div className='display-flex'>
                                     <p className={styles.headersMovil}>Existencia: </p>
                                     <p>{product?.Existencia}</p>

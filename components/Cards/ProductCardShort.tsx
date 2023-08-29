@@ -15,7 +15,7 @@ interface Props {
 
 export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
 
-    const { addProductToCart, removeCartProduct } = useContext(CartContext)
+    const { addProductToCart } = useContext(CartContext)
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Descripcion: product.Descripcion,

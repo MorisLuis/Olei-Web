@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useRef, useState } from 'react';
 import styles from "../../styles/Components/SearchGlobal.module.scss";
 
 import { ModalSearch } from '../Modals/ModalSearch';
@@ -6,15 +6,13 @@ import { SearchItemCard } from '../Cards/SearchItemCard';
 import FiltersInterface from '@/interfaces/filters';
 import { api } from '@/api/api';
 import { useRouter } from 'next/router';
+import { FiltersContext } from '@/context';
 
-interface Props {
-    filtersActive?: FiltersInterface,
-    setFiltersActive: Dispatch<SetStateAction<FiltersInterface>> | undefined
-}
 
-export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
+export const SearchGlobal = () => {
 
-    const { push, query: { page, limit }, query } = useRouter()
+    const { addFilters, filters } = useContext(FiltersContext);
+    const { push } = useRouter()
     const [searchResults, setSearchResults] = useState([])
     const [modalSearchVisible, setModalSearchVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -36,22 +34,34 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
     const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
 
+            const newFilters: FiltersInterface = {
+                ...filters,
+                nombre: inputValue,
+            };
+            addFilters(newFilters)
+
             // Construct the base URL with pagination settings.
-            let url = `/products?page=${page}&limit=${limit}`;
+            let url = `/products`;
+            let isFirstQueryParam = true;
 
             //Add a query parameter to the URL if the value is defined and not empty.
             const addQueryParam = (paramName: string, value: any) => {
                 if (value !== null && value !== "" && value !== undefined) {
-                    url += `&${paramName}=${value}`;
+                    if (isFirstQueryParam) {
+                        url += `?${paramName}=${value}`;
+                        isFirstQueryParam = false;
+                    } else {
+                        url += `&${paramName}=${value}`;
+                    }
                 }
             };
 
             // Add specific query parameters based on filters.
-            addQueryParam("nombre", query.nombre);
-            addQueryParam("marca", filtersActive?.marca);
-            addQueryParam("familia", filtersActive?.familia);
-            addQueryParam("folio", filtersActive?.folio);
-            addQueryParam("enStock", filtersActive?.enStock);
+            addQueryParam("nombre", inputValue);
+            addQueryParam("marca", filters?.marca);
+            addQueryParam("familia", filters?.familia);
+            addQueryParam("folio", filters?.folio);
+            addQueryParam("enStock", filters?.enStock);
 
             push(url);
 
@@ -60,35 +70,38 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
             if (inputRef.current) {
                 inputRef.current.blur();
             }
-            setFiltersActive?.((prevState: FiltersInterface) => ({
-                ...prevState,
-                nombre: inputValue
-            }))
         }
     };
 
     const handleSelectOption = (producto: string) => {
-        setFiltersActive?.((prevState: FiltersInterface) => ({
-            ...prevState,
-            nombre: producto
-        }))
+
+        const newFilters: FiltersInterface = {
+            ...filters,
+            nombre: producto,
+        };
+        addFilters(newFilters)
 
         // Construct the base URL with pagination settings.
-        let url = `/products?page=${page}&limit=${limit}`;
+        let url = `/products`;
+        let isFirstQueryParam = true;
 
         //Add a query parameter to the URL if the value is defined and not empty.
         const addQueryParam = (paramName: string, value: any) => {
-            if (value !== null && value !== "" && value !== undefined) {
-                url += `&${paramName}=${value}`;
+            if (value !== null && value !== "" && value !== undefined && value !== false) {
+                if (isFirstQueryParam) {
+                    url += `?${paramName}=${value}`;
+                    isFirstQueryParam = false;
+                } else {
+                    url += `&${paramName}=${value}`;
+                }
             }
         };
-
         // Add specific query parameters based on filters.
         addQueryParam("nombre", producto);
-        addQueryParam("marca", filtersActive?.marca);
-        addQueryParam("familia", filtersActive?.familia);
-        addQueryParam("folio", filtersActive?.folio);
-        addQueryParam("enStock", filtersActive?.enStock);
+        addQueryParam("marca", filters?.marca);
+        addQueryParam("familia", filters?.familia);
+        addQueryParam("folio", filters?.folio);
+        addQueryParam("enStock", filters?.enStock);
 
         push(url);
 
@@ -98,18 +111,13 @@ export const SearchGlobal = ({ setFiltersActive, filtersActive }: Props) => {
         setInputValue(event.target.value);
         const term = event.target.value
 
-        console.log({ term })
-
         try {
             const { data: { products } } = await api.get(`/api/search?term=${term}`);
-            console.log({ products })
             setSearchResults(products)
         } catch (error) {
             console.log({ error })
         }
     };
-
-    console.log({ searchResults })
 
     return (
         <>

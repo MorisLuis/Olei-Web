@@ -1,4 +1,4 @@
-import { AuthProvider, CartProvider } from '@/context'
+import { AuthProvider, CartProvider, FiltersProvider } from '@/context'
 import type { AppProps } from 'next/app'
 import NextNProgress from 'nextjs-progressbar'
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -8,14 +8,11 @@ import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  const {asPath,push, pathname} = useRouter();
-  console.log({pathname})
-  console.log({asPath})
-
+  const { asPath, push } = useRouter();
 
   useEffect(() => {
-    if(asPath === "/") {
-      push('/products?page=1&limit=20');
+    if (asPath === "/") {
+      push('/products');
     }
   }, []);
 
@@ -23,10 +20,12 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
 
       <CartProvider>
-        <NextNProgress color="#068FFF" height={4} />
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
+        <FiltersProvider>
+          <NextNProgress color="#068FFF" height={4} />
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </FiltersProvider>
       </CartProvider>
     </>
   )

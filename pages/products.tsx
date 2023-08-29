@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import styles from "../styles/Pages/Home.module.scss";
 
 import { api } from '@/api/api';
@@ -12,6 +12,7 @@ import FiltersInterface from '@/interfaces/filters';
 import HomeFilter from '@/components/HomeFilter';
 import { useRouter } from 'next/router';
 import Table from '@/components/Ui/Tables/Table';
+import { FiltersContext } from '@/context';
 
 interface Props {
   productsProps: ProductInterface[]
@@ -27,31 +28,41 @@ const filterState: FiltersInterface = {
 
 export default function Home({ productsProps }: Props) {
 
-  const { query: { page, limit }, push, query, asPath } = useRouter()
+  const { push, query, asPath } = useRouter()
+  const { addFilters, removeFilters, filters, removeAllFilters } = useContext(FiltersContext);
+
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
-  const [filtersActive, setFiltersActive] = useState<FiltersInterface>(filterState);
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
   const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
-  const [nextPage, setNextPage] = useState<number>(parseInt(page as string))
+  const [nextPage, setNextPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
 
   const handleFiltersToQuery = () => {
+
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
-    setFiltersActive(temporalFilters);
     setOpenModalFilter(false);
 
-    // Construct the base URL with pagination settings.
-    let url = `/products?page=${page}&limit=${limit}`;
+    addFilters(temporalFilters);
+
+    let url = `/products`;
+
+    // Variable to track if the first query parameter has been added
+    let isFirstQueryParam = true;
 
     /**
-       * Add a query parameter to the URL if the value is defined and not empty.
-       * @param paramName - The name of the query parameter.
-       * @param value - The value to be added as a query parameter.
-       */
+     * Add a query parameter to the URL if the value is defined and not empty.
+     * @param paramName - The name of the query parameter.
+     * @param value - The value to be added as a query parameter.
+     */
     const addQueryParam = (paramName: string, value: any) => {
-      if (value !== null && value !== "" && value !== undefined) {
-        url += `&${paramName}=${value}`;
+      if (value !== null && value !== "" && value !== undefined && value !== false) {
+        if (isFirstQueryParam) {
+          url += `?${paramName}=${value}`;
+          isFirstQueryParam = false;
+        } else {
+          url += `&${paramName}=${value}`;
+        }
       }
     };
 
@@ -66,57 +77,53 @@ export default function Home({ productsProps }: Props) {
   };
 
   const handleCleanAllFilters = () => {
-    setFiltersActive(filterState)
     setOpenModalFilter(false);
-    let url = `/products?page=${page}&limit=${limit}`;
-    push(url);
+    push("/products");
   }
 
   const handleCloseTag = (filter: any) => {
-    // Delete tag, setting filters active.
-    if (filter === "enStock") {
-      setFiltersActive((prevState: FiltersInterface) => ({
-        ...prevState,
-        [filter[0]]: false
-      }))
-    } else {
-      setFiltersActive((prevState: FiltersInterface) => ({
-        ...prevState,
-        [filter[0]]: null
-      }))
-    }
+
+    removeFilters({
+      [filter[0]]: filter[1]
+    })
 
     // Construct the base URL with pagination settings.
-    let url = `/products?page=${page}&limit=${limit}`;
+    let url = `/products`;
+
+    // Variable to track if the first query parameter has been added
+    let isFirstQueryParam = true;
 
     //Add a query parameter to the URL if the value is defined and not empty.
     const addQueryParam = (paramName: string, value: any) => {
-      if (value !== null && value !== "" && value !== undefined && value !== filter[1]) {
-        url += `&${paramName}=${value}`;
+      if (value !== null && value !== "" && value !== undefined && value !== false) {
+        if (isFirstQueryParam) {
+          url += `?${paramName}=${value}`;
+          isFirstQueryParam = false;
+        } else {
+          url += `&${paramName}=${value}`;
+        }
       }
     };
 
     // Add specific query parameters based on filters.
-    addQueryParam("nombre", query.nombre);
-    addQueryParam("marca", filtersActive.marca);
-    addQueryParam("familia", filtersActive.familia);
-    addQueryParam("folio", filtersActive.folio);
-    addQueryParam("enStock", filtersActive.enStock);
+    addQueryParam("nombre", filter[0] === "nombre" ? null : filters.nombre);
+    addQueryParam("marca", filter[0] === "marca" ? null : filters.marca);
+    addQueryParam("familia", filter[0] === "familia" ? null : filters.familia);
+    addQueryParam("folio", filter[0] === "folio" ? null : filters.folio);
+    addQueryParam("enStock", filter[0] === "enStock" ? null : filters.enStock);
 
     push(url);
   }
 
-  const loadMoreProducts = async () => {
+  const loadMoreProducts = useCallback(async () => {
     setIsLoading(true);
 
     const limitIndex = asPath.indexOf('limit=20');
     const paramsAfterLimit = limitIndex !== -1 ? asPath.slice(limitIndex + 'limit=20'.length) : '';
     const newUrl = `/api/product?page=${nextPage}&limit=20${paramsAfterLimit}`;
 
-
     try {
       setNextPage(nextPage + 1);
-      if (!page) return;
       if (nextPage === 1) return;
 
       const { data: { products } } = await api.get(newUrl);
@@ -126,31 +133,35 @@ export default function Home({ productsProps }: Props) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const UseFetchPagination = () => {
-    setProducts(productsProps)
-  }
+  const UseFetchPagination = useCallback(() => {
+    setProducts(productsProps);
+  }, [productsProps]);
 
   useEffect(() => {
     setLoadingData(true);
     UseFetchPagination()
     setLoadingData(false);
-  }, [query])
+
+  }, [query, UseFetchPagination])
 
   useEffect(() => {
     loadMoreProducts()
-  }, [])
+  }, [loadMoreProducts])
 
+  useEffect(() => {
+    if (Object.keys(query).length === 0) {
+      removeAllFilters()
+    }
+  }, [])
 
   return (
     <>
-      <Layout filtersActive={filtersActive} setFiltersActive={setFiltersActive}>
+      <Layout>
         <div className={styles.home}>
           <HomeFilter
             filterState={filterState}
-            setFiltersActive={setFiltersActive}
-            filtersActive={filtersActive}
             handleCloseTag={handleCloseTag}
             setOpenModalFilter={setOpenModalFilter}
           />
@@ -207,7 +218,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     url += `&enStock=${enStock}`;
   }
 
-  if (marca !== undefined) {  // Aquí usamos `!== undefined` para manejar tanto `null` como `undefined`
+  if (marca !== undefined) {
     url += `&marca=${marca}`;
   }
 

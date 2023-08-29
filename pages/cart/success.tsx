@@ -61,7 +61,7 @@ const Success = () => {
                         Ver recibo
                         <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align`} />
                     </button>
-                    <button className="button-small display-flex allCenter" onClick={() => push("/products?page=1&limit=20")}>
+                    <button className="button-small display-flex allCenter" onClick={() => push("/products")}>
                         Regresar a Inicio
                         <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
                     </button>
