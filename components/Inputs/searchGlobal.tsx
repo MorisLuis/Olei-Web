@@ -1,12 +1,14 @@
-import React, { Dispatch, SetStateAction, useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import styles from "../../styles/Components/SearchGlobal.module.scss";
 
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ModalSearch } from '../Modals/ModalSearch';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import FiltersInterface from '@/interfaces/filters';
 import { api } from '@/api/api';
 import { useRouter } from 'next/router';
 import { FiltersContext } from '@/context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export const SearchGlobal = () => {
@@ -122,17 +124,28 @@ export const SearchGlobal = () => {
     return (
         <>
             <div className={`${styles.searchGlobal} display-flex`}>
-                <input
-                    ref={inputRef}
-                    className={`${styles.input} input`}
-                    type="text"
-                    placeholder='Buscar...'
-                    onFocus={handleInputFocus}
-                    onBlur={handleInputBlur}
-                    onKeyDown={handleKeyDown}
-                    onChange={handleInputChange}
-                    value={inputValue}
-                />
+                <div className='inputClean display-flex'>
+                    <input
+                        ref={inputRef}
+                        className={`${styles.input} input`}
+                        type="text"
+                        placeholder='Buscar...'
+                        onFocus={handleInputFocus}
+                        onBlur={handleInputBlur}
+                        onKeyDown={handleKeyDown}
+                        onChange={handleInputChange}
+                        value={inputValue}
+                    />
+                    {
+                        inputValue !== "" &&
+                        <div className="iconClean display-flex allCenter cursor" onClick={() => {
+                            setInputValue("")
+                            //searchProductInCart("")
+                        }}>
+                            <FontAwesomeIcon icon={faXmark} className={`icon__small`} />
+                        </div>
+                    }
+                </div>
             </div>
             <ModalSearch visible={modalSearchVisible}>
                 <div className={styles.messageModal}>

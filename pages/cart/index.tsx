@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import styles from "../../styles/Pages/Cart.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
-import { faCheck, faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faAngleDoubleDown, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
@@ -19,6 +19,7 @@ const Cart = () => {
     const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart } = useContext(CartContext);
     const [requestOpen, setRequestOpen] = useState(false)
     const [cartShowed, setCartShowed] = useState(cart)
+    const [inputValue, setInputValue] = useState("")
 
     const submitOrder = () => {
 
@@ -79,7 +80,6 @@ const Cart = () => {
 
     }
 
-
     const searchProductInCart = (term: string) => {
         if (term === "") {
             setCartShowed(cart);
@@ -104,7 +104,21 @@ const Cart = () => {
                     cart.length > 0 ?
                         <div className={styles.content}>
                             <div className={`${styles.search} display-flex space-between`}>
-                                <input type="text" className='input' placeholder='Buscar producto...' onChange={(e: any) => searchProductInCart(e.target.value)} />
+                                <div className='inputClean display-flex'>
+                                    <input type="text" className='input' value={inputValue} placeholder='Buscar producto...' onChange={(e: any) => {
+                                        searchProductInCart(e.target.value)
+                                        setInputValue(e.target.value)
+                                    }} />
+                                    {
+                                        inputValue !== "" &&
+                                        <div className="iconClean display-flex allCenter cursor" onClick={() => {
+                                            setInputValue("")
+                                            searchProductInCart("")
+                                        }}>
+                                            <FontAwesomeIcon icon={faXmark} className={`icon__small`} />
+                                        </div>
+                                    }
+                                </div>
                             </div>
 
                             <div className={styles.table}>
