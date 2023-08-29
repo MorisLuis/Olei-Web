@@ -115,7 +115,7 @@ export default function Home({ productsProps }: Props) {
     push(url);
   }
 
-  const loadMoreProducts = useCallback(async () => {
+  const loadMoreProducts = async () => {
     setIsLoading(true);
 
     const limitIndex = asPath.indexOf('limit=20');
@@ -133,7 +133,7 @@ export default function Home({ productsProps }: Props) {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
   const UseFetchPagination = useCallback(() => {
     setProducts(productsProps);
@@ -148,7 +148,7 @@ export default function Home({ productsProps }: Props) {
 
   useEffect(() => {
     loadMoreProducts()
-  }, [loadMoreProducts])
+  }, [])
 
   useEffect(() => {
     if (Object.keys(query).length === 0) {
