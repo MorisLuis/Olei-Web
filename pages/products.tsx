@@ -119,15 +119,34 @@ export default function Home({ productsProps }: Props) {
   const loadMoreProducts = async () => {
     setIsLoading(true);
 
-    const limitIndex = asPath.indexOf('limit=20');
-    const paramsAfterLimit = limitIndex !== -1 ? asPath.slice(limitIndex + 'limit=20'.length) : '';
-    const newUrl = `/api/product?page=${nextPage}&limit=20${paramsAfterLimit}`;
+    let url = `/api/product?page=${nextPage}&limit=20`;
+
+    // Variable to track if the first query parameter has been added
+    let isFirstQueryParam = true;
+
+    /**
+     * Add a query parameter to the URL if the value is defined and not empty.
+     * @param paramName - The name of the query parameter.
+     * @param value - The value to be added as a query parameter.
+     */
+    const addQueryParam = (paramName: string, value: any) => {
+      if (value !== null && value !== "" && value !== undefined && value !== false) {
+        url += `&${paramName}=${value}`;
+      }
+    };
+
+    // Add specific query parameters based on filters.
+    addQueryParam("nombre", query.nombre);
+    addQueryParam("marca", query.marca);
+    addQueryParam("familia", query.familia);
+    addQueryParam("folio", query.folio);
+    addQueryParam("enStock", query.enStock);
 
     try {
       setNextPage(nextPage + 1);
       if (nextPage === 1) return;
 
-      const { data: { products } } = await api.get(newUrl);
+      const { data: { products } } = await api.get(url);
       setProducts((prevItems) => [...prevItems, ...products]);
     } catch (error) {
       console.error('Error loading more items:', error);

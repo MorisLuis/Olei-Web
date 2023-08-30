@@ -121,8 +121,6 @@ export const SearchGlobal = () => {
         }
     };
 
-    console.log({ searchResults })
-    console.log({ inputValue })
 
     return (
         <>

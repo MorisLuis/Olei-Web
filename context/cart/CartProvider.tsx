@@ -89,6 +89,7 @@ export const CartProvider = ({ children }: any) => {
 
 
     const addProductToCart = (product: ProductInterface) => {
+        console.log({product})
 
         if (product.Existencia && product.Existencia <= 0) {
             const productInCartPending = state.cartPending.some(p => p.CodigoProducto === product.CodigoProducto);

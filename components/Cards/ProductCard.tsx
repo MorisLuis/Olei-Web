@@ -16,6 +16,8 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
 
+
+    //console.log({product})
     const { addProductToCart } = useContext(CartContext)
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({

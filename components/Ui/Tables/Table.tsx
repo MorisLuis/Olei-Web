@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../../styles/UI.module.scss";
+import md5 from 'md5';
 
 import ProductCard from '../../Cards/ProductCard';
 import { CartContext } from '@/context';
@@ -19,15 +20,20 @@ interface Props {
 const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
     const { cart, cartPending } = useContext(CartContext)
-    const productsToDisplay: ProductInterface[] = [...data];
+    const [productsToDisplay, setProductsToDisplay] = useState<ProductInterface[]>([])
+
+    //const productsToDisplay: ProductInterface[] = [...data];
+    useEffect(() => {
+        setProductsToDisplay([...data])
+    }, [data])
 
     // Define an array of ProductInterface objects to represent products to be displayed
     const productsWithCartInfo: ProductInterface[] = productsToDisplay.map((product: ProductInterface) => {
         // Find the corresponding product in the 'cart' array using matching properties
-        const cartProduct = cart.find((cartItem) => cartItem.CodigoProducto === product.CodigoProducto && cartItem.Id_Marca === product.Id_Marca);
+        const cartProduct = cart.find((cartItem) => (cartItem.CodigoProducto === product.CodigoProducto) && (cartItem.Id_Marca === product.Id_Marca));
 
         // Find the corresponding product in the 'cartPending' array using matching properties
-        const cartProductPending = cartPending.find((cartItem) => cartItem.CodigoProducto === product.CodigoProducto && cartItem.Id_Marca === product.Id_Marca);
+        const cartProductPending = cartPending.find((cartItemPending) => (cartItemPending.CodigoProducto === product.CodigoProducto) && (cartItemPending.Id_Marca === product.Id_Marca));
 
         // Calculate the quantity of the product in the active cart ('cart') and pending cart ('cartPending')
         const quantity = cartProduct !== undefined ? cartProduct.Cantidad : 0;
@@ -35,7 +41,14 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
         // Create a new object that combines the product information with the calculated quantities
         // If 'quantity' from 'cart' is available, use it; otherwise, use 'quantityPending' from 'cartPending'
-        return { ...product, Cantidad: quantity || quantityPending };
+        //return { ...product, Cantidad: quantity || quantityPending };
+
+        const productWithCartInfo: ProductInterface = {
+            ...product,
+            Cantidad: quantity !== 0 ? quantity : quantityPending,
+        };
+
+        return productWithCartInfo;
     });
 
     return (
@@ -65,7 +78,7 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                     {
                                         productsWithCartInfo?.map((product: ProductInterface, index: number) => {
                                             return (
-                                                <ProductCard product={product} key={index} />
+                                                <ProductCard product={product} key={product.CodigoProducto && (product.CodigoProducto + product.Id_Marca)} />
                                             )
                                         })
                                     }
@@ -80,7 +93,7 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                             }
                             {
                                 !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
-                                <p style={{ textAlign:"center", paddingTop:"1em", color:"gray"}}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
+                                <p style={{ textAlign: "center", paddingTop: "1em", color: "gray" }}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
                             }
                         </>
             }
