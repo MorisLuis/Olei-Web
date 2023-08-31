@@ -17,7 +17,6 @@ interface Props {
 const ProductCard = ({ product }: Props) => {
 
 
-    //console.log({product})
     const { addProductToCart } = useContext(CartContext)
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
@@ -82,7 +81,7 @@ const ProductCard = ({ product }: Props) => {
                 <div className={`${styles.counterColumn} display-flex`}>
                     <div className='display-flex align'>
                         {
-                            product?.Existencia && product?.Existencia < 1 ?
+                            product?.Existencia && product?.Existencia <= 0 ?
                                 <Tag color="red">No Stock</Tag> :
                                 <div className='display-flex'>
                                     <p className={styles.headersMovil}>Existencia: </p>

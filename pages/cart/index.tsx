@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Cart.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
@@ -20,6 +20,10 @@ const Cart = () => {
     const [requestOpen, setRequestOpen] = useState(false)
     const [cartShowed, setCartShowed] = useState(cart)
     const [inputValue, setInputValue] = useState("")
+
+    useEffect(() => {
+        setCartShowed(cart)
+    }, [cart])
 
     const submitOrder = () => {
 
@@ -90,7 +94,6 @@ const Cart = () => {
         setCartShowed(productFiltered)
     }
 
-    console.log({ cartShowed })
     return (
         <Layout>
             <div className={styles.cart}>
@@ -101,81 +104,100 @@ const Cart = () => {
                     </div>
                 </div>
 
-                {
-                    cart.length > 0 ?
-                        <div className={styles.content}>
-                            <div className={`${styles.search} display-flex space-between`}>
-                                <div className='inputClean display-flex'>
-                                    <input type="text" className='input' value={inputValue} placeholder='Buscar producto...' onChange={(e: any) => {
-                                        searchProductInCart(e.target.value)
-                                        setInputValue(e.target.value)
-                                    }} />
-                                    {
-                                        inputValue !== "" &&
-                                        <div className="iconClean display-flex allCenter cursor" onClick={() => {
-                                            setInputValue("")
-                                            searchProductInCart("")
-                                        }}>
-                                            <FontAwesomeIcon icon={faXmark} className={`icon__small`} />
-                                        </div>
-                                    }
-                                </div>
-                            </div>
 
-                            <div className={styles.table}>
-                                {
-                                    cartShowed.length > 0 ? cartShowed.map((product: ProductInterface, Index) =>
-                                        <ProductCardShort product={product} key={Index} />
-                                    )
-                                        :
-                                        <MessageCard title='No hay productos.'>
-                                            <p>En tu orden no hay productos con ese nombre.</p>
-                                        </MessageCard>
-                                }
-                            </div>
 
-                            <div className={styles.request}>
-                                <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
-                                    <div className={`${styles.content} display-flex space-between align`}>
-                                        <p className={styles.text}>
-                                            Ver peticiones de productos actualmente inexistentes
-                                        </p>
-                                        <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
+                <div className={styles.content}>
+
+                    {
+                        cart.length > 0 ?
+                            <>
+                                <div className={`${styles.search} display-flex space-between`}>
+                                    <div className='inputClean display-flex'>
+                                        <input type="text" className='input' value={inputValue} placeholder='Buscar producto...' onChange={(e: any) => {
+                                            searchProductInCart(e.target.value)
+                                            setInputValue(e.target.value)
+                                        }} />
+                                        {
+                                            inputValue !== "" &&
+                                            <div className="iconClean display-flex allCenter cursor" onClick={() => {
+                                                setInputValue("")
+                                                searchProductInCart("")
+                                            }}>
+                                                <FontAwesomeIcon icon={faXmark} className={`icon__small`} />
+                                            </div>
+                                        }
                                     </div>
                                 </div>
 
-                                {
-                                    requestOpen &&
-                                    cartPending.map((product: ProductInterface, Index) =>
-                                        <ProductCardShort product={product} key={Index} />
-                                    )
-                                }
+                                <div className={styles.table}>
+                                    {
+                                        cartShowed.length > 0 ? cartShowed.map((product: ProductInterface, Index) =>
+                                            <ProductCardShort product={product} key={Index} />
+                                        )
+                                            :
+                                            <MessageCard title='No hay productos.'>
+                                                <p>En tu orden no hay productos con ese nombre.</p>
+                                            </MessageCard>
+                                    }
+                                </div>
+                            </>
+                            :
+                            <div style={{marginBottom: "1em"}}>
+                                <MessageCard
+                                    title="No has agregado productos aún."
+                                    icon="faFileInvoice"
+                                >
+                                    No hay productos en tu orden, apareceran una vez que agregues productos.
+                                </MessageCard>
+                            </div>
+                    }
+
+                    {
+                        cartPending.length > 0 &&
+                        <div className={styles.request}>
+                            <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
+                                <div className={`${styles.content} display-flex space-between align`}>
+                                    <p className={styles.text}>
+                                        Ver peticiones de productos actualmente inexistentes
+                                    </p>
+                                    <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
+                                </div>
                             </div>
 
-                            <div className='divider'></div>
-
-                            <div className={`${styles.cost} display-flex column`}>
-                                <div className={styles.cost__data}>
-                                    <p> <span>Subtotal:</span> {format(subTotal)}</p>
-                                </div>
-                                <div className={styles.cost__data}>
-                                    <p><span>I.V.A:</span> {Number(process.env.NEXT_PUBLIC_TAX_RATE) * 100}%</p>
-                                </div>
-                                <div className={styles.cost__data}>
-                                    <p> <span>Total:</span> {format(total)}</p>
-                                </div>
-                            </div>
+                            {
+                                requestOpen &&
+                                cartPending.map((product: ProductInterface, Index) =>
+                                    <ProductCardShort product={product} key={Index} />
+                                )
+                            }
                         </div>
-                        :
-                        <div className={styles.content}>
+                    }
+
+
+                    <div className='divider'></div>
+
+                    <div className={`${styles.cost} display-flex column`}>
+                        <div className={styles.cost__data}>
+                            <p> <span>Subtotal:</span> {format(subTotal)}</p>
+                        </div>
+                        <div className={styles.cost__data}>
+                            <p><span>I.V.A:</span> {Number(process.env.NEXT_PUBLIC_TAX_RATE) * 100}%</p>
+                        </div>
+                        <div className={styles.cost__data}>
+                            <p> <span>Total:</span> {format(total)}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* <div className={styles.content}>
                             <MessageCard
                                 title="No has agregado productos aún."
                                 icon="faFileInvoice"
                             >
                                 No hay productos en tu orden, apareceran una vez que agregues productos.
                             </MessageCard>
-                        </div>
-                }
+                        </div> */}
+
 
                 <div className={styles.footer}>
                     <div className={`${styles.footer__content} display-flex align`}>

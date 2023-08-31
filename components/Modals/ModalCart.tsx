@@ -23,7 +23,7 @@ const ModalCart = ({
 
     const { push } = useRouter()
     const [closing, setClosing] = useState(false);
-    const { cart, numberOfItems, subTotal } = useContext(CartContext);
+    const { cart, cartPending, numberOfItems, subTotal } = useContext(CartContext);
 
     const handleCloseModal = () => {
         setClosing(true);
@@ -38,10 +38,11 @@ const ModalCart = ({
             <div className={styles.modalBackground}></div>
 
             <div className={`${styles.modalCart} ${closing ? styles.closing : ''}`}>
-                <div className={`${styles.header} display-flex space-between`} >
+                <div className={`${styles.header} display-flex space-between align`} >
                     <div className={`${styles.close} align cursor`} onClick={handleCloseModal}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon cursor display-flex align`} />
                     </div>
+
                     <button className='button-small display-flex align' onClick={() => push("/cart")}>
                         Ver carrito
                         <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
@@ -50,7 +51,7 @@ const ModalCart = ({
 
                 <div className={styles.content}>
                     {
-                        cart.length > 0 ? cart.map((product: ProductInterface, Index) =>
+                        cart.length > 0 ? cart.slice().reverse().map((product: ProductInterface, Index) =>
                             <ProductShoppingCard product={product} key={Index} />
                         )
                             :
@@ -63,9 +64,31 @@ const ModalCart = ({
                                 </MessageCard>
                             </>
                     }
+
+
                 </div>
 
-                <div className={`${styles.footer} display-flex`}>
+                <div className={`${styles.footer} display-flex column`}>
+                    <div>
+                        {
+                            cartPending.length > 0 &&
+                            <>
+                                <div className={styles.productsPendingMessage}>
+                                    <h3>Peticiones</h3>
+                                    <p>Para ver los productos que pediste actualemente inexistentes, selecciona Ver carrito.</p>
+                                </div>
+                                {/* <div className={`${styles.productsPendingMessage} display-flex column`}>
+                                <div className='display-flex align'>
+                                    <FontAwesomeIcon icon={faCircleQuestion} className={`icon cursor display-flex`} />
+                                    <div>
+                                        <p>Para ver los productos que pediste actualemente inexistentes, selecciona Ver carrito.</p>
+                                        <p className={styles.productsLength}>Tienes {cartPending.length} productos pendientes.</p>
+                                    </div>
+                                </div>
+                            </div> */}
+                            </>
+                        }
+                    </div>
                     <h4 className='display-flex'>Subtotal ({numberOfItems} productos): {format(subTotal)}</h4>
                 </div>
             </div>

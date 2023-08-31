@@ -29,7 +29,7 @@ const filterState: FiltersInterface = {
 
 export default function Home({ productsProps }: Props) {
 
-  const { push, query, asPath } = useRouter()
+  const { push, query } = useRouter()
   const { addFilters, removeFilters, filters, removeAllFilters } = useContext(FiltersContext);
 
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
@@ -38,6 +38,7 @@ export default function Home({ productsProps }: Props) {
   const [nextPage, setNextPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
+
 
   const handleFiltersToQuery = () => {
 
@@ -88,6 +89,11 @@ export default function Home({ productsProps }: Props) {
       [filter[0]]: filter[1]
     })
 
+    setTemporalFilters((prevState: FiltersInterface) => ({
+      ...prevState,
+      [filter[0]]: filter[1] === "true" ? false : filter[1]
+  }))
+
     // Construct the base URL with pagination settings.
     let url = `/products`;
 
@@ -120,10 +126,6 @@ export default function Home({ productsProps }: Props) {
     setIsLoading(true);
 
     let url = `/api/product?page=${nextPage}&limit=20`;
-
-    // Variable to track if the first query parameter has been added
-    let isFirstQueryParam = true;
-
     /**
      * Add a query parameter to the URL if the value is defined and not empty.
      * @param paramName - The name of the query parameter.
@@ -148,6 +150,7 @@ export default function Home({ productsProps }: Props) {
 
       const { data: { products } } = await api.get(url);
       setProducts((prevItems) => [...prevItems, ...products]);
+      console.log({products})
     } catch (error) {
       console.error('Error loading more items:', error);
     } finally {
@@ -163,11 +166,12 @@ export default function Home({ productsProps }: Props) {
     setLoadingData(true);
     UseFetchPagination()
     setLoadingData(false);
-
+    setNextPage(2)
   }, [query, UseFetchPagination])
 
   useEffect(() => {
     loadMoreProducts()
+    console.log("load")
   }, [])
 
   useEffect(() => {

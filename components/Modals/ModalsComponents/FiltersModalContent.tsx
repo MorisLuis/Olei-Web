@@ -21,7 +21,6 @@ const FiltersModalContent = ({
     const [familiasFilter, setFamiliasFilter] = useState([])
     const [marcasFilter, setMarcasFilter] = useState([])
 
-    
     // Get the different Familias & Marcas from database.
     useEffect(() => {
         if (visible === false) return;
@@ -57,7 +56,7 @@ const FiltersModalContent = ({
                 </div>
                 <ToggleSwitch
                     name='stock'
-                    initialState={temporalFilters?.enStock}
+                    //initialState={temporalFilters?.enStock}
                     value={temporalFilters.enStock}
                     onChange={(value: boolean) => {
                         setTemporalFilters((prevState: FiltersInterface) => ({

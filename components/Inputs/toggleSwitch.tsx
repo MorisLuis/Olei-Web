@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react";
 
 interface ToggleSwitchProps {
-    initialState?: boolean;
+    //initialState?: boolean;
     label?: string;
     name?: string;
     onChange: any;
-    value?: boolean
+    value: boolean
 }
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
-    initialState = false,
+    //initialState = false,
     label,
     name,
     onChange,
     value
 }) => {
-    const [checked, setChecked] = useState(initialState);
+    const [checked, setChecked] = useState(value);
+
+    useEffect(() => {
+        console.log({value})
+        setChecked(value)
+    },  [])
 
     const handleToggle = () => {
         const newChecked = !checked;

@@ -5,6 +5,8 @@ import Counter from '../Ui/Counter'
 import { CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
+import { Tag } from '../Ui/Tag';
+import toast from 'react-hot-toast';
 
 interface Props {
     product: ProductInterface,
@@ -15,7 +17,7 @@ interface Props {
 
 export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
 
-    const { addProductToCart } = useContext(CartContext)
+    const { addProductToCart, removeCartProduct } = useContext(CartContext)
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Descripcion: product.Descripcion,
@@ -44,18 +46,39 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
         });
     }
 
-    return (
-        <div className={`${styles.productCard} ${styles.receipt} cursor`}>
-            <div className={`${styles.info} display-flex space-between`}>
+    const handleRemoveCartProduct = () => {
+        removeCartProduct(product)
+        toast.success(`Se elimino del carrito ${product.Descripcion}`, {
+            duration: 4000,
+            position: "bottom-left"
+        })
+    }
 
-                <div className={styles.name}>
+
+    return (
+        <div className={`${styles.productCard} ${styles.receipt}`}>
+            <div className={`${styles.content} display-flex space-between`}>
+
+                <div className={styles.description}>
                     <p className={styles.title}>{product?.Descripcion}</p>
                     <p className={styles.code}>{product?.CodigoProducto}</p>
                 </div>
 
                 <div className={styles.data}>
-                    <p className={`${styles.price} display-flex`}><span>Precio:</span> {format(product?.Precio)} </p>
-                    <p className={styles.existen}>Existencia : {product?.Existencia}</p>
+                    <div className={styles.price}>
+                        {product?.Precio ? <p>{format(product?.Precio)}</p> :
+                            <Tag color="blue">No tiene precio</Tag>}
+                    </div>
+
+                    {
+                        product?.Existencia && product?.Existencia <= 0 ?
+                            <Tag color="red">No Stock</Tag> :
+                            <div className='display-flex'>
+                                <p className={styles.existent}>Existencia: </p>
+                                <p>{product?.Existencia}</p>
+                            </div>
+                    }
+
                 </div>
 
                 <div className={styles.counter}>
@@ -64,12 +87,20 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
                         <Counter
                             currentValue={product?.Cantidad || 0}
                             maxValue={
-                                product?.Existencia && product?.Existencia < 0 ? null: product?.Existencia 
+                                product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                             }
                             updatedQuantity={onUpdateQuantity}
                         />
                     }
                     <p className={styles.subtotal}>Subtotal : {product?.Cantidad && format(product?.Precio * product?.Cantidad)}</p>
+                </div>
+
+                <div className={`${styles.delete} display-flex`} onClick={handleRemoveCartProduct}>
+                    <div className={`${styles.container} display-flex allCenter cursor`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" className='icon__small'>
+                            <path d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
