@@ -11,6 +11,7 @@ import OrderInterface from '@/interfaces/order';
 import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
 import toast from 'react-hot-toast';
+import { MessageCard } from '@/components/Cards/MessageCard';
 
 const Pedidos = () => {
 
@@ -39,7 +40,7 @@ const Pedidos = () => {
             loading: 'Cargando carrito...',
             success: 'Listo! Ya tienes tu carrito lleno',
             error: 'Error when fetching',
-            
+
         });
     };
 
@@ -48,13 +49,25 @@ const Pedidos = () => {
             <LayoutProfile>
                 <div className={styles.request}>
                     <section className={styles.info}>
-                        <div className={styles.header}>
-                            <h2>Pedidos actuales</h2>
-                            <p>Para cambiar la información, habla con tu administrador.</p>
-                        </div>
-                        <div className={styles.item}>
-                            <RequestCard order={orders} setOrderSelect={setOrderSelect} />
-                        </div>
+                        {
+                            orders.length < 0 ?
+                                <>
+                                    <div className={styles.header}>
+                                        <h2>Pedidos actuales</h2>
+                                        <p>Para cambiar la información, habla con tu administrador.</p>
+                                    </div>
+                                    <div className={styles.item}>
+                                        <RequestCard order={orders} setOrderSelect={setOrderSelect} />
+                                    </div>
+                                </>
+                                :
+                                <MessageCard
+                                    title="No hay pedidos actuales"
+                                >
+                                    No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
+                                </MessageCard>
+                        }
+
                     </section>
                 </div>
             </LayoutProfile>
