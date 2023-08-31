@@ -95,6 +95,10 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
                     <p className={styles.subtotal}>Subtotal : {product?.Cantidad && format(product?.Precio * product?.Cantidad)}</p>
                 </div>
 
+                <div className={`${styles.deleteText} display-flex`} onClick={handleRemoveCartProduct}>
+                    <p>Eliminar</p>
+                </div>
+
                 <div className={`${styles.delete} display-flex`} onClick={handleRemoveCartProduct}>
                     <div className={`${styles.container} display-flex allCenter cursor`}>
                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" className='icon__small'>

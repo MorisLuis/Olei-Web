@@ -39,7 +39,6 @@
 
             .counter {
                 width: 20%;
-
                 text-align: end;
 
                 .delete{
@@ -70,6 +69,12 @@
                 }
 
             }
+
+            .deleteText{
+                display: none;
+                font-weight: bold;
+                text-decoration: underline;
+            }
         }
 
         @include respond(phone) {
@@ -91,10 +96,14 @@
                 .data {
                     grid-row: 1;
                     width: auto;
+                    
+                    > div {
+                        justify-content: end;
+                    }
 
                     p{text-align: end}
                     .price {
-                        margin-bottom: 0em;
+                        margin-bottom: 0.5em;
                         width: 100%
                     }
                 }
@@ -118,6 +127,14 @@
                         justify-content: flex-start;
                         margin: 0px;
                     }
+                }
+
+                .delete{
+                    display: none;
+                }
+
+                .deleteText{
+                    display: inline;
                 }
             }
         }

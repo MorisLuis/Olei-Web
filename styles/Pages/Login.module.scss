@@ -47,10 +47,11 @@
 
             .iconLogin{
                 background-color: $background-color;
-                width: fit-content;
-                padding: 1.5em;
+                //padding: 1.5em;
                 border-radius: 100%;
                 border: 1px solid $color-border;
+                width: 40px;
+                height: 40px;
             }
 
             p { color: $text-color-light; }
