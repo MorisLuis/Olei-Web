@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Cart.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
-import { faCheck, faAngleDoubleDown, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faAngleDoubleDown, faXmark, faArrowsLeftRightToLine } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
@@ -13,6 +13,8 @@ import { v4 as uuidv4 } from 'uuid';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import ToggleSwitch from '@/components/Inputs/toggleSwitch';
+import { useSpring, animated } from '@react-spring/web'
+import useMeasure from 'react-use-measure'
 
 const Cart = () => {
 
@@ -80,26 +82,26 @@ const Cart = () => {
 
         localStorage.setItem('order', JSON.stringify(updatedOrders));
 
-        if(requestCartPending) {
+        if (requestCartPending) {
             const productPendingOrdered: ProductInterface[] = cartPending.map((product: any) => {
-    
+
                 const productDetails: ProductInterface = {
                     Precio: product.Precio,
                     Cantidad: product.Cantidad,
                     Subtotal: product.Cantidad && (product.Precio * product.Cantidad),
                     Impuesto: tax,
                     Total: product.Cantidad && (product.Precio * product.Cantidad) * (tax),
-    
+
                     Id_Almacen: product?.Id_Almacen,
                     Id_Marca: product?.Id_Marca,
                     Id_ListaPrecios: product?.Id_ListaPrecios,
                     Id_Vendedor: 1,
                     Id_Cliente: 1,
                     Id_Formapago: "Efectivo",
-    
+
                     Folio: uuidv4(),
                     Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
-    
+
                     Descripcion: product.Descripcion,
                     CodigoProducto: product.CodigoProducto,
                     Familia: product.Familia,
@@ -108,14 +110,14 @@ const Cart = () => {
                     Existencia: product.Existencia,
                     Marca: product.Marca,
                 }
-    
+
                 return productDetails
             })
-    
+
             const existingOrderPendingString = localStorage.getItem('orderPending'); //TEMPORAL
             const existingOrderPending = existingOrderPendingString ? JSON.parse(existingOrderPendingString) : []; //TEMPORAL
             const ordersPendingArray = Array.isArray(existingOrderPending) ? existingOrderPending : [existingOrderPending]; //TEMPORAL
-    
+
             const OrderPending = {
                 products: productPendingOrdered,
                 Cantidad: numberOfItemsPending,
@@ -134,8 +136,8 @@ const Cart = () => {
 
 
         if (updatedOrders) {
-            removeAllCart()
             push(`/cart/success?order=${Order.Folio}`)
+            removeAllCart()
         }
 
 
@@ -151,6 +153,24 @@ const Cart = () => {
 
         setCartShowed(productFiltered)
     }
+
+    const [open, toggle] = useState(false);
+    const [text, setText] = useState('Confirmar pedido');
+    const [ref, { width }] = useMeasure();
+    const props = useSpring({
+        width: open ? width : 0,
+        onRest: () => {
+            // Esta función se ejecutará después de que termine la animación
+            // Puedes colocar tu lógica aquí
+            submitOrder();
+        },
+    });
+
+    const handleClick = () => {
+        toggle(!open);
+        setText(open ? 'Confirmar pedido' : 'Enviando...');
+    };
+
 
     return (
         <Layout>
@@ -242,6 +262,8 @@ const Cart = () => {
                         </>
                     }
 
+
+
                     <div className='divider'></div>
 
                     <div className={`${styles.cost} display-flex column`}>
@@ -255,6 +277,7 @@ const Cart = () => {
                             <p> <span>Total:</span> {format(total)}</p>
                         </div>
                     </div>
+
                 </div>
 
                 <div className={styles.footer}>
@@ -263,13 +286,17 @@ const Cart = () => {
                             cart.length > 0 &&
                             <>
                                 <p className={styles.total}>Total (Incluye IVA) : {format(total)} </p>
-                                <button className='button display-flex allCenter' onClick={submitOrder}>
-                                    <FontAwesomeIcon icon={faCheck} className={`icon__small`} />
-                                    Confirmar pedido
-                                </button>
+                                <div className={`${styles.buttonConfirm} containerbutton`}>
+                                    <div ref={ref} className={"mainbutton"} onClick={handleClick}>
+                                        <animated.div className={"fillbutton"} style={props} />
+                                        <animated.div className={"contentbutton"}>{text}</animated.div>
+                                    </div>
+                                </div>
                             </>
                         }
                     </div>
+
+
                 </div>
             </div>
         </Layout>

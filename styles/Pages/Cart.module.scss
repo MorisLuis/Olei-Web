@@ -128,7 +128,7 @@
                 margin-right: 1em;
             }
 
-            button {
+            .buttonConfirm {
                 width: 20%;
 
                 @include respond(tab-land) {

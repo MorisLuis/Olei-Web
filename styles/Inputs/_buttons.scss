@@ -24,7 +24,7 @@
         &:hover {
             background-color: $color-tertiary;
             border: 1px solid transparent;
-            color: $text-color-secondary;        
+            color: $text-color-secondary;
         }
     }
 }
@@ -55,7 +55,7 @@
         }
     }
 
-    &.transparent{
+    &.transparent {
         background-color: transparent;
         text-decoration: underline;
     }
@@ -69,3 +69,43 @@
     }
 }
 
+//////
+
+.mainbutton {
+    position: relative;
+    padding: 0em 1em;
+    height: 36px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid $color-tertiary;
+    overflow: hidden;
+}
+
+.fillbutton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $color-blue;
+}
+
+.contentbutton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #272727;
+}
+
+.containerbutton {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}
