@@ -8,6 +8,7 @@ import { Tag } from '../Ui/Tag';
 import ProductInterface from '@/interfaces/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import toast from 'react-hot-toast';
+import { format } from '@/utils/currency';
 
 interface Props {
     product: ProductInterface,
@@ -56,6 +57,7 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
         })
     }
 
+
     return (
         <div className={`${styles.productCartCard} displar-flex align`}>
             <div className={`${styles.productHeader} display-flex text-ellipsis space-between`}>
@@ -78,7 +80,7 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
                     <div className={styles.price}>
                         {
                             product?.Precio ?
-                                <p>$ {product?.Precio}</p> :
+                                <p>{format(product?.Precio)}</p> :
                                 <Tag color="blue">No tiene precio</Tag>
                         }
                     </div>

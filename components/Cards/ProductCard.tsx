@@ -6,6 +6,7 @@ import ProductInterface from '@/interfaces/product';
 import Counter from '../Ui/Counter';
 import { Tag } from '../Ui/Tag';
 import Skeleton from 'react-loading-skeleton';
+import { format } from '@/utils/currency';
 
 
 interface Props {
@@ -92,7 +93,7 @@ const ProductCard = ({ product }: Props) => {
                     <div className={styles.price}>
                         {
                             product?.Precio ?
-                                <p>$ {product?.Precio}</p> :
+                                <p>{format(product?.Precio)}</p> :
                                 <Tag color="blue">No tiene precio</Tag>
                         }
                     </div>

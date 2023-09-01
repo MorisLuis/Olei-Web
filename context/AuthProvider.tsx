@@ -54,7 +54,9 @@ export const AuthProvider = ({ children }: any) => {
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
             replace("/products")
-            setLoggingIn(false)
+            setTimeout(() => {
+                setLoggingIn(false)
+            }, 500);
         } catch (error: any) {
             setLoggingIn(false)
             toast.error(error?.response?.data?.error)
@@ -65,7 +67,7 @@ export const AuthProvider = ({ children }: any) => {
     const logoutUser = async () => {
         try {
             Cookies.remove("token")
-            const data = await api.post('/api/auth/logout');
+            await api.post('/api/auth/logout');
             dispatch({ type: '[Auth] - Logout'});
             replace("/login")
 

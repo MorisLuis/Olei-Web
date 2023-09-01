@@ -5,6 +5,16 @@
     cursor: pointer;
     margin-bottom: 1em;
     width: 100%;
+    
+    &.active{
+
+        input{
+            z-index: 9999999;
+            opacity: 100%;
+            background-color: $color-primary;
+        }
+
+    }
 
     input{
         opacity: 50%;

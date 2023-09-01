@@ -124,7 +124,7 @@ export const SearchGlobal = () => {
 
     return (
         <>
-            <div className={`${styles.searchGlobal} display-flex`}>
+            <div className={modalSearchVisible ? `${styles.searchGlobal} display-flex ${styles.active}` : `${styles.searchGlobal} display-flex`}>
                 <div className='inputClean display-flex'>
                     <input
                         ref={inputRef}
@@ -139,10 +139,14 @@ export const SearchGlobal = () => {
                     />
                     {
                         inputValue !== "" &&
-                        <div className="iconClean display-flex allCenter cursor" onClick={() => {
-                            setInputValue("")
-                        }}>
-                            <FontAwesomeIcon icon={faXmark} className={`icon__small`} />
+                        <div
+                            className="iconClean display-flex allCenter cursor"
+                            onClick={() => {
+                                setInputValue("")
+                            }}
+                            style={{ zIndex: "9999999" }}
+                        >
+                            <FontAwesomeIcon icon={faXmark} className={`icon__small`} style={{ zIndex: "99999999" }} />
                         </div>
                     }
                 </div>

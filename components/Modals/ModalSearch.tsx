@@ -13,8 +13,12 @@ export const ModalSearch = ({
     children
 }: Props) => {
     return visible ?
-        <div className={styles.modalSearch}>
-            {children}
-        </div>
+        <>
+            <div className={styles.modalBackgroundSecondary}></div>
+
+            <div className={styles.modalSearch}>
+                {children}
+            </div>
+        </>
         : null
 }
