@@ -195,12 +195,24 @@ export const CartProvider = ({ children }: any) => {
     }
 
 
-    const addProductToCartPending = (product: ProductInterface) => {
-    }
-
     const removeCartProductPending = (product: ProductInterface) => {
         dispatch({ type: '[CartPending] - Remove product in cartPending', payload: product });
     }
+
+    const addOrderToCartPending = (products: ProductInterface[]): Promise<void> => {
+        //Simulate a promise to react hot toas. We dont really need a promise.
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const isSuccess = true;
+                if (isSuccess) {
+                    dispatch({ type: '[CartPending] - Update products in cartPending', payload: products });
+                    resolve();
+                } else {
+                    reject(new Error("Something went wrong"));
+                }
+            }, 2000);
+        });
+    };
 
 
     return (
@@ -215,7 +227,8 @@ export const CartProvider = ({ children }: any) => {
             removeAllCart,
 
             removeCartProductPending,
-
+            addOrderToCartPending,
+    
             setProductDelete,
         }}>
             {children}

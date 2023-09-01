@@ -16,14 +16,6 @@ const PedidosAnteriores = () => {
             <LayoutProfile>
                 <div className={styles.request}>
                     <section className={styles.info}>
-                        {/* <div className={styles.header}>
-                            <h2>Pedidos Anteriores</h2>
-                            <p>Estos son los pedidos que has pedido en otras ocasiones.</p>
-                        </div>
-                        <div className={styles.item}>
-                            <RequestCard />
-                        </div> */}
-
                         <MessageCard
                             title="No hay pedidos anteriores"
                         >

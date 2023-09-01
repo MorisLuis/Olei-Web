@@ -8,7 +8,7 @@ interface Props {
     title: string,
 
     //Methods
-    onClose?: () => void;
+    onClose: () => void;
     onAccept: () => void;
 }
 

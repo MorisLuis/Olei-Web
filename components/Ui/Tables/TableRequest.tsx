@@ -11,10 +11,11 @@ import Action from '../Action';
 
 interface Props {
     order: OrderInterface[],
-    setOrderSelect: React.Dispatch<React.SetStateAction<OrderInterface | undefined>>
+    setOrderSelect: React.Dispatch<React.SetStateAction<OrderInterface | undefined>>,
+    receiptPending?: boolean
 }
 
-const TableRequest = ({ order, setOrderSelect }: Props) => {
+const TableRequest = ({ order, setOrderSelect, receiptPending }: Props) => {
 
     return (
         <>
@@ -39,14 +40,14 @@ const TableRequest = ({ order, setOrderSelect }: Props) => {
 
                             <div className={`${styles.action} display-flex`}>
                                 <div className={`${styles.content} display-flex`}>
-                                    <Action textHover='Resumen del pedido'>
-                                        <Link
-                                            href={`/profile/request/?receipt=${item.Folio}`}
-                                            as={`/profile/request/?receipt=${item.Folio}`}
-                                        >
+                                    <Link
+                                        href={receiptPending ? `/profile/pendingrequest/?receipt=${item.Folio}` : `/profile/request/?receipt=${item.Folio}`}
+                                        as={receiptPending ? `/profile/pendingrequest/?receipt=${item.Folio}` : `/profile/request/?receipt=${item.Folio}`}
+                                    >
+                                        <Action textHover='Resumen del pedido'>
                                             <FontAwesomeIcon icon={faFileLines} className={`icon__small cursor display-flex align`} />
-                                        </Link>
-                                    </Action>
+                                        </Action>
+                                    </Link>
 
                                     <Action textHover="Editar">
                                         <button>

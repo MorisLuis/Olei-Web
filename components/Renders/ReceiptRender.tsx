@@ -13,10 +13,17 @@ export const ReceiptRender = () => {
     const [orderSelect, setOrderSelect] = useState<OrderInterface | undefined>(undefined);
 
     useEffect(() => {
+        let selectedOrder;
         const orderCookies: OrderInterface[] = localStorage?.getItem('order') ? JSON.parse(localStorage?.getItem('order')!) : [];
-        const selectedOrder = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt);
+        selectedOrder = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt);
+        if (!selectedOrder) {
+            const orderCookies: OrderInterface[] = localStorage?.getItem('orderPending') ? JSON.parse(localStorage?.getItem('orderPending')!) : [];
+            selectedOrder = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt);
+        }
         setOrderSelect(selectedOrder);
     }, [query.receipt]);
+
+    console.log({orderSelect})
 
     return (
         <div className={styles.receiptRender}>

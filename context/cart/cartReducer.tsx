@@ -94,7 +94,7 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
             }
 
 
-        //  Cart global actions
+        // Cart global actions
         case '[Cart] - Remove All cart':
             return {
                 ...state,

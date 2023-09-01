@@ -22,6 +22,7 @@ interface ContextProps {
     removeAllCart: () => void;
 
     removeCartProductPending: (product: ProductInterface) => void;
+    addOrderToCartPending: (product: ProductInterface[]) => Promise<unknown>;
 
     setProductDelete: Dispatch<SetStateAction<boolean>>;
 
