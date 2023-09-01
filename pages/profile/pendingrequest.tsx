@@ -6,7 +6,6 @@ import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import ModalRequest from '@/components/Modals/ModalRequest';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
-import Cookies from 'js-cookie';
 import OrderInterface from '@/interfaces/order';
 import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
@@ -60,9 +59,7 @@ const Pedidos = () => {
                                     </div>
                                 </>
                                 :
-                                <MessageCard
-                                    title="No hay pedidos actuales"
-                                >
+                                <MessageCard title="No hay pedidos actuales">
                                     No hay pedidos pendientes en este momento, apareceran una vez que hagas pedidos.
                                 </MessageCard>
                         }
@@ -77,7 +74,6 @@ const Pedidos = () => {
                 receipt
                 actionsVisible
             >
-                lol
                 <ReceiptRender />
             </ModalRequest>
 
@@ -87,9 +83,7 @@ const Pedidos = () => {
                 onAccept={onSubmitOrderToCart}
                 title="Usar esta lista en carrito de solicitudes"
             >
-                <p>
-                    Si aceptas y tienes productos en solicitudes anteriores se cambiaron por los de esta lista.
-                </p>
+                <p>Si aceptas y tienes productos en solicitudes anteriores se cambiaron por los de esta lista.</p>
             </ModalMessage>
         </>
 

@@ -97,18 +97,11 @@ export const CartProvider = ({ children }: any) => {
 
     useEffect(() => {
         const numberOfItemsPending = state.cartPending.reduce((prev, current: ProductInterface) => {
-            if (!current.Existencia) return prev;
-            if (current?.Existencia >= 1) {
-                return current?.Cantidad + prev;
-            }
-            return prev;
+            return current?.Cantidad + prev;
         }, 0);
 
-        const subTotalPending = state.cart.reduce((prev, current: any) => {
-            if (current.Existencia >= 1) {
-                return prev + current.Precio * current.Cantidad;
-            }
-            return prev;
+        const subTotalPending = state.cartPending.reduce((prev, current: any) => {
+            return prev + current.Precio * current.Cantidad;
         }, 0);
 
         const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
