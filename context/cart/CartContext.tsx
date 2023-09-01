@@ -1,5 +1,5 @@
 import ProductInterface from '@/interfaces/product';
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
 
 interface ContextProps {
@@ -9,6 +9,7 @@ interface ContextProps {
     subTotal: number;
     tax: number;
     total: number;
+    productDelete: boolean;
 
 
     // Methods
@@ -16,7 +17,7 @@ interface ContextProps {
     removeCartProduct: (product: ProductInterface) => void;
     addOrderToCart: (product: ProductInterface[]) => Promise<unknown>
     removeAllCart: () => void;
-
+    setProductDelete: Dispatch<SetStateAction<boolean>>;
 }
 
 

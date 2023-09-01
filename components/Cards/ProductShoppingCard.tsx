@@ -10,12 +10,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import toast from 'react-hot-toast';
 
 interface Props {
-    product: ProductInterface
+    product: ProductInterface,
+    setProductDeleteFromCart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // ProductShoppingCard - IS USED PRINCIPAL IN CART MODAL
 
-const ProductShoppingCard = ({ product }: Props) => {
+const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
 
     const { addProductToCart, removeCartProduct } = useContext(CartContext)
 
@@ -47,6 +48,7 @@ const ProductShoppingCard = ({ product }: Props) => {
     }
 
     const handleRemoveCartProduct = () => {
+        setProductDeleteFromCart(true)
         removeCartProduct(product)
         toast.success(`Se elimino del carrito ${product.Descripcion}`, {
             duration: 4000,

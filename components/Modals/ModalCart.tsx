@@ -23,14 +23,26 @@ const ModalCart = ({
 
     const { push } = useRouter()
     const [closing, setClosing] = useState(false);
-    const { cart, cartPending, numberOfItems, subTotal } = useContext(CartContext);
+    const [productDeleteFromCart, setProductDeleteFromCart] = useState(false)
+    const { cart, cartPending, numberOfItems, subTotal, setProductDelete } = useContext(CartContext);
 
     const handleCloseModal = () => {
-        setClosing(true);
-        setTimeout(() => {
-            setClosing(false)
-            onClose();
-        }, 300);
+        if (productDeleteFromCart) {
+            setProductDelete(true)
+            setClosing(true);
+            setTimeout(() => {
+                setClosing(false)
+                setProductDelete(false)
+                setProductDeleteFromCart(false)
+                onClose();
+            }, 300);
+        } else {
+            setClosing(true);
+            setTimeout(() => {
+                setClosing(false)
+                onClose();
+            }, 300);
+        }
     };
 
     return visible ? (
@@ -52,7 +64,7 @@ const ModalCart = ({
                 <div className={styles.content}>
                     {
                         cart.length > 0 ? cart.slice().reverse().map((product: ProductInterface, Index) =>
-                            <ProductShoppingCard product={product} key={Index} />
+                            <ProductShoppingCard product={product} key={Index} setProductDeleteFromCart={setProductDeleteFromCart} />
                         )
                             :
                             <>
@@ -64,8 +76,6 @@ const ModalCart = ({
                                 </MessageCard>
                             </>
                     }
-
-
                 </div>
 
                 <div className={`${styles.footer} display-flex column`}>
@@ -77,15 +87,6 @@ const ModalCart = ({
                                     <h3>Peticiones</h3>
                                     <p>Para ver los productos que pediste actualemente inexistentes, selecciona Ver carrito.</p>
                                 </div>
-                                {/* <div className={`${styles.productsPendingMessage} display-flex column`}>
-                                <div className='display-flex align'>
-                                    <FontAwesomeIcon icon={faCircleQuestion} className={`icon cursor display-flex`} />
-                                    <div>
-                                        <p>Para ver los productos que pediste actualemente inexistentes, selecciona Ver carrito.</p>
-                                        <p className={styles.productsLength}>Tienes {cartPending.length} productos pendientes.</p>
-                                    </div>
-                                </div>
-                            </div> */}
                             </>
                         }
                     </div>

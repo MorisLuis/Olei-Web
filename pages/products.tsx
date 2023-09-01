@@ -12,8 +12,9 @@ import FiltersInterface from '@/interfaces/filters';
 import HomeFilter from '@/components/HomeFilter';
 import { useRouter } from 'next/router';
 import Table from '@/components/Ui/Tables/Table';
-import { FiltersContext } from '@/context';
+import { CartContext, FiltersContext } from '@/context';
 import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
+import { Any } from 'react-spring';
 
 interface Props {
   productsProps: ProductInterface[]
@@ -31,6 +32,7 @@ export default function Home({ productsProps }: Props) {
 
   const { push, query } = useRouter()
   const { addFilters, removeFilters, filters, removeAllFilters } = useContext(FiltersContext);
+  const { productDelete } = useContext(CartContext);
 
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
@@ -92,7 +94,7 @@ export default function Home({ productsProps }: Props) {
     setTemporalFilters((prevState: FiltersInterface) => ({
       ...prevState,
       [filter[0]]: filter[1] === "true" ? false : filter[1]
-  }))
+    }))
 
     // Construct the base URL with pagination settings.
     let url = `/products`;
@@ -149,8 +151,8 @@ export default function Home({ productsProps }: Props) {
       if (nextPage === 1) return;
 
       const { data: { products } } = await api.get(url);
-      setProducts((prevItems) => [...prevItems, ...products]);
-      console.log({products})
+      setProducts((prevItems: any) => [...prevItems, ...products]);
+      console.log({ products })
     } catch (error) {
       console.error('Error loading more items:', error);
     } finally {
@@ -163,15 +165,21 @@ export default function Home({ productsProps }: Props) {
   }, [productsProps]);
 
   useEffect(() => {
+    if (productDelete) {
+      console.log({productDelete})
+      setLoadingData(false)
+      setProducts(productsProps)
+      setLoadingData(true)
+      return;
+    }
     setLoadingData(true);
     UseFetchPagination()
     setLoadingData(false);
     setNextPage(2)
-  }, [query, UseFetchPagination])
+  }, [query, UseFetchPagination, productDelete, productsProps])
 
   useEffect(() => {
     loadMoreProducts()
-    console.log("load")
   }, [])
 
   useEffect(() => {
@@ -179,6 +187,7 @@ export default function Home({ productsProps }: Props) {
       removeAllFilters()
     }
   }, [])
+
 
   return (
     <>

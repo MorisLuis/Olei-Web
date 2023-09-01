@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import Cookie from 'js-cookie';
 
 import { CartContext, cartReducer } from '../index';
@@ -27,6 +27,7 @@ const CART_INITIAL_STATE: CartState = {
 export const CartProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
+    const [productDelete, setProductDelete] = useState(false)
 
     useEffect(() => {
         if (Cookie.get('cart') === "[]") return;
@@ -164,12 +165,14 @@ export const CartProvider = ({ children }: any) => {
     return (
         <CartContext.Provider value={{
             ...state,
+            productDelete,
 
             // Methods
             addProductToCart,
             removeCartProduct,
             addOrderToCart,
-            removeAllCart
+            removeAllCart,
+            setProductDelete
         }}>
             {children}
         </CartContext.Provider>

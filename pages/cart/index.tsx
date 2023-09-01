@@ -104,8 +104,6 @@ const Cart = () => {
                     </div>
                 </div>
 
-
-
                 <div className={styles.content}>
 
                     {
@@ -142,7 +140,7 @@ const Cart = () => {
                                 </div>
                             </>
                             :
-                            <div style={{marginBottom: "1em"}}>
+                            <div style={{ marginBottom: "1em" }}>
                                 <MessageCard
                                     title="No has agregado productos aún."
                                     icon="faFileInvoice"
@@ -154,25 +152,28 @@ const Cart = () => {
 
                     {
                         cartPending.length > 0 &&
-                        <div className={styles.request}>
-                            <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
-                                <div className={`${styles.content} display-flex space-between align`}>
-                                    <p className={styles.text}>
-                                        Ver peticiones de productos actualmente inexistentes
-                                    </p>
-                                    <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
+                        <>
+
+                            <div className={styles.request}>
+                                <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
+                                    <div className={`${styles.content} display-flex space-between align`}>
+                                        <p className={styles.text}>
+                                            Ver peticiones de productos actualmente inexistentes
+                                        </p>
+                                        <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
+                                    </div>
                                 </div>
+
+                                {
+                                    requestOpen &&
+                                    cartPending.map((product: ProductInterface, Index) =>
+                                        <ProductCardShort product={product} key={Index} />
+                                    )
+                                }
                             </div>
 
-                            {
-                                requestOpen &&
-                                cartPending.map((product: ProductInterface, Index) =>
-                                    <ProductCardShort product={product} key={Index} />
-                                )
-                            }
-                        </div>
+                        </>
                     }
-
 
                     <div className='divider'></div>
 
@@ -188,16 +189,6 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* <div className={styles.content}>
-                            <MessageCard
-                                title="No has agregado productos aún."
-                                icon="faFileInvoice"
-                            >
-                                No hay productos en tu orden, apareceran una vez que agregues productos.
-                            </MessageCard>
-                        </div> */}
-
 
                 <div className={styles.footer}>
                     <div className={`${styles.footer__content} display-flex align`}>

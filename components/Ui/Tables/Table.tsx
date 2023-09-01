@@ -22,7 +22,6 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
     const { cart, cartPending } = useContext(CartContext)
     const [productsToDisplay, setProductsToDisplay] = useState<ProductInterface[]>([])
 
-    //const productsToDisplay: ProductInterface[] = [...data];
     useEffect(() => {
         setProductsToDisplay([...data])
     }, [data])
