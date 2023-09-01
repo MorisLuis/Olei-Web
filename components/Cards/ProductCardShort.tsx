@@ -10,14 +10,15 @@ import toast from 'react-hot-toast';
 
 interface Props {
     product: ProductInterface,
-    counterVisible?: boolean
+    counterVisible?: boolean,
+    productPending?: boolean
 }
 
 // ProductCardShort - IS USED PRINCIPAL IN REQUEST PAGE.
 
-export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
+export const ProductCardShort = ({ product, counterVisible = true, productPending }: Props) => {
 
-    const { addProductToCart, removeCartProduct } = useContext(CartContext)
+    const { addProductToCart, removeCartProduct, removeCartProductPending } = useContext(CartContext)
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Descripcion: product.Descripcion,
@@ -47,11 +48,21 @@ export const ProductCardShort = ({ product, counterVisible = true }: Props) => {
     }
 
     const handleRemoveCartProduct = () => {
-        removeCartProduct(product)
-        toast.success(`Se elimino del carrito ${product.Descripcion}`, {
-            duration: 4000,
-            position: "bottom-left"
-        })
+        if (productPending) {
+            removeCartProductPending(product)
+            toast.success(`Se elimino del carrito ${product.Descripcion}`, {
+                duration: 4000,
+                position: "bottom-left"
+            })
+
+        } else {
+
+            removeCartProduct(product)
+            toast.success(`Se elimino del carrito ${product.Descripcion}`, {
+                duration: 4000,
+                position: "bottom-left"
+            })
+        }
     }
 
 

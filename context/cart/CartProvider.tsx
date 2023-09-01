@@ -11,6 +11,9 @@ export interface CartState {
     subTotal: number;
     tax: number;
     total: number;
+    numberOfItemsPending: number;
+    subTotalPending: number;
+    totalPending: number;
 }
 
 
@@ -21,6 +24,11 @@ const CART_INITIAL_STATE: CartState = {
     subTotal: 0,
     tax: 0,
     total: 0,
+
+    numberOfItemsPending: 0,
+    subTotalPending: 0,
+    totalPending: 0,
+
 }
 
 
@@ -87,6 +95,33 @@ export const CartProvider = ({ children }: any) => {
         dispatch({ type: '[Cart] - Update order summary', payload: orderSummary });
     }, [state.cart]);
 
+    useEffect(() => {
+        const numberOfItemsPending = state.cartPending.reduce((prev, current: ProductInterface) => {
+            if (!current.Existencia) return prev;
+            if (current?.Existencia >= 1) {
+                return current?.Cantidad + prev;
+            }
+            return prev;
+        }, 0);
+
+        const subTotalPending = state.cart.reduce((prev, current: any) => {
+            if (current.Existencia >= 1) {
+                return prev + current.Precio * current.Cantidad;
+            }
+            return prev;
+        }, 0);
+
+        const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
+
+        const orderSummary = {
+            numberOfItemsPending,
+            subTotalPending,
+            totalPending: subTotalPending * (taxRate + 1)
+        }
+
+        dispatch({ type: '[Cart] - Update order summary', payload: orderSummary });
+    }, [state.cartPending]);
+
 
 
     const addProductToCart = (product: ProductInterface) => {
@@ -135,14 +170,13 @@ export const CartProvider = ({ children }: any) => {
         }
     }
 
-
-    const addOrderToCart = (product: ProductInterface[]): Promise<void> => {
+    const addOrderToCart = (products: ProductInterface[]): Promise<void> => {
         //Simulate a promise to react hot toas. We dont really need a promise.
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 const isSuccess = true;
                 if (isSuccess) {
-                    dispatch({ type: '[Cart] - Update products in cart', payload: product });
+                    dispatch({ type: '[Cart] - Update products in cart', payload: products });
                     resolve();
                 } else {
                     reject(new Error("Something went wrong"));
@@ -151,7 +185,6 @@ export const CartProvider = ({ children }: any) => {
         });
     };
 
-
     const removeCartProduct = (product: ProductInterface) => {
         dispatch({ type: '[Cart] - Remove product in cart', payload: product });
     }
@@ -159,6 +192,14 @@ export const CartProvider = ({ children }: any) => {
     const removeAllCart = () => {
         dispatch({ type: '[Cart] - Remove All cart', payload: [] });
 
+    }
+
+
+    const addProductToCartPending = (product: ProductInterface) => {
+    }
+
+    const removeCartProductPending = (product: ProductInterface) => {
+        dispatch({ type: '[CartPending] - Remove product in cartPending', payload: product });
     }
 
 
@@ -172,7 +213,10 @@ export const CartProvider = ({ children }: any) => {
             removeCartProduct,
             addOrderToCart,
             removeAllCart,
-            setProductDelete
+
+            removeCartProductPending,
+
+            setProductDelete,
         }}>
             {children}
         </CartContext.Provider>

@@ -52,6 +52,18 @@
         width: 100%;
         padding: 2em 26em 0em 26em;
 
+        .orderConfig{
+            padding: 1em;
+            border: 1px solid $color-border;
+            background-color: $color-secondary;
+            margin-bottom: 1em;
+            border-radius: 5px;
+
+            span{
+                font-weight: bold;
+            }
+        }
+
         .search {
             padding-bottom: 1em;
 

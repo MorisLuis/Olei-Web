@@ -11,13 +11,20 @@ interface ContextProps {
     total: number;
     productDelete: boolean;
 
+    numberOfItemsPending: number;
+    subTotalPending: number;
+    totalPending: number;
 
     // Methods
     addProductToCart: (product: ProductInterface) => void;
     removeCartProduct: (product: ProductInterface) => void;
     addOrderToCart: (product: ProductInterface[]) => Promise<unknown>
     removeAllCart: () => void;
+
+    removeCartProductPending: (product: ProductInterface) => void;
+
     setProductDelete: Dispatch<SetStateAction<boolean>>;
+
 }
 
 

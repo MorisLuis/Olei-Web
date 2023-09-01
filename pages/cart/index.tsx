@@ -12,12 +12,14 @@ import moment from "moment";
 import { v4 as uuidv4 } from 'uuid';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '@/components/Cards/MessageCard';
+import ToggleSwitch from '@/components/Inputs/toggleSwitch';
 
 const Cart = () => {
 
     const { push } = useRouter()
-    const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart } = useContext(CartContext);
+    const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart, numberOfItemsPending, subTotalPending, totalPending } = useContext(CartContext);
     const [requestOpen, setRequestOpen] = useState(false)
+    const [requestCartPending, setRequestCartPending] = useState(true)
     const [cartShowed, setCartShowed] = useState(cart)
     const [inputValue, setInputValue] = useState("")
 
@@ -58,6 +60,7 @@ const Cart = () => {
             return productDetails
         })
 
+
         const existingOrderString = localStorage.getItem('order'); //TEMPORAL
         const existingOrder = existingOrderString ? JSON.parse(existingOrderString) : []; //TEMPORAL
         const ordersArray = Array.isArray(existingOrder) ? existingOrder : [existingOrder]; //TEMPORAL
@@ -77,10 +80,65 @@ const Cart = () => {
 
         localStorage.setItem('order', JSON.stringify(updatedOrders));
 
+        if(requestCartPending) {
+            const productPendingOrdered: ProductInterface[] = cartPending.map((product: any) => {
+    
+                const productDetails: ProductInterface = {
+                    Precio: product.Precio,
+                    Cantidad: product.Cantidad,
+                    Subtotal: product.Cantidad && (product.Precio * product.Cantidad),
+                    Impuesto: tax,
+                    Total: product.Cantidad && (product.Precio * product.Cantidad) * (tax),
+    
+                    Id_Almacen: product?.Id_Almacen,
+                    Id_Marca: product?.Id_Marca,
+                    Id_ListaPrecios: product?.Id_ListaPrecios,
+                    Id_Vendedor: 1,
+                    Id_Cliente: 1,
+                    Id_Formapago: "Efectivo",
+    
+                    Folio: uuidv4(),
+                    Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
+    
+                    Descripcion: product.Descripcion,
+                    CodigoProducto: product.CodigoProducto,
+                    Familia: product.Familia,
+                    CodigoPrecio: product.CodigoPrecio,
+                    CodigoExsitencia: product.CodigoExsitencia,
+                    Existencia: product.Existencia,
+                    Marca: product.Marca,
+                }
+    
+                return productDetails
+            })
+    
+            const existingOrderPendingString = localStorage.getItem('orderPending'); //TEMPORAL
+            const existingOrderPending = existingOrderPendingString ? JSON.parse(existingOrderPendingString) : []; //TEMPORAL
+            const ordersPendingArray = Array.isArray(existingOrderPending) ? existingOrderPending : [existingOrderPending]; //TEMPORAL
+    
+            const OrderPending = {
+                products: productPendingOrdered,
+                Cantidad: numberOfItemsPending,
+                Subtotal: subTotalPending,
+                Impuesto: tax,
+                Total: totalPending,
+                Folio: uuidv4(),
+                Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
+                Entregado: false
+            }
+
+            const updatedOrdersPending = [...ordersPendingArray, OrderPending]; //TEMPORAL
+
+            localStorage.setItem('orderPending', JSON.stringify(updatedOrdersPending));
+        }
+
+
         if (updatedOrders) {
             removeAllCart()
             push(`/cart/success?order=${Order.Folio}`)
         }
+
+
 
     }
 
@@ -105,6 +163,15 @@ const Cart = () => {
                 </div>
 
                 <div className={styles.content}>
+                    <div className={`${styles.orderConfig} display-flex align space-between`}>
+                        <p>
+                            <span>Solicitar productos inexistentes.</span> En la orden enviar solicitud de los productos actualmente inexistentes.
+                        </p>
+                        <ToggleSwitch
+                            value={requestCartPending}
+                            onChange={() => setRequestCartPending(false)}
+                        />
+                    </div>
 
                     {
                         cart.length > 0 ?
@@ -167,7 +234,7 @@ const Cart = () => {
                                 {
                                     requestOpen &&
                                     cartPending.map((product: ProductInterface, Index) =>
-                                        <ProductCardShort product={product} key={Index} />
+                                        <ProductCardShort product={product} key={Index} productPending />
                                     )
                                 }
                             </div>

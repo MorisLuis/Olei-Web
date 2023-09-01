@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 interface ToggleSwitchProps {
-    //initialState?: boolean;
     label?: string;
     name?: string;
     onChange: any;
@@ -9,7 +8,6 @@ interface ToggleSwitchProps {
 }
 
 const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
-    //initialState = false,
     label,
     name,
     onChange,
