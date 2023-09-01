@@ -29,7 +29,6 @@ const Pedidos = () => {
 
 
     const onSubmitOrderToCart = async () => {
-        console.log({orderSelect})
         if (!orderSelect?.products) return;
 
         setOpenModalMessage(false)

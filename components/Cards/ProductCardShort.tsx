@@ -68,7 +68,6 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
         }
     }
 
-    console.log({pathname})
 
     return (
         <div className={`${styles.productCard} ${styles.receipt}`}>

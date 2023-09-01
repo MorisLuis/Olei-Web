@@ -152,7 +152,6 @@ export default function Home({ productsProps }: Props) {
 
       const { data: { products } } = await api.get(url);
       setProducts((prevItems: any) => [...prevItems, ...products]);
-      console.log({ products })
     } catch (error) {
       console.error('Error loading more items:', error);
     } finally {
@@ -166,7 +165,6 @@ export default function Home({ productsProps }: Props) {
 
   useEffect(() => {
     if (productDelete) {
-      console.log({productDelete})
       setLoadingData(false)
       setProducts(productsProps)
       setLoadingData(true)

@@ -62,7 +62,6 @@ const Cart = () => {
             return productDetails
         })
 
-
         const existingOrderString = localStorage.getItem('order'); //TEMPORAL
         const existingOrder = existingOrderString ? JSON.parse(existingOrderString) : []; //TEMPORAL
         const ordersArray = Array.isArray(existingOrder) ? existingOrder : [existingOrder]; //TEMPORAL
@@ -78,11 +77,15 @@ const Cart = () => {
             Entregado: false
         }
 
+        console.log({ existingOrder })
+        console.log({ ordersArray })
+        console.log({ Order })
         const updatedOrders = [...ordersArray, Order]; //TEMPORAL
 
         localStorage.setItem('order', JSON.stringify(updatedOrders));
 
-        if (requestCartPending) {
+        if (requestCartPending && cartPending.length > 0) {
+            console.log("cartPending")
             const productPendingOrdered: ProductInterface[] = cartPending.map((product: any) => {
 
                 const productDetails: ProductInterface = {
@@ -140,8 +143,6 @@ const Cart = () => {
             removeAllCart()
         }
 
-
-
     }
 
     const searchProductInCart = (term: string) => {
@@ -157,14 +158,18 @@ const Cart = () => {
     const [open, toggle] = useState(false);
     const [text, setText] = useState('Confirmar pedido');
     const [ref, { width }] = useMeasure();
+    const [animationComplete, setAnimationComplete] = useState(false);
+
     const props = useSpring({
         width: open ? width : 0,
         onRest: () => {
-            // Esta función se ejecutará después de que termine la animación
-            // Puedes colocar tu lógica aquí
-            submitOrder();
+            if (!animationComplete) {
+                submitOrder();
+                setAnimationComplete(true);
+            }
         },
     });
+
 
     const handleClick = () => {
         toggle(!open);
@@ -295,8 +300,6 @@ const Cart = () => {
                             </>
                         }
                     </div>
-
-
                 </div>
             </div>
         </Layout>

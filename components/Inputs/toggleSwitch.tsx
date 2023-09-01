@@ -16,7 +16,6 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
     const [checked, setChecked] = useState(value);
 
     useEffect(() => {
-        console.log({value})
         setChecked(value)
     },  [])
 

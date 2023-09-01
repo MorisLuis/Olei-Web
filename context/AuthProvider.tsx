@@ -54,7 +54,6 @@ export const AuthProvider = ({ children }: any) => {
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
             replace("/products")
-            console.log({data})
             setTimeout(() => {
                 setLoggingIn(false)
             }, 500);

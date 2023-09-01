@@ -23,7 +23,6 @@ export const ReceiptRender = () => {
         setOrderSelect(selectedOrder);
     }, [query.receipt]);
 
-    console.log({orderSelect})
 
     return (
         <div className={styles.receiptRender}>
