@@ -3,11 +3,11 @@ import { FilterState } from "./FiltersProvider"
 
 
 type FiltersActionType =
-    { type: '[Filters] - LoadFilters from cookies | storage', payload: FiltersInterface } |
-    { type: '[Filters] - Update filters', payload: FiltersInterface } |
-    { type: '[Filters] - Remove filter', payload: Partial<FiltersInterface> } |
-    { type: '[Filters] - Update filtersValues', payload: string[] } | 
-    { type: '[Filters] - Remove all filters', payload: FiltersInterface }
+    { type: '[Filters] - LoadFilters from cookies | storage', payload: FiltersInterface | Partial<FiltersInterface> } |
+    { type: '[Filters] - Update filters', payload: FiltersInterface | Partial<FiltersInterface> } |
+    { type: '[Filters] - Remove filter', payload: Partial<FiltersInterface> | Partial<FiltersInterface>} |
+    { type: '[Filters] - Update filtersValues', payload: string[] } |
+    { type: '[Filters] - Remove all filters', payload: FiltersInterface | Partial<FiltersInterface> }
 
 
 
@@ -29,7 +29,7 @@ export const filtersReducer = (state: FilterState, action: FiltersActionType): F
             }
 
         case '[Filters] - Remove filter':
-            const updatedState: FiltersInterface = {
+            const updatedState: FiltersInterface | Partial<FiltersInterface>= {
                 ...state.filters,
                 ...action.payload,
             };

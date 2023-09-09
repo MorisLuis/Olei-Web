@@ -4,6 +4,7 @@
     width: 100vw;
     height: 100vh;
 
+
     .header {
         height: 60px;
         width: 100%;
@@ -21,13 +22,11 @@
 
         @include respond(tab-port) {
             padding: 0.75em 1.5em;
-
         }
 
         @include respond(phone) {
             padding: 0.75em 1.5em;
         }
-
     }
 
     .content {
@@ -45,7 +44,7 @@
             z-index: 9999;
             background-color: transparent;
 
-            .iconLogin{
+            .iconLogin {
                 background-color: $background-color;
                 //padding: 1.5em;
                 border-radius: 100%;
@@ -54,20 +53,22 @@
                 height: 40px;
             }
 
-            p { color: $text-color-light; }
+            p {
+                color: $text-color-light;
+            }
 
             @include respond(tab-port) {
                 width: 35%;
                 height: 70%;
 
-                .iconLogin{
+                .iconLogin {
                     padding: 1em;
                 }
             }
 
             @include respond(phone) {
                 width: 90%;
-                height: 70%;            
+                height: 70%;
             }
         }
 
@@ -83,5 +84,40 @@
             -webkit-filter: blur(7px);
             z-index: -1;
         }
+    }
+}
+
+/* styles.module.css */
+.gradient-background {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ffbf00, #ff0084);
+    z-index: -1;
+    animation: gradientAnimation 10s linear infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background: linear-gradient(45deg, #ffbf00, #ff0084);
+    }
+
+    25% {
+        background: linear-gradient(45deg, #ff0084, #00bfff);
+    }
+
+    50% {
+        background: linear-gradient(45deg, #00bfff, #228b22);
+    }
+
+    75% {
+        background: linear-gradient(45deg, #228b22, #ffbf00);
+    }
+
+    100% {
+        background: linear-gradient(45deg, #ffbf00, #ff0084);
     }
 }

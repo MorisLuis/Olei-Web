@@ -1,22 +1,20 @@
 @import "../main.scss";
 
-.searchGlobal{
+.searchGlobal {
     height: 100%;
     cursor: pointer;
     margin-bottom: 1em;
     width: 100%;
-    
-    &.active{
 
-        input{
+    &.active {
+        input {
             z-index: 9999999;
             opacity: 100%;
             background-color: $color-primary;
         }
-
     }
 
-    input{
+    input {
         opacity: 50%;
         width: 100%;
         height: 100%;
@@ -24,24 +22,58 @@
         border-radius: 0.5em;
         border: 1px solid $color-border-tertiary;
 
-        &:hover{
+        &:hover {
             opacity: 100%;
         }
     }
 }
 
-.messageModal{
+.messageModal {
     padding: 0em 1em;
     //width: 300px;
     border-bottom: 1px solid $color-border;
     padding-bottom: 0.5em;
     margin-bottom: 0.5em;
 
-    @include respond(phone){
+    @include respond(phone) {
         text-align: center;
     }
 }
 
-.messageEmpty{
+.messageEmpty {
     padding: 1em;
+}
+
+.searchHome {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 1em;
+
+    .inputHome {
+        width: 100%;
+
+        input {
+            width: 100%;
+            border: 1px solid $color-border-secondary;
+            border-radius: 5px;
+        }
+    }
+}
+
+.results {
+    .item {
+        background-color: $color-primary;
+        border: 1px solid $color-border;
+        margin-bottom: 0.5em;
+        padding: 0.5em 0em;
+
+        li {
+            list-style-type: none;
+        }
+
+        &:hover {
+            background-color: $color-secondary;
+            border: 1px solid $color-border-secondary;
+        }
+    }
 }

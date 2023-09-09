@@ -1,4 +1,4 @@
-.input {
+/* .input {
     border: 1px solid $color-border;
     height: 36px;
     border-radius: 0.5em;
@@ -13,7 +13,7 @@
     &:valid {
         padding: 0em 1em;
     }
-}
+} */
 
 .inputGlobal {
     height: 100%;
@@ -27,7 +27,6 @@
 .toggleSwitch {
     display: flex;
     align-items: center;
-    //margin-bottom: 1em;
 
     .toggle {
         position: relative;

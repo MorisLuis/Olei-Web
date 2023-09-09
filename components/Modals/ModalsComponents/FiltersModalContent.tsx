@@ -56,7 +56,6 @@ const FiltersModalContent = ({
                 </div>
                 <ToggleSwitch
                     name='stock'
-                    //initialState={temporalFilters?.enStock}
                     value={temporalFilters.enStock}
                     onChange={(value: boolean) => {
                         setTemporalFilters((prevState: FiltersInterface) => ({

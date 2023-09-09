@@ -1,8 +1,7 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
-import styles from "../styles/Pages/Home.module.scss";
+import styles from "../styles/Pages/Products.module.scss";
 
 import FiltersInterface from '@/interfaces/filters';
-import Cookies from 'js-cookie';
 import { Tag } from './Ui/Tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +11,6 @@ import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 import { FiltersContext } from '@/context';
 
 interface Props {
-    filterState: FiltersInterface,
     setOpenModalFilter: Dispatch<SetStateAction<boolean>>
 
     //Methods
@@ -20,7 +18,6 @@ interface Props {
 }
 
 const HomeFilter = ({
-    filterState,
     handleCloseTag,
     setOpenModalFilter
 }: Props) => {

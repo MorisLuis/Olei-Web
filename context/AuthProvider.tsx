@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: any) => {
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
-            replace("/products")
+            replace("/")
             setTimeout(() => {
                 setLoggingIn(false)
             }, 500);
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }: any) => {
             Cookies.remove("token")
             await api.post('/api/auth/logout');
             dispatch({ type: '[Auth] - Logout'});
-            replace("/login")
+            replace("/")
 
         } catch (error: any) {
             toast.error(error?.response?.data?.error)

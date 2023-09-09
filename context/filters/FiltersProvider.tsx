@@ -8,8 +8,7 @@ import { filtersReducer } from "./filtersReducer";
 
 export interface FilterState {
     filtersValues: string[],
-    filters: FiltersInterface
-
+    filters: FiltersInterface | Partial<FiltersInterface>
 }
 
 
@@ -80,7 +79,7 @@ export const FiltersProvider = ({ children }: any) => {
         Cookies.set('activeFilters', JSON.stringify(state.filters));
     }, [state]);
 
-    const addFilters = (Filters: FiltersInterface) => {
+    const addFilters = (Filters: FiltersInterface | Partial<FiltersInterface>) => {
         dispatch({ type: '[Filters] - Update filters', payload: Filters });
     }
 

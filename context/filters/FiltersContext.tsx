@@ -3,10 +3,10 @@ import { createContext } from 'react';
 
 interface ContextProps {
     filtersValues: string[];
-    filters: FiltersInterface;
+    filters: FiltersInterface | Partial<FiltersInterface>;
 
     //Methods
-    addFilters: (filters: FiltersInterface) => void;
+    addFilters: (filters: FiltersInterface | Partial<FiltersInterface>) => void;
     removeFilters: (filters: any) => void;
     removeAllFilters: () => void;
 }

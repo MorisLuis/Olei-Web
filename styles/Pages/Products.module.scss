@@ -1,0 +1,178 @@
+@import "../main.scss";
+
+.products {
+    padding: 2em 10em;
+
+    .nameFilter {
+        padding-bottom: 1em;
+        max-width: 900px;
+        @include respond(phone) {
+            display: none;
+        }
+    }
+
+    .filters {
+        margin-bottom: 1em;
+        position: relative;
+
+        @include respond(phone) {
+            display: none;
+            margin: 0px;
+        }
+
+        span {
+            margin-left: 1em;
+        }
+
+        .buttonFilter {
+            display: flex;
+            position: relative;
+            margin-right:  1em;
+
+            @include respond(phone) {
+                display: none;
+            }
+
+            button {
+                border: 1px solid black;
+
+                @include respond(phone) {
+                    border-radius: 100%;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            p {
+                @include respond(phone) {
+                    display: none;
+                }
+            }
+
+            svg {
+                @include respond(phone) {
+                    margin: 0px;
+                }
+            }
+
+            .filtersCount {
+                background-color: black;
+                color: $text-color-secondary;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                border-radius: 1em;
+                transform: translate(50%, -50%);
+                border: 1px solid $color-border;
+
+                p {
+                    width: 16px;
+                    height: 16px;
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .filtersTag {
+            display: flex;
+            div {
+                height: 100%;
+                margin-right: 0.5em;
+            }
+
+            @include respond(phone) {
+                display: none;
+            }
+        }
+    }
+
+    .nameFilterMobil {
+        padding: 1em 1.25em 0em 1.25em;
+        max-width: 900px;
+        text-align: center;
+        display: none;
+        @include respond(phone) {
+            display: flex;
+        }
+    }
+
+    .filtersMobil {
+        position: relative;
+        position: sticky;
+        top: 0%;
+        right: 0px;
+        padding: 1em;
+        z-index: 999;
+        background: $background-color;
+        display: none;
+
+
+        @include respond(phone) {
+            display: flex;
+        }
+
+        .search {
+            display: flex;
+            width: 100%;
+            height: 60px;
+            z-index: 99999;
+        }
+
+        .buttonFilter {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            background-color: $color-secondary;
+            position: absolute;
+            bottom: 50%;
+            right: calc(2% + 1em);
+            transform: translate(0%, 50%);
+            background-color: $background-color-gradient;
+            border-radius: 100%;
+            z-index: 99999;
+
+            button {
+                border: 1px solid black;
+                border-radius: 100%;
+                width: 100%;
+                height: 100%;
+            }
+
+            svg {margin: 0px;}
+
+            .filtersCount {
+                background-color: black;
+                color: $text-color-secondary;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                border-radius: 1em;
+                transform: translate(25%, -25%);
+                border: 1px solid $color-border;
+
+                p {
+                    width: 16px;
+                    height: 16px;
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+
+    .main{
+        @include respond(phone) {
+            // Put this padding here because of search mobil design ( see Home.module.scss ).
+            margin: 1em;
+        }
+    }
+
+    @include respond(tab-port) {
+        padding: 2em;
+    }
+
+    @include respond(phone) {
+        // Put this padding here because of search mobil design ( see UI.module.scss ).
+        padding: 0em;
+    }
+
+}

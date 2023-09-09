@@ -5,9 +5,10 @@ import { api } from '@/api/api';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBagShopping, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faBagShopping, faFile, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { SearchGlobal } from '../Inputs/searchGlobal';
 import { CartContext } from '@/context';
+import { ModalSearch } from '../Modals/ModalSearch';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,6 +20,7 @@ const Header = ({
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
     const { numberOfItems } = useContext(CartContext);
+    const [modalSearchVisible, setModalSearchVisible] = useState(false);
 
     const onLogOut = async () => {
         try {
@@ -30,6 +32,10 @@ const Header = ({
         }
     }
 
+    const handleSelectOption = (value : string) => {
+
+    }
+
     return (
         <>
             <div className={`${styles.header} blur`}>
@@ -39,10 +45,13 @@ const Header = ({
                             Rosco
                         </div>
                         {
-                            pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
+                            pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" || pathname === "/" ?
                                 <></> :
-                                <div className={styles.search}>
-                                    <SearchGlobal/>
+                                <div className={`${styles.search} display-flex allCenter cursor`}>
+                                    <button className='display-flex align cursor'>
+                                        <FontAwesomeIcon icon={faSearch} className={`icon__small`} />
+                                        <p onClick={() => setModalSearchVisible(true)}>Buscar</p>
+                                    </button>
                                 </div>
                         }
                         <div className={`${styles.orders} display-flex align cursor`} onClick={() => push("/profile/request")}>
@@ -74,7 +83,7 @@ const Header = ({
 
                         {
                             pathname === "/cart" ?
-                                <></> 
+                                <></>
                                 :
                                 <div className={`${styles.item}  ${styles.cart}  display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
                                     <div className={`${styles.circle} display-flex allCenter`}>
@@ -87,6 +96,17 @@ const Header = ({
                 </div>
 
             </div>
+
+            <ModalSearch
+                visible={modalSearchVisible}
+                onClose={() => setModalSearchVisible(false)}
+                results={""}
+            >
+                <div className={styles.messageModal}>
+                    <p>Busca un producto por su nombre o codigo</p>
+                </div>
+
+            </ModalSearch>
         </>
     )
 }

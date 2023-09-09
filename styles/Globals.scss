@@ -78,13 +78,10 @@ a {
 }
 
 input {
-  border: 1px solid;
 
   &:focus {
     border: 0px solid;
     outline: none;
-    box-shadow: $color-primary 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
-    opacity: 100%;
   }
 
   &:valid {

@@ -44,6 +44,20 @@
             .search {
                 height: 100%;
 
+                button{
+                    padding: 0.5em 1em;
+                    background-color: transparent;
+                    border: 0px;
+                    opacity: 50%;
+
+                    svg{
+                        margin-right: 0.5em;
+                    }
+                    &:hover{
+                        opacity: 100%;
+                    }
+                }
+
             }
 
             .orders {

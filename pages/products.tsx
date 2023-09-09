@@ -1,20 +1,19 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import styles from "../styles/Pages/Home.module.scss";
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import styles from "../styles/Pages/Products.module.scss";
 
 import { api } from '@/api/api';
-import { GetServerSideProps } from 'next';
 import { Layout } from '@/components/Layouts/Layout';
-import PorductInterface from '@/interfaces/product';
-import ProductInterface from '@/interfaces/product';
+import HomeFilter from '@/components/HomeFilter';
+import Table from '@/components/Ui/Tables/Table';
 import ModalRequest from '@/components/Modals/ModalRequest';
 import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersModalContent';
+import PorductInterface from '@/interfaces/product';
+import ProductInterface from '@/interfaces/product';
 import FiltersInterface from '@/interfaces/filters';
-import HomeFilter from '@/components/HomeFilter';
-import { useRouter } from 'next/router';
-import Table from '@/components/Ui/Tables/Table';
 import { CartContext, FiltersContext } from '@/context';
-import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
-import { Any } from 'react-spring';
+
 
 interface Props {
   productsProps: ProductInterface[]
@@ -54,11 +53,6 @@ export default function Home({ productsProps }: Props) {
     // Variable to track if the first query parameter has been added
     let isFirstQueryParam = true;
 
-    /**
-     * Add a query parameter to the URL if the value is defined and not empty.
-     * @param paramName - The name of the query parameter.
-     * @param value - The value to be added as a query parameter.
-     */
     const addQueryParam = (paramName: string, value: any) => {
       if (value !== null && value !== "" && value !== undefined && value !== false) {
         if (isFirstQueryParam) {
@@ -128,11 +122,7 @@ export default function Home({ productsProps }: Props) {
     setIsLoading(true);
 
     let url = `/api/product?page=${nextPage}&limit=20`;
-    /**
-     * Add a query parameter to the URL if the value is defined and not empty.
-     * @param paramName - The name of the query parameter.
-     * @param value - The value to be added as a query parameter.
-     */
+
     const addQueryParam = (paramName: string, value: any) => {
       if (value !== null && value !== "" && value !== undefined && value !== false) {
         url += `&${paramName}=${value}`;
@@ -190,9 +180,8 @@ export default function Home({ productsProps }: Props) {
   return (
     <>
       <Layout>
-        <div className={styles.home}>
+        <div className={styles.products}>
           <HomeFilter
-            filterState={filterState}
             handleCloseTag={handleCloseTag}
             setOpenModalFilter={setOpenModalFilter}
           />
