@@ -13,6 +13,7 @@ import PorductInterface from '@/interfaces/product';
 import ProductInterface from '@/interfaces/product';
 import FiltersInterface from '@/interfaces/filters';
 import { CartContext, FiltersContext } from '@/context';
+import QueryParams from '@/utils/queryParams';
 
 
 interface Props {
@@ -45,41 +46,22 @@ export default function Home({ productsProps }: Props) {
 
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
     setOpenModalFilter(false);
-
     addFilters(temporalFilters);
 
-    let url = `/products`;
-
-    // Variable to track if the first query parameter has been added
-    let isFirstQueryParam = true;
-
-    const addQueryParam = (paramName: string, value: any) => {
-      if (value !== null && value !== "" && value !== undefined && value !== false) {
-        if (isFirstQueryParam) {
-          url += `?${paramName}=${value}`;
-          isFirstQueryParam = false;
-        } else {
-          url += `&${paramName}=${value}`;
-        }
-      }
+    const queryParams = {
+      nombre: query.nombre,
+      marca: temporalFilters.marca,
+      familia: temporalFilters.familia,
+      folio: temporalFilters.folio,
+      enStock: temporalFilters.enStock,
     };
 
-    // Add specific query parameters based on filters.
-    addQueryParam("nombre", query.nombre);
-    addQueryParam("marca", temporalFilters.marca);
-    addQueryParam("familia", temporalFilters.familia);
-    addQueryParam("folio", temporalFilters.folio);
-    addQueryParam("enStock", temporalFilters.enStock);
-
-    push(url);
+    const handleQueryParams = QueryParams();
+    let url = handleQueryParams({ queryParams });
+    push(url)
   };
 
-  const handleCleanAllFilters = () => {
-    setOpenModalFilter(false);
-    push("/products");
-  }
-
-  const handleCloseTag = (filter: any) => {
+  const handleCloseTag = (filter: string[]) => {
 
     removeFilters({
       [filter[0]]: filter[1]
@@ -90,32 +72,17 @@ export default function Home({ productsProps }: Props) {
       [filter[0]]: filter[1] === "true" ? false : filter[1]
     }))
 
-    // Construct the base URL with pagination settings.
-    let url = `/products`;
+    const queryParams = {
+      nombre: filter[0] === "nombre" ? null : filters.nombre,
+      marca: filter[0] === "marca" ? null : filters.marca,
+      familia: filter[0] === "familia" ? null : filters.familia,
+      folio: filter[0] === "folio" ? null : filters.folio,
+      enStock: filter[0] === "enStock" ? null : filters.enStock,
+    }
 
-    // Variable to track if the first query parameter has been added
-    let isFirstQueryParam = true;
-
-    //Add a query parameter to the URL if the value is defined and not empty.
-    const addQueryParam = (paramName: string, value: any) => {
-      if (value !== null && value !== "" && value !== undefined && value !== false) {
-        if (isFirstQueryParam) {
-          url += `?${paramName}=${value}`;
-          isFirstQueryParam = false;
-        } else {
-          url += `&${paramName}=${value}`;
-        }
-      }
-    };
-
-    // Add specific query parameters based on filters.
-    addQueryParam("nombre", filter[0] === "nombre" ? null : filters.nombre);
-    addQueryParam("marca", filter[0] === "marca" ? null : filters.marca);
-    addQueryParam("familia", filter[0] === "familia" ? null : filters.familia);
-    addQueryParam("folio", filter[0] === "folio" ? null : filters.folio);
-    addQueryParam("enStock", filter[0] === "enStock" ? null : filters.enStock);
-
-    push(url);
+    const handleQueryParams = QueryParams();
+    let url = handleQueryParams({ queryParams });
+    push(url)
   }
 
   const loadMoreProducts = async () => {
@@ -123,24 +90,22 @@ export default function Home({ productsProps }: Props) {
 
     let url = `/api/product?page=${nextPage}&limit=20`;
 
-    const addQueryParam = (paramName: string, value: any) => {
-      if (value !== null && value !== "" && value !== undefined && value !== false) {
-        url += `&${paramName}=${value}`;
-      }
+    const queryParams = {
+      nombre: query.nombre,
+      marca: query.marca,
+      familia: query.familia,
+      folio: query.folio,
+      enStock: query.enStock,
     };
 
-    // Add specific query parameters based on filters.
-    addQueryParam("nombre", query.nombre);
-    addQueryParam("marca", query.marca);
-    addQueryParam("familia", query.familia);
-    addQueryParam("folio", query.folio);
-    addQueryParam("enStock", query.enStock);
+    const handleQueryParams = QueryParams();
+    let urlNew = handleQueryParams({ queryParams, url });
 
     try {
       setNextPage(nextPage + 1);
       if (nextPage === 1) return;
 
-      const { data: { products } } = await api.get(url);
+      const { data: { products } } = await api.get(urlNew);
       setProducts((prevItems: any) => [...prevItems, ...products]);
     } catch (error) {
       console.error('Error loading more items:', error);
@@ -148,6 +113,11 @@ export default function Home({ productsProps }: Props) {
       setIsLoading(false);
     }
   };
+
+  const handleCleanAllFilters = () => {
+    setOpenModalFilter(false);
+    push("/products");
+  }
 
   const UseFetchPagination = useCallback(() => {
     setProducts(productsProps);

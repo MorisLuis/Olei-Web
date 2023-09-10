@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import styles from "../styles/Pages/Login.module.scss";
 
 import { AuthContext } from '../context/AuthContext';

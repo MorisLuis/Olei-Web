@@ -6,7 +6,6 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faFile, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { SearchGlobal } from '../Inputs/searchGlobal';
 import { CartContext } from '@/context';
 import { ModalSearch } from '../Modals/ModalSearch';
 
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const Header = ({
-    setOpenModalCart,
+    setOpenModalCart
 }: Props) => {
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
@@ -32,10 +31,6 @@ const Header = ({
         }
     }
 
-    const handleSelectOption = (value : string) => {
-
-    }
-
     return (
         <>
             <div className={`${styles.header} blur`}>
@@ -47,10 +42,10 @@ const Header = ({
                         {
                             pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" || pathname === "/" ?
                                 <></> :
-                                <div className={`${styles.search} display-flex allCenter cursor`}>
+                                <div className={`${styles.search} display-flex allCenter cursor`} onClick={() => setModalSearchVisible(true)} >
                                     <button className='display-flex align cursor'>
                                         <FontAwesomeIcon icon={faSearch} className={`icon__small`} />
-                                        <p onClick={() => setModalSearchVisible(true)}>Buscar</p>
+                                        <p >Buscar</p>
                                     </button>
                                 </div>
                         }
@@ -100,13 +95,7 @@ const Header = ({
             <ModalSearch
                 visible={modalSearchVisible}
                 onClose={() => setModalSearchVisible(false)}
-                results={""}
-            >
-                <div className={styles.messageModal}>
-                    <p>Busca un producto por su nombre o codigo</p>
-                </div>
-
-            </ModalSearch>
+            />
         </>
     )
 }

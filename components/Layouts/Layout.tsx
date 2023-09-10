@@ -25,9 +25,7 @@ export const Layout = ({ children }: Props) => {
                 <link rel="icon" href="/circle-solid.svg" />
             </Head>
 
-            <Header
-                setOpenModalCart={setOpenModalCart}
-            />
+            <Header setOpenModalCart={setOpenModalCart} />
 
             <div>
                 {children}
