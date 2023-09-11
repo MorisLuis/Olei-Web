@@ -1,4 +1,4 @@
-import { AuthProvider, CartProvider, FiltersProvider } from '@/context'
+import { AuthProvider, CartProvider, ClientProvider, FiltersProvider } from '@/context'
 import type { AppProps } from 'next/app'
 import NextNProgress from 'nextjs-progressbar'
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -10,14 +10,15 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-
       <CartProvider>
-        <FiltersProvider>
-          <NextNProgress color="#068FFF" height={4} />
-          <AuthProvider>
-            <Component {...pageProps} />
-          </AuthProvider>
-        </FiltersProvider>
+        <ClientProvider>
+          <FiltersProvider>
+            <NextNProgress color="#068FFF" height={4} />
+            <AuthProvider>
+              <Component {...pageProps} />
+            </AuthProvider>
+          </FiltersProvider>
+        </ClientProvider>
       </CartProvider>
     </>
   )

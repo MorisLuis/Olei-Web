@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBagShopping, faFile, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CartContext } from '@/context';
+import { CartContext, ClientContext } from '@/context';
 import { ModalSearch } from '../Modals/ModalSearch';
 
 interface Props {
@@ -16,9 +16,12 @@ interface Props {
 const Header = ({
     setOpenModalCart
 }: Props) => {
+
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
     const { numberOfItems } = useContext(CartContext);
+    const { client } = useContext(ClientContext);
+
     const [modalSearchVisible, setModalSearchVisible] = useState(false);
 
     const onLogOut = async () => {
@@ -40,7 +43,7 @@ const Header = ({
                             Rosco
                         </div>
                         {
-                            pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" || pathname === "/" ?
+                            pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" || pathname === "/onboarding/search" ?
                                 <></> :
                                 <div className={`${styles.search} display-flex allCenter cursor`} onClick={() => setModalSearchVisible(true)} >
                                     <button className='display-flex align cursor'>
@@ -55,7 +58,13 @@ const Header = ({
                         </div>
                     </div>
 
+
+                        {
+                            client.Id_Almacen &&
+                            <p  className='display-flex align' style={{ fontSize:"10px", width:"150px"}}>{client.Nombre}</p>
+                        }
                     <div className={`${styles.right} display-flex`}>
+
                         <div className={`${styles.item} ${styles.profile} display-flex allCenter`} >
                             <div className={`${styles.icon} display-flex allCenter`} onClick={() => setProfileOpen(!profileOpen)}>
                                 <p>M</p>

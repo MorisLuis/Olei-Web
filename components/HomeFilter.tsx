@@ -5,7 +5,6 @@ import FiltersInterface from '@/interfaces/filters';
 import { Tag } from './Ui/Tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
-import { SearchGlobal } from './Inputs/searchGlobal';
 import { useRouter } from 'next/router';
 import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 import { FiltersContext } from '@/context';
@@ -87,13 +86,6 @@ const HomeFilter = ({
             {/* MOBIL VERSION */}
             {/* Search / Visible just in mobil version */}
             <div className={styles.filtersMobil}>
-                {
-                    pathname === "/cart" || /^\/profile\//.test(pathname) || pathname === "/profile" ?
-                        <></> :
-                        <div className={styles.search}>
-                            <SearchGlobal/>
-                        </div>
-                }
 
                 {
                     filtersValues.length < 0 ?

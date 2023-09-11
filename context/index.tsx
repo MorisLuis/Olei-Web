@@ -9,3 +9,8 @@ export * from './cart/cartReducer';
 export * from './filters/FiltersContext';
 export * from './filters/FiltersProvider';
 export * from './filters/filtersReducer';
+
+
+export * from './client/ClientContext';
+export * from './client/ClientProvider';
+export * from './client/clientReducer';

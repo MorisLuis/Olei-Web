@@ -1,47 +1,52 @@
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, useRef, useState } from 'react';
 import styles from "../../styles/Components/SearchGlobal.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { api } from '@/api/api';
+import ClientInterface from '@/interfaces/client';
 
 interface Props {
-    onclick: (arg: string) => void
+    searchResults: any;
+    setSearchResults: Dispatch<React.SetStateAction<ClientInterface[] | any[]>>;
+    
+    // Methods
+    onSubmit: (arg?: string | ClientInterface) => void;
+    handleSearchTerm: (term: string) => Promise<void>
 }
 
-export const SearchHome = ({
-    onclick
+export const SearchOnboarding = ({
+    onSubmit,
+    searchResults,
+    setSearchResults,
+    handleSearchTerm,
 }: Props) => {
 
-    const [searchResults, setSearchResults] = useState([])
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState<string | ClientInterface | undefined>("");
     const inputRef = useRef<HTMLInputElement>(null);
-
-    const handleInputChange = async (event: any) => {
-        setInputValue(event.target.value);
-        const term = event.target.value
-
-        try {
-            const { data: { products } } = await api.get(`/api/search?term=${term}`);
-            setSearchResults(products)
-        } catch (error) {
-            console.log({ error })
-        }
-    };
-
-    const highlightSearchTerm = (text: any, term: any) => {
+    
+    console.log({ inputValue })
+    const highlightSearchTerm = (text: string, term: string) => {
         const regex = new RegExp(`(${term})`, 'gi');
         return text?.replace(regex, '<strong>$1</strong>');
     };
 
     const handleSelectProduct = (result: any) => {
+        console.log({result})
         setInputValue(result)
         setSearchResults([])
+    }
+
+    const handleInputChange = (e: any) => {
+        let term = e.target.value;
+        setInputValue(term)
+        handleSearchTerm(term)
     }
 
     const searchDefault: boolean = inputValue === "" || inputValue === null
 
 
+    console.log(typeof(inputValue))
     return (
         <>
             <div className={`${styles.searchHome} display-flex`}>
@@ -51,7 +56,7 @@ export const SearchHome = ({
                         type="text"
                         placeholder='Buscar...'
                         onChange={handleInputChange}
-                        value={inputValue}
+                        value={typeof inputValue  === "string" ? inputValue : inputValue?.Nombre}
                     />
                     {/* {
                         inputValue !== "" &&
@@ -70,7 +75,7 @@ export const SearchHome = ({
                     style={{ width: "20%", marginLeft: "1em" }}
                     className={!searchDefault ? "button" : "button disabled"}
                     disabled={searchDefault}
-                    onClick={() => onclick(inputValue)}
+                    onClick={() => onSubmit(inputValue)}
                 >Buscar</button>
             </div>
             <div className={styles.results}>
@@ -79,14 +84,12 @@ export const SearchHome = ({
                         <div key={index} className={styles.item}>
                             <li
                                 key={index}
-                                onClick={() => handleSelectProduct(result)}
+                                onClick={() =>  handleSelectProduct(result)}
                                 dangerouslySetInnerHTML={{
-                                    __html: highlightSearchTerm(result, inputValue),
+                                    __html: highlightSearchTerm(result?.Nombre as string || result as string, typeof inputValue  === "string" ? inputValue : inputValue?.Nombre || ""),
                                 }}
                             />
                         </div>
-
-
                     )
                 }
             </div>

@@ -53,14 +53,20 @@ export const AuthProvider = ({ children }: any) => {
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
-            replace("/")
+
+            if (user.TipoUsuario === 1) {
+                replace("/onboarding/selectClient")
+            } else {
+                replace("/onboarding/search")
+            }
+
             setTimeout(() => {
                 setLoggingIn(false)
             }, 500);
         } catch (error: any) {
             setLoggingIn(false)
             toast.error(error?.response?.data?.error)
-            console.log({error})
+            console.log({ error })
         }
     }
 
@@ -68,7 +74,7 @@ export const AuthProvider = ({ children }: any) => {
         try {
             Cookies.remove("token")
             await api.post('/api/auth/logout');
-            dispatch({ type: '[Auth] - Logout'});
+            dispatch({ type: '[Auth] - Logout' });
             replace("/")
 
         } catch (error: any) {

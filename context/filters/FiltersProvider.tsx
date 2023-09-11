@@ -70,7 +70,7 @@ export const FiltersProvider = ({ children }: any) => {
             }
         }
 
-        dispatch({ type: '[Filters] - Update filtersValues', payload: filterArray as any })
+        dispatch({ type: '[Filters] - Update filtersValues', payload: filterArray as string[] | [] })
 
     }, [state.filters]);
 
