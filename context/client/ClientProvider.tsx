@@ -32,7 +32,7 @@ export const ClientProvider = ({ children }: any) => {
             }
         }
 
-        if (parsedCookie.Id_Almacen === null || parsedCookie.Id_Cliente === null) return;
+        if (parsedCookie?.Id_Almacen === null || parsedCookie?.Id_Cliente === null) return;
 
         try {
             const cookieClient = Cookies.get('client') ? JSON.parse(Cookies.get('client')!) : []
