@@ -25,7 +25,6 @@ export const ClientProvider = ({ children }: any) => {
     }, [state]);
 
     const selectClient = (client: ClientInterface) => {
-        console.log({context: client})
         dispatch({ type: '[Client] - selectClient', payload: client })
     }
 

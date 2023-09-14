@@ -95,8 +95,6 @@ export const ModalSearch = ({
         const handleQueryParams = QueryParams();
         let newUrl = handleQueryParams({ queryParams, url });
 
-        console.log({ newUrl })
-
         try {
             const { data: { products } } = await api.get(`${newUrl}`);
             setSearchResults(products)
@@ -128,7 +126,6 @@ export const ModalSearch = ({
         let url = handleQueryParams({ queryParams });
         push(url)
     }
-
 
     return visible ?
         <>

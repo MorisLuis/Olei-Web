@@ -25,14 +25,12 @@ export const SearchOnboarding = ({
     const [inputValue, setInputValue] = useState<string | ClientInterface | undefined>("");
     const inputRef = useRef<HTMLInputElement>(null);
     
-    console.log({ inputValue })
     const highlightSearchTerm = (text: string, term: string) => {
         const regex = new RegExp(`(${term})`, 'gi');
         return text?.replace(regex, '<strong>$1</strong>');
     };
 
     const handleSelectProduct = (result: any) => {
-        console.log({result})
         setInputValue(result)
         setSearchResults([])
     }
@@ -45,8 +43,6 @@ export const SearchOnboarding = ({
 
     const searchDefault: boolean = inputValue === "" || inputValue === null
 
-
-    console.log(typeof(inputValue))
     return (
         <>
             <div className={`${styles.searchHome} display-flex`}>

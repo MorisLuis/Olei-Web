@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
     const [loggingIn, setLoggingIn] = useState(false)
+    const {pathname} = useRouter()
 
     const { replace } = useRouter()
 
@@ -31,6 +32,9 @@ export const AuthProvider = ({ children }: any) => {
 
 
     const checkToken = async () => {
+
+        if(pathname === "/login") return;
+
         try {
             const token = Cookies.get('token')
             const { data } = await api.get<any>('/api/auth/renew', {
@@ -54,7 +58,7 @@ export const AuthProvider = ({ children }: any) => {
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
 
-            if (user.TipoUsuario === 1) {
+            if (user.TipoUsuario === 2) {
                 replace("/onboarding/selectClient")
             } else {
                 replace("/onboarding/search")

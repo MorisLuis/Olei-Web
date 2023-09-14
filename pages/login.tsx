@@ -3,7 +3,7 @@ import styles from "../styles/Pages/Login.module.scss";
 
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from 'react-hook-form';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
@@ -77,10 +77,10 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-            <Toaster
+            {/* <Toaster
                 position="bottom-center"
                 reverseOrder={false}
-            />
+            /> */}
         </LayoutOnboarding>
 
     );

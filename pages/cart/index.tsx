@@ -77,15 +77,11 @@ const Cart = () => {
             Entregado: false
         }
 
-        console.log({ existingOrder })
-        console.log({ ordersArray })
-        console.log({ Order })
         const updatedOrders = [...ordersArray, Order]; //TEMPORAL
 
         localStorage.setItem('order', JSON.stringify(updatedOrders));
 
         if (requestCartPending && cartPending.length > 0) {
-            console.log("cartPending")
             const productPendingOrdered: ProductInterface[] = cartPending.map((product: any) => {
 
                 const productDetails: ProductInterface = {
