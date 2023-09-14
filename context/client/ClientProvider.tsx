@@ -20,7 +20,7 @@ export const ClientProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(clientReducer, CLIENT_INITIAL_STATE);
 
-    useEffect(() => {
+    /* useEffect(() => {
         const cookie = JSON.parse(Cookies.get('client') || "")
 
         if(cookie.Id_Almacen  === null || cookie.Id_Cliente === null ) return;
@@ -31,7 +31,7 @@ export const ClientProvider = ({ children }: any) => {
         } catch (error) {
             dispatch({ type: '[Client] - selectClient', payload: CLIENT_INITIAL_STATE.client })
         }
-    }, [])
+    }, []) */
 
     useEffect(() => {
         Cookies.set('client', JSON.stringify(state.client));

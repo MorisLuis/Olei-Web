@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
-import { Layout } from '@/components/Layouts/Layout';
 
 
 type FormData = {
@@ -31,6 +30,7 @@ const Login = () => {
 
     return (
 
+        <LayoutOnboarding>
             <div className={`${styles.login} gradient-background display-flex column`}>
                 <div className={styles.header}>
                     <h1>Olei</h1>
@@ -77,7 +77,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-
+        </LayoutOnboarding>
 
     );
 };
