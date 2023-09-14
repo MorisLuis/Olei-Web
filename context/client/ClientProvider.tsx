@@ -20,10 +20,19 @@ export const ClientProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(clientReducer, CLIENT_INITIAL_STATE);
 
-    /* useEffect(() => {
-        const cookie = JSON.parse(Cookies.get('client') || "")
+    useEffect(() => {
+        const cookieValue = Cookies.get('client');
+        let parsedCookie;
 
-        if(cookie.Id_Almacen  === null || cookie.Id_Cliente === null ) return;
+        if (cookieValue) {
+            try {
+                parsedCookie = JSON.parse(cookieValue);
+            } catch (error) {
+                console.error("Error al analizar JSON de la cookie:", error);
+            }
+        }
+
+        if (parsedCookie.Id_Almacen === null || parsedCookie.Id_Cliente === null) return;
 
         try {
             const cookieClient = Cookies.get('client') ? JSON.parse(Cookies.get('client')!) : []
@@ -31,7 +40,7 @@ export const ClientProvider = ({ children }: any) => {
         } catch (error) {
             dispatch({ type: '[Client] - selectClient', payload: CLIENT_INITIAL_STATE.client })
         }
-    }, []) */
+    }, [])
 
     useEffect(() => {
         Cookies.set('client', JSON.stringify(state.client));
