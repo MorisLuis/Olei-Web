@@ -26,7 +26,6 @@ const FILTERS_INITIAL_STATE: FilterState = {
 export const FiltersProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(filtersReducer, FILTERS_INITIAL_STATE);
-    const { query } = useRouter()
 
     useEffect(() => {
 

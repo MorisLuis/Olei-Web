@@ -6,8 +6,11 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { AuthContext, CartContext, ClientContext } from '@/context';
+import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/context';
 import { ModalSearch } from '../Modals/ModalSearch';
+import FiltersInterface from '@/interfaces/filters';
+import QueryParams from '@/utils/queryParams';
+import ClientInterface from '@/interfaces/client';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,10 +23,12 @@ const Header = ({
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
     const { numberOfItems } = useContext(CartContext);
-    const { client } = useContext(ClientContext);
+    const { client, selectClient } = useContext(ClientContext);
     const { user } = useContext(AuthContext);
+    const { addFilters, filters, filtersValues, removeFilters, removeAllFilters } = useContext(FiltersContext);
 
     const [modalSearchVisible, setModalSearchVisible] = useState(false);
+    const [modalClientsVisible, setModalClientsVisible] = useState(false)
 
     const onLogOut = async () => {
         try {
@@ -34,6 +39,116 @@ const Header = ({
             console.log({ error })
         }
     }
+
+    // Search
+
+    const handleRemoveAllFilters = () => {
+        removeAllFilters()
+        push("/products")
+    }
+
+    const handleCloseTag = (filter: string[]) => {
+
+        removeFilters({
+            [filter[0]]: filter[1]
+        })
+
+        const queryParams = {
+            nombre: filter[0] === "nombre" ? null : filters.nombre,
+            marca: filter[0] === "marca" ? null : filters.marca,
+            familia: filter[0] === "familia" ? null : filters.familia,
+            folio: filter[0] === "folio" ? null : filters.folio,
+            enStock: filter[0] === "enStock" ? null : filters.enStock,
+        }
+
+        const handleQueryParams = QueryParams();
+        let url = handleQueryParams({ queryParams });
+        push(url)
+    }
+
+    const onSelectProduct = (producto: any) => {
+        const newFilters: Partial<FiltersInterface> = {
+            ...filters,
+            nombre: producto,
+        };
+        addFilters(newFilters)
+
+        const queryParams = {
+            nombre: producto,
+            marca: filters.marca,
+            familia: filters.familia,
+            folio: filters.folio,
+            enStock: filters.enStock,
+        };
+
+        const handleQueryParams = QueryParams();
+        let url = handleQueryParams({ queryParams });
+        push(url)
+    }
+
+    const onInputProductChange = async (term: string) => {
+
+        const queryParams = {
+            nombre: term,
+            marca: filters.marca,
+            familia: filters.familia,
+            folio: filters.folio,
+            enStock: filters.enStock,
+        };
+
+        let url = "/api/search"
+        const handleQueryParams = QueryParams();
+        let newUrl = handleQueryParams({ queryParams, url });
+
+        try {
+            const { data: { products } } = await api.get(`${newUrl}`);
+            return { products };
+        } catch (error) {
+            console.log({ error })
+            return { products: [] };
+        }
+    }
+
+    const onProductKeyDown = (inputValue: string) => {
+        const newFilters: Partial<FiltersInterface> = {
+            ...filters,
+            nombre: inputValue,
+        };
+        addFilters(newFilters)
+
+        const queryParams = {
+            nombre: inputValue,
+            marca: filters.marca,
+            familia: filters.familia,
+            folio: filters.folio,
+            enStock: filters.enStock,
+        };
+
+        const handleQueryParams = QueryParams();
+        let url = handleQueryParams({ queryParams });
+        push(url)
+    }
+
+
+    // Clients
+    const onSelectClient = (product: any) => {
+        selectClient(product as ClientInterface)
+    }
+
+    const onInputClientChange = async (term: string) => {
+        try {
+            const { data: { Clients } } = await api.get(`/api/search/client?term=${term}`);
+            return { products: Clients };
+        } catch (error) {
+            console.log({ error })
+            return { products: [] };
+        }
+    }
+
+    const onClientKeyDown = (inputValue: string) => {
+        console.log({inputValue})
+    }
+
 
     return (
         <>
@@ -46,12 +161,12 @@ const Header = ({
 
                         {
                             (user?.TipoUsuario === 2 && client?.Id_Almacen) &&
-                            <div className={`${styles.client} display-flex align cursor`}>
+                            <div className={`${styles.client} display-flex align cursor`} onClick={ () => setModalClientsVisible(true)}>
                                 <span>/</span>
                                 <div className={`${styles.circular} display-flex allCenter`}>{client.Nombre.slice(0, 1)}</div>
                                 <p className={`${styles.name} display-flex align`}>{client.Nombre}</p>
                                 <p className={styles.description}>Cliente</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 icon" style={{marginLeft: "1em"}}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 icon" style={{ marginLeft: "1em" }}>
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
                                 </svg>
                             </div>
@@ -118,6 +233,22 @@ const Header = ({
             <ModalSearch
                 visible={modalSearchVisible}
                 onClose={() => setModalSearchVisible(false)}
+
+                onSelectItem={onSelectProduct}
+                onInputChange={onInputProductChange}
+                onKeyDown={onProductKeyDown}
+                handleRemoveAllFilters={handleRemoveAllFilters}
+                handleCloseTag={handleCloseTag}
+                filtersValues={filtersValues}
+            />
+
+            <ModalSearch
+                visible={modalClientsVisible}
+                onClose={() => setModalClientsVisible(false)}
+
+                onSelectItem={onSelectClient}
+                onInputChange={onInputClientChange}
+                onKeyDown={onClientKeyDown}
             />
         </>
     )

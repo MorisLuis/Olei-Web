@@ -29,9 +29,9 @@ const OnboardingSearch = () => {
         push(`/onboarding/search`)
     }
 
-    const handleSelectClient = (client : ClientInterface) => {
+    /* const handleSelectClient = (client : ClientInterface) => {
         selectClient(client)
-    }
+    } */
 
     return (
         <LayoutOnboarding>
