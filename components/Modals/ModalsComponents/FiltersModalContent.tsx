@@ -45,7 +45,7 @@ const FiltersModalContent = ({
         fetchTable()
 
     }, [visible, setTemporalFilters])
-
+    console.log({temporalFilters})
 
     return (
         <div>
@@ -55,13 +55,14 @@ const FiltersModalContent = ({
                     <p>Mostrar solo los productos que tienen stock disponibles hoy.</p>
                 </div>
                 <ToggleSwitch
-                    name='stock'
+                    name='enStock'
                     value={temporalFilters.enStock}
                     onChange={(value: boolean) => {
                         setTemporalFilters((prevState: FiltersInterface) => ({
                             ...prevState,
                             enStock: value
                         }))
+                        console.log({enStock: value})
                     }}
                 />
             </div>
@@ -73,7 +74,8 @@ const FiltersModalContent = ({
                     label: familia,
                     value: familia,
                 }))}
-                label="Familia"
+                label='Familia'
+                name='familia'
                 value={temporalFilters.familia && { value: temporalFilters.familia, label: temporalFilters.familia }}
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
@@ -87,7 +89,8 @@ const FiltersModalContent = ({
                     label: marca,
                     value: marca,
                 }))}
-                label="Marca"
+                label='Marca'
+                name='marca'
                 value={temporalFilters.marca && { value: temporalFilters.marca, label: temporalFilters.marca }}
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
@@ -97,11 +100,12 @@ const FiltersModalContent = ({
                 }}
             />
             <Input
-                label="Folio"
+                label='Folio'
+                name='folio'
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
                         ...prevState,
-                        folio: value !== "" ? value : null
+                        folio: value !== "" ? value : ""
                     }))
                 }}
                 value={temporalFilters.folio as string}

@@ -3,17 +3,19 @@ import React from 'react'
 interface Props {
     label?: string,
     onChange?: any,
-    value: string
+    value: string,
+    name: string
 }
 
 const Input = ({
     label,
     onChange,
-    value
+    value,
+    name
 }: Props) => {
     return (
         <div className='display-flex column'>
-            <label htmlFor="Categoria">{label}</label>
+            <label htmlFor={name}>{label}</label>
             <input
                 className="input"
                 type="text"
@@ -23,7 +25,7 @@ const Input = ({
                         onChange(event.target.value);
                     }
                 }}
-                value={value}
+                value={value || ""}
             />
         </div>
     )

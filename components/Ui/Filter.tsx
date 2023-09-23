@@ -86,7 +86,7 @@ const Filter = ({
             </div>
             <div className={`${styles.options} display-flex column`}>
                 {activeFilterOptions.map(option => (
-                    <label key={option.key} className="display-flex align">
+                    <label htmlFor='checkbox' key={option.key} className="display-flex align">
                         <input
                             type="checkbox"
                             value={option.value}

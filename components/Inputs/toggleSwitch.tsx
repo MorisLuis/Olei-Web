@@ -26,7 +26,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
     };
 
     return (
-        <label className="toggleSwitch">
+        <label htmlFor="enStock" className="toggleSwitch">
             {
                 label && <p className="label">{label}</p>
             }

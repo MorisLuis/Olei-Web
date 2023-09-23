@@ -6,7 +6,8 @@ interface Props {
     placeholder?: string,
     label?: string,
     onChange: any,
-    value: any
+    value: any,
+    name: string
 }
 
 const SelectReact = ({
@@ -14,7 +15,8 @@ const SelectReact = ({
     placeholder = "Buscar...",
     label,
     onChange,
-    value
+    value,
+    name
 }: Props) => {
 
     const optionsWithNull = [
@@ -24,7 +26,7 @@ const SelectReact = ({
 
     return (
         <div>
-            <label htmlFor="Categoria">{label}</label>
+            <label htmlFor={name}>{label}</label>
             <Select
                 placeholder={placeholder}
                 options={optionsWithNull}

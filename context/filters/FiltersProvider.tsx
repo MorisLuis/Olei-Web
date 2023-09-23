@@ -1,5 +1,6 @@
 import Filter from "@/components/Ui/Filter";
 import FiltersInterface from "@/interfaces/filters";
+import { stat } from "fs";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useEffect, useReducer, useState } from "react";
@@ -14,10 +15,10 @@ export interface FilterState {
 
 const FILTERS_INITIAL_STATE: FilterState = {
     filters: {
-        nombre: null,
-        marca: null,
-        familia: null,
-        folio: null,
+        nombre: undefined,
+        marca: undefined,
+        familia: undefined,
+        folio: undefined,
         enStock: false,
     },
     filtersValues: []
@@ -50,7 +51,6 @@ export const FiltersProvider = ({ children }: any) => {
             if (areFiltersEqual) return;
         }
 
-
         try {
             const cookieFilters = Cookies.get('activeFilters') ? JSON.parse(Cookies.get('activeFilters')!) : []
             dispatch({ type: '[Filters] - LoadFilters from cookies | storage', payload: cookieFilters });
@@ -59,12 +59,12 @@ export const FiltersProvider = ({ children }: any) => {
         }
     }, []);
 
-
     useEffect(() => {
         const filterArray = [];
         const filtersItems = state.filters as any;
+        console.log({filters: state.filters})
         for (const prop in filtersItems) {
-            if (filtersItems[prop] !== null && filtersItems[prop] !== false) {
+            if (filtersItems[prop] !== null && filtersItems[prop] !== false && filtersItems[prop] !== undefined) {
                 filterArray.push([prop, filtersItems[prop].toString()]);
             }
         }
@@ -79,6 +79,7 @@ export const FiltersProvider = ({ children }: any) => {
     }, [state]);
 
     const addFilters = (Filters: FiltersInterface | Partial<FiltersInterface>) => {
+        console.log({Filters})
         dispatch({ type: '[Filters] - Update filters', payload: Filters });
     }
 

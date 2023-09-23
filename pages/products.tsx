@@ -41,11 +41,13 @@ export default function Home({ productsProps }: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
 
+  
 
   const handleFiltersToQuery = () => {
 
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
     setOpenModalFilter(false);
+    console.log({temporalFilters})
     addFilters(temporalFilters);
 
     const queryParams = {
