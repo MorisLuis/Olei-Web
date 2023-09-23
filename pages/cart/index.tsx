@@ -70,8 +70,8 @@ const Cart = () => {
 
         if(newOrder) {
             const folio = newOrder.data.order.Folio.value;
-            push(`/cart/success?order=${folio}`)
             removeAllCart()
+            push(`/cart/success?order=${folio}`)
         }
     }
 

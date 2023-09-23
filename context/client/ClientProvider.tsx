@@ -1,7 +1,7 @@
 import { api } from "@/api/api";
 import ClientInterface from "@/interfaces/client";
 import Cookies from "js-cookie";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { ClientContext } from "./ClientContext"
 import { clientReducer } from "./clientReducer";
 
@@ -20,6 +20,7 @@ const CLIENT_INITIAL_STATE: ClientState = {
 export const ClientProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(clientReducer, CLIENT_INITIAL_STATE);
+    const [clientChanged, setClientChanged] = useState(false)
 
     useEffect(() => {
         const cookieValue = Cookies.get('client');
@@ -61,9 +62,11 @@ export const ClientProvider = ({ children }: any) => {
         <ClientContext.Provider
             value={{
                 ...state,
+                clientChanged,
 
                 // Methods
-                selectClient
+                selectClient,
+                setClientChanged
             }}
         >
             {children}

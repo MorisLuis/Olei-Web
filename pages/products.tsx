@@ -12,7 +12,7 @@ import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersMod
 import PorductInterface from '@/interfaces/product';
 import ProductInterface from '@/interfaces/product';
 import FiltersInterface from '@/interfaces/filters';
-import { CartContext, FiltersContext } from '@/context';
+import { CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
 
 
@@ -33,6 +33,8 @@ export default function Home({ productsProps }: Props) {
   const { push, query } = useRouter()
   const { addFilters, removeFilters, filters, removeAllFilters } = useContext(FiltersContext);
   const { productDelete } = useContext(CartContext);
+  const { clientChanged } = useContext(ClientContext);
+
 
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
@@ -41,13 +43,12 @@ export default function Home({ productsProps }: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
 
-  
+
 
   const handleFiltersToQuery = () => {
 
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
     setOpenModalFilter(false);
-    console.log({temporalFilters})
     addFilters(temporalFilters);
 
     const queryParams = {
@@ -126,6 +127,18 @@ export default function Home({ productsProps }: Props) {
   }, [productsProps]);
 
   useEffect(() => {
+    if (clientChanged) {
+      setLoadingData(false)
+      const productsOfTheClient = async () => {
+        const { data } = await api.get('/api/product?page=1&limit=20');
+        console.log({data})
+        const productsProps: PorductInterface[] = data.products;
+        setProducts(productsProps)
+      }
+      productsOfTheClient();
+      setLoadingData(true);
+      return;
+    }
     if (productDelete) {
       setLoadingData(false)
       setProducts(productsProps)
@@ -136,7 +149,7 @@ export default function Home({ productsProps }: Props) {
     UseFetchPagination()
     setLoadingData(false);
     setNextPage(2)
-  }, [query, UseFetchPagination, productDelete, productsProps])
+  }, [query, UseFetchPagination, productDelete, productsProps, clientChanged])
 
   useEffect(() => {
     loadMoreProducts()
@@ -225,7 +238,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
     const { data } = await api.get(url);  // Usamos la URL construida aquí
     const productsProps: PorductInterface[] = data.products;
-
     return {
       props: {
         productsProps

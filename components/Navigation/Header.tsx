@@ -22,8 +22,8 @@ const Header = ({
 
     const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
-    const { numberOfItems } = useContext(CartContext);
-    const { client, selectClient } = useContext(ClientContext);
+    const { numberOfItems, setProductDelete } = useContext(CartContext);
+    const { client, selectClient, setClientChanged } = useContext(ClientContext);
     const { user } = useContext(AuthContext);
     const { addFilters, filters, filtersValues, removeFilters, removeAllFilters } = useContext(FiltersContext);
 
@@ -132,7 +132,11 @@ const Header = ({
 
     // Clients
     const onSelectClient = (product: any) => {
+        setClientChanged(true)
         selectClient(product as ClientInterface)
+        setTimeout(() => {
+            setClientChanged(false)
+        }, 300)
     }
 
     const onInputClientChange = async (term: string) => {
