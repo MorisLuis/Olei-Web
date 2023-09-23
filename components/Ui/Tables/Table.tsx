@@ -26,29 +26,36 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
         setProductsToDisplay([...data])
     }, [data])
 
+
+
     // Define an array of ProductInterface objects to represent products to be displayed
     const productsWithCartInfo: ProductInterface[] = productsToDisplay.map((product: ProductInterface) => {
         // Find the corresponding product in the 'cart' array using matching properties
-        const cartProduct = cart.find((cartItem) => (cartItem.CodigoProducto === product.CodigoProducto) && (cartItem.Id_Marca === product.Id_Marca));
+        const cartProduct = cart.find((cartItem) => (cartItem.Codigo === product.Codigo) && (cartItem.Id_Marca === product.Id_Marca));
 
         // Find the corresponding product in the 'cartPending' array using matching properties
-        const cartProductPending = cartPending.find((cartItemPending) => (cartItemPending.CodigoProducto === product.CodigoProducto) && (cartItemPending.Id_Marca === product.Id_Marca));
+        const cartProductPending = cartPending.find((cartItemPending) => (cartItemPending.Codigo === product.Codigo) && (cartItemPending.Id_Marca === product.Id_Marca));
 
+        //console.log({cartProduct})
         // Calculate the quantity of the product in the active cart ('cart') and pending cart ('cartPending')
-        const quantity = cartProduct !== undefined ? cartProduct.Cantidad : 0;
-        const quantityPending = cartProductPending !== undefined ? cartProductPending.Cantidad : 0;
+        const quantity = cartProduct !== undefined ? cartProduct.Piezas : 0;
+        const quantityPending = cartProductPending !== undefined ? cartProductPending.Piezas : 0;
 
         // Create a new object that combines the product information with the calculated quantities
         // If 'quantity' from 'cart' is available, use it; otherwise, use 'quantityPending' from 'cartPending'
-        //return { ...product, Cantidad: quantity || quantityPending };
 
         const productWithCartInfo: ProductInterface = {
             ...product,
-            Cantidad: quantity !== 0 ? quantity : quantityPending,
+            Piezas: quantity !== 0 ? quantity : quantityPending,
         };
 
         return productWithCartInfo;
     });
+
+    console.log({cart})
+    console.log({data})
+    console.log({productsToDisplay})
+    console.log({productsWithCartInfo})
 
     return (
         <>
@@ -77,7 +84,7 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                     {
                                         productsWithCartInfo?.map((product: ProductInterface, index: number) => {
                                             return (
-                                                <ProductCard product={product} key={product.CodigoProducto && (product.CodigoProducto + product.Id_Marca)} />
+                                                <ProductCard product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
                                             )
                                         })
                                     }

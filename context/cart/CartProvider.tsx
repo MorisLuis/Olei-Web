@@ -68,17 +68,18 @@ export const CartProvider = ({ children }: any) => {
 
 
     useEffect(() => {
+        console.log({stateCart: state.cart})
         const numberOfItems = state.cart.reduce((prev, current: ProductInterface) => {
             if (!current.Existencia) return prev;
             if (current?.Existencia >= 1) {
-                return current?.Cantidad + prev;
+                return current?.Piezas + prev;
             }
             return prev;
         }, 0);
 
         const subTotal = state.cart.reduce((prev, current: any) => {
             if (current.Existencia >= 1) {
-                return prev + current.Precio * current.Cantidad;
+                return prev + current.Precio * current.Piezas;
             }
             return prev;
         }, 0);
@@ -97,11 +98,11 @@ export const CartProvider = ({ children }: any) => {
 
     useEffect(() => {
         const numberOfItemsPending = state.cartPending.reduce((prev, current: ProductInterface) => {
-            return current?.Cantidad + prev;
+            return current?.Piezas + prev;
         }, 0);
 
         const subTotalPending = state.cartPending.reduce((prev, current: any) => {
-            return prev + current.Precio * current.Cantidad;
+            return prev + current.Precio * current.Piezas;
         }, 0);
 
         const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
@@ -120,42 +121,42 @@ export const CartProvider = ({ children }: any) => {
     const addProductToCart = (product: ProductInterface) => {
 
         if (product.Existencia && product.Existencia <= 0) {
-            const productInCartPending = state.cartPending.some(p => p.CodigoProducto === product.CodigoProducto);
+            const productInCartPending = state.cartPending.some(p => p.Codigo === product.Codigo);
             if (!productInCartPending) {
                 return dispatch({ type: '[CartPending] - Update products in cartPending', payload: [...state.cartPending, product] })
             }
 
-            const productInCartPendingAndSameMarca = state.cartPending.some(p => p.CodigoProducto === product.CodigoProducto && p.Id_Marca === product.Id_Marca);
+            const productInCartPendingAndSameMarca = state.cartPending.some(p => p.Codigo === product.Codigo && p.Id_Marca === product.Id_Marca);
             if (!productInCartPendingAndSameMarca) {
                 return dispatch({ type: '[CartPending] - Update products in cartPending', payload: [...state.cartPending, product] })
             }
 
             const updatedProducts = state.cartPending.map((p: ProductInterface) => {
-                if (p.CodigoProducto !== product.CodigoProducto) return p;
+                if (p.Codigo !== product.Codigo) return p;
                 if (p.Id_Marca !== product.Id_Marca) return p;
 
-                p.Cantidad = product.Cantidad;
+                p.Piezas = product.Piezas;
                 return p;
             });
 
             return dispatch({ type: '[CartPending] - Update products in cartPending', payload: updatedProducts })
 
         } else {
-            const productInCart = state.cart.some(p => p.CodigoProducto === product.CodigoProducto);
+            const productInCart = state.cart.some(p => p.Codigo === product.Codigo);
             if (!productInCart) {
                 return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
             }
 
-            const productInCartAndSameMarca = state.cart.some(p => p.CodigoProducto === product.CodigoProducto && p.Id_Marca === product.Id_Marca);
+            const productInCartAndSameMarca = state.cart.some(p => p.Codigo === product.Codigo && p.Id_Marca === product.Id_Marca);
             if (!productInCartAndSameMarca) {
                 return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product] })
             }
 
             const updatedProducts = state.cart.map((p: ProductInterface) => {
-                if (p.CodigoProducto !== product.CodigoProducto) return p;
+                if (p.Codigo !== product.Codigo) return p;
                 if (p.Id_Marca !== product.Id_Marca) return p;
 
-                p.Cantidad = product.Cantidad;
+                p.Piezas = product.Piezas;
                 return p;
             });
 

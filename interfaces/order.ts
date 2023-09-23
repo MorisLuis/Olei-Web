@@ -1,12 +1,13 @@
-import ProductInterface from "./product";
 
 export default interface OrderInterface {
-    products: ProductInterface[],
-    Cantidad: number,
+    Piezas: number,
     Subtotal: number,
     Impuesto: number,
-    Total: number,
-    Folio: string,
-    Fecha: string,
-    Entregado: boolean
+
+    Total?: number,
+    Fecha?: string,
+    Entregado?: boolean,
+    Cliente?: string,
+    Vendedor?: string,
+    Folio?: string
 }

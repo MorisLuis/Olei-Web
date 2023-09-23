@@ -22,13 +22,13 @@ const Pedidos = () => {
     const [orderSelect, setOrderSelect] = useState<OrderInterface>()
 
     useEffect(() => {
-        const orderFromCookies: any[] = localStorage.getItem('orderPending') ? JSON.parse(localStorage.getItem('orderPending')!) : [];
-        setOrders(orderFromCookies);
+        /* const orderFromCookies: any[] = localStorage.getItem('orderPending') ? JSON.parse(localStorage.getItem('orderPending')!) : [];
+        setOrders(orderFromCookies); */
     }, []);
 
 
     const onSubmitOrderToCart = async () => {
-        if (!orderSelect?.products) return;
+        /* if (!orderSelect?.products) return;
 
         setOpenModalMessage(false)
         back()
@@ -39,7 +39,7 @@ const Pedidos = () => {
             success: 'Listo! Ya tienes tu carrito lleno',
             error: 'Error when fetching',
 
-        });
+        }); */
     };
 
     return (
@@ -55,7 +55,7 @@ const Pedidos = () => {
                                         <p>Para cambiar la información, habla con tu administrador.</p>
                                     </div>
                                     <div className={styles.item}>
-                                        <RequestCard order={orders} setOrderSelect={setOrderSelect} receiptPending/>
+                                        <RequestCard order={orders} receiptPending/>
                                     </div>
                                 </>
                                 :

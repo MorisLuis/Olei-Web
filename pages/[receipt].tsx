@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "../../styles/Pages/Receipt.module.scss";
+import styles from "../styles/Pages/Receipt.module.scss";
 
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,7 +9,7 @@ import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 
 const ReceiptPage = () => {
 
-    const { push } = useRouter()
+    const {push} = useRouter();
 
     return (
         <div className={styles.receipt}>

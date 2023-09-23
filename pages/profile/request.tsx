@@ -12,29 +12,45 @@ import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
 import toast from 'react-hot-toast';
 import { MessageCard } from '@/components/Cards/MessageCard';
+import { api } from '@/api/api';
+import ProductInterface from '@/interfaces/product';
 
 const Pedidos = () => {
 
     const { query, back } = useRouter()
+
     const { addOrderToCart } = useContext(CartContext)
 
     const [openModalMessage, setOpenModalMessage] = useState(false)
     const [orders, setOrders] = useState<OrderInterface[]>([]);
-    const [orderSelect, setOrderSelect] = useState<OrderInterface>()
+    const [orderSelect, setOrderSelect] = useState<ProductInterface[]>()
 
     useEffect(() => {
-        const orderFromCookies: any[] = localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')!) : [];
-        setOrders(orderFromCookies);
+        const getOrder = async () => {
+            const { data } = await api.get(`/api/order/all`);
+            console.log({data})
+            const order: OrderInterface[] = data;
+            setOrders(order)
+        }
+
+        getOrder()
     }, []);
 
 
+    const handleSelectOrder = async (folio: string) => {
+        const { data } = await api.get(`/api/orderDetails?folio=${folio}`);
+        const order: ProductInterface[] = data;
+        setOrderSelect(order)
+    }
+
+
     const onSubmitOrderToCart = async () => {
-        if (!orderSelect?.products) return;
+        if (!orderSelect) return;
 
         setOpenModalMessage(false)
         back()
 
-        const myPromise = addOrderToCart(orderSelect?.products)
+        const myPromise = addOrderToCart(orderSelect)
         toast.promise(myPromise, {
             loading: 'Cargando carrito...',
             success: 'Listo! Ya tienes tu carrito lleno',
@@ -56,7 +72,7 @@ const Pedidos = () => {
                                         <p>Para cambiar la información, habla con tu administrador.</p>
                                     </div>
                                     <div className={styles.item}>
-                                        <TableRequest order={orders} setOrderSelect={setOrderSelect} />
+                                        <TableRequest order={orders} handleSelectOrder={handleSelectOrder} />
                                     </div>
                                 </>
                                 :

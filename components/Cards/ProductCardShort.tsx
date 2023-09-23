@@ -25,7 +25,7 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Descripcion: product.Descripcion,
-        CodigoProducto: product.CodigoProducto,
+        Codigo: product.Codigo,
 
         Precio: product.Precio,
 
@@ -34,19 +34,19 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
 
         Id_Marca: product.Id_Marca,
         Marca: product.Marca,
-        Cantidad: product.Cantidad,
+        Piezas: product.Piezas,
         Existencia: product.Existencia
     })
 
-    const onUpdateQuantity = async (Cantidad: number) => {
+    const onUpdateQuantity = async (Piezas: number) => {
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
-            Cantidad
+            Piezas
         }));
 
         addProductToCart({
             ...tempCartProduct,
-            Cantidad
+            Piezas
         });
     }
 
@@ -74,8 +74,8 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
             <div className={`${styles.content} display-flex space-between`}>
 
                 <div className={styles.description}>
-                    <p className={styles.title}>{product?.Descripcion}</p>
-                    <p className={styles.code}>{product?.CodigoProducto}</p>
+                    <p className={styles.title}>{product?.Descripcion?.trim()}</p>
+                    <p className={styles.code}>{product?.Codigo}</p>
                 </div>
 
                 <div className={styles.data}>
@@ -84,14 +84,14 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                             <Tag color="blue">No tiene precio</Tag>}
                     </div>
 
-                    {
+                    {/* {
                         product?.Existencia && product?.Existencia <= 0 ?
                             <Tag color="red">No Stock</Tag> :
                             <div className='display-flex'>
                                 <p className={styles.existent}>Existencia: </p>
                                 <p>{product?.Existencia}</p>
                             </div>
-                    }
+                    } */}
 
                 </div>
 
@@ -99,14 +99,14 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                     {
                         counterVisible &&
                         <Counter
-                            currentValue={product?.Cantidad || 0}
+                            currentValue={product?.Piezas || 0}
                             maxValue={
                                 product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                             }
                             updatedQuantity={onUpdateQuantity}
                         />
                     }
-                    <p className={styles.subtotal}>Subtotal : {product?.Cantidad && format(product?.Precio * product?.Cantidad)}</p>
+                    <p className={styles.subtotal}>Subtotal : {product?.Piezas && format(product?.Precio * product?.Piezas)}</p>
                 </div>
 
                 {

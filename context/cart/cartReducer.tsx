@@ -52,7 +52,7 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
             return {
                 ...state,
                 cart: state.cart.map((product: ProductInterface) => {
-                    if (product.CodigoProducto !== action.payload.CodigoProducto) return product;
+                    if (product.Codigo !== action.payload.Codigo) return product;
                     return action.payload;
                 })
             }
@@ -60,7 +60,7 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
         case '[Cart] - Remove product in cart':
             return {
                 ...state,
-                cart: state.cart.filter((product: ProductInterface) => !(product.CodigoProducto === action.payload.CodigoProducto && product.Id_Marca === action.payload.Id_Marca))
+                cart: state.cart.filter((product: ProductInterface) => !(product.Codigo === action.payload.Codigo && product.Id_Marca === action.payload.Id_Marca))
             }
 
 
@@ -82,7 +82,7 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
             return {
                 ...state,
                 cartPending: state.cartPending.map((product: ProductInterface) => {
-                    if (product.CodigoProducto !== action.payload.CodigoProducto) return product;
+                    if (product.Codigo !== action.payload.Codigo) return product;
                     return action.payload;
                 })
             }
@@ -90,7 +90,7 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
         case '[CartPending] - Remove product in cartPending':
             return {
                 ...state,
-                cartPending: state.cartPending.filter((product: ProductInterface) => !(product.CodigoProducto === action.payload.CodigoProducto && product.Id_Marca === action.payload.Id_Marca))
+                cartPending: state.cartPending.filter((product: ProductInterface) => !(product.Codigo === action.payload.Codigo && product.Id_Marca === action.payload.Id_Marca))
             }
 
 

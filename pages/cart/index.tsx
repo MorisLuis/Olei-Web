@@ -15,11 +15,13 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 import ToggleSwitch from '@/components/Inputs/toggleSwitch';
 import { useSpring, animated } from '@react-spring/web'
 import useMeasure from 'react-use-measure'
+import { api } from '@/api/api';
+import OrderInterface from '@/interfaces/order';
 
 const Cart = () => {
 
     const { push } = useRouter()
-    const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart, numberOfItemsPending, subTotalPending, totalPending } = useContext(CartContext);
+    const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart } = useContext(CartContext);
     const [requestOpen, setRequestOpen] = useState(false)
     const [requestCartPending, setRequestCartPending] = useState(true)
     const [cartShowed, setCartShowed] = useState(cart)
@@ -29,116 +31,48 @@ const Cart = () => {
         setCartShowed(cart)
     }, [cart])
 
-    const submitOrder = () => {
+    const submitOrder = async () => {
 
-        const productOrdered: ProductInterface[] = cart.map((product: any) => {
+        const order : OrderInterface = {
+            Subtotal: subTotal,
+            Impuesto: tax,
+            Piezas: numberOfItems
+        }
+
+        const productOrdered: ProductInterface[] = cart.map((product: ProductInterface) => {
 
             const productDetails: ProductInterface = {
-                Precio: product.Precio,
-                Cantidad: product.Cantidad,
-                Subtotal: product.Cantidad && (product.Precio * product.Cantidad),
-                Impuesto: tax,
-                Total: product.Cantidad && (product.Precio * product.Cantidad) * (tax),
-
-                Id_Almacen: product?.Id_Almacen,
+                Codigo: product.Codigo,
                 Id_Marca: product?.Id_Marca,
-                Id_ListaPrecios: product?.Id_ListaPrecios,
-                Id_Vendedor: 1,
-                Id_Cliente: 1,
-                Id_Formapago: "Efectivo",
-
-                Folio: uuidv4(),
-                Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
-
-                Descripcion: product.Descripcion,
-                CodigoProducto: product.CodigoProducto,
-                Familia: product.Familia,
-                CodigoPrecio: product.CodigoPrecio,
-                CodigoExsitencia: product.CodigoExsitencia,
-                Existencia: product.Existencia,
-                Marca: product.Marca,
+                Piezas: product.Piezas,
+                Precio: product.Precio,
+                Importe: (product.Precio * product.Piezas),
+                Impuesto: tax,
+                Descripcion: product.Descripcion
             }
 
             return productDetails
         })
 
-        const existingOrderString = localStorage.getItem('order'); //TEMPORAL
-        const existingOrder = existingOrderString ? JSON.parse(existingOrderString) : []; //TEMPORAL
-        const ordersArray = Array.isArray(existingOrder) ? existingOrder : [existingOrder]; //TEMPORAL
+        let newOrder;
 
-        const Order = {
-            products: productOrdered,
-            Cantidad: numberOfItems,
-            Subtotal: subTotal,
-            Impuesto: tax,
-            Total: total,
-            Folio: uuidv4(),
-            Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
-            Entregado: false
+        try {
+            await api.post('/api/orderDetails', productOrdered);
+        } catch (error) {
+            console.log({error})
         }
 
-        const updatedOrders = [...ordersArray, Order]; //TEMPORAL
-
-        localStorage.setItem('order', JSON.stringify(updatedOrders));
-
-        if (requestCartPending && cartPending.length > 0) {
-            const productPendingOrdered: ProductInterface[] = cartPending.map((product: any) => {
-
-                const productDetails: ProductInterface = {
-                    Precio: product.Precio,
-                    Cantidad: product.Cantidad,
-                    Subtotal: product.Cantidad && (product.Precio * product.Cantidad),
-                    Impuesto: tax,
-                    Total: product.Cantidad && (product.Precio * product.Cantidad) * (tax),
-
-                    Id_Almacen: product?.Id_Almacen,
-                    Id_Marca: product?.Id_Marca,
-                    Id_ListaPrecios: product?.Id_ListaPrecios,
-                    Id_Vendedor: 1,
-                    Id_Cliente: 1,
-                    Id_Formapago: "Efectivo",
-
-                    Folio: uuidv4(),
-                    Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
-
-                    Descripcion: product.Descripcion,
-                    CodigoProducto: product.CodigoProducto,
-                    Familia: product.Familia,
-                    CodigoPrecio: product.CodigoPrecio,
-                    CodigoExsitencia: product.CodigoExsitencia,
-                    Existencia: product.Existencia,
-                    Marca: product.Marca,
-                }
-
-                return productDetails
-            })
-
-            const existingOrderPendingString = localStorage.getItem('orderPending'); //TEMPORAL
-            const existingOrderPending = existingOrderPendingString ? JSON.parse(existingOrderPendingString) : []; //TEMPORAL
-            const ordersPendingArray = Array.isArray(existingOrderPending) ? existingOrderPending : [existingOrderPending]; //TEMPORAL
-
-            const OrderPending = {
-                products: productPendingOrdered,
-                Cantidad: numberOfItemsPending,
-                Subtotal: subTotalPending,
-                Impuesto: tax,
-                Total: totalPending,
-                Folio: uuidv4(),
-                Fecha: moment().format('YYYY-MM-DD HH:mm:ss'),
-                Entregado: false
-            }
-
-            const updatedOrdersPending = [...ordersPendingArray, OrderPending]; //TEMPORAL
-
-            localStorage.setItem('orderPending', JSON.stringify(updatedOrdersPending));
+        try {
+            newOrder = await api.post('/api/order', order)
+        } catch (error) {
+            console.log({error})
         }
 
-
-        if (updatedOrders) {
-            push(`/cart/success?order=${Order.Folio}`)
+        if(newOrder) {
+            const folio = newOrder.data.order.Folio.value;
+            push(`/cart/success?order=${folio}`)
             removeAllCart()
         }
-
     }
 
     const searchProductInCart = (term: string) => {

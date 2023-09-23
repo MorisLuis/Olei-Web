@@ -23,7 +23,7 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Descripcion: product.Descripcion,
-        CodigoProducto: product.CodigoProducto,
+        Codigo: product.Codigo,
 
         Precio: product.Precio,
 
@@ -32,19 +32,19 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
 
         Id_Marca: product.Id_Marca,
         Marca: product.Marca,
-        Cantidad: product.Cantidad,
+        Piezas: product.Piezas,
         Existencia: product.Existencia
     })
 
-    const onUpdateQuantity = async (Cantidad: number) => {
+    const onUpdateQuantity = async (Piezas: number) => {
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
-            Cantidad
+            Piezas
         }));
 
         addProductToCart({
             ...tempCartProduct,
-            Cantidad
+            Piezas
         });
     }
 
@@ -72,7 +72,7 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
             <div className={`${styles.productInfo} display-flex space-between`}>
                 <div className={`${styles.data} display-flex align`}>
                     <div className={`${styles.code}`}>
-                        <p> <span>Codigo: </span> {product?.CodigoProducto}</p>
+                        <p> <span>Codigo: </span> {product?.Codigo}</p>
                     </div>
 
                     <span>·</span>
@@ -101,7 +101,7 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
                 <div className={styles.counter}>
                     <div className='display-flex'>
                         <Counter
-                            currentValue={product?.Cantidad || 0}
+                            currentValue={product?.Piezas || 0}
                             maxValue={
                                 product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                             }

@@ -6,22 +6,33 @@ import { ProductCardShort } from '../Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 import OrderInterface from '@/interfaces/order';
 import { format } from '@/utils/currency';
+import { api } from '@/api/api';
 
 
 export const ReceiptRender = () => {
-    const { query } = useRouter();
+    const { query: { receipt } } = useRouter();
     const [orderSelect, setOrderSelect] = useState<OrderInterface | undefined>(undefined);
+    const [orderDetailsSelect, setOrderDetailsSelect] = useState<ProductInterface[] | undefined>(undefined)
 
     useEffect(() => {
-        let selectedOrder;
-        const orderCookies: OrderInterface[] = localStorage?.getItem('order') ? JSON.parse(localStorage?.getItem('order')!) : [];
-        selectedOrder = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt);
-        if (!selectedOrder) {
-            const orderCookies: OrderInterface[] = localStorage?.getItem('orderPending') ? JSON.parse(localStorage?.getItem('orderPending')!) : [];
-            selectedOrder = orderCookies.find((order: OrderInterface) => order.Folio === query.receipt);
-        }
-        setOrderSelect(selectedOrder);
-    }, [query.receipt]);
+        if(!receipt) return;
+        const getOrder = async () => {
+            const { data } = await api.get(`/api/order/${receipt}`);
+            const order: OrderInterface = data;
+            setOrderSelect(order)
+        } 
+
+        const getOrderDetails = async () => {
+            const { data } = await api.get(`/api/orderDetails?folio=${receipt}`);
+            console.log({data})
+            const orderDetails: ProductInterface[] = data;
+            setOrderDetailsSelect(orderDetails)
+        } 
+
+        getOrderDetails()
+        getOrder()
+
+    }, [receipt]);
 
 
     return (
@@ -34,13 +45,16 @@ export const ReceiptRender = () => {
                             <p><span>Fecha:</span> {orderSelect?.Fecha}</p>
                         </div>
                         <div className={styles.item}>
-                            <p><span>Pedido por:</span> Luis Morado Campos</p>
+                            <p><span>Pedido por:</span> {orderSelect?.Vendedor}</p>
+                        </div>
+                        <div className={styles.item}>
+                            <p><span>Cliente:</span> {orderSelect?.Cliente}</p>
                         </div>
                     </div>
 
                     <div className={`${styles.price} display-flex column`}>
                         <div className={styles.item}>
-                            <p><span>Total de productos:</span> {orderSelect?.Cantidad}</p>
+                            <p><span>Total de productos:</span> {orderSelect?.Piezas}</p>
                         </div>
                         <div className={styles.item}>
                             <p><span>Subtotal:</span> {format(orderSelect?.Subtotal as number)}</p>
@@ -54,7 +68,7 @@ export const ReceiptRender = () => {
 
             <div className={styles.productsDetails}>
                 {
-                    orderSelect?.products.map((product: ProductInterface, Index: number) =>
+                    orderDetailsSelect?.map((product: ProductInterface, Index: number) =>
                         <ProductCardShort key={Index} product={product} counterVisible={false} />
                     )
                 }

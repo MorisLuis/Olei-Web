@@ -1,27 +1,26 @@
 export default interface ProductInterface {
 
-    Precio: number,
-    Cantidad: number
-    Subtotal?: number,
-    Impuesto?: number,
-    Total?: number,
-
-    Id_Almacen?: number,
-    Id_Vendedor?: number,
-    Id_Formapago?: string,
-    Id_Marca?: number,
-    Id_ListaPrecios?: number,
-    Id_Cliente?: number,
-    Id_Familia?: number,
+    Codigo?: string, // @
+    Id_Marca?: number, // @
+    Piezas: number, // Antes Cantidad @
+    Precio: number, // @
+    Importe?: number, // @
+    Impuesto?: number, //@
+    Descripcion?: string, // @
 
     Folio?: string,
-    Fecha?: string
+    Id_Almacen?: number,
+    Id_Vendedor?: number, // *
+    Id_ListaPrecios?: number,
+    Id_Cliente?: number, // *
+    Id_Familia?: number, // @
+    Familia?: string, // @
+    CodigoPrecio?: string, // @
+    Existencia?: number, // @
+    Marca?: string, // @
 
-    Descripcion?: string,
-    CodigoProducto?: string,
-    Familia?: string,
-    CodigoPrecio?: string,
-    CodigoExsitencia?: string,
-    Existencia?: number,
-    Marca?: string,
+    //Id_Formapago?: string, // Revisar si es necesario
+    //Total?: number,
+    //Fecha?: string //
+    //CodigoExsitencia?: string, //
 }

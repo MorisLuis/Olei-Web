@@ -22,28 +22,28 @@ const ProductCard = ({ product }: Props) => {
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,
-        Cantidad: 0,
+        Piezas: 0,
 
         Id_Familia: product.Id_Familia,
         Id_Marca: product.Id_Marca,
 
         Descripcion: product.Descripcion,
-        CodigoProducto: product.CodigoProducto,
+        Codigo: product.Codigo,
         Existencia: product.Existencia,
         Familia: product.Familia,
         Marca: product.Marca,
     })
 
-    const onUpdateQuantity = async (Cantidad: number) => {
+    const onUpdateQuantity = async (Piezas: number) => {
 
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
-            Cantidad
+            Piezas
         }));
 
         addProductToCart({
             ...tempCartProduct,
-            Cantidad
+            Piezas
         });
     }
 
@@ -64,7 +64,7 @@ const ProductCard = ({ product }: Props) => {
                 <div className={`${styles.notCounter} display-flex space-between allCenter`}>
                     <div>
                         {product ? (
-                            <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product.CodigoProducto}</p>
+                            <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product.Codigo}</p>
                         ) : (
                             <Skeleton width={100} height={20} />
                         )}
@@ -98,7 +98,7 @@ const ProductCard = ({ product }: Props) => {
                         }
                     </div>
                     <Counter
-                        currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
+                        currentValue={product?.Piezas > 0 ? product?.Piezas : tempCartProduct.Piezas || 0}
                         maxValue={
                             product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                         }
