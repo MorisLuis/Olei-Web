@@ -68,7 +68,6 @@ export const CartProvider = ({ children }: any) => {
 
 
     useEffect(() => {
-        console.log({stateCart: state.cart})
         const numberOfItems = state.cart.reduce((prev, current: ProductInterface) => {
             if (!current.Existencia) return prev;
             if (current?.Existencia >= 1) {

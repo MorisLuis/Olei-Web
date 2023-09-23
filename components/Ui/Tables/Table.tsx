@@ -36,7 +36,6 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
         // Find the corresponding product in the 'cartPending' array using matching properties
         const cartProductPending = cartPending.find((cartItemPending) => (cartItemPending.Codigo === product.Codigo) && (cartItemPending.Id_Marca === product.Id_Marca));
 
-        //console.log({cartProduct})
         // Calculate the quantity of the product in the active cart ('cart') and pending cart ('cartPending')
         const quantity = cartProduct !== undefined ? cartProduct.Piezas : 0;
         const quantityPending = cartProductPending !== undefined ? cartProductPending.Piezas : 0;
@@ -51,11 +50,6 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
         return productWithCartInfo;
     });
-
-    console.log({cart})
-    console.log({data})
-    console.log({productsToDisplay})
-    console.log({productsWithCartInfo})
 
     return (
         <>
