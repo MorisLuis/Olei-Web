@@ -3,7 +3,7 @@ import styles from "../../styles/Pages/Home.module.scss";
 
 import { SearchOnboarding } from '@/components/Inputs/searchOnboarding';
 import { useRouter } from 'next/router';
-import { FiltersContext } from '@/context';
+import { AuthContext, FiltersContext } from '@/context';
 import { api } from '@/api/api';
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
 import ClientInterface from '@/interfaces/client';
@@ -13,6 +13,7 @@ const OnboardingSearch = () => {
     const { push } = useRouter()
     const { addFilters } = useContext(FiltersContext);
     const [searchResults, setSearchResults] = useState<any[]>([])
+    const { user } = useContext(AuthContext);
 
 
     const handleSearch = (url: string) => {
@@ -36,7 +37,7 @@ const OnboardingSearch = () => {
             <div className={`${styles.home} gradient-background display-flex column`}>
                 <div className={styles.content}>
                     <div className={styles.header}>
-                        <h1 className={styles.title}>Rosco</h1>
+                        <h1 className={styles.title}>{user?.Nombre ? user?.Nombre : "Olei"}</h1>
                         <p className={styles.text}>Connect with the worlds best Independents</p>
                     </div>
                     <div className={styles.search}>

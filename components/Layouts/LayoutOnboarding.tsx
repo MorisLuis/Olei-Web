@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import ModalCart from '../Modals/ModalCart';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header';
+import ModalMenu from '../Modals/ModalMenu';
 
 interface Props {
     children: ReactNode
@@ -15,8 +16,8 @@ interface Props {
 export const LayoutOnboarding = ({ children }: Props) => {
 
     const [openModalCart, setOpenModalCart] = useState(false)
+    const [openModalMenu, setOpenModalMenu] = useState(false)
     const { pathname } = useRouter()
-
     const gradientProps = useSpring({
         from: {
             background:
@@ -61,16 +62,18 @@ export const LayoutOnboarding = ({ children }: Props) => {
                 <link rel="icon" href="/circle-solid.svg" />
             </Head>
 
-            {
-                pathname === "/onboarding/search" &&
-                <Header setOpenModalCart={setOpenModalCart} />
-            }
+            <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu}/>
 
             <div>
                 {children}
             </div>
 
             <Footer />
+
+            <ModalMenu
+                visible={openModalMenu}
+                onClose={() => setOpenModalMenu(false)}
+            />
 
             <ModalCart
                 visible={openModalCart}
