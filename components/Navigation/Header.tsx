@@ -166,7 +166,7 @@ const Header = ({
                         </div>
 
                         {
-                            (user?.TipoUsuario === "2" && client?.Id_Almacen) &&
+                            (user?.TipoUsuario == "2" && client?.Id_Almacen) &&
                             <div className={`${styles.client} display-flex align cursor`} onClick={ () => setModalClientsVisible(true)}>
                                 <span>/</span>
                                 <div className={`${styles.circular} display-flex allCenter`}>{client.Nombre.slice(0, 1)}</div>
