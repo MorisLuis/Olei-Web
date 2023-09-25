@@ -62,7 +62,11 @@ export const LayoutOnboarding = ({ children }: Props) => {
                 <link rel="icon" href="/circle-solid.svg" />
             </Head>
 
-            <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu}/>
+            {
+                pathname !== "/login" &&
+                <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu} />
+            }
+
 
             <div>
                 {children}
