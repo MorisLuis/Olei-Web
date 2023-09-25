@@ -26,7 +26,7 @@ const Profile = () => {
                             <label htmlFor="">Tipo de Cliente</label>
                             <p>
                             {
-                                user.TipoUsuario === 1 ? "Cliente" : "Vendedor"
+                                user?.TipoUsuario === "1" ? "Cliente" : "Vendedor"
                             }
                             </p>
                     </div>

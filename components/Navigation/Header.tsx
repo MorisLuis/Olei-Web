@@ -14,7 +14,7 @@ import ClientInterface from '@/interfaces/client';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
-    setOpenModalMenu: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenModalMenu?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Header = ({
@@ -199,7 +199,7 @@ const Header = ({
                         </div>
 
                         <div className={`${styles.item} ${styles.profile} display-flex allCenter`} >
-                            <div className={`${styles.icon} display-flex allCenter`} onClick={() => setOpenModalMenu(true)}>
+                            <div className={`${styles.icon} display-flex allCenter`} onClick={() => setOpenModalMenu?.(true)}>
                                 <p>M</p>
                             </div>
 
