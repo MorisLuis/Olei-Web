@@ -11,29 +11,43 @@ import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
 import toast from 'react-hot-toast';
 import { MessageCard } from '@/components/Cards/MessageCard';
+import ProductInterface from '@/interfaces/product';
+import { api } from '@/api/api';
 
 const Pedidos = () => {
 
     const { query, back } = useRouter()
-    const { addOrderToCartPending } = useContext(CartContext)
+    const { addOrderToCart } = useContext(CartContext)
 
     const [openModalMessage, setOpenModalMessage] = useState(false)
     const [orders, setOrders] = useState<OrderInterface[]>([]);
-    const [orderSelect, setOrderSelect] = useState<OrderInterface>()
+    const [orderSelect, setOrderSelect] = useState<ProductInterface[]>()
 
-    useEffect(() => {
-        /* const orderFromCookies: any[] = localStorage.getItem('orderPending') ? JSON.parse(localStorage.getItem('orderPending')!) : [];
-        setOrders(orderFromCookies); */
-    }, []);
+    /* useEffect(() => {
+        const getOrder = async () => {
+            const { data } = await api.get(`/api/order/all`);
+            const order: OrderInterface[] = data;
+            setOrders(order)
+        }
+
+        getOrder()
+    }, []); */
+
+
+    const handleSelectOrder = async (folio: string) => {
+        /* const { data } = await api.get(`/api/orderDetails?folio=${folio}`);
+        const order: ProductInterface[] = data;
+        setOrderSelect(order) */
+    }
 
 
     const onSubmitOrderToCart = async () => {
-        /* if (!orderSelect?.products) return;
+        /* if (!orderSelect) return;
 
         setOpenModalMessage(false)
         back()
 
-        const myPromise = addOrderToCartPending(orderSelect?.products)
+        const myPromise = addOrderToCart(orderSelect)
         toast.promise(myPromise, {
             loading: 'Cargando carrito...',
             success: 'Listo! Ya tienes tu carrito lleno',

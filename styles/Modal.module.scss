@@ -1,6 +1,6 @@
 @import "./main.scss";
 
-.modalCart {
+.modalSide {
     background-color: $background-color;
     width: 32.5%;
     height: 98%;
@@ -14,6 +14,11 @@
     z-index: 9999;
     padding-bottom: 7em;
     overflow: hidden;
+
+
+    &.menu {
+        width: 20%;
+    }
 
     @include respond(tab-land) {
         width: 50%;
@@ -59,6 +64,53 @@
         height: 80%;
         overflow: scroll;
         overflow-x: hidden;
+
+
+        &.menu {
+            padding: 1em 1.5em;
+
+            .profile {
+                .icon {
+                    background-color: #a9c9ff;
+                    background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
+
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 100%;
+
+                    p {
+                        color: $text-color-secondary;
+                        font-size: 16px;
+                    }
+                }
+
+                .text {
+                    padding-left: 1em;
+
+                    p {
+                        margin: 0px;
+                    }
+
+                    .user {
+                        opacity: 50%;
+                    }
+                }
+            }
+
+            .item {
+                padding: 0.5em;
+                border-radius: 0.5em;
+                cursor: pointer;
+
+                p{
+                    padding-left: 1em;
+                }
+
+                &:hover {
+                    background-color: $color-secondary;
+                }
+            }
+        }
 
         @include respond(phone) {
             padding: 1em 1.5em;
@@ -316,7 +368,7 @@
     .resultsSearch {
         padding: 0em 0em;
 
-        .messageEmpty{
+        .messageEmpty {
             padding: 1em 0em;
         }
     }

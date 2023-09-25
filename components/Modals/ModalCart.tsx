@@ -47,9 +47,9 @@ const ModalCart = ({
 
     return visible ? (
         <>
-            <div className={styles.modalBackground}></div>
+            <div className={styles.modalBackground} onClick={onClose}></div>
 
-            <div className={`${styles.modalCart} ${closing ? styles.closing : ''}`}>
+            <div className={`${styles.modalSide} ${closing ? styles.closing : ''}`}>
                 <div className={`${styles.header} display-flex space-between align`} >
                     <div className={`${styles.close} align cursor`} onClick={handleCloseModal}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon cursor display-flex align`} />

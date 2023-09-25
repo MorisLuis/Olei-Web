@@ -4,11 +4,12 @@ import { api } from '@/api/api';
 import { AuthContext, authReducer } from '.';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
+import UserInterface from '@/interfaces/user';
 
 
 export interface AuthState {
     isLoggedIn: boolean;
-    user?: any;
+    user?: UserInterface;
 }
 
 
@@ -29,6 +30,8 @@ export const AuthProvider = ({ children }: any) => {
     useEffect(() => {
         checkToken();
     }, [])
+
+    console.log({user: state.user})
 
 
     const checkToken = async () => {
@@ -55,6 +58,7 @@ export const AuthProvider = ({ children }: any) => {
         try {
             const data = await api.post('/api/auth/login', { email, password });
             const { token, user } = data.data;
+            console.log({userBack : user})
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
 

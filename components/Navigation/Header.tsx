@@ -13,20 +13,22 @@ import QueryParams from '@/utils/queryParams';
 import ClientInterface from '@/interfaces/client';
 
 interface Props {
-    setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
+    setOpenModalMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Header = ({
-    setOpenModalCart
+    setOpenModalCart,
+    setOpenModalMenu
 }: Props) => {
 
-    const [profileOpen, setProfileOpen] = useState(false)
     const { replace, push, pathname } = useRouter()
-    const { numberOfItems, setProductDelete } = useContext(CartContext);
+    const { numberOfItems } = useContext(CartContext);
     const { client, selectClient, setClientChanged } = useContext(ClientContext);
     const { user } = useContext(AuthContext);
     const { addFilters, filters, filtersValues, removeFilters, removeAllFilters } = useContext(FiltersContext);
-
+    
+    const [profileOpen, setProfileOpen] = useState(false)
     const [modalSearchVisible, setModalSearchVisible] = useState(false);
     const [modalClientsVisible, setModalClientsVisible] = useState(false)
 
@@ -160,11 +162,11 @@ const Header = ({
                 <div className={`${styles.content} display-flex space-between`}>
                     <div className={`${styles.left} display-flex align`}>
                         <div className={`${styles.logo} cursor`} onClick={() => push("/products")}>
-                            Rosco
+                            {user?.Nombre ? user?.Nombre : "Olei"}
                         </div>
 
                         {
-                            (user?.TipoUsuario === 2 && client?.Id_Almacen) &&
+                            (user?.TipoUsuario === "2" && client?.Id_Almacen) &&
                             <div className={`${styles.client} display-flex align cursor`} onClick={ () => setModalClientsVisible(true)}>
                                 <span>/</span>
                                 <div className={`${styles.circular} display-flex allCenter`}>{client.Nombre.slice(0, 1)}</div>
@@ -197,7 +199,7 @@ const Header = ({
                         </div>
 
                         <div className={`${styles.item} ${styles.profile} display-flex allCenter`} >
-                            <div className={`${styles.icon} display-flex allCenter`} onClick={() => setProfileOpen(!profileOpen)}>
+                            <div className={`${styles.icon} display-flex allCenter`} onClick={() => setOpenModalMenu(true)}>
                                 <p>M</p>
                             </div>
 
@@ -237,7 +239,6 @@ const Header = ({
             <ModalSearch
                 visible={modalSearchVisible}
                 onClose={() => setModalSearchVisible(false)}
-
                 onSelectItem={onSelectProduct}
                 onInputChange={onInputProductChange}
                 onKeyDown={onProductKeyDown}
@@ -249,7 +250,6 @@ const Header = ({
             <ModalSearch
                 visible={modalClientsVisible}
                 onClose={() => setModalClientsVisible(false)}
-
                 onSelectItem={onSelectClient}
                 onInputChange={onInputClientChange}
                 onKeyDown={onClientKeyDown}

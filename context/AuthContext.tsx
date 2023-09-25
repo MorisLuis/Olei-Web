@@ -1,8 +1,9 @@
+import UserInterface from '@/interfaces/user';
 import { createContext } from 'react';
 
 interface ContextProps {
     isLoggedIn: boolean;
-    user?: any;
+    user?: UserInterface;
     loggingIn: boolean,
 
     loginUser: (email: string, password: string) => Promise<void>;

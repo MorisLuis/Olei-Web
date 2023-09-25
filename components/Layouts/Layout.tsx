@@ -1,4 +1,4 @@
-import React, {  ReactNode, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import ModalCart from '../Modals/ModalCart';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header';
+import ModalMenu from '../Modals/ModalMenu';
 
 interface Props {
     children: ReactNode
@@ -14,6 +15,7 @@ interface Props {
 export const Layout = ({ children }: Props) => {
 
     const [openModalCart, setOpenModalCart] = useState(false)
+    const [openModalMenu, setOpenModalMenu] = useState(false)
     const { pathname } = useRouter()
 
     return (
@@ -25,7 +27,7 @@ export const Layout = ({ children }: Props) => {
                 <link rel="icon" href="/circle-solid.svg" />
             </Head>
 
-            <Header setOpenModalCart={setOpenModalCart} />
+            <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu}/>
 
             <div>
                 {children}
@@ -40,6 +42,11 @@ export const Layout = ({ children }: Props) => {
             <ModalCart
                 visible={openModalCart}
                 onClose={() => setOpenModalCart(false)}
+            />
+
+            <ModalMenu
+                visible={openModalMenu}
+                onClose={() => setOpenModalMenu(false)}
             />
 
             <Toaster />
