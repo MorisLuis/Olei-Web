@@ -1,9 +1,6 @@
-import Filter from "@/components/Ui/Filter";
 import FiltersInterface from "@/interfaces/filters";
-import { stat } from "fs";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { FiltersContext } from "./FiltersContext";
 import { filtersReducer } from "./filtersReducer";
 
@@ -62,7 +59,6 @@ export const FiltersProvider = ({ children }: any) => {
     useEffect(() => {
         const filterArray = [];
         const filtersItems = state.filters as any;
-        console.log({filters: state.filters})
         for (const prop in filtersItems) {
             if (filtersItems[prop] !== null && filtersItems[prop] !== false && filtersItems[prop] !== undefined) {
                 filterArray.push([prop, filtersItems[prop].toString()]);
@@ -79,7 +75,6 @@ export const FiltersProvider = ({ children }: any) => {
     }, [state]);
 
     const addFilters = (Filters: FiltersInterface | Partial<FiltersInterface>) => {
-        console.log({Filters})
         dispatch({ type: '[Filters] - Update filters', payload: Filters });
     }
 

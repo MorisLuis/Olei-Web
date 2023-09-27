@@ -14,22 +14,18 @@ interface Props {
 
     //Methods
     handleCloseTag: (filter: any) => void,
+    handleCleanAllFilters: () => void
 }
 
 const HomeFilter = ({
     handleCloseTag,
-    setOpenModalFilter
+    setOpenModalFilter,
+    handleCleanAllFilters
 }: Props) => {
 
-    const { filtersValues, filters, removeAllFilters } = useContext(FiltersContext);
+    const { filtersValues, filters } = useContext(FiltersContext);
 
-    const { pathname, push } = useRouter()
     const [visible, setVisible] = useState(false)
-
-    const handleRemoveAllFilters = () => {
-        removeAllFilters()
-        push("/products")
-    }
 
     useEffect(() => {
         setTimeout(() => {
@@ -77,7 +73,7 @@ const HomeFilter = ({
                 </div>
                 <div className={styles.filtersTag}>
                     {
-                        filtersValues.length > 0 ? <Tag close color='gray' onClose={handleRemoveAllFilters}>Limpiar filtros</Tag> : <></>
+                        filtersValues.length > 0 ? <Tag close color='gray' onClose={handleCleanAllFilters}>Limpiar filtros</Tag> : <></>
                     }
                 </div>
             </div>

@@ -35,7 +35,6 @@ export default function Home({ productsProps }: Props) {
   const { productDelete } = useContext(CartContext);
   const { clientChanged } = useContext(ClientContext);
 
-
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
   const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
@@ -43,13 +42,12 @@ export default function Home({ productsProps }: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
 
-
-
   const handleFiltersToQuery = () => {
 
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
     setOpenModalFilter(false);
     addFilters(temporalFilters);
+
 
     const queryParams = {
       nombre: query.nombre,
@@ -70,17 +68,19 @@ export default function Home({ productsProps }: Props) {
       [filter[0]]: filter[1]
     })
 
+    console.log({filter})
+
     setTemporalFilters((prevState: FiltersInterface) => ({
       ...prevState,
-      [filter[0]]: filter[1] === "true" ? false : filter[1]
+      [filter[0]]: filter[1] === "true" ? false : undefined
     }))
 
     const queryParams = {
-      nombre: filter[0] === "nombre" ? null : filters.nombre,
+      nombre: filter[0] === "nombre" ? undefined : filters.nombre,
       marca: filter[0] === "marca" ? null : filters.marca,
       familia: filter[0] === "familia" ? null : filters.familia,
       folio: filter[0] === "folio" ? null : filters.folio,
-      enStock: filter[0] === "enStock" ? null : filters.enStock,
+      enStock: filter[0] === "enStock" ? false : filters.enStock,
     }
 
     const handleQueryParams = QueryParams();
@@ -118,6 +118,8 @@ export default function Home({ productsProps }: Props) {
   };
 
   const handleCleanAllFilters = () => {
+    setTemporalFilters(filterState)
+    removeAllFilters()
     setOpenModalFilter(false);
     push("/products");
   }
@@ -131,7 +133,6 @@ export default function Home({ productsProps }: Props) {
       setLoadingData(false)
       const productsOfTheClient = async () => {
         const { data } = await api.get('/api/product?page=1&limit=20');
-        console.log({data})
         const productsProps: PorductInterface[] = data.products;
         setProducts(productsProps)
       }
@@ -169,6 +170,7 @@ export default function Home({ productsProps }: Props) {
           <HomeFilter
             handleCloseTag={handleCloseTag}
             setOpenModalFilter={setOpenModalFilter}
+            handleCleanAllFilters={handleCleanAllFilters}
           />
 
           <main className={styles.main}>
@@ -205,51 +207,28 @@ export default function Home({ productsProps }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const nombre = ctx.query.nombre;
-  const enStock = ctx.query.enStock;
-  const marca = ctx.query.marca;
-  const folio = ctx.query.folio;
-  const familia = ctx.query.familia;
-
-  // Construir la URL base con page y limit
+  const { nombre, enStock, marca, folio, familia } = ctx.query;
   let url = `/api/product?page=1&limit=20`;
 
-  // Agregar los parámetros de consulta según las condiciones
-  if (nombre) {
-    url += `&nombre=${nombre}`;
-  }
-
-  if (enStock) {
-    url += `&enStock=${enStock}`;
-  }
-
-  if (marca !== undefined) {
-    url += `&marca=${marca}`;
-  }
-
-  if (folio) {
-    url += `&folio=${folio}`;
-  }
-
-  if (familia) {
-    url += `&familia=${familia}`;
-  }
+  if (nombre) url += `&nombre=${nombre}`;
+  if (enStock) url += `&enStock=${enStock}`;
+  if (marca !== undefined) url += `&marca=${marca}`;
+  if (folio) url += `&folio=${folio}`;
+  if (familia) url += `&familia=${familia}`;
 
   try {
-    const { data } = await api.get(url);  // Usamos la URL construida aquí
-    const productsProps: PorductInterface[] = data.products;
+    const { data } = await api.get(url);
     return {
       props: {
-        productsProps
-      }
+        productsProps: data.products,
+      },
     };
   } catch (error) {
     console.error(error);
-
     return {
       props: {
-        productsProps: []
-      }
+        productsProps: [],
+      },
     };
   }
 };

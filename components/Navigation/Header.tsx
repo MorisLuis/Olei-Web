@@ -152,7 +152,6 @@ const Header = ({
     }
 
     const onClientKeyDown = (inputValue: string) => {
-        console.log({ inputValue })
     }
 
 

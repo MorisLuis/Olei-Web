@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }: any) => {
         checkToken();
     }, [])
 
-    console.log({user: state.user})
 
 
     const checkToken = async () => {
@@ -58,7 +57,6 @@ export const AuthProvider = ({ children }: any) => {
         try {
             const data = await api.post('/api/auth/login', { email, password });
             const { token, user } = data.data;
-            console.log({userBack : user})
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
 
@@ -74,7 +72,6 @@ export const AuthProvider = ({ children }: any) => {
         } catch (error: any) {
             setLoggingIn(false)
             toast.error(error?.response?.data?.error)
-            console.log({ error })
         }
     }
 

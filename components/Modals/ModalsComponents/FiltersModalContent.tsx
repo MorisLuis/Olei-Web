@@ -18,9 +18,12 @@ const FiltersModalContent = ({
     visible
 }: Props) => {
 
+
     const [familiasFilter, setFamiliasFilter] = useState([])
     const [marcasFilter, setMarcasFilter] = useState([])
 
+
+    console.log({temporalFilters})
     // Get the different Familias & Marcas from database.
     useEffect(() => {
         if (visible === false) return;
@@ -30,22 +33,26 @@ const FiltersModalContent = ({
             setFamiliasFilter(Familias)
             setMarcasFilter(Marca)
 
-            if(!JSON.parse(Cookies.get("activeFilters")!)) return;
-            const { enStock, familia, folio, marca } = JSON.parse(Cookies.get("activeFilters")!)
+            const activeFilters = JSON.parse(Cookies.get("activeFilters")!);
+            if (activeFilters && activeFilters.enStock === false) return
+            
+            if (!JSON.parse(Cookies.get("activeFilters")!)) return;
+
+            const { enStock, familia, folio, marca, nombre } = JSON.parse(Cookies.get("activeFilters")!)
 
             setTemporalFilters((prevState: FiltersInterface) => ({
                 ...prevState,
-                enStock: enStock,
+                nombre: nombre ? nombre : undefined,
+                enStock: enStock ? enStock : false,
                 familia: familia,
                 folio: folio,
                 marca: marca
             }))
         }
-
         fetchTable()
 
     }, [visible, setTemporalFilters])
-    console.log({temporalFilters})
+
 
     return (
         <div>
@@ -60,9 +67,9 @@ const FiltersModalContent = ({
                     onChange={(value: boolean) => {
                         setTemporalFilters((prevState: FiltersInterface) => ({
                             ...prevState,
-                            enStock: value
+                            enStock: value || false
                         }))
-                        console.log({enStock: value})
+                        console.log({ value })
                     }}
                 />
             </div>
@@ -80,7 +87,7 @@ const FiltersModalContent = ({
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
                         ...prevState, //@ts-ignore
-                        familia: value.value
+                        familia: value?.value
                     }))
                 }}
             />
@@ -95,7 +102,7 @@ const FiltersModalContent = ({
                 onChange={(value: string) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
                         ...prevState, //@ts-ignore
-                        marca: value.value
+                        marca: value?.value
                     }))
                 }}
             />
