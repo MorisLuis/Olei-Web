@@ -111,13 +111,6 @@
             display: flex;
         }
 
-        .search {
-            display: flex;
-            width: 100%;
-            height: 60px;
-            z-index: 99999;
-        }
-
         .buttonFilter {
             width: 40px;
             height: 40px;
@@ -166,6 +159,12 @@
         }
     }
 
+    .search{
+        min-width: 30%;
+        width: fit-content;
+        margin-bottom: 1em;
+    }
+
     @include respond(tab-port) {
         padding: 2em;
     }
@@ -174,5 +173,4 @@
         // Put this padding here because of search mobil design ( see UI.module.scss ).
         padding: 0em;
     }
-
 }

@@ -1,11 +1,9 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import styles from "../styles/Pages/Products.module.scss";
 
-import FiltersInterface from '@/interfaces/filters';
 import { Tag } from './Ui/Tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSliders } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/router';
+import { faSliders, faSearch } from '@fortawesome/free-solid-svg-icons';
 import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 import { FiltersContext } from '@/context';
 
@@ -20,7 +18,7 @@ interface Props {
 const HomeFilter = ({
     handleCloseTag,
     setOpenModalFilter,
-    handleCleanAllFilters
+    handleCleanAllFilters,
 }: Props) => {
 
     const { filtersValues, filters } = useContext(FiltersContext);
@@ -37,9 +35,9 @@ const HomeFilter = ({
     return visible ? (
         <>
             {/* DESKTOP VERSION */}
-            {
+            {/* {
                 filters?.nombre && <h1 className={styles.nameFilter}>{filters?.nombre}</h1>
-            }
+            } */}
 
             <div className={`${styles.filters} display-flex`}>
                 {

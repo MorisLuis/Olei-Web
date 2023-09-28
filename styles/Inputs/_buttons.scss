@@ -27,6 +27,21 @@
             color: $text-color-secondary;
         }
     }
+
+    &.search{
+        background-color: transparent;
+        border: 1px solid rgba($color: $color-border-tertiary, $alpha: 0.25);
+        color: $text-color;
+
+        p{
+            padding: 0px;
+        }
+    
+        :hover {
+            border: 1px solid rgba($color: $color-border-tertiary, $alpha: 0.25);;
+            background-color: transparent;
+        }
+    }
 }
 
 .button-small {

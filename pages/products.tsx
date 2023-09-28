@@ -14,6 +14,7 @@ import ProductInterface from '@/interfaces/product';
 import FiltersInterface from '@/interfaces/filters';
 import { CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
+import HomeSearch from '@/components/HomeSearch';
 
 
 interface Props {
@@ -68,7 +69,7 @@ export default function Home({ productsProps }: Props) {
       [filter[0]]: filter[1]
     })
 
-    console.log({filter})
+    console.log({ filter })
 
     setTemporalFilters((prevState: FiltersInterface) => ({
       ...prevState,
@@ -167,6 +168,11 @@ export default function Home({ productsProps }: Props) {
     <>
       <Layout>
         <div className={styles.products}>
+
+          <HomeSearch
+            setTemporalFilters={setTemporalFilters}
+          />
+
           <HomeFilter
             handleCloseTag={handleCloseTag}
             setOpenModalFilter={setOpenModalFilter}
