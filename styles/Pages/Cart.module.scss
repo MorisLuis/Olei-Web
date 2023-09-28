@@ -19,6 +19,18 @@
         position: relative;
         padding: 2em 16em;
 
+        .back{
+            margin-bottom: 1em;
+            p{
+                text-decoration: underline;
+                margin-left: 0.5em;
+            }
+
+            &:hover{
+                opacity: 50%;
+            }
+        }
+
         .title {
             .paragraph {
                 color: $text-color-light;

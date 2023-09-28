@@ -48,7 +48,7 @@ const ModalMenu = ({
                     <Link href={"/profile"}>
                         <div className={`${styles.profile} display-flex align`}>
                             <div className={`${styles.icon} display-flex allCenter`}>
-                                <p>{user?.Nombre.slice(0, 1)}</p>
+                                <p>{user?.Nombre?.slice(0, 1)}</p>
                             </div>
                             <div className={styles.text}>
                                 <p className={styles.name}>{user?.Nombre}</p>

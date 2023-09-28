@@ -2,14 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Cart.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
-import { faCheck, faAngleDoubleDown, faXmark, faArrowsLeftRightToLine } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeftLong, faAngleDoubleDown, faXmark, faArrowsLeftRightToLine } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 import { CartContext } from '@/context';
 import { format } from '@/utils/currency';
-import moment from "moment";
-import { v4 as uuidv4 } from 'uuid';
+
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import ToggleSwitch from '@/components/Inputs/toggleSwitch';
@@ -33,7 +32,7 @@ const Cart = () => {
 
     const submitOrder = async () => {
 
-        const order : OrderInterface = {
+        const order: OrderInterface = {
             Subtotal: subTotal,
             Impuesto: tax,
             Piezas: numberOfItems
@@ -59,16 +58,16 @@ const Cart = () => {
         try {
             await api.post('/api/orderDetails', productOrdered);
         } catch (error) {
-            console.log({error})
+            console.log({ error })
         }
 
         try {
             newOrder = await api.post('/api/order', order)
         } catch (error) {
-            console.log({error})
+            console.log({ error })
         }
 
-        if(newOrder) {
+        if (newOrder) {
             const folio = newOrder.data.order.Folio.value;
             removeAllCart()
             push(`/cart/success?order=${folio}`)
@@ -89,6 +88,7 @@ const Cart = () => {
     const [text, setText] = useState('Confirmar pedido');
     const [ref, { width }] = useMeasure();
     const [animationComplete, setAnimationComplete] = useState(false);
+    const { back } = useRouter();
 
     const props = useSpring({
         width: open ? width : 0,
@@ -111,6 +111,10 @@ const Cart = () => {
         <Layout>
             <div className={styles.cart}>
                 <div className={styles.header}>
+                    <div className={`${styles.back} display-flex align cursor`} onClick={ () => back()}>
+                        <FontAwesomeIcon icon={faArrowLeftLong} className={`icon__small`} />
+                        <p>Regresar</p>
+                    </div>
                     <div className={styles.title}>
                         <h1>Compra</h1>
                         <p className={styles.paragraph}>Revisa el pedido y despues confirma.</p>
