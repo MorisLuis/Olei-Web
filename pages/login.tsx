@@ -34,6 +34,14 @@ const Login = () => {
             <div className={`${styles.login} gradient-background display-flex column`}>
                 <div className={styles.header}>
                     <h1>Olei</h1>
+                    {/* 
+                    <Image
+                        src={"/OleiLogo.png" || ""}
+                        alt="photo"
+                        width={200}
+                        height={200}
+                    />
+                    */}
                 </div>
                 <div className={`${styles.content} display-flex allCenter`}>
                     <div className={`${styles.form} display-flex column justify`}>
@@ -72,8 +80,8 @@ const Login = () => {
                             {errors.password && <span className='warning'>La contraseña es requerida</span>}
                             <button disabled={loggingIn} className='button' type="submit">{loggingIn ? "Cargando..." : "Iniciar sesión"}</button>
                         </form>
-                        <div className={styles.blur}></div>
 
+                        <div className={styles.blur}></div>
                     </div>
                 </div>
             </div>

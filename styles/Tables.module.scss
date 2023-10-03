@@ -29,27 +29,6 @@
             .content{
                 border: 1px solid $color-border;
                 border-radius: 5px;
-
-                /* .item{
-                    background-color: $background-color;
-                    border: none;
-                    padding: 1em;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 5px;
-                    cursor: pointer;
-
-                    &:not(:last-child){
-                        border-right: 1px solid $color-border;
-                    }
-
-                    &:hover{
-                        background-color: $color-secondary;
-                    }
-                    
-                } */
-
             }
         }
     }

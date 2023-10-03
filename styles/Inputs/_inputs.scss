@@ -87,24 +87,39 @@
     }
 }
 
-.inputClean{
+.iconClean{
+    width: 24px;
+    height: 24px;
+    background-color: rgba($color: $color-gray, $alpha: 0.25);
+    position: absolute;
+    border-radius: 1em;
+    right: 1%;
+    top: 50%;
+    transform: translateY(-50%);
+    &:hover{
+        opacity: 50%;
+    }
+}
+
+/* .inputClean{
     width: 100%;
-    position: relative;
+    position: absolute;
+    background-color: aqua;
 
     .iconClean{
         width: 24px;
         height: 24px;
         background-color: rgba($color: $color-gray, $alpha: 0.25);
-        position: absolute;
+        //position: absolute;
         border-radius: 1em;
-
-        right: 1%;
-        top: 50%;
-        transform: translateY(-50%);
+        left: 1%;
+        //top: 50%;
+        //transform: translateY(-50%);
         &:hover{
             opacity: 50%;
         }
     }
 
 
-}
+} */
+

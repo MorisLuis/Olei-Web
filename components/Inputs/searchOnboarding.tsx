@@ -1,15 +1,16 @@
 import React, { Dispatch, useRef, useState } from 'react';
 import styles from "../../styles/Components/SearchGlobal.module.scss";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { api } from '@/api/api';
 import ClientInterface from '@/interfaces/client';
+import { capitalizarTexto } from '@/utils/textCapitalize';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     searchResults: any;
-    setSearchResults: Dispatch<React.SetStateAction<ClientInterface[] | any[]>>;
-    
+    setSearchResults: Dispatch<React.SetStateAction<any>>;
+    label?: string;
+
     // Methods
     onSubmit: (arg?: string | ClientInterface) => void;
     handleSearchTerm: (term: string) => Promise<void>
@@ -19,12 +20,13 @@ export const SearchOnboarding = ({
     onSubmit,
     searchResults,
     setSearchResults,
+    label,
     handleSearchTerm,
 }: Props) => {
 
     const [inputValue, setInputValue] = useState<string | ClientInterface | undefined>("");
     const inputRef = useRef<HTMLInputElement>(null);
-    
+
     const highlightSearchTerm = (text: string, term: string) => {
         const regex = new RegExp(`(${term})`, 'gi');
         return text?.replace(regex, '<strong>$1</strong>');
@@ -52,37 +54,38 @@ export const SearchOnboarding = ({
                         type="text"
                         placeholder='Buscar...'
                         onChange={handleInputChange}
-                        value={typeof inputValue  === "string" ? inputValue : inputValue?.Nombre}
+                        value={typeof inputValue === "string" ? inputValue : inputValue?.Nombre}
                     />
-                    {/* {
+                    {
                         inputValue !== "" &&
                         <div
                             className="iconClean display-flex allCenter cursor"
-                            onClick={() => {
-                                setInputValue("")
-                            }}
-                            style={{ zIndex: "9999999" }}
+                            onClick={() => setInputValue("")}
                         >
+
                             <FontAwesomeIcon icon={faXmark} className={`icon__small`} style={{ zIndex: "99999999" }} />
                         </div>
-                    } */}
+                    }
                 </div>
                 <button
-                    style={{ width: "20%", marginLeft: "1em" }}
                     className={!searchDefault ? "button" : "button disabled"}
                     disabled={searchDefault}
                     onClick={() => onSubmit(inputValue)}
-                >Buscar</button>
+                >
+                    {
+                        label ? label :
+                            <FontAwesomeIcon icon={faArrowRightLong} className={`icon`} style={{ zIndex: "99999999" }} />
+                    }
+                </button>
             </div>
             <div className={styles.results}>
                 {
-                    searchResults.map((result: any, index: number) =>
-                        <div key={index} className={styles.item}>
+                    searchResults.slice(0, 8).map((result: any, index: number) =>
+                        <div key={index} className={styles.item} onClick={() => handleSelectProduct(result)}>
                             <li
                                 key={index}
-                                onClick={() =>  handleSelectProduct(result)}
                                 dangerouslySetInnerHTML={{
-                                    __html: highlightSearchTerm(result?.Nombre as string || result as string, typeof inputValue  === "string" ? inputValue : inputValue?.Nombre || ""),
+                                    __html: highlightSearchTerm(capitalizarTexto(result?.Nombre) as string || capitalizarTexto(result) as string, typeof inputValue === "string" ? inputValue : inputValue?.Nombre || ""),
                                 }}
                             />
                         </div>

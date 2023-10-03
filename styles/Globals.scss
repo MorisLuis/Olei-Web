@@ -15,7 +15,7 @@ body {
   font-size: $font-normal;
   color: $text-color;
   font-weight: 400;
-  background: $background-color-gradient;
+  background: $background-color;
   height: 100vh;
 
   &::-webkit-scrollbar {
@@ -39,7 +39,7 @@ body {
 }
 
 body {
-  background: $background-color-gradient;
+  background: $background-color;
 }
 
 

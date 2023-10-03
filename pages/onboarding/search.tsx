@@ -6,15 +6,13 @@ import { useRouter } from 'next/router';
 import { AuthContext, FiltersContext } from '@/context';
 import { api } from '@/api/api';
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
-import ClientInterface from '@/interfaces/client';
 
 const OnboardingSearch = () => {
 
     const { push } = useRouter()
     const { addFilters } = useContext(FiltersContext);
-    const [searchResults, setSearchResults] = useState<any[]>([])
+    const [searchResults, setSearchResults] = useState<string[]>([])
     const { user } = useContext(AuthContext);
-
 
     const handleSearch = (url: string) => {
         push(`/products?nombre=${url}`)
@@ -36,19 +34,22 @@ const OnboardingSearch = () => {
         <LayoutOnboarding>
             <div className={`${styles.home} gradient-background display-flex column`}>
                 <div className={styles.content}>
+                <div className={styles.onboardingBox}>
                     <div className={styles.header}>
                         <h1 className={styles.title}>{user?.Nombre ? user?.Nombre : "Olei"}</h1>
-                        <p className={styles.text}>Connect with the worlds best Independents</p>
+                        <p className={styles.text}>Busca el producto que necesites.</p>
                     </div>
                     <div className={styles.search}>
                         <SearchOnboarding
-
                             onSubmit={(url) => handleSearch(url as string || "" )}
                             searchResults={searchResults}
                             setSearchResults={setSearchResults}
                             handleSearchTerm={handleSearchTerm}
+                            label="Buscar"
                         />
                     </div>
+                </div>
+
                 </div>
 
             </div>
