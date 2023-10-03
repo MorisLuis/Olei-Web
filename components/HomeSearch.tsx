@@ -118,10 +118,7 @@ const HomeSearch = ({
                     onClick={() => setModalSearchVisible(true)}
                 >
                     <FontAwesomeIcon icon={faSearch} className={`icon`} />
-
-                    {
-                        filters?.nombre ? <p className={`${styles.nameFilter} display-flex allCenter`}>{filters?.nombre}</p> : <p>Buscar</p>
-                    }
+                    {filters?.nombre ? <p className={`${styles.nameFilter} display-flex allCenter`}>{filters?.nombre}</p> : <p>Buscar</p>}
                 </button>
             </div>
 

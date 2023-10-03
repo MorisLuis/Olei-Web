@@ -35,9 +35,6 @@ const HomeFilter = ({
     return visible ? (
         <>
             {/* DESKTOP VERSION */}
-            {/* {
-                filters?.nombre && <h1 className={styles.nameFilter}>{filters?.nombre}</h1>
-            } */}
 
             <div className={`${styles.filters} display-flex`}>
                 {

@@ -1,10 +1,9 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from "../../styles/Modal.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faXmark, } from '@fortawesome/free-solid-svg-icons';
 import { SearchItemCard } from '../Cards/SearchItemCard';
-import { FiltersContext } from '@/context';
 import { Tag } from '../Ui/Tag';
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
     handleRemoveAllFilters?: () => void;
     handleCloseTag?: (filter: string[]) => void;
     onSelectItem: (producto: any) => void;
-    onInputChange: (term: string) => Promise<{products : any}>;
+    onInputChange: (term: string) => Promise<{ products: any }>;
     onKeyDown: (inputValue: string) => void;
     filtersValues?: string[]
 }
@@ -68,6 +67,7 @@ export const ModalSearch = ({
         setSearchResults(products)
     };
 
+    console.log({ filtersValues })
 
     return visible ?
         <>
@@ -75,38 +75,53 @@ export const ModalSearch = ({
 
             <div className={styles.modalSearch}>
 
-                <div className={styles.inputSearch}>
-                    <input
-                        ref={inputRef}
-                        className={`${styles.input}`}
-                        type="text"
-                        placeholder='Buscar...'
-                        onKeyDown={handleKeyDown}
-                        onChange={handleInputChange}
-                        value={inputValue}
-                    />
-                    <FontAwesomeIcon style={{ color: "gray" }} icon={faSearch} className={`${styles.iconSearch} icon__small`} />
-                </div>
-
-                {
-                    filtersValues &&
-                    <div className={`${styles.filtersSearch} display-flex`}>
+                <div className={styles.headerSearch}>
+                    <div className={styles.inputSearch}>
+                        <input
+                            ref={inputRef}
+                            className={styles.inputt}
+                            type="text"
+                            placeholder='Buscar...'
+                            onKeyDown={handleKeyDown}
+                            onChange={handleInputChange}
+                            value={inputValue}
+                        />
+                        <FontAwesomeIcon style={{ color: "gray" }} icon={faSearch} className={`${styles.iconSearch} icon__small`} />
                         {
-                            filtersValues.map((filter: any, Index) => (
-                                <Tag key={Index} onClose={() => handleCloseTag?.(filter)} close cursor>
-                                    {filter[1] === "true" ? "En Stock" : filter[1]}
-                                </Tag>
-                            ))
-                        }
-                        {
-                            filtersValues.length > 0 ? <Tag close color='gray' onClose={handleRemoveAllFilters}>Limpiar filtros</Tag> : <></>
+                            inputValue !== "" &&
+                            <div
+                                className="iconClean display-flex allCenter cursor"
+                                onClick={() => setInputValue("")}
+                            >
+                                <FontAwesomeIcon icon={faXmark} className={`icon__small`} style={{ zIndex: "99999999" }} />
+                            </div>
                         }
                     </div>
-                }
+                    {
+                        filtersValues && filtersValues?.length > 0 && (
+                            <div className={`${styles.filtersSearch} display-flex`}>
+                                {filtersValues.map((filter: any, index) => (
+                                    filter[0] === 'nombre' ? null : (
+                                        <Tag key={index} onClose={() => handleCloseTag?.(filter)} close cursor>
+                                            {filter[1] === 'true' ? 'En Stock' : filter[1]}
+                                        </Tag>
+                                    )
+                                ))}
+                                {filtersValues.some((filter) => filter[0] !== 'nombre') ? (
+                                    <Tag close color="gray" onClose={handleRemoveAllFilters}>
+                                        Limpiar filtros
+                                    </Tag>
+                                ) : null}
+                            </div>
+                        )
+                    }
+
+                </div>
+
 
                 <div className={styles.resultsSearch}>
                     {
-                        (inputValue !== "" && searchResults?.length > 0) ? searchResults?.map((producto: any, index: number) =>
+                        (inputValue !== "" && searchResults?.length > 0) ? searchResults.slice(0,10)?.map((producto: any, index: number) =>
                             <SearchItemCard key={index} productName={producto?.Nombre ? producto?.Nombre as string : producto as string} onclick={() => handleSelectOption(producto)} />
                         )
                             :

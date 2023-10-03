@@ -62,7 +62,6 @@ export const SearchOnboarding = ({
                             className="iconClean display-flex allCenter cursor"
                             onClick={() => setInputValue("")}
                         >
-
                             <FontAwesomeIcon icon={faXmark} className={`icon__small`} style={{ zIndex: "99999999" }} />
                         </div>
                     }

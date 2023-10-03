@@ -1,16 +1,10 @@
 @import "./main.scss";
 
 .table {
-    background-color: $background-color;
+    background-color: $background-color-secondary;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     border-radius: 1em;
     margin-bottom: 1em;
-
-    @include respond(phone) {
-        // Put this padding here because of search mobil design ( see Home.module.scss ).
-        //margin: 1.5em;
-    }
-
 
     .headers {
         padding: 0.75em;
@@ -23,7 +17,7 @@
         }
 
         p:not(:nth-child(1)) {
-            flex: 0 0 calc(70% / 6);
+            flex: 0 0 calc(70% / 5);
         }
 
         @include respond(phone) {
@@ -34,15 +28,17 @@
     .content {
         height: 100%;
 
-
         .item {
             padding: 0.75em;
             border: 1px solid $color-border;
-            border-style: none solid solid solid;
+            border-top: 1px solid transparent;
             padding-left: 1em;
 
+            &:nth-child(odd) {
+                background-color: $color-secondary;
+            }
+
             @include respond(phone) {
-                // Put this padding here because of search mobil design ( see Home.module.scss ).
                 padding: 1em;
             }
 
@@ -55,7 +51,7 @@
                 font-weight: bold;
 
                 >div {
-                    margin-right: 1em;
+                    width: 100%;
                 }
 
                 @include respond(phone) {
@@ -64,7 +60,7 @@
             }
 
             .secondaryData {
-                flex: 1 1 70%;
+                flex: 0 0 70%;
 
                 .headersMovil {
                     display: none;
@@ -76,11 +72,12 @@
                 }
 
                 .notCounter {
-                    width: calc((100% / 6) * 3);
+                    width: calc((100% / 5) * 3);
 
                     >div {
                         margin-right: 1em;
                         width: 100%;
+                        margin-right: 5px;
 
                         >p>strong {
                             display: none;
@@ -118,7 +115,7 @@
                 }
 
                 .counterColumn {
-                    width: calc((100% / 6) * 3);
+                    width: calc((100% / 5) * 2);
 
                     >div {
                         width: 100%;
@@ -171,7 +168,8 @@
             }
 
             &:hover {
-                background-color: $color-secondary;
+                border: 1px solid rgba($color: $color-border-tertiary, $alpha: 0.5);
+                //border-style: none solid solid solid;
             }
         }
     }
@@ -211,6 +209,11 @@
         &.gray {
             background-color: rgba($color-gray, 0.2);
             color: $color-gray;
+        }
+
+        &.yellow {
+            background-color: rgba($color-yellow, 0.2);
+            color: $color-yellow;
         }
 
         @include respond(tab-land) {

@@ -189,9 +189,12 @@ const Header = ({
                                     <p>Pedidos</p>
                                 </div>
 
-                                <div className={`${styles.item} ${styles.profile} display-flex allCenter`} >
-                                    <div className={`${styles.icon} display-flex allCenter`} onClick={() => setOpenModalMenu?.(true)}>
-                                        <p>M</p>
+                                <div className={`${styles.profile} display-flex allCenter`} onClick={() => setOpenModalMenu?.(true)}>
+                                    <div className={styles.info}>
+                                        <p>{user?.Nombre}</p>
+                                    </div>
+                                    <div className={`${styles.icon} display-flex allCenter`} >
+                                        <p>{user?.Nombre?.slice(0, 1)}</p>
                                     </div>
 
                                     {

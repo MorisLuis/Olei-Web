@@ -69,8 +69,6 @@ export default function Home({ productsProps }: Props) {
       [filter[0]]: filter[1]
     })
 
-    console.log({ filter })
-
     setTemporalFilters((prevState: FiltersInterface) => ({
       ...prevState,
       [filter[0]]: filter[1] === "true" ? false : undefined

@@ -16,10 +16,6 @@
     overflow: hidden;
 
 
-    &.menu {
-        width: 20%;
-    }
-
     @include respond(tab-land) {
         width: 50%;
     }
@@ -33,6 +29,18 @@
         top: 3%;
         border-radius: 0.5em;
         height: calc(100vh - 3%);
+    }
+
+    &.menu {
+        width: 20%;
+
+        @include respond(tab-land) {
+            width: 40%;
+        }
+
+        @include respond(phone) {
+            width: 100%;
+        }
     }
 
     .header {
@@ -324,9 +332,6 @@
     height: auto;
     width: 500px;
     position: absolute;
-
-    background-color: $color-primary;
-    border: 1px solid $color-border-secondary;
     border-radius: 0.5em;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     z-index: 99999;
@@ -334,39 +339,52 @@
     left: 50%;
     transform: translateX(-50%);
 
-    .inputSearch {
+    .headerSearch {
+        background-color: $color-primary;
+        padding: 1em 1em 0em 1em;
+        margin-bottom: 1em;
+        border-radius: 0.5em 0.5em 0em 0em;
+        background-color: $background-color;
+        height: fit-content;
 
-        .input {
-            border: none;
-            width: 100%;
-            border-radius: 0.5em 0.5em 0em 0em;
-            border-bottom: 1px solid $color-border;
-            height: 40px;
+        .inputSearch{
             position: relative;
 
-            &:valid {
-                padding: 0em 2.5em;
+            .inputt{
+                position: relative;
+                border: none;
+                width: 100%;
+                height: 40px;
+                position: relative;
+                background-color: transparent;
+
+                &:valid {
+                    padding: 0em 2.5em;
+                    border: transparent;
+                }
+            }
+
+            .iconSearch {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                transform: translate(100%, 0%);
+                height: 100%;
             }
         }
-
-        .iconSearch {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            transform: translate(100%, 105%);
-        }
-    }
-
-    .filtersSearch {
-        padding: 0.75em 0.5em;
-
-        >div :first-child {
-            margin-right: 1em;
+        
+        .filtersSearch {
+            padding: 0.75em 0.5em;
+            >div :first-child {
+                margin-right: 1em;
+            }
         }
     }
 
     .resultsSearch {
-        padding: 0em 0em;
+        padding: 1em;
+        background-color: $background-color;
+        border-radius: 0em 0em 0.5em 0.5em;
 
         .messageEmpty {
             padding: 1em 0em;
@@ -374,13 +392,13 @@
     }
 
     @include respond(phone) {
-        top: 100%;
+        top: 0%;
         left: 0px;
-        z-index: 9999;
+        transform: translateX(0%);
+
         border-radius: 0px;
         width: 100%;
         max-width: none;
-        //height: 100%;
         border: none;
         border-bottom: 1px solid $color-border;
     }

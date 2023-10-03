@@ -47,7 +47,6 @@ const ProductCard = ({ product }: Props) => {
         });
     }
 
-
     return (
         <div className={`${styles.item} cursor display-flex`}>
             <div className={`${styles.principalData} display-flex align`}>
@@ -80,16 +79,6 @@ const ProductCard = ({ product }: Props) => {
                 </div>
 
                 <div className={`${styles.counterColumn} display-flex`}>
-                    <div className='display-flex align'>
-                        {
-                            product?.Existencia && product?.Existencia <= 0 ?
-                                <Tag color="red">No Stock</Tag> :
-                                <div className='display-flex'>
-                                    <p className={styles.headersMovil}>Existencia: </p>
-                                    <p>{product?.Existencia}</p>
-                                </div>
-                        }
-                    </div>
                     <div className={styles.price}>
                         {
                             product?.Precio ?

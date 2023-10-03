@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../../styles/UI.module.scss";
-import md5 from 'md5';
 
 import ProductCard from '../../Cards/ProductCard';
 import { CartContext } from '@/context';
@@ -69,7 +68,6 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                     <p>Codigo</p>
                                     <p>Marca</p>
                                     <p>Familia</p>
-                                    <p>Existencia</p>
                                     <p>Precio (MXN)</p>
                                     <p></p>
                                 </div>

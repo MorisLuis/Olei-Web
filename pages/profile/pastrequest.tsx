@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import styles from "../../styles/Pages/Request.module.scss";
+
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import ModalRequest from '@/components/Modals/ModalRequest';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 
-import styles from "../../styles/Pages/Request.module.scss";
 import { MessageCard } from '@/components/Cards/MessageCard';
 import { api } from '@/api/api';
 import OrderInterface from '@/interfaces/order';
