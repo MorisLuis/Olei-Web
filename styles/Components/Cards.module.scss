@@ -333,9 +333,10 @@
     width: 100%;
     padding: 0.5em 1em;
     font-size: 12px;
+    border-radius: 5px;
 
     &:hover {
-        background-color: $color-cuaternary;
+        background-color: rgba($color: $color-cuaternary, $alpha: 0.5)
     }
 }
 

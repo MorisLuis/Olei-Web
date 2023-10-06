@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import styles from "../styles/Pages/Products.module.scss";
 
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { api } from '@/api/api';
 import { Layout } from '@/components/Layouts/Layout';
 import HomeFilter from '@/components/HomeFilter';
@@ -15,7 +15,6 @@ import FiltersInterface from '@/interfaces/filters';
 import { CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
 import HomeSearch from '@/components/HomeSearch';
-
 
 interface Props {
   productsProps: ProductInterface[]

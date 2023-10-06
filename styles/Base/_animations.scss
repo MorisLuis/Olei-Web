@@ -18,6 +18,16 @@
     }
 }
 
+@keyframes appear-Left-to-Right {
+    0% {
+        width: 30%;
+    }
+
+    100% {
+        width: 50%;
+    }
+}
+
 @keyframes disappear-Left-to-Right {
     0% {
         transform: translateX(0);

@@ -6,6 +6,7 @@
     .nameFilter {
         padding-bottom: 1em;
         max-width: 900px;
+
         @include respond(phone) {
             display: none;
         }
@@ -27,7 +28,7 @@
         .buttonFilter {
             display: flex;
             position: relative;
-            margin-right:  1em;
+            margin-right: 1em;
 
             @include respond(phone) {
                 display: none;
@@ -75,6 +76,7 @@
 
         .filtersTag {
             display: flex;
+
             div {
                 height: 100%;
                 margin-right: 0.5em;
@@ -91,6 +93,7 @@
         max-width: 900px;
         text-align: center;
         display: none;
+
         @include respond(phone) {
             display: flex;
         }
@@ -131,7 +134,9 @@
                 height: 100%;
             }
 
-            svg {margin: 0px;}
+            svg {
+                margin: 0px;
+            }
 
             .filtersCount {
                 background-color: black;
@@ -152,17 +157,95 @@
         }
     }
 
-    .main{
+    .main {
         @include respond(phone) {
             // Put this padding here because of search mobil design ( see Home.module.scss ).
             margin: 1em;
         }
     }
 
-    .search{
+    .search {
         min-width: 30%;
         width: fit-content;
         margin-bottom: 1em;
+        position: relative;
+        z-index: 99999;
+        transition: width 0.6s ease-in-out; 
+    
+        @include respond(tab-port) {
+            min-width: 60%;
+        }
+
+        @include respond(phone) {
+            min-width: 100%;
+        }
+
+        &.active {
+            width: 50%;
+            animation: appear-Left-to-Right 0.1s ease-in-out; /* Usar animation para controlar el tiempo exacto */
+        }
+
+        .inputSearch {
+            position: relative;
+            border: none;
+            width: 100%;
+            height: 40px;
+            position: relative;
+            border: 1px solid $color-border;
+            border-radius: 5px;
+
+            &:valid {
+                padding: 0em 3.5em;
+            }
+
+            &:hover{
+                opacity: 70%;
+            }
+        }
+
+        .iconSearch {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            transform: translate(100%, 0%);
+            height: 100%;
+        }
+
+        .resultsSearch{
+            background-color: $background-color;
+            border: 1px solid $color-border;
+            border-radius: 5px;
+            padding: 1em;
+            position: absolute;
+            z-index: 99;
+            top: 110%;
+            width: 100%;
+
+            .filtersSearch{
+                background-color: $background-color-secondary;
+                border: 1px solid $color-border;
+                border-radius: 5px;
+                padding: 0.5em;
+                margin-bottom: 0.5em;
+
+                div:not(:first-child){
+                    margin-left: 0.75em;
+                }
+            }
+        }
+    }
+
+    .backgroundSearch {
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        animation: appear 0.6s ease-in-out;
+        -webkit-backdrop-filter: blur(1px);
+        backdrop-filter: blur(1px);
+        background-color: rgba(0, 0, 0, 0.03);
+        z-index: 9999;
     }
 
     @include respond(tab-port) {
@@ -170,7 +253,6 @@
     }
 
     @include respond(phone) {
-        // Put this padding here because of search mobil design ( see UI.module.scss ).
         padding: 0em;
     }
 }

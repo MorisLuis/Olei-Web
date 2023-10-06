@@ -67,8 +67,6 @@ export const ModalSearch = ({
         setSearchResults(products)
     };
 
-    console.log({ filtersValues })
-
     return visible ?
         <>
             <div className={styles.modalBackgroundSecondary} onClick={() => onClose()}></div>
@@ -115,7 +113,6 @@ export const ModalSearch = ({
                             </div>
                         )
                     }
-
                 </div>
 
 
