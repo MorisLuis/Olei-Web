@@ -1,9 +1,9 @@
 @import "../main.scss";
 
 .cart {
-    height: calc(100vh - 60px);
+    height: calc(100vh + 80px);
     position: relative;
-    margin-bottom: 5em;
+    //margin-bottom: 10em;
 
     @include respond(tab-land) {
         margin-bottom: 10em;
@@ -79,9 +79,15 @@
         .search {
             padding-bottom: 1em;
 
-            input {
+            .inputSearch{
                 width: 100%;
+
+                input {
+                    width: 100%;
+                    
+                }
             }
+
         }
 
         @include respond(tab-land) {

@@ -22,6 +22,9 @@ const Counter = ({
 
     const addOrRemove = (value: number) => {
 
+        const sume = currentValue + value
+        if(sume < 0) return;
+
         if (value === -1) {
             if (currentValue < 0) return;
             return updatedQuantity(currentValue - 1);

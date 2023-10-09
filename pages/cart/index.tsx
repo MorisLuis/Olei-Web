@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Cart.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
-import { faArrowLeftLong, faAngleDoubleDown, faXmark, faArrowsLeftRightToLine } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeftLong, faAngleDoubleDown, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
@@ -138,7 +138,7 @@ const Cart = () => {
                         cart.length > 0 ?
                             <>
                                 <div className={`${styles.search} display-flex space-between`}>
-                                    <div className='inputClean display-flex'>
+                                    <div className={`${styles.inputSearch} inputClean display-flex`}>
                                         <input type="text" className='input' value={inputValue} placeholder='Buscar producto...' onChange={(e: any) => {
                                             searchProductInCart(e.target.value)
                                             setInputValue(e.target.value)
