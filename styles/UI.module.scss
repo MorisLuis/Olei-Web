@@ -187,6 +187,17 @@
         overflow: hidden;
         text-overflow: ellipsis;
 
+        p{
+            max-width: 140px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            margin-right: 0.5em;
+        }
+
         svg {
             margin-left: 0.5em;
         }
@@ -229,7 +240,6 @@
             font-size: $font-sm-phone;
             display: -webkit-box;
             -webkit-line-clamp: 1;
-            /* Número de líneas deseadas */
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -244,6 +254,7 @@
     }
 
 }
+
 
 .tagHover {
     position: absolute;

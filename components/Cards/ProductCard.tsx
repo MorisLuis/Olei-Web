@@ -80,7 +80,7 @@ const ProductCard = ({ product }: Props) => {
                 </div>
 
                 <div className={`${styles.counterColumn} display-flex`}>
-                    <div className={styles.price}>
+                    <div className={`${styles.price} display-flex align`}>
                         {
                             product?.Precio ?
                                 <p>{format(product?.Precio)}</p> :
