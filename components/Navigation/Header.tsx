@@ -21,9 +21,9 @@ const Header = ({
 }: Props) => {
 
     const { replace, push, pathname } = useRouter()
+    const { user } = useContext(AuthContext);
     const { numberOfItems } = useContext(CartContext);
     const { client, selectClient, setClientChanged } = useContext(ClientContext);
-    const { user } = useContext(AuthContext);
     const { addFilters, filters, filtersValues, removeFilters, removeAllFilters } = useContext(FiltersContext);
 
     const [profileOpen, setProfileOpen] = useState(false)
@@ -159,12 +159,16 @@ const Header = ({
 
                 <div className={`${styles.content} display-flex space-between`}>
                     <div className={`${styles.left} display-flex align`}>
-                        <div className={`${styles.logo} cursor`} onClick={() => push("/products")}>
+                        <div className={`${styles.logo} cursor`} onClick={() => {
+                            if (pathname !== '/onboarding/selectClient'){
+                                push("/products")
+                            }
+                        }}>
                             {user?.Nombre ? user?.Nombre : "Olei"}
                         </div>
 
                         {
-                            (user?.TipoUsuario == "2" && client?.Id_Almacen) &&
+                            (user?.TipoUsuario == "2" && client?.Id_Almacen && pathname !== '/onboarding/selectClient') &&
                             <div className={`${styles.client} display-flex align cursor`} onClick={() => setModalClientsVisible(true)}>
                                 <span>/</span>
                                 <div className={`${styles.circular} display-flex allCenter`}>{client.Nombre.slice(0, 1)}</div>

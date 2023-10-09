@@ -28,7 +28,6 @@ const OnboardingSearch = () => {
         push(`/onboarding/search`)
     }
 
-
     return (
         <LayoutOnboarding>
             <div className={`${styles.home} gradient-background display-flex column`}>
