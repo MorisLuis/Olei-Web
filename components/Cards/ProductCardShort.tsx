@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import styles from "../../styles/Components/Cards.module.scss";
 
 import Counter from '../Ui/Counter'
-import { CartContext } from '@/context';
+import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
 import { Tag } from '../Ui/Tag';
@@ -22,6 +22,7 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
     const { pathname } = useRouter()
 
     const { addProductToCart, removeCartProduct, removeCartProductPending } = useContext(CartContext)
+    const { user } = useContext(AuthContext)
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Descripcion: product.Descripcion,
@@ -84,14 +85,9 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                             <Tag color="blue">No tiene precio</Tag>}
                     </div>
 
-                    {/* {
-                        product?.Existencia && product?.Existencia <= 0 ?
-                            <Tag color="red">No Stock</Tag> :
-                            <div className='display-flex'>
-                                <p className={styles.existent}>Existencia: </p>
-                                <p>{product?.Existencia}</p>
-                            </div>
-                    } */}
+                    <div className='display-flex'>
+                        <p className={styles.subtotal}>Subtotal : {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
+                    </div>
 
                 </div>
 
@@ -106,7 +102,12 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                             updatedQuantity={onUpdateQuantity}
                         />
                     }
-                    <p className={styles.subtotal}>Subtotal : {product?.Piezas && format(product?.Precio * product?.Piezas)}</p>
+                    {
+                        user?.PrecioIncIVA === 1 ?
+                        <p className={styles.subtotal}>Total : {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
+                        :
+                        <p className={styles.subtotal}>Total : {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (product.Impto / 100)))}</p>
+                    }
                 </div>
 
                 {

@@ -1,10 +1,31 @@
 export default interface ProductInterface {
 
+    Descripcion: string;
+    Id_Familia?: number
+    Codigo: string;
+    Familia?: string;
+    CodigoPrecio?: string;
+    Precio: number;
+    CodigoExsitencia?: string;
+    Existencia: number;
+    Id_Almacen?: number;
+    Marca?: string;
+    Id_Marca?: number;
+    Id_ListaPrecios?: number;
+    Piezas: number;
+    Impto?: any;
+    Importe?: any;
+}
+
+
+/* 
+export default interface ProductInterface {
+
     Codigo?: string, // @
     Id_Marca?: number, // @
     Piezas: number, // Antes Cantidad @
     Precio: number, // @
-    Importe?: number, // @
+    Impto?: number, // @
     Impuesto?: number, //@
     Descripcion?: string, // @
 
@@ -24,3 +45,5 @@ export default interface ProductInterface {
     //Fecha?: string //
     //CodigoExsitencia?: string, //
 }
+
+*/

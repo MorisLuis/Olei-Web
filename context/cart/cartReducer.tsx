@@ -21,10 +21,8 @@ type CartActionType =
         type: '[Cart] - Update order summary',
         payload: {
             numberOfItems?: number;
-            subTotal?: number;
-            tax?: number;
             total?: number;
-
+            subTotal?: number;
             numberOfItemsPending?: number;
             subTotalPending?: number;
             totalPending?: number;

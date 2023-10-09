@@ -8,7 +8,6 @@ import { format } from '@/utils/currency';
 import OrderInterface from '@/interfaces/order';
 import { Tag } from '../Tag';
 import Action from '../Action';
-import ProductInterface from '@/interfaces/product';
 
 interface Props {
     order: OrderInterface[],

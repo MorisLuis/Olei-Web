@@ -10,16 +10,16 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <CartProvider>
-        <ClientProvider>
-          <FiltersProvider>
-            <NextNProgress color="#068FFF" height={4} />
-            <AuthProvider>
+      <AuthProvider>
+        <CartProvider>
+          <ClientProvider>
+            <FiltersProvider>
+              <NextNProgress color="#068FFF" height={4} />
               <Component {...pageProps} />
-            </AuthProvider>
-          </FiltersProvider>
-        </ClientProvider>
-      </CartProvider>
+            </FiltersProvider>
+          </ClientProvider>
+        </CartProvider>
+      </AuthProvider>
     </>
   )
 }

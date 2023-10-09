@@ -3,7 +3,6 @@ import styles from "../styles/Pages/Products.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { ModalSearch } from './Modals/ModalSearch';
 import { FiltersContext } from '@/context';
 import { useRouter } from 'next/router';
 import FiltersInterface from '@/interfaces/filters';
@@ -140,7 +139,6 @@ const HomeSearch = ({
 
     }, [query])
 
-    console.log({filtersValues})
 
     return (
         <>

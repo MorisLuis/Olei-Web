@@ -1,16 +1,16 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import Cookie from 'js-cookie';
 
 import { CartContext, cartReducer } from '../index';
 import ProductInterface from '@/interfaces/product';
+import { AuthContext } from '@/context';
 
 export interface CartState {
     cart: ProductInterface[];
     cartPending: ProductInterface[];
     numberOfItems: number;
-    subTotal: number;
-    tax: number;
     total: number;
+    subTotal: number;
     numberOfItemsPending: number;
     subTotalPending: number;
     totalPending: number;
@@ -22,7 +22,6 @@ const CART_INITIAL_STATE: CartState = {
     cartPending: [],
     numberOfItems: 0,
     subTotal: 0,
-    tax: 0,
     total: 0,
 
     numberOfItemsPending: 0,
@@ -36,6 +35,9 @@ export const CartProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
     const [productDelete, setProductDelete] = useState(false)
+    const { user } = useContext(AuthContext);
+
+    const productWithTaxInPrice = user?.PrecioIncIVA === 1
 
     useEffect(() => {
         if (Cookie.get('cart') === "[]") return;
@@ -76,20 +78,36 @@ export const CartProvider = ({ children }: any) => {
             return prev;
         }, 0);
 
-        const subTotal = state.cart.reduce((prev, current: any) => {
-            if (current.Existencia >= 1) {
-                return prev + current.Precio * current.Piezas;
+        const total = state.cart.reduce((prev, current: ProductInterface) => {
+            if (current?.Existencia >= 1) {
+                if (productWithTaxInPrice) {
+                    return prev + (current.Precio * current.Piezas);
+                } else {
+                    const impt = current.Precio * current.Piezas * (current.Impto / 100)
+                    return prev + (current.Precio * current.Piezas) + impt;
+                }
+
             }
             return prev;
         }, 0);
 
-        const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
+
+        const subTotal = state.cart.reduce((prev, current: ProductInterface) => {
+            if (current?.Existencia >= 1) {
+                if(productWithTaxInPrice){
+                    const impt = current.Precio * current.Piezas * (current.Impto / 100)
+                    return prev + (current.Precio * current.Piezas) - impt;
+                } else {
+                    return prev + (current.Precio * current.Piezas);
+                }
+            }
+            return prev;
+        }, 0);
 
         const orderSummary = {
             numberOfItems,
-            subTotal,
-            tax: subTotal * taxRate,
-            total: subTotal * (taxRate + 1)
+            total,
+            subTotal
         }
 
         dispatch({ type: '[Cart] - Update order summary', payload: orderSummary });
@@ -221,7 +239,7 @@ export const CartProvider = ({ children }: any) => {
 
             removeCartProductPending,
             addOrderToCartPending,
-    
+
             setProductDelete,
         }}>
             {children}

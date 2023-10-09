@@ -8,7 +8,6 @@ interface ContextProps {
 
     loginUser: (email: string, password: string) => Promise<void>;
     logoutUser: () => Promise<void>;
-
 }
 
 

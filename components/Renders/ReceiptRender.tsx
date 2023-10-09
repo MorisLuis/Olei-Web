@@ -24,7 +24,6 @@ export const ReceiptRender = () => {
 
         const getOrderDetails = async () => {
             const { data } = await api.get(`/api/orderDetails?folio=${receipt}`);
-            console.log({data})
             const orderDetails: ProductInterface[] = data;
             setOrderDetailsSelect(orderDetails)
         } 
@@ -56,9 +55,9 @@ export const ReceiptRender = () => {
                         <div className={styles.item}>
                             <p><span>Total de productos:</span> {orderSelect?.Piezas}</p>
                         </div>
-                        <div className={styles.item}>
+                        {/* <div className={styles.item}>
                             <p><span>Subtotal:</span> {format(orderSelect?.Subtotal as number)}</p>
-                        </div>
+                        </div> */}
                         <div className={styles.item}>
                             <p className={styles.totalprice}><span>Total (Subtotal + IVA ):</span> {format(orderSelect?.Total as number)}</p>
                         </div>

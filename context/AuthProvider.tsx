@@ -88,7 +88,6 @@ export const AuthProvider = ({ children }: any) => {
         }
     }
 
-
     return (
         <AuthContext.Provider value={{
             ...state,

@@ -32,6 +32,7 @@ const ProductCard = ({ product }: Props) => {
         Existencia: product.Existencia,
         Familia: product.Familia,
         Marca: product.Marca,
+        Impto: product.Impto
     })
 
     const onUpdateQuantity = async (Piezas: number) => {

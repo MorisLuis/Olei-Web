@@ -2,7 +2,7 @@
 export default interface OrderInterface {
     Piezas: number,
     Subtotal: number,
-    Impuesto: number,
+    //Impuesto: number,
 
     Total?: number,
     Fecha?: string,

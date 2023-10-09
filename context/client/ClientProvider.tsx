@@ -1,7 +1,8 @@
 import { api } from "@/api/api";
 import ClientInterface from "@/interfaces/client";
 import Cookies from "js-cookie";
-import { useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
+import { AuthContext } from "../AuthContext";
 import { ClientContext } from "./ClientContext"
 import { clientReducer } from "./clientReducer";
 
@@ -50,7 +51,7 @@ export const ClientProvider = ({ children }: any) => {
 
     const selectClient = async (client: ClientInterface) => {
         try {
-            const newClient = await api.post("/api/client", client)
+            await api.post("/api/client", client)
         } catch (error) {
             console.log({error})
         }

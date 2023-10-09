@@ -5,7 +5,7 @@ import { faAnglesRight, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductShoppingCard from '../Cards/ProductShoppingCard';
 import { useRouter } from 'next/router';
-import { CartContext } from '@/context';
+import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '../Cards/MessageCard';
@@ -24,7 +24,8 @@ const ModalCart = ({
     const { push } = useRouter()
     const [closing, setClosing] = useState(false);
     const [productDeleteFromCart, setProductDeleteFromCart] = useState(false)
-    const { cart, cartPending, numberOfItems, subTotal, setProductDelete } = useContext(CartContext);
+    const { cart, cartPending, numberOfItems, subTotal, total, setProductDelete } = useContext(CartContext);
+    const { user } = useContext(AuthContext);
 
     const handleCloseModal = () => {
         if (productDeleteFromCart) {
@@ -90,7 +91,13 @@ const ModalCart = ({
                             </>
                         }
                     </div>
-                    <h4 className='display-flex'>Subtotal ({numberOfItems} productos): {format(subTotal)}</h4>
+                    {
+                        user?.PrecioIncIVA === 1 ?
+                            <h4 className='display-flex'>Total ({numberOfItems} productos): {format(total)}</h4>
+                            :
+                            <h4 className='display-flex'>Subtotal ({numberOfItems} productos): {format(subTotal)}</h4>
+
+                    }
                 </div>
             </div>
         </>

@@ -9,14 +9,6 @@ import OrderInterface from '@/interfaces/order';
 import Confetti from 'react-confetti';
 const Success = () => {
     const { push, query } = useRouter()
-    /*  const [actualOrder, setActualOrder] = useState<OrderInterface>()
- 
-     useEffect(() => {
-         const ordersFromCookies: any[] = localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')!) : [];
-         const actualOrder = ordersFromCookies.find((order) => order.Folio === query.order)
-         setActualOrder(actualOrder)
-     }, []); */
-
 
     //Code confetti animation.
     const [showConfetti, setShowConfetti] = useState(true);

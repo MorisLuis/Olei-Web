@@ -35,6 +35,7 @@ export default function Home({ productsProps }: Props) {
   const { productDelete } = useContext(CartContext);
   const { clientChanged } = useContext(ClientContext);
 
+
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
   const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
@@ -221,9 +222,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   try {
     const { data } = await api.get(url);
+    const productsProps : ProductInterface[] = data.products
+
     return {
       props: {
-        productsProps: data.products,
+        productsProps
       },
     };
   } catch (error) {

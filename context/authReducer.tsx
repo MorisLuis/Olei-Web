@@ -1,8 +1,10 @@
+import UserInterface from '@/interfaces/user';
 import { AuthState } from './AuthProvider';
 
 
 type AuthActionType =
     | { type: '[Auth] - Login', payload: any }
+    | { type: '[Auth] - Update User', payload: Partial<UserInterface> }
     | { type: '[Auth] - Logout' }
 
 
@@ -16,6 +18,16 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
                 user: action.payload
             }
 
+
+        case '[Auth] - Update User':
+            return {
+                ...state,
+                user: {
+                    ...state.user as UserInterface,
+                    PrecioIncIVA: action.payload.PrecioIncIVA as number
+                }
+            }
+
         case '[Auth] - Logout':
             return {
                 ...state,
@@ -23,6 +35,7 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
                 user: undefined,
             }
 
+        
 
         default:
             return state;

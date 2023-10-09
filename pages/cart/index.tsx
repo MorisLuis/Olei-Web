@@ -6,7 +6,7 @@ import { faArrowLeftLong, faAngleDoubleDown, faXmark, faArrowsLeftRightToLine } 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { useRouter } from 'next/router';
-import { CartContext } from '@/context';
+import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 
 import ProductInterface from '@/interfaces/product';
@@ -20,7 +20,9 @@ import OrderInterface from '@/interfaces/order';
 const Cart = () => {
 
     const { push } = useRouter()
-    const { cart, cartPending, subTotal, total, tax, numberOfItems, removeAllCart } = useContext(CartContext);
+    const { cart, cartPending, total, numberOfItems, removeAllCart, subTotal } = useContext(CartContext);
+    const { user } = useContext(AuthContext);
+
     const [requestOpen, setRequestOpen] = useState(false)
     const [requestCartPending, setRequestCartPending] = useState(true)
     const [cartShowed, setCartShowed] = useState(cart)
@@ -33,9 +35,9 @@ const Cart = () => {
     const submitOrder = async () => {
 
         const order: OrderInterface = {
-            Subtotal: subTotal,
-            Impuesto: tax,
-            Piezas: numberOfItems
+            Total: total,
+            Piezas: numberOfItems,
+            Subtotal: subTotal
         }
 
         const productOrdered: ProductInterface[] = cart.map((product: ProductInterface) => {
@@ -45,9 +47,9 @@ const Cart = () => {
                 Id_Marca: product?.Id_Marca,
                 Piezas: product.Piezas,
                 Precio: product.Precio,
-                Importe: (product.Precio * product.Piezas),
-                Impuesto: tax,
-                Descripcion: product.Descripcion
+                Impto: product.Impto,
+                Descripcion: product.Descripcion,
+                Existencia: product?.Existencia,
             }
 
             return productDetails
@@ -111,7 +113,7 @@ const Cart = () => {
         <Layout>
             <div className={styles.cart}>
                 <div className={styles.header}>
-                    <div className={`${styles.back} display-flex align cursor`} onClick={ () => back()}>
+                    <div className={`${styles.back} display-flex align cursor`} onClick={() => back()}>
                         <FontAwesomeIcon icon={faArrowLeftLong} className={`icon__small`} />
                         <p>Regresar</p>
                     </div>
@@ -206,15 +208,26 @@ const Cart = () => {
                     <div className='divider'></div>
 
                     <div className={`${styles.cost} display-flex column`}>
-                        <div className={styles.cost__data}>
-                            <p> <span>Subtotal:</span> {format(subTotal)}</p>
-                        </div>
-                        <div className={styles.cost__data}>
-                            <p><span>I.V.A:</span> {Number(process.env.NEXT_PUBLIC_TAX_RATE) * 100}%</p>
-                        </div>
-                        <div className={styles.cost__data}>
-                            <p> <span>Total:</span> {format(total)}</p>
-                        </div>
+                        {
+                            user?.PrecioIncIVA === 1 ?
+                                <>
+                                    <div className={styles.cost__data}>
+                                        <p> <span>Total:</span> {format(total)}</p>
+                                    </div>
+                                    <div className={styles.cost__data}>
+                                        <p>Los productos ya incluyen el IVA</p>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div className={styles.cost__data}>
+                                        <p> <span>Subtotal:</span> {format(subTotal)}</p>
+                                    </div>
+                                    <div className={styles.cost__data}>
+                                        <p> <span>Total:</span> {format(total)}</p>
+                                    </div>
+                                </>
+                        }
                     </div>
 
                 </div>

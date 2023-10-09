@@ -23,7 +23,6 @@ const FiltersModalContent = ({
     const [marcasFilter, setMarcasFilter] = useState([])
 
 
-    console.log({temporalFilters})
     // Get the different Familias & Marcas from database.
     useEffect(() => {
         if (visible === false) return;
@@ -69,7 +68,6 @@ const FiltersModalContent = ({
                             ...prevState,
                             enStock: value || false
                         }))
-                        console.log({ value })
                     }}
                 />
             </div>

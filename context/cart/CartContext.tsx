@@ -6,9 +6,8 @@ interface ContextProps {
     cart: ProductInterface[];
     cartPending: ProductInterface[];
     numberOfItems: number;
-    subTotal: number;
-    tax: number;
     total: number;
+    subTotal: number;
     productDelete: boolean;
 
     numberOfItemsPending: number;

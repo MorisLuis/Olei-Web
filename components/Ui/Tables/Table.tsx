@@ -18,14 +18,12 @@ interface Props {
 
 const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
-    const { cart, cartPending } = useContext(CartContext)
+    const { cart, cartPending, subTotal, total } = useContext(CartContext)
     const [productsToDisplay, setProductsToDisplay] = useState<ProductInterface[]>([])
 
     useEffect(() => {
         setProductsToDisplay([...data])
     }, [data])
-
-
 
     // Define an array of ProductInterface objects to represent products to be displayed
     const productsWithCartInfo: ProductInterface[] = productsToDisplay.map((product: ProductInterface) => {
@@ -49,6 +47,7 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
         return productWithCartInfo;
     });
+
 
     return (
         <>
@@ -74,7 +73,7 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
                                 <div className={styles.content}>
                                     {
-                                        productsWithCartInfo?.map((product: ProductInterface, index: number) => {
+                                        productsWithCartInfo?.map((product: ProductInterface) => {
                                             return (
                                                 <ProductCard product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
                                             )
