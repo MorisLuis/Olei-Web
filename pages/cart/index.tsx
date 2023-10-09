@@ -181,7 +181,6 @@ const Cart = () => {
                     {
                         cartPending.length > 0 &&
                         <>
-
                             <div className={styles.request}>
                                 <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
                                     <div className={`${styles.content} display-flex space-between align`}>

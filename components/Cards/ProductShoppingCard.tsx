@@ -87,7 +87,7 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
 
                     <span>·</span>
 
-                    <div className={`display-flex`}>
+                    {/* <div className={`display-flex`}>
                         {
                             product?.Existencia && product?.Existencia < 1 ?
                                 <Tag color="red">No Stock</Tag> :
@@ -96,7 +96,7 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
                                     <p>{product?.Existencia}</p>
                                 </div>
                         }
-                    </div>
+                    </div> */}
                 </div>
                 <div className={styles.counter}>
                     <div className='display-flex'>

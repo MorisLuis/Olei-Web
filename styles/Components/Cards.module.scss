@@ -3,6 +3,7 @@
 .productCard {
     width: 100%;
     background-color: $background-color;
+    border: 1px solid transparent;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
         rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 
@@ -206,7 +207,7 @@
     }
 
     &:hover {
-        background-color: $color-cuaternary;
+        border: 1px solid rgba($color: $color-border-tertiary, $alpha: 0.5);
     }
 }
 
@@ -216,9 +217,7 @@
     margin-bottom: 1.5em;
     border-radius: 0.5em;
     font-size: 12px;
-    //background-color: $color-primary;
     border: 1px solid rgba($color: $color-border, $alpha: 0.35);
-    //padding: 0.25em;
     position: relative;
 
     .productInfo {
@@ -260,11 +259,9 @@
     .productHeader {
         .productName {
             font-weight: bold;
-            //background-color: aqua;
             width: 50%;
             display: -webkit-box;
             -webkit-line-clamp: 2;
-            /* Número de líneas deseadas */
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -334,9 +331,12 @@
     padding: 0.5em 1em;
     font-size: 12px;
     border-radius: 5px;
+    border: 1px solid transparent;
 
     &:hover {
-        background-color: rgba($color: $color-cuaternary, $alpha: 0.5)
+        background-color: rgba($color: $color-cuaternary, $alpha: 1);
+        border: 1px solid $color-border;
+
     }
 }
 

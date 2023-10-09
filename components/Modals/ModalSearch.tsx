@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark, } from '@fortawesome/free-solid-svg-icons';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { Tag } from '../Ui/Tag';
+import { capitalizarTexto } from '@/utils/textCapitalize';
+import ClientInterface from '@/interfaces/client';
 
 interface Props {
     visible: boolean;
@@ -118,8 +120,14 @@ export const ModalSearch = ({
 
                 <div className={styles.resultsSearch}>
                     {
-                        (inputValue !== "" && searchResults?.length > 0) ? searchResults.slice(0,10)?.map((producto: any, index: number) =>
-                            <SearchItemCard key={index} productName={producto?.Nombre ? producto?.Nombre as string : producto as string} onclick={() => handleSelectOption(producto)} />
+                        (inputValue !== "" && searchResults?.length > 0) ? searchResults.slice(0, 10)?.map((producto: any, index: number) =>
+                            <SearchItemCard
+                                key={index}
+                                productName={producto?.Nombre ? producto?.Nombre as string : producto as string}
+                                onclick={() => handleSelectOption(producto)}
+                                highlightSearchTerm={highlightSearchTerm}
+                                inputValue={inputValue}
+                            />
                         )
                             :
                             searchResults?.length === 0 && inputValue !== "" ?

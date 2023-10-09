@@ -169,7 +169,7 @@
         width: fit-content;
         margin-bottom: 1em;
         position: relative;
-        z-index: 9999;
+        z-index: 999;
         transition: width 0.6s ease-in-out; 
     
         @include respond(tab-port) {
@@ -245,7 +245,7 @@
         -webkit-backdrop-filter: blur(1px);
         backdrop-filter: blur(1px);
         background-color: rgba(0, 0, 0, 0.03);
-        z-index: 999;
+        z-index: 99;
     }
 
     @include respond(tab-port) {

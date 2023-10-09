@@ -1,7 +1,7 @@
 @import "./main.scss";
 
 .table {
-    background-color: $background-color-secondary;
+    background-color: $background-color;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     border-radius: 1em;
     margin-bottom: 1em;
@@ -35,7 +35,7 @@
             padding-left: 1em;
 
             &:nth-child(odd) {
-                background-color: $color-secondary;
+                background-color: $background-color-secondary;
             }
 
             @include respond(phone) {
@@ -169,7 +169,6 @@
 
             &:hover {
                 border: 1px solid rgba($color: $color-border-tertiary, $alpha: 0.5);
-                //border-style: none solid solid solid;
             }
         }
     }
@@ -254,7 +253,6 @@
     }
 
 }
-
 
 .tagHover {
     position: absolute;

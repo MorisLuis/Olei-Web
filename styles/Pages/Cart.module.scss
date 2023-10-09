@@ -105,10 +105,15 @@
         .request {
             background-color: $background-color;
             box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-            border-radius: 1em;
+            border-radius: 5px;
+            border: 1px solid $color-border;
 
             .content {
                 padding: 1em;
+            }
+
+            &:hover{
+                border: 1px solid  rgba($color: $color-border-tertiary, $alpha: 0.5);
             }
 
         }

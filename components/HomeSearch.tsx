@@ -15,6 +15,11 @@ const HomeSearch = ({
     setTemporalFilters
 }: any) => {
 
+    const highlightSearchTerm = (text: string, term: string) => {
+        const regex = new RegExp(`(${term})`, 'gi');
+        return text?.replace(regex, '<strong>$1</strong>');
+    };
+
     const { addFilters, removeFilters, filters, removeAllFilters, filtersValues } = useContext(FiltersContext);
     const { push, query } = useRouter()
     const inputRef = useRef<HTMLInputElement>(null);
@@ -196,7 +201,7 @@ const HomeSearch = ({
 
                         {
                             (inputValue !== "" && searchResults?.length > 0) ? searchResults.slice(0, 10)?.map((producto: any, index: number) =>
-                                <SearchItemCard key={index} productName={producto?.Nombre ? producto?.Nombre as string : producto as string} onclick={() => onSelectProduct(producto)} />
+                                <SearchItemCard key={index} productName={producto?.Nombre ? producto?.Nombre as string : producto as string} onclick={() => onSelectProduct(producto)} highlightSearchTerm={highlightSearchTerm} inputValue={inputValue}/>
                             )
                                 :
                                 searchResults?.length === 0 && inputValue !== "" ?

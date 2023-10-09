@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { useSpring, animated } from 'react-spring';
+import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     onclick?: () => void,
@@ -10,34 +11,23 @@ const ButtonAnimated = ({
     onclick,
     disabled
 }: Props) => {
-    //const [loading, setLoading] = useState(false);
 
-    const spinnerAnimation = useSpring({
-        opacity: disabled ? 1 : 0,
-        display: disabled ? 'block' : 'none',
-    });
 
-    const buttonText = disabled ? 'Cargando...' : 'Cargar mas';
+    const buttonText = disabled ? 'Cargando...' : 'Ver más';
 
     const handleClick = () => {
         onclick?.()
     };
 
     return (
-        <div className="loading-button-container">
+        <div className="loading-button-container display-flex align">
             <button
-                className={`loading-button ${disabled ? 'loading' : ''}`}
+                className={`loading-button ${disabled ? 'loading' : ''} `}
                 onClick={handleClick}
                 disabled={disabled}
             >
                 {buttonText}
-                {disabled && (
-                    <animated.div className="spinner" style={spinnerAnimation}>
-                        <svg viewBox="0 0 50 50">
-                            <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="5" />
-                        </svg>
-                    </animated.div>
-                )}
+                <FontAwesomeIcon icon={faPlus} className={`icon__small m-left`} />
             </button>
         </div>
     );
