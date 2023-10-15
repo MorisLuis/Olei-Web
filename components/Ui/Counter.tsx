@@ -66,7 +66,8 @@ const Counter = ({
                 className={
                     currentValue >= 1 ? `${styles.action} ${styles.active} cursor display-flex allCenter` :
                         `${styles.action} cursor display-flex allCenter`
-                } onClick={() => addOrRemove(+1)}>
+                } 
+                onClick={() => addOrRemove(+1)}>
                 <FontAwesomeIcon icon={faPlus} className={`icon__small`} />
             </div>
         </div>

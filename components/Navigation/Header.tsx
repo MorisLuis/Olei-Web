@@ -9,6 +9,7 @@ import { ModalSearch } from '../Modals/ModalSearch';
 import FiltersInterface from '@/interfaces/filters';
 import QueryParams from '@/utils/queryParams';
 import ClientInterface from '@/interfaces/client';
+import Image from 'next/image';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +27,6 @@ const Header = ({
     const { client, selectClient, setClientChanged } = useContext(ClientContext);
     const { addFilters, filters, filtersValues, removeFilters, removeAllFilters } = useContext(FiltersContext);
 
-    const [profileOpen, setProfileOpen] = useState(false)
     const [modalSearchVisible, setModalSearchVisible] = useState(false);
     const [modalClientsVisible, setModalClientsVisible] = useState(false)
 
@@ -155,16 +155,23 @@ const Header = ({
 
     return (
         <>
-            <div className={`${styles.header} blur`}>
+            <div className={`${styles.header}  blur`}>
 
                 <div className={`${styles.content} display-flex space-between`}>
                     <div className={`${styles.left} display-flex align`}>
                         <div className={`${styles.logo} cursor`} onClick={() => {
-                            if (pathname !== '/onboarding/selectClient'){
+                            if (pathname !== '/onboarding/selectClient') {
                                 push("/products")
                             }
                         }}>
-                            {user?.Nombre ? user?.Nombre : "Olei"}
+                            {/* {user?.Nombre ? user?.Nombre : "Olei"} */}
+                            <Image
+                                src={"/logo02.png" || ""}
+                                alt="photo"
+                                width={200}
+                                height={200}
+                            />
+                    
                         </div>
 
                         {
@@ -201,7 +208,7 @@ const Header = ({
                                         <p>{user?.Nombre?.slice(0, 1)}</p>
                                     </div>
 
-                                    {
+                                    {/* {
                                         profileOpen &&
                                         <div className={styles.profileBox}>
                                             <div className={styles.link} onClick={() => push("/profile")}>Perfil</div>
@@ -213,7 +220,7 @@ const Header = ({
                                                 Cerrar Sesión
                                             </div>
                                         </div>
-                                    }
+                                    } */}
                                 </div>
 
                                 {

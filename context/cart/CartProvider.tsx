@@ -137,6 +137,7 @@ export const CartProvider = ({ children }: any) => {
 
     const addProductToCart = (product: ProductInterface) => {
 
+        console.log('product', product)
         if (product.Existencia && product.Existencia <= 0) {
             const productInCartPending = state.cartPending.some(p => p.Codigo === product.Codigo);
             if (!productInCartPending) {
@@ -176,6 +177,8 @@ export const CartProvider = ({ children }: any) => {
                 p.Piezas = product.Piezas;
                 return p;
             });
+
+            console.log({updatedProducts})
 
             dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
         }
