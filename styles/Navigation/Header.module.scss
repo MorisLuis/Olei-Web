@@ -73,8 +73,8 @@
                 }
 
                 .circular {
-                    background-color: #a9c9ff;
-                    background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
+                    background-color: $color-yellow;
+                    //background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
                     width: 20px;
                     height: 20px;
                     border-radius: 100%;
@@ -160,7 +160,7 @@
                 padding: 0em 1em;
                 position: relative;
                 background-color: $background-color;
-                border: 1px solid $color-border;
+                border: 1px solid $color-yellow;
                 border-radius: 5px;
                 cursor: pointer;
 
@@ -187,9 +187,9 @@
                 }
 
                 .icon {
-                    background-color: #a9c9ff;
-                    background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
-
+                    //background-color: #a9c9ff;
+                    //background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
+                    background-color: $color-yellow;
                     min-width: 24px;
                     height: 24px;
                     border-radius: 100%;
@@ -319,8 +319,8 @@
         content: "";
         height: 1px;
         width: 100%;
-        //background: radial-gradient(circle, rgba($color-tertiary, 100%) 0%, rgba($color-tertiary, 100%) 0%, rgba(249, 249, 249, 1) 100%);
-        background-color: #EDBD42;
+        background: radial-gradient(circle, rgba($color-yellow, 100%) 0%, rgba($color-yellow, 100%) 0%, rgba(249, 249, 249, 1) 100%);
+        //background-color: #EDBD42;
         position: absolute;
         bottom: 0px;
         right: 0px
