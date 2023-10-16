@@ -183,7 +183,11 @@
     }
 
     .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 100%;
+
         @include respond(phone) {
             // Put this padding here because of search mobil design ( see Home.module.scss ).
             margin: 1em;

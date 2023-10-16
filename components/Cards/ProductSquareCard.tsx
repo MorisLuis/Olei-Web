@@ -49,7 +49,7 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
         });
     }
 
-    
+
     return (
         <div className={styles.productSquareCard}>
             <div className={styles.content}>
@@ -64,7 +64,7 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
                 <div className={styles.info}>
                     <div className={styles.description}>
                         <h4>{product.Descripcion}</h4>
-                        <Tag color='blue'>
+                        <Tag color='gray'>
                             {product.Familia}
                         </Tag>
                     </div>
@@ -72,7 +72,11 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
                     <p>Marca: {product.Familia}</p>
 
                     <div className={styles.counter}>
-                        <h3>{format(product.Precio)}</h3>
+                        {
+                            product?.Precio ?
+                                <h3>{format(product?.Precio)}</h3> :
+                                <Tag color="blue">No tiene precio</Tag>
+                        }
                         <Counter
                             currentValue={product?.Piezas > 0 ? product?.Piezas : tempCartProduct.Piezas || 0}
                             maxValue={

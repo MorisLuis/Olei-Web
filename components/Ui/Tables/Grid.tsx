@@ -4,6 +4,9 @@ import styles from "../../../styles/UI.module.scss";
 import { ProductSquareCard } from '@/components/Cards/ProductSquareCard';
 import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
+import TableSkeleton from '@/components/Skeletons/TableSkeleton';
+import { MessageCard } from '@/components/Cards/MessageCard';
+import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
 
 interface Props {
     data: ProductInterface[],
@@ -14,7 +17,7 @@ interface Props {
 
 const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
-    const { cart, cartPending, subTotal, total } = useContext(CartContext)
+    const { cart, cartPending} = useContext(CartContext)
     const [productsToDisplay, setProductsToDisplay] = useState<ProductInterface[]>([])
 
     useEffect(() => {
@@ -44,24 +47,50 @@ const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
         return productWithCartInfo;
     });
 
-    const images = ["/OleiImageTest/Buje.jpeg", "/OleiImageTest/rotula.jpeg", "/OleiImageTest/terminal.jpeg", "/OleiImageTest/tornilloEstabilizador.jpeg", "/OleiImageTest/topeRebote.webp" ] 
+    const images = ["/OleiImageTest/Buje.jpeg", "/OleiImageTest/rotula.jpeg", "/OleiImageTest/terminal.jpeg", "/OleiImageTest/tornilloEstabilizador.jpeg", "/OleiImageTest/topeRebote.webp"]
 
 
     return (
-        <div className={styles.grid}>
+        <>
             {
-                productsWithCartInfo?.map((product: ProductInterface, index: number) => {
-                    return (
-                        <ProductSquareCard
-                            product={product}
-                            key={product.Codigo && (product.Codigo + product.Id_Marca)}
-                            image={images}
-                            index={index}
-                        />
-                    )
-                })
+                loadingData ?
+                    <TableSkeleton />
+                    :
+                    !loadingData && productsWithCartInfo.length === 0 ?
+                        <MessageCard title='No hay coincidencias exactas'>
+                            <p>Cambia o elimina algunos de los filtros o modifica el área de búsqueda.</p>
+                        </MessageCard>
+                        :
+                        <>
+                            <div className={styles.grid}>
+                                {
+                                    productsWithCartInfo?.map((product: ProductInterface, index: number) => {
+                                        return (
+                                            <ProductSquareCard
+                                                product={product}
+                                                key={product.Codigo && (product.Codigo + product.Id_Marca)}
+                                                image={images}
+                                                index={index}
+                                            />
+                                        )
+                                    })
+                                }
+                            </div>
+                                {
+                                    (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
+                                    <ButtonAnimated
+                                        onclick={loadMoreProducts}
+                                        disabled={isLoading}
+                                    />
+                                }
+                                {
+                                    !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
+                                    <p style={{ textAlign: "center", paddingTop: "1em", color: "gray" }}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
+                                }
+                        </>
             }
-        </div>
+        </>
+
     )
 }
 
