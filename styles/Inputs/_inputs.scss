@@ -72,9 +72,83 @@
                 width: 16px;
                 left: 4px;
                 bottom:3px;
-                background-color: white;
+                background-color: $background-color;
                 transition: 0.4s;
                 border-radius: 50%;
+            }
+        }
+    }
+
+
+    .label {
+        font-weight: bold;
+        font-size: 14px;
+        width: 40%;
+    }
+}
+
+.toggleSquareSwitch {
+    display: flex;
+    align-items: center;
+
+    .toggleSquare {
+        position: relative;
+        display: inline-block;
+        width: 70px;
+        min-height: 30px;
+        display: flex;
+
+        .checkbox {
+            opacity: 0;
+            width: 0;
+            height: 0;
+
+            &:checked+.sliderSquare:before {
+                transform: translateX(36px);
+            }
+        }
+
+        .sliderSquare {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: $color-primary;
+            transition: 0.4s;
+            border-radius: 0.5em;
+            border: 1px solid $color-border;
+
+            &:before {
+                position: absolute;
+                content: "";
+                height: 22px;
+                width: 22px;
+                left: 4px;
+                top: 2px;
+                background-color: $background-color;
+                transition: 0.4s;
+                border-radius: 0.5em;
+                border: 1px solid $color-border;
+            }
+
+            .iconSquare{
+                width: 10px;
+                position: absolute;
+                z-index: 9;
+                left: calc(5px + (22px/2));
+                bottom: calc(3px + (22px/2));
+                transform: translate(-50%, 50%);
+            }
+
+            .iconSquareSecond{
+                width: 10px;
+                position: absolute;
+                z-index: 9;
+                left: calc((70px - 6px) - (22px/2));
+                bottom: calc(3px + (22px/2));
+                transform: translate(-50%, 50%);
             }
         }
     }

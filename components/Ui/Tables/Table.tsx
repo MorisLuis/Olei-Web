@@ -18,7 +18,7 @@ interface Props {
 
 const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
-    const { cart, cartPending, subTotal, total } = useContext(CartContext)
+    const { cart, cartPending} = useContext(CartContext)
     const [productsToDisplay, setProductsToDisplay] = useState<ProductInterface[]>([])
 
     useEffect(() => {

@@ -2,6 +2,10 @@
 
 .products {
     padding: 2em 10em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 
     .nameFilter {
         padding-bottom: 1em;
@@ -12,9 +16,12 @@
         }
     }
 
-    .filters {
+    .header {
         margin-bottom: 1em;
         position: relative;
+        width: 100%;
+        justify-content: space-between;
+        height: 30px;
 
         @include respond(phone) {
             display: none;
@@ -25,67 +32,85 @@
             margin-left: 1em;
         }
 
-        .buttonFilter {
+        .view{
+
+        }
+
+        .filters{
             display: flex;
-            position: relative;
-            margin-right: 1em;
+            height: 100%;
 
-            @include respond(phone) {
-                display: none;
-            }
-
-            button {
-                border: 1px solid black;
+            .buttonFilter {
+                display: flex;
+                position: relative;
+                border-radius: 5px;
+                height:fit-content;
 
                 @include respond(phone) {
-                    border-radius: 100%;
-                    width: 100%;
-                    height: 100%;
+                    display: none;
+                }
+
+                button {
+                    height: 30px;
+                    background-color: $color-primary;
+                    border: 1px solid $color-border;
+
+                    @include respond(phone) {
+                        border-radius: 100%;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                &.active{
+                    button{
+                        border: 1px solid black;
+                    }
+                }
+    
+                p {
+                    @include respond(phone) {
+                        display: none;
+                    }
+                }
+    
+                svg {
+                    @include respond(phone) {
+                        margin: 0px;
+                    }
+                }
+                .filtersCount {
+                    background-color: black;
+                    color: $text-color-secondary;
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    border-radius: 1em;
+                    transform: translate(50%, -50%);
+                    border: 1px solid $color-border;
+    
+                    p {
+                        width: 16px;
+                        height: 16px;
+                        font-size: 10px;
+                    }
                 }
             }
-
-            p {
+    
+            .filtersTag {
+                display: flex;
+    
+                div {
+                    height: 100%;
+                    margin-right: 0.5em;
+                }
+    
                 @include respond(phone) {
                     display: none;
                 }
             }
-
-            svg {
-                @include respond(phone) {
-                    margin: 0px;
-                }
-            }
-
-            .filtersCount {
-                background-color: black;
-                color: $text-color-secondary;
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                border-radius: 1em;
-                transform: translate(50%, -50%);
-                border: 1px solid $color-border;
-
-                p {
-                    width: 16px;
-                    height: 16px;
-                    font-size: 10px;
-                }
-            }
         }
 
-        .filtersTag {
-            display: flex;
-
-            div {
-                height: 100%;
-                margin-right: 0.5em;
-            }
-
-            @include respond(phone) {
-                display: none;
-            }
-        }
     }
 
     .nameFilterMobil {
@@ -158,6 +183,7 @@
     }
 
     .main {
+        width: 100%;
         @include respond(phone) {
             // Put this padding here because of search mobil design ( see Home.module.scss ).
             margin: 1em;
@@ -165,12 +191,13 @@
     }
 
     .search {
-        min-width: 30%;
+        min-width: 50%;
         width: fit-content;
         margin-bottom: 1em;
         position: relative;
         z-index: 999;
         transition: width 0.6s ease-in-out; 
+
     
         @include respond(tab-port) {
             min-width: 60%;

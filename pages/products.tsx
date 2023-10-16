@@ -43,6 +43,7 @@ export default function Home({ productsProps }: Props) {
   const [nextPage, setNextPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
+  const [showGrid, setShowGrid] = useState(true)
 
   const handleFiltersToQuery = () => {
 
@@ -176,21 +177,27 @@ export default function Home({ productsProps }: Props) {
             handleCloseTag={handleCloseTag}
             setOpenModalFilter={setOpenModalFilter}
             handleCleanAllFilters={handleCleanAllFilters}
+            setShowGrid={setShowGrid}
+            showGrid={showGrid}
           />
 
           <main className={styles.main}>
-            {/* <Table
-              data={products}
-              loadMoreProducts={loadMoreProducts}
-              isLoading={isLoading}
-              loadingData={loadingData}
-            /> */}
-            <Grid
-              data={products}
-              loadMoreProducts={loadMoreProducts}
-              isLoading={isLoading}
-              loadingData={loadingData}
-            />
+            {
+              showGrid ?
+                <Grid
+                  data={products}
+                  loadMoreProducts={loadMoreProducts}
+                  isLoading={isLoading}
+                  loadingData={loadingData}
+                />
+                :
+                <Table
+                  data={products}
+                  loadMoreProducts={loadMoreProducts}
+                  isLoading={isLoading}
+                  loadingData={loadingData}
+                />
+            }
           </main>
         </div>
       </Layout>

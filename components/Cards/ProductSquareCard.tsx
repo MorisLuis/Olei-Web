@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Tag } from '../Ui/Tag';
 import Counter from '../Ui/Counter';
 import { CartContext } from '@/context';
+import { format } from '../../utils/currency';
 
 interface Props {
     product: ProductInterface,
@@ -15,6 +16,8 @@ interface Props {
 
 
 export const ProductSquareCard = ({ product, image, index }: Props) => {
+
+    format
 
     const { addProductToCart } = useContext(CartContext)
 
@@ -45,6 +48,8 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
             Piezas
         });
     }
+
+    
     return (
         <div className={styles.productSquareCard}>
             <div className={styles.content}>
@@ -67,6 +72,7 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
                     <p>Marca: {product.Familia}</p>
 
                     <div className={styles.counter}>
+                        <h3>{format(product.Precio)}</h3>
                         <Counter
                             currentValue={product?.Piezas > 0 ? product?.Piezas : tempCartProduct.Piezas || 0}
                             maxValue={

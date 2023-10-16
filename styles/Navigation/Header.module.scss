@@ -9,7 +9,7 @@
 
     &.secondary {
         background-color: $color-tertiary;
-        color: white;
+        color: $background-color;
 
         &.left{
 
@@ -23,7 +23,7 @@
         .right{
             .orders{
                 svg{
-                    fill: white;
+                    fill: $background-color;
                 }
             }
 
@@ -74,7 +74,6 @@
 
                 .circular {
                     background-color: $color-yellow;
-                    //background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
                     width: 20px;
                     height: 20px;
                     border-radius: 100%;
@@ -117,8 +116,6 @@
                 max-width: 150px;
 
                 img{
-                    /* height: fit-content;
-                    width: fit-content; */
                     object-fit: contain;
                     width: 100%;
                 }
@@ -159,7 +156,7 @@
             .profile {
                 padding: 0em 1em;
                 position: relative;
-                background-color: $background-color;
+                background-color: transparent;
                 border: 1px solid $color-yellow;
                 border-radius: 5px;
                 cursor: pointer;
