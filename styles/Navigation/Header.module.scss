@@ -61,12 +61,12 @@
 
             >div {
                 &:not(:last-child) {
-                    margin-right: 1em;
+                    margin-right: 0em;
                 }
             }
 
             .client {
-                opacity: 100%;
+                opacity: 60%;
 
                 span {
                     padding: 0em 0.5em;
@@ -114,6 +114,7 @@
                 align-items: center;
                 overflow: hidden;
                 max-width: 150px;
+                opacity: 60%;
 
                 img{
                     object-fit: contain;
@@ -160,6 +161,7 @@
                 border: 1px solid $color-yellow;
                 border-radius: 5px;
                 cursor: pointer;
+                opacity: 60%;
 
                 @include respond(phone) {
                     position: static;
@@ -184,8 +186,6 @@
                 }
 
                 .icon {
-                    //background-color: #a9c9ff;
-                    //background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
                     background-color: $color-yellow;
                     min-width: 24px;
                     height: 24px;
@@ -229,7 +229,8 @@
                 }
 
                 &:hover {
-                    background-color: $color-secondary;
+                    //background-color: $color-secondary;
+                    opacity: 100%;
                 }
 
             }

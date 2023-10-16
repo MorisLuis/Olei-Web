@@ -8,13 +8,15 @@
     padding: 0em 1em;
     width: 100%;
 
+
+
     svg {
         margin-right: 0.5em;
     }
 
-    &:hover {
+    /* &:hover {
         opacity: 70%;
-    }
+    } */
 
     &.white {
         background-color: $color-primary;
@@ -22,9 +24,7 @@
         border: 1px solid $color-border-secondary;
 
         &:hover {
-            background-color: $color-tertiary;
-            border: 1px solid transparent;
-            color: $text-color-secondary;
+            opacity: 70%;
         }
     }
 

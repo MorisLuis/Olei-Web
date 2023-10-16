@@ -163,7 +163,6 @@ export default function Home({ productsProps }: Props) {
     }
   }, [])
 
-
   return (
     <>
       <Layout>

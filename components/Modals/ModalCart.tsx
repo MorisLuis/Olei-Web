@@ -52,14 +52,10 @@ const ModalCart = ({
 
             <div className={`${styles.modalSide} ${closing ? styles.closing : ''}`}>
                 <div className={`${styles.header} display-flex space-between align`} >
-                    <div className={`${styles.close} align cursor`} onClick={handleCloseModal}>
+                    <div className={`${styles.close} align cursor display-flex`} onClick={handleCloseModal}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon cursor display-flex align`} />
+                        <p>Cerrar</p>
                     </div>
-
-                    <button className='button-small display-flex align' onClick={() => push("/cart")}>
-                        Ver carrito
-                        <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
-                    </button>
                 </div>
 
                 <div className={styles.content}>
@@ -68,14 +64,12 @@ const ModalCart = ({
                             <ProductShoppingCard product={product} key={Index} setProductDeleteFromCart={setProductDeleteFromCart} />
                         )
                             :
-                            <>
-                                <MessageCard
-                                    title="No has agregado productos aún"
-                                    icon="faCartShopping"
-                                >
-                                    No hay productos en tu orden, apareceran una vez que agregues productos.
-                                </MessageCard>
-                            </>
+                            <MessageCard
+                                title="No has agregado productos aún"
+                                icon="faCartShopping"
+                            >
+                                No hay productos en tu orden, apareceran una vez que agregues productos.
+                            </MessageCard>
                     }
                 </div>
 
@@ -83,21 +77,26 @@ const ModalCart = ({
                     <div>
                         {
                             cartPending.length > 0 &&
-                            <>
-                                <div className={styles.productsPendingMessage}>
-                                    <h3>Peticiones</h3>
-                                    <p>Para ver los productos que pediste actualemente inexistentes, selecciona Ver carrito.</p>
-                                </div>
-                            </>
+                            <div className={styles.productsPendingMessage}>
+                                <h3>Peticiones</h3>
+                                <p>Para ver los productos que pediste actualemente inexistentes, selecciona Ver carrito.</p>
+                            </div>
                         }
                     </div>
-                    {
-                        user?.PrecioIncIVA === 1 ?
-                            <h4 className='display-flex'>Total ({numberOfItems} productos): {format(total)}</h4>
-                            :
-                            <h4 className='display-flex'>Subtotal ({numberOfItems} productos): {format(subTotal)}</h4>
-
-                    }
+                    <div className={styles.pricing}>
+                        {
+                            user?.PrecioIncIVA === 1 ?
+                                <h4 className='display-flex'>Total ({numberOfItems} productos): {format(total)}</h4>
+                                :
+                                <h4 className='display-flex'>Subtotal ( {
+                                    numberOfItems === 1 ? `${numberOfItems} producto` : `${numberOfItems} productos`
+                                } ): {format(subTotal)}</h4>
+                        }
+                        <button className={`${styles.seeCart} button white display-flex allCenter`} onClick={() => push("/cart")}>
+                            Ver carrito
+                            <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
