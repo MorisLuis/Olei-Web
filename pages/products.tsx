@@ -15,6 +15,7 @@ import FiltersInterface from '@/interfaces/filters';
 import { CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
 import HomeSearch from '@/components/HomeSearch';
+import Grid from '@/components/Ui/Tables/Grid';
 
 interface Props {
   productsProps: ProductInterface[]
@@ -178,7 +179,13 @@ export default function Home({ productsProps }: Props) {
           />
 
           <main className={styles.main}>
-            <Table
+            {/* <Table
+              data={products}
+              loadMoreProducts={loadMoreProducts}
+              isLoading={isLoading}
+              loadingData={loadingData}
+            /> */}
+            <Grid
               data={products}
               loadMoreProducts={loadMoreProducts}
               isLoading={isLoading}
@@ -222,7 +229,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   try {
     const { data } = await api.get(url);
-    const productsProps : ProductInterface[] = data.products
+    const productsProps: ProductInterface[] = data.products
 
     return {
       props: {
