@@ -54,12 +54,18 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
         <div className={styles.productSquareCard}>
             <div className={styles.content}>
                 <div className={styles.image}>
-                    <Image
+                    <img
                         src={image[index] ? image[index] : "/logo01.png"}
                         alt="photo"
                         width={200}
                         height={200}
                     />
+                    {/* <Image
+                        src={image[index] ? image[index] : "/logo01.png"}
+                        alt="photo"
+                        width={200}
+                        height={200}
+                    /> */}
                 </div>
                 <div className={styles.info}>
                     <div className={styles.description}>
