@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: any) => {
             if (user.TipoUsuario === 2) {
                 replace("/onboarding/selectClient")
             } else {
-                replace("/onboarding/search")
+                replace("/products")
             }
 
             setTimeout(() => {

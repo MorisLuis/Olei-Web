@@ -16,6 +16,7 @@ import { CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
 import HomeSearch from '@/components/HomeSearch';
 import Grid from '@/components/Ui/Tables/Grid';
+import Image from 'next/image';
 
 interface Props {
   productsProps: ProductInterface[]
@@ -198,6 +199,14 @@ export default function Home({ productsProps }: Props) {
                 />
             }
           </main>
+
+          <Image
+            src={"/lineas_oleionline01.svg" || ""}
+            alt="photo"
+            width={300}
+            height={300}
+            className={styles.background}
+          />
         </div>
       </Layout>
 

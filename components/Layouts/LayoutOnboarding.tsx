@@ -7,6 +7,7 @@ import ModalCart from '../Modals/ModalCart';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header';
 import ModalMenu from '../Modals/ModalMenu';
+import Image from 'next/image';
 
 interface Props {
     children: ReactNode
@@ -35,9 +36,12 @@ export const LayoutOnboarding = ({ children }: Props) => {
 
             <div>
                 {children}
+            
             </div>
 
-            <Footer />
+
+
+            {/* <Footer /> */}
 
             <ModalMenu
                 visible={openModalMenu}

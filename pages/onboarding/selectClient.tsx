@@ -25,7 +25,7 @@ const OnboardingSearch = () => {
 
     const handleContinue = (client : ClientInterface) => {
         selectClient(client as ClientInterface)
-        push(`/onboarding/search`)
+        push(`/products`)
     }
 
     return (

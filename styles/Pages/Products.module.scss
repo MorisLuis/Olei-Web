@@ -6,6 +6,8 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    position: relative;
+    z-index: 1;
 
     .nameFilter {
         padding-bottom: 1em;
@@ -277,6 +279,18 @@
         backdrop-filter: blur(1px);
         background-color: rgba(0, 0, 0, 0.03);
         z-index: 99;
+    }
+
+    .background{
+        position: fixed;
+        height: 100vh;
+        width: 120vw;
+        bottom: 0%;
+        z-index: -1;
+
+        img{
+            width: 120vw;
+        }
     }
 
     @include respond(tab-port) {

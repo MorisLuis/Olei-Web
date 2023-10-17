@@ -3,6 +3,7 @@
 .login {
     width: 100vw;
     height: 100vh;
+    position: relative;
 
 
     .header {
@@ -107,10 +108,23 @@
             border-radius:  1em;
         }
     }
+
+    .background{
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
+        bottom: 0px;
+
+        img{
+            width: 100vw;
+        }
+    }
 }
 
+
+
 /* styles.module.css */
-.gradient-background {
+/* .gradient-background {
 
     position: fixed;
     top: 0;
@@ -142,4 +156,4 @@
     100% {
         background: linear-gradient(45deg, #ffbf00, #ff0084);
     }
-}
+} */

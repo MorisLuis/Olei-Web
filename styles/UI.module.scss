@@ -180,6 +180,8 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2em;
+    background-color: $background-color;
+    border-radius: 5px;
 
     @include respond(tab-port) {
         grid-template-columns: repeat(3, 1fr);
