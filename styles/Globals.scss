@@ -22,19 +22,15 @@ body {
   &::-webkit-scrollbar {
     width: 0.6em;
     background-color: transparent;
-    z-index: 100;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: rgba($text-color-light, 0.75);
+    background-color: rgba($color-tertiary, 0.75);
     border-radius: 1em;
-    z-index: 100;
-
   }
 
   &::-webkit-scrollbar-track {
     background-color: transparent;
-    z-index: 100;
   }
 
 

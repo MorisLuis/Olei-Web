@@ -176,12 +176,13 @@
     }
 }
 
-.grid{
+.grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2em;
     background-color: $background-color;
     border-radius: 5px;
+
 
     @include respond(tab-port) {
         grid-template-columns: repeat(3, 1fr);
@@ -207,7 +208,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
 
-        p{
+        p {
             max-width: 140px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -225,6 +226,7 @@
         &.green {
             background-color: rgba($color-green, 0.2);
             color: $color-green;
+            border: 1px solid rgba($color: $color-green, $alpha: 0.2);
         }
 
         &.red {
@@ -233,20 +235,21 @@
         }
 
         &.blue {
-            background-color: rgba($color-blue, 0.2);
-            color: $color-blue;
+            background-color: #c6d1f6;
+            color: $color-tertiary;
+            border: 1px solid rgba($color: $color-tertiary, $alpha: 0.2);
         }
 
         &.gray {
             background-color: rgba($color-primary, 1);
             color: $color-gray;
             border: 1px solid rgba($color: $color-gray, $alpha: 0.2);
-
         }
 
         &.yellow {
             background-color: rgba($color-yellow, 0.2);
             color: $color-yellow;
+            border: 1px solid rgba($color: $color-yellow, $alpha: 0.2);
         }
 
         @include respond(tab-land) {

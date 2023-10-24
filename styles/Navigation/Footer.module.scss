@@ -7,6 +7,30 @@
     justify-content: flex-end;
     color: $text-color-light;
 
+    p{
+        z-index: 1;
+    }
+
+    .image{
+        height: 20px;
+        width: 90px;
+        z-index: 1;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            width: 90px;
+            object-fit: contain;
+            cursor: pointer;
+            &:hover{
+                opacity: 70%;
+            }
+        }
+
+    }
+
     @include respond(tab-port) {
         padding: 0em 4em;
     }

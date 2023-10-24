@@ -16,7 +16,6 @@ import { CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
 import HomeSearch from '@/components/HomeSearch';
 import Grid from '@/components/Ui/Tables/Grid';
-import Image from 'next/image';
 
 interface Props {
   productsProps: ProductInterface[]

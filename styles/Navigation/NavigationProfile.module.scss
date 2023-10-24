@@ -5,7 +5,6 @@
     height: 20%;
     position: relative;
     padding: 2em 16em 0em 16em;
-    cursor: pointer;
 
     @include respond(tab-land) {
         padding: 2em 8em 0em 8em;
@@ -27,6 +26,8 @@
             border-radius: 0.5em;
             font-size: 14px;
             color: $text-color-light;
+            cursor: pointer;
+
 
             &:not(:last-child){
                 padding-right: 1em;
