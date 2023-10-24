@@ -32,7 +32,7 @@ const Login = () => {
     return (
 
         <LayoutOnboarding>
-            <div className={`${styles.login} gradient-background display-flex column`}>
+            <div className={`${styles.login} display-flex column`}>
                 <div className={styles.header}>
                     <div className={styles.logo}>
                         <Image
@@ -84,8 +84,8 @@ const Login = () => {
                         <div className={styles.blur}></div>
                     </div>
                 </div>
-                <div className={styles.lineBlue}></div>
-                <div className={styles.lineYellow}></div>
+                {/* <div className={styles.lineBlue}></div>
+                <div className={styles.lineYellow}></div> */}
             </div>
         </LayoutOnboarding>
 

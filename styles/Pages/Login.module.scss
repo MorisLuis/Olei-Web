@@ -9,6 +9,7 @@
         height: 60px;
         width: 100%;
         padding: 0.75em 4em;
+        position: relative;
 
         h1 {
             opacity: 50%;
@@ -29,11 +30,13 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            max-width: 150px;
+            max-width: 125px;
+
+            position: relative;
 
             img {
-                object-fit: contain;
-                width: 100%;
+                object-fit: cover;
+                height: 100%;
             }
 
             &:hover {
@@ -47,6 +50,16 @@
 
         @include respond(phone) {
             padding: 0.75em 1.5em;
+        }
+
+        &::before {
+            content: "";
+            height: 1px;
+            width: 100%;
+            background: radial-gradient(circle, rgba($color-yellow, 100%) 0%, rgba($color-yellow, 100%) 0%, rgba(249, 249, 249, 1) 100%);
+            position: absolute;
+            bottom: 0px;
+            right: 0px
         }
     }
 
@@ -93,7 +106,7 @@
             }
         }
 
-        /* .blur {
+        .blur {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -105,7 +118,7 @@
             -webkit-filter: blur(7px);
             z-index: -1;
             border-radius: 1em;
-        } */
+        }
     }
 
     .lineBlue {

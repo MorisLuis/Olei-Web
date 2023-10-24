@@ -5,7 +5,6 @@ import styles from "../../styles/Navigation/Footer.module.scss";
 const Footer = () => {
     return (
         <div className={`${styles.footer} display-flex align`}>
-            <p>Desarrollado por : </p>
             <div className={styles.image}>
                 <Image
                     src={'/logo02.png'}

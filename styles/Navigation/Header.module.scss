@@ -145,6 +145,7 @@
                 overflow: hidden;
                 max-width: 125px;
                 opacity: 60%;
+                overflow: hidden;
 
                 @include respond(phone) {
                     display: none;

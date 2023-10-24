@@ -49,7 +49,7 @@ const OnboardingSearch = () => {
                     </div>
                 </div>
             </div>
-            <div className={styles.lineYellow}></div>
+            {/* <div className={styles.lineYellow}></div> */}
 
         </LayoutOnboarding>
     );

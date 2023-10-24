@@ -38,7 +38,7 @@ export const LayoutOnboarding = ({ children }: Props) => {
                 {children}
             </div>
 
-            {/* <Footer /> */}
+            <Footer />
 
             <ModalMenu
                 visible={openModalMenu}
@@ -49,7 +49,6 @@ export const LayoutOnboarding = ({ children }: Props) => {
                 visible={openModalCart}
                 onClose={() => setOpenModalCart(false)}
             />
-
 
             <Toaster />
         </>

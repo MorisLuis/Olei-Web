@@ -1,12 +1,12 @@
 .button {
     height: 36px;
-    background-color: #c6d1f6;
+    background-color: $color-tertiary;
     border: 1px solid transparent;
     border-radius: 0.5em;
     cursor: pointer;
     padding: 0em 1em;
     width: 100%;
-    color: $color-tertiary;
+    color: $text-color-secondary;
 
     svg {
         margin-right: 0.5em;

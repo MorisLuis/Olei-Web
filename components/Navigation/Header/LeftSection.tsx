@@ -19,9 +19,7 @@ export const LeftSection = ({ setModalClientsVisible }: any) => {
                 }
             }}>
                 <Image
-                    src={user?.TipoUsuario == '2' && client?.Id_Almacen && pathname !== '/onboarding/selectClient'
-                        ? '/logo02.png'
-                        : ''}
+                    src={'/logo02.png'}
                     alt="photo"
                     width={200}
                     height={200}
