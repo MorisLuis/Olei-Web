@@ -92,7 +92,7 @@ const ModalCart = ({
                                     numberOfItems === 1 ? `${numberOfItems} producto` : `${numberOfItems} productos`
                                 } ): {format(subTotal)}</h4>
                         }
-                        <button className={`${styles.seeCart} button white display-flex allCenter`} onClick={() => push("/cart")}>
+                        <button className={`${styles.seeCart} button display-flex allCenter`} onClick={() => push("/cart")}>
                             Ver carrito
                             <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
                         </button>

@@ -288,13 +288,12 @@
 }
 
 .productSquareCard{
-    min-width: 280px;
+    min-width: 180px;
 
     .content{
         .image{
-            background-color: #f1f1f1;
-            height: 300px;
-            border-radius: 5px;
+            background-color: $background-color-tertiary;
+            height: 240px;
             margin-bottom: 1em;
 
             display: flex;
@@ -302,10 +301,10 @@
             align-items: center;
 
             img{
-                border-radius: 5px;
                 height: fit-content;
-                max-height: 230px;
-                box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;            }
+                max-height: 180px;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;            
+            }
         }
 
         .info{
@@ -315,12 +314,19 @@
             .description{
                 display: flex;
                 justify-content: space-between;
-                //margin-bottom: 0.5em;
+                margin-bottom: 0.5em;
+                gap: 0.5em;
+
+            }
+
+            .data{
+                margin-bottom: 0.5em;
             }
 
             .counter{
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
                 
                 >div{
                     width: 50%;

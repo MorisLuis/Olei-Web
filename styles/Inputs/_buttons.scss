@@ -1,22 +1,16 @@
 .button {
     height: 36px;
-    background-color: $color-tertiary;
+    background-color: #c6d1f6;
     border: 1px solid transparent;
-    color: $text-color-secondary;
     border-radius: 0.5em;
     cursor: pointer;
     padding: 0em 1em;
     width: 100%;
-
-
+    color: $color-tertiary;
 
     svg {
         margin-right: 0.5em;
     }
-
-    /* &:hover {
-        opacity: 70%;
-    } */
 
     &.white {
         background-color: $color-primary;
@@ -42,19 +36,23 @@
             background-color: transparent;
         }
     }
+
+    &:hover{
+        opacity: 80%;
+    }
 }
 
 .button-small {
     height: 26px;
-    background-color: $color-cuaternary;
+    background-color: #c6d1f6;
     border: 1px solid transparent;
-    color: $text-color;
     border-radius: 0.5em;
     cursor: pointer;
     padding: 0em 1em;
     font-size: 12px;
     width: 100%;
     width: fit-content;
+    color: $color-tertiary;
 
     &.black {
         background-color: $color-tertiary;

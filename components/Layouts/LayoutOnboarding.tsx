@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 import ModalCart from '../Modals/ModalCart';
 import Footer from '../Navigation/Footer';
-import Header from '../Navigation/Header';
+import Header from '../Navigation/Header/Header';
 import ModalMenu from '../Modals/ModalMenu';
 import Image from 'next/image';
 

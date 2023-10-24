@@ -55,17 +55,11 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
             <div className={styles.content}>
                 <div className={styles.image}>
                     <img
-                        src={image[index] ? image[index] : "/logo01.png"}
+                        src={image[index] ? image[index] : "/logo02.png"}
                         alt="photo"
                         width={200}
                         height={200}
                     />
-                    {/* <Image
-                        src={image[index] ? image[index] : "/logo01.png"}
-                        alt="photo"
-                        width={200}
-                        height={200}
-                    /> */}
                 </div>
                 <div className={styles.info}>
                     <div className={styles.description}>
@@ -74,8 +68,12 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
                             {product.Familia}
                         </Tag>
                     </div>
-                    <p>Codigo: {product.Codigo}</p>
-                    <p>Marca: {product.Familia}</p>
+
+                    <div className={styles.data}>
+                        <p>Codigo: {product.Codigo}</p>
+                        <p>Marca: {product.Marca}</p>
+                    </div>
+
 
                     <div className={styles.counter}>
                         {

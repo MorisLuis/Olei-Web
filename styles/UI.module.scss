@@ -185,6 +185,7 @@
 
     @include respond(tab-port) {
         grid-template-columns: repeat(3, 1fr);
+        padding: 0em 20px;
     }
 
     @include respond(phone) {
@@ -197,9 +198,10 @@
     .content {
         padding: 0.25em 0.75em;
         width: fit-content;
-        border-radius: 5px;
+        border-radius: 3px;
         max-width: 120px;
         height: 100%;
+        min-height: 20px;
         font-size: $font-sm;
         max-height: 40px;
         overflow: hidden;
@@ -213,7 +215,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: normal;
-            margin-right: 0.5em;
+            //margin-right: 0.5em;
         }
 
         svg {
@@ -238,6 +240,8 @@
         &.gray {
             background-color: rgba($color-primary, 1);
             color: $color-gray;
+            border: 1px solid rgba($color: $color-gray, $alpha: 0.2);
+
         }
 
         &.yellow {
