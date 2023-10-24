@@ -5,7 +5,6 @@
     height: 100vh;
     position: relative;
 
-
     .header {
         height: 60px;
         width: 100%;
@@ -32,7 +31,7 @@
             overflow: hidden;
             max-width: 150px;
 
-            img{
+            img {
                 object-fit: contain;
                 width: 100%;
             }
@@ -54,11 +53,11 @@
     .content {
         width: 100%;
         height: 100%;
-        
+
         .form {
-            width: 27.5%;
-            height: 55%;
-            padding: 1em 2.5em;
+            width: 30%;
+            height: 65%;
+            padding: 1em 3.5em;
             box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
             position: relative;
             z-index: 9999;
@@ -91,10 +90,12 @@
             @include respond(phone) {
                 width: 90%;
                 height: 70%;
+                padding: 1em 1.5em;
+
             }
         }
 
-        .blur {
+        /* .blur {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -105,55 +106,36 @@
             background-position: center -100px;
             -webkit-filter: blur(7px);
             z-index: -1;
-            border-radius:  1em;
-        }
+            border-radius: 1em;
+        } */
     }
 
-    .background{
+    .lineBlue {
+        height: 20px;
+        width: 70%;
+        background-color: rgba($color: $color-tertiary, $alpha: 0.7);
         position: absolute;
-        height: 100vh;
-        width: 100vw;
-        bottom: 0px;
+        top: 10%;
+        left: 0px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
 
-        img{
-            width: 100vw;
+        @include respond(phone) {
+            height: 10px;
+            top: 15%;
+        }
+    }
+
+    .lineYellow {
+        height: 20px;
+        width: 70%;
+        background-color: rgba($color: $color-yellow, $alpha: 0.7);
+        position: absolute;
+        bottom: 5%;
+        right: 0px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+
+        @include respond(phone) {
+            height: 10px;
         }
     }
 }
-
-
-
-/* styles.module.css */
-/* .gradient-background {
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #ffbf00, #ff0084);
-    z-index: -1;
-    animation: gradientAnimation 10s linear infinite;
-}
-
-@keyframes gradientAnimation {
-    0% {
-        background: linear-gradient(45deg, #ffbf00, #ff0084);
-    }
-
-    25% {
-        background: linear-gradient(45deg, #ff0084, #00bfff);
-    }
-
-    50% {
-        background: linear-gradient(45deg, #00bfff, #228b22);
-    }
-
-    75% {
-        background: linear-gradient(45deg, #228b22, #ffbf00);
-    }
-
-    100% {
-        background: linear-gradient(45deg, #ffbf00, #ff0084);
-    }
-} */

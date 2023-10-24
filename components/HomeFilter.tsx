@@ -40,7 +40,6 @@ const HomeFilter = ({
         const setGrid = () => {
             setShowGrid(showGrid)
         }
-
         setGrid()
     }, [setShowGrid])
 
@@ -57,7 +56,6 @@ const HomeFilter = ({
                         name="view"
                         value={showGrid}
                         onChange={(value : boolean) => {
-                            console.log({value})
                             setShowGrid(value)
                         }}
                     />
@@ -103,7 +101,7 @@ const HomeFilter = ({
 
             {/* MOBIL VERSION */}
             {/* Search / Visible just in mobil version */}
-            <div className={styles.filtersMobil}>
+            {/* <div className={styles.filtersMobil}>
 
                 {
                     filtersValues.length < 0 ?
@@ -125,7 +123,7 @@ const HomeFilter = ({
             </div>
             {
                 filters?.nombre && <h2 className={styles.nameFilterMobil}>{filters?.nombre}</h2>
-            }
+            } */}
         </>
     )
         :

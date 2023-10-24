@@ -84,13 +84,8 @@ const Login = () => {
                         <div className={styles.blur}></div>
                     </div>
                 </div>
-                <Image
-                    src={"/lineas_oleionline01.svg" || ""}
-                    alt="photo"
-                    width={300}
-                    height={300}
-                    className={styles.background}
-                />
+                <div className={styles.lineBlue}></div>
+                <div className={styles.lineYellow}></div>
             </div>
         </LayoutOnboarding>
 

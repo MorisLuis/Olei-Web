@@ -49,9 +49,7 @@ const OnboardingSearch = () => {
                         />
                     </div>
                 </div>
-
                 </div>
-
             </div>
         </LayoutOnboarding>
     );

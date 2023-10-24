@@ -199,15 +199,11 @@ export default function Home({ productsProps }: Props) {
                 />
             }
           </main>
-
-          <Image
-            src={"/lineas_oleionline01.svg" || ""}
-            alt="photo"
-            width={300}
-            height={300}
-            className={styles.background}
-          />
         </div>
+
+        <div className={styles.lineBlue}></div>
+        <div className={styles.lineYellow}></div>
+
       </Layout>
 
       <ModalRequest

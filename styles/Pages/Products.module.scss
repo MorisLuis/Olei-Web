@@ -26,19 +26,14 @@
         height: 30px;
 
         @include respond(phone) {
-            display: none;
-            margin: 0px;
+            padding: 0em 1em;
         }
 
         span {
             margin-left: 1em;
         }
 
-        .view{
-
-        }
-
-        .filters{
+        .filters {
             display: flex;
             height: 100%;
 
@@ -46,16 +41,19 @@
                 display: flex;
                 position: relative;
                 border-radius: 5px;
-                height:fit-content;
 
                 @include respond(phone) {
-                    display: none;
+                    width: 30px;
+                    height: 30px;
                 }
 
                 button {
-                    height: 30px;
                     background-color: $color-primary;
                     border: 1px solid $color-border;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     @include respond(phone) {
                         border-radius: 100%;
@@ -64,23 +62,24 @@
                     }
                 }
 
-                &.active{
-                    button{
+                &.active {
+                    button {
                         border: 1px solid black;
                     }
                 }
-    
+
                 p {
                     @include respond(phone) {
                         display: none;
                     }
                 }
-    
+
                 svg {
                     @include respond(phone) {
                         margin: 0px;
                     }
                 }
+
                 .filtersCount {
                     background-color: black;
                     color: $text-color-secondary;
@@ -90,7 +89,7 @@
                     border-radius: 1em;
                     transform: translate(50%, -50%);
                     border: 1px solid $color-border;
-    
+
                     p {
                         width: 16px;
                         height: 16px;
@@ -98,15 +97,15 @@
                     }
                 }
             }
-    
+
             .filtersTag {
                 display: flex;
-    
+
                 div {
                     height: 100%;
                     margin-right: 0.5em;
                 }
-    
+
                 @include respond(phone) {
                     display: none;
                 }
@@ -202,20 +201,23 @@
         margin-bottom: 1em;
         position: relative;
         z-index: 999;
-        transition: width 0.6s ease-in-out; 
+        transition: width 0.6s ease-in-out;
 
-    
+
         @include respond(tab-port) {
             min-width: 60%;
         }
 
         @include respond(phone) {
             min-width: 100%;
+            margin-top: 1em;
+            padding: 0em 1em;
         }
 
         &.active {
             width: 50%;
-            animation: appear-Left-to-Right 0.1s ease-in-out; /* Usar animation para controlar el tiempo exacto */
+            animation: appear-Left-to-Right 0.1s ease-in-out;
+            /* Usar animation para controlar el tiempo exacto */
         }
 
         .inputSearch {
@@ -231,7 +233,7 @@
                 padding: 0em 3.5em;
             }
 
-            &:hover{
+            &:hover {
                 opacity: 70%;
             }
         }
@@ -242,9 +244,13 @@
             left: 0px;
             transform: translate(100%, 0%);
             height: 100%;
+
+            @include respond(phone) {
+                left: 15px;
+            }
         }
 
-        .resultsSearch{
+        .resultsSearch {
             background-color: $background-color;
             border: 1px solid $color-border;
             border-radius: 5px;
@@ -254,14 +260,22 @@
             top: 110%;
             width: 100%;
 
-            .filtersSearch{
+            @include respond(phone) {
+                width: 90%;
+                position: fixed;
+                transform: translateX(-50%);
+                left: 50%;
+                top: 22%;
+            }
+
+            .filtersSearch {
                 background-color: $background-color-secondary;
                 border: 1px solid $color-border;
                 border-radius: 5px;
                 padding: 0.5em;
                 margin-bottom: 0.5em;
 
-                div:not(:first-child){
+                div:not(:first-child) {
                     margin-left: 0.75em;
                 }
             }
@@ -281,14 +295,14 @@
         z-index: 99;
     }
 
-    .background{
+    .background {
         position: fixed;
         height: 100vh;
         width: 120vw;
         bottom: 0%;
         z-index: -1;
 
-        img{
+        img {
             width: 120vw;
         }
     }
@@ -298,6 +312,28 @@
     }
 
     @include respond(phone) {
-        padding: 0em;
+        padding: 0.5em;
     }
+}
+
+.lineBlue {
+    height: 20px;
+    width: 70%;
+    background-color: rgba($color: $color-tertiary, $alpha: 0.7);
+    position: absolute;
+    top: 40%;
+    left: 0px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    z-index: 0;
+}
+
+.lineYellow {
+    height: 20px;
+    width: 70%;
+    background-color: rgba($color: $color-yellow, $alpha: 0.7);
+    position: absolute;
+    bottom: 10%;
+    right: 0px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    z-index: 0;
 }

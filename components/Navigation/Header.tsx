@@ -12,7 +12,7 @@ import Image from 'next/image';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
-    setOpenModalMenu?: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenModalMenu?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header = ({
@@ -169,9 +169,10 @@ const Header = ({
                                 <div className={`${styles.circular} display-flex allCenter`}>{client.Nombre.slice(0, 1)}</div>
                                 <p className={`${styles.name} display-flex align`}>{client.Nombre}</p>
                                 <p className={styles.description}>Cliente</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 icon" style={{ marginLeft: "1em" }}>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18" />
                                 </svg>
+
                             </div>
                         }
                     </div>
@@ -181,34 +182,15 @@ const Header = ({
                             <></>
                             :
                             <div className={`${styles.right} display-flex`}>
-                                {/* <div className={`${styles.orders} display-flex align cursor`} onClick={() => push("/profile/request")}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="black" className="w-6 h-6 icon">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                                    </svg>
-                                    <p>Pedidos</p>
-                                </div> */}
-
                                 <div className={`${styles.profile} display-flex allCenter`} onClick={() => setOpenModalMenu?.(true)}>
                                     <div className={styles.info}>
                                         <p>{user?.Nombre}</p>
                                     </div>
-                                    <div className={`${styles.icon} display-flex allCenter`} >
-                                        <p>{user?.Nombre?.slice(0, 1)}</p>
-                                    </div>
-
-                                    {/* {
-                                        profileOpen &&
-                                        <div className={styles.profileBox}>
-                                            <div className={styles.link} onClick={() => push("/profile")}>Perfil</div>
-
-                                            <div
-                                                className={`${styles.link} ${styles.logout}`}
-                                                onClick={onLogOut}
-                                            >
-                                                Cerrar Sesión
-                                            </div>
+                                    <div className={`${styles.circle} display-flex allCenter`} >
+                                        <div className={styles.content}>
+                                            <p>{user?.Nombre?.slice(0, 1)}</p> 
                                         </div>
-                                    } */}
+                                    </div>
                                 </div>
 
                                 {

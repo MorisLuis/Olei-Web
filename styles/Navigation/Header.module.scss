@@ -11,26 +11,26 @@
         background-color: $color-tertiary;
         color: $background-color;
 
-        &.left{
+        &.left {
 
-            &.client{
-                &.description{
+            &.client {
+                &.description {
                     background-color: $color-tertiary;
                 }
             }
         }
 
-        .right{
-            .orders{
-                svg{
+        .right {
+            .orders {
+                svg {
                     fill: $background-color;
                 }
             }
 
-            .profile{
+            .profile {
                 background-color: $color-tertiary;
 
-                .profileBox{
+                .profileBox {
                     background-color: $color-tertiary;
                 }
             }
@@ -70,6 +70,10 @@
 
                 span {
                     padding: 0em 0.5em;
+
+                    @include respond(phone) {
+                        display: none;
+                    }
                 }
 
                 .circular {
@@ -90,6 +94,10 @@
                     text-overflow: ellipsis;
                     white-space: normal;
                     margin-right: 0.5em;
+
+                    @include respond(phone) {
+                        font-size: $font-sm;
+                    }
                 }
 
                 .description {
@@ -97,6 +105,10 @@
                     padding: 0.25em 0.5em;
                     font-size: $font-sm;
                     border-radius: 10em;
+
+                    @include respond(phone) {
+                        display: none;
+                    }
                 }
 
                 &:hover {
@@ -116,7 +128,11 @@
                 max-width: 150px;
                 opacity: 60%;
 
-                img{
+                @include respond(phone) {
+                    display: none;
+                }
+
+                img {
                     object-fit: contain;
                     width: 100%;
                 }
@@ -134,6 +150,10 @@
         }
 
         .right {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+
             .orders {
                 height: 100%;
                 opacity: 100%;
@@ -155,10 +175,9 @@
             }
 
             .profile {
-                padding: 0em 1em;
+                padding: 0em;
                 position: relative;
                 background-color: transparent;
-                border: 1px solid $color-yellow;
                 border-radius: 5px;
                 cursor: pointer;
                 opacity: 60%;
@@ -168,6 +187,8 @@
                 }
 
                 .info {
+                    padding-right: 1em;
+
                     p {
                         display: -webkit-box;
                         -webkit-line-clamp: 1;
@@ -176,25 +197,36 @@
                         text-overflow: ellipsis;
                         white-space: normal;
                         color: $text-color-light;
-                        width: 60px;
                     }
 
                     @include respond(phone) {
                         display: none;
                     }
-
                 }
 
-                .icon {
-                    background-color: $color-yellow;
-                    min-width: 24px;
-                    height: 24px;
+                .circle {
+                    background-color: $color-tertiary;
+                    padding: 0.1em;
                     border-radius: 100%;
 
-                    p {
-                        color: $text-color-secondary;
-                        font-size: 16px;
+                    .content {
+                        background-color: $background-color;
+                        padding: 0.05em;
+                        border-radius: 100%;
+
+                        p {
+                            color: $text-color-secondary;
+                            font-size: 16px;
+                            background-color: $color-tertiary;
+                            min-width: 20px;
+                            height: 20px;
+                            border-radius: 100%;
+                            display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        }
                     }
+
                 }
 
                 .profileBox {
