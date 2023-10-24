@@ -36,7 +36,7 @@ const Login = () => {
                 <div className={styles.header}>
                     <div className={styles.logo}>
                         <Image
-                            src={"/logo02.png" || ""}
+                            src={"/logo01.png" || ""}
                             alt="photo"
                             width={200}
                             height={200}
