@@ -33,7 +33,7 @@ const Login = () => {
 
         <LayoutOnboarding>
             <div className={`${styles.login}`}>
-                <div className={styles.header}>
+                {/* <div className={styles.header}>
                     <div className={styles.logo}>
                         <Image
                             src={"/logoCircle.svg" || ""}
@@ -42,14 +42,14 @@ const Login = () => {
                             height={200}
                         />
                     </div>
-                </div>
-                <div className={`${styles.content} display-flex allCenter`}>
-                    {/*  <Image
-                        src={"/logoCircle.svg" || ""}
+                </div> */}
+                <div className={`${styles.content} display-flex column allCenter`}>
+                    <Image
+                        src={"/logo01.png" || ""}
                         alt="photo"
                         width={200}
                         height={200}
-                    /> */}
+                    />
                     <div className={`${styles.form} display-flex column justify`}>
 
                         <div className={`${styles.iconLogin} mb-small display-flex allCenter`}>
