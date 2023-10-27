@@ -32,11 +32,11 @@ const Login = () => {
     return (
 
         <LayoutOnboarding>
-            <div className={`${styles.login} display-flex column`}>
+            <div className={`${styles.login}`}>
                 <div className={styles.header}>
                     <div className={styles.logo}>
                         <Image
-                            src={"/logo01.png" || ""}
+                            src={"/logoCircle.svg" || ""}
                             alt="photo"
                             width={200}
                             height={200}
@@ -44,6 +44,12 @@ const Login = () => {
                     </div>
                 </div>
                 <div className={`${styles.content} display-flex allCenter`}>
+                    {/*  <Image
+                        src={"/logoCircle.svg" || ""}
+                        alt="photo"
+                        width={200}
+                        height={200}
+                    /> */}
                     <div className={`${styles.form} display-flex column justify`}>
 
                         <div className={`${styles.iconLogin} mb-small display-flex allCenter`}>
