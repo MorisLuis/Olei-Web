@@ -202,9 +202,7 @@ const Cart = () => {
                         </>
                     }
 
-
-
-                    <div className='divider'></div>
+                    {/* <div className='divider'></div> */}
 
                     <div className={`${styles.cost} display-flex column`}>
                         {

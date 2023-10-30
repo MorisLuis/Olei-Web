@@ -49,7 +49,7 @@
             padding: 0em;
         }
 
-        ::before {
+        /* ::before {
             content: "";
             height: 1px;
             width: 100%;
@@ -57,7 +57,7 @@
             position: absolute;
             bottom: 0px;
             right: 0px
-        }
+        } */
     }
 
     .content {
@@ -99,22 +99,23 @@
         }
 
         .table {
-            padding-bottom: 1em;
+            padding-bottom: 3em;
         }
 
         .request {
             background-color: $background-color;
             box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-            border-radius: 5px;
+            border-radius: 1em;
             border: 1px solid $color-border;
+            margin-bottom: 2em;
 
             .content {
                 padding: 1em;
             }
 
-            &:hover{
+            /* &:hover{
                 border: 1px solid  rgba($color: $color-border-tertiary, $alpha: 0.5);
-            }
+            } */
 
         }
 
@@ -128,7 +129,6 @@
                 }
             }
         }
-
     }
 
     .footer {
@@ -167,7 +167,7 @@
                 position: absolute;
                 top: 0px;
                 left: 0px;
-                background: radial-gradient(circle, rgba(101, 116, 130, 0.5) 0%, rgba(101, 116, 130, 0.5) 35%, rgba(249, 249, 249, 1) 100%);
+                background: radial-gradient(circle, rgba($color-yellow, 100%) 0%, rgba($color-yellow, 100%) 0%, rgba(249, 249, 249, 1) 100%);
             }
 
             @include respond(tab-land) {
