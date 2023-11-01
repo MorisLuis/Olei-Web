@@ -8,7 +8,7 @@ const GridSkeleton = () => {
                 <div className={styles.content}>
                     {
                         Array.from({ length: 20 }, (_, i) =>
-                            <div className={styles.productSkeleton} key={i}>
+                            <div className={styles.productWithImageSkeleton} key={i}>
                                 <div className={styles.image}>
                                 </div>
                                 <div className={styles.info}>

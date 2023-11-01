@@ -44,7 +44,7 @@ const HomeFilter = ({
     }, [setShowGrid])
 
 
-    return visible ? (
+    return visible ? 
         <>
             {/* DESKTOP VERSION */}
             <div className={`${styles.header} display-flex`}>
@@ -98,7 +98,6 @@ const HomeFilter = ({
                 </div>
             </div>
         </>
-    )
         :
         <HomeFiltersSkeleton />
 

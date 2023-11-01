@@ -188,7 +188,6 @@ export default function Home({ productsProps }: Props) {
             showGrid={showGrid}
           />
 
-
           {transitions((style, item) =>
             item ? (
               <main className={styles.main}>
