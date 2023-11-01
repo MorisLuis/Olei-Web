@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Home.module.scss";
 
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { api } from '@/api/api';
 import ClientInterface from '@/interfaces/client';
 import { ClientContext } from '@/context';
+import PageTransition from '@/components/PageTranstion';
 
 const OnboardingSearch = () => {
 
@@ -28,30 +29,40 @@ const OnboardingSearch = () => {
         push(`/products`)
     }
 
-    return (
-        <LayoutOnboarding>
-            <div className={`${styles.home} gradient-background display-flex column`}>
-                <div className={styles.content}>
-                    <div className={styles.onboardingBox}>
-                        <div className={styles.header}>
-                            <h1 className={styles.title}>Selecciona el cliente</h1>
-                            <p className={styles.text}>Este sera el cliente al que le crearas la orden, podras modificarlo despues.</p>
-                        </div>
 
-                        <div className={styles.search}>
-                            <SearchOnboarding
-                                onSubmit={(client) => handleContinue(client as ClientInterface)}
-                                searchResults={searchResults}
-                                setSearchResults={setSearchResults}
-                                handleSearchTerm={handleSearchTerm}
-                            />
+    const [isEntering, setIsEntering] = useState(true);
+
+    useEffect(() => {
+        setIsEntering(false);
+    }, []);
+
+    return (
+        <PageTransition key="login-transition" isEntering={isEntering === false}>
+            <LayoutOnboarding>
+                <div className={`${styles.home} gradient-background display-flex column`}>
+                    <div className={styles.content}>
+                        <div className={styles.onboardingBox}>
+                            <div className={styles.header}>
+                                <h1 className={styles.title}>Selecciona el cliente</h1>
+                                <p className={styles.text}>Este sera el cliente al que le crearas la orden, podras modificarlo despues.</p>
+                            </div>
+
+                            <div className={styles.search}>
+                                <SearchOnboarding
+                                    onSubmit={(client) => handleContinue(client as ClientInterface)}
+                                    searchResults={searchResults}
+                                    setSearchResults={setSearchResults}
+                                    handleSearchTerm={handleSearchTerm}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {/* <div className={styles.lineYellow}></div> */}
+                {/* <div className={styles.lineYellow}></div> */}
 
-        </LayoutOnboarding>
+            </LayoutOnboarding>
+        </PageTransition>
+
     );
 }
 

@@ -12,7 +12,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <CartProvider>
           <ClientProvider>
             <FiltersProvider>
-              <NextNProgress color="#068FFF" height={4} />
               <Component {...pageProps} />
             </FiltersProvider>
           </ClientProvider>
