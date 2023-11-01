@@ -26,7 +26,7 @@ const HomeFilter = ({
     handleCleanAllFilters,
 }: Props) => {
 
-    const { filtersValues, filters } = useContext(FiltersContext);
+    const { filtersValues } = useContext(FiltersContext);
 
     const [visible, setVisible] = useState(false)
 
@@ -47,7 +47,6 @@ const HomeFilter = ({
     return visible ? (
         <>
             {/* DESKTOP VERSION */}
-
             <div className={`${styles.header} display-flex`}>
 
                 <div className={styles.view}>
@@ -55,7 +54,7 @@ const HomeFilter = ({
                         label='Vista :'
                         name="view"
                         value={showGrid}
-                        onChange={(value : boolean) => {
+                        onChange={(value: boolean) => {
                             setShowGrid(value)
                         }}
                     />
@@ -98,32 +97,6 @@ const HomeFilter = ({
                     }
                 </div>
             </div>
-
-            {/* MOBIL VERSION */}
-            {/* Search / Visible just in mobil version */}
-            {/* <div className={styles.filtersMobil}>
-
-                {
-                    filtersValues.length < 0 ?
-                        <div className={styles.buttonFilter}>
-                            <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                                <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                            </button>
-                        </div>
-                        :
-                        <div className={styles.buttonFilter}>
-                            <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                                <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                            </button>
-                            <div className={`${styles.filtersCount}`}>
-                                <p className={`display-flex allCenter`}>{filtersValues.length}</p>
-                            </div>
-                        </div>
-                }
-            </div>
-            {
-                filters?.nombre && <h2 className={styles.nameFilterMobil}>{filters?.nombre}</h2>
-            } */}
         </>
     )
         :

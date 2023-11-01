@@ -16,20 +16,127 @@
     padding: 1em;
 }
 
-.homeFiltersSkeleton {
+.gridSkeleton {
+    width: 100%;
+    height: 100%;
 
-    h1 {
-        width: 900px;
-        margin-bottom: 0.5em;
+    .content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2em;
+        background-color: $background-color;
+        border-radius: 5px;
     }
+}
 
-    .buttonFilter {
-        display: flex;
+.productSkeleton {
+    .image {
+        background-color: $color-border;
+        animation: loading 1s infinite;
+        border-radius: 3px;
+        min-width: 180px;
+        height: 240px;
         position: relative;
-        margin-right: 1em;
         margin-bottom: 1em;
-        width: 80px;
     }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+
+        .description {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5em;
+            height: 22px;
+            width: 100%;
+            gap: 0.5em;
+
+            .first {
+                height: 22px;
+                width: 70%;
+                margin-bottom: 0.5em;
+                background-color: $color-border;
+                animation: loading 1s infinite;
+                border-radius: 3px;
+            }
+
+            .second {
+                height: 22px;
+                width: 25%;
+                background-color: $color-border;
+                animation: loading 1s infinite;
+                border-radius: 3px;
+                margin-bottom: 1em;
+            }
+        }
+
+        .first {
+            height: 12px;
+            width: 60%;
+            margin-bottom: 0.5em;
+            background-color: $color-border;
+            animation: loading 1s infinite;
+            border-radius: 3px;
+        }
+
+        .second {
+            height: 12px;
+            width: 50%;
+            background-color: $color-border;
+            animation: loading 1s infinite;
+            border-radius: 3px;
+            margin-bottom: 1em;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1em;
+
+            .price {
+                height: 16px;
+                width: 50%;
+                background-color: $color-border;
+                animation: loading 1s infinite;
+                border-radius: 3px;
+            }
+
+            .counterNumber {
+                height: 16px;
+                width: 50%;
+                background-color: $color-border;
+                animation: loading 1s infinite;
+                border-radius: 3px;
+            }
+        }
+    }
+}
+
+.homeFiltersSkeleton {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    
+    .left {
+        width: 100px;
+        height: 28px;
+        border-radius: 3px;
+        margin-bottom: 0.75em;
+        background-color: $color-border;
+        animation: loading 1s infinite;
+    }
+
+    .right {
+        width: 100px;
+        height: 28px;
+        border-radius: 3px;
+        margin-bottom: 0.75em;
+        background-color: $color-border;
+        animation: loading 1s infinite;
+    }
+
 }
 
 @keyframes loading {

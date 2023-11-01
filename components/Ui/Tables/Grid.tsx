@@ -4,9 +4,9 @@ import styles from "../../../styles/UI.module.scss";
 import { ProductSquareCard } from '@/components/Cards/ProductSquareCard';
 import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
-import TableSkeleton from '@/components/Skeletons/TableSkeleton';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
+import GridSkeleton from '@/components/Skeletons/GridSkeleton';
 
 interface Props {
     data: ProductInterface[],
@@ -54,7 +54,7 @@ const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
         <>
             {
                 loadingData ?
-                    <TableSkeleton />
+                    <GridSkeleton />
                     :
                     !loadingData && productsWithCartInfo.length === 0 ?
                         <MessageCard title='No hay coincidencias exactas'>

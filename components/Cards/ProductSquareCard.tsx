@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
 
 import ProductInterface from '@/interfaces/product';
-import Image from 'next/image';
 import { Tag } from '../Ui/Tag';
 import Counter from '../Ui/Counter';
 import { CartContext } from '@/context';

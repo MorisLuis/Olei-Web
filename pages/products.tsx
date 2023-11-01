@@ -199,10 +199,6 @@ export default function Home({ productsProps }: Props) {
             }
           </main>
         </div>
-
-        {/* <div className={styles.lineBlue}></div>
-        <div className={styles.lineYellow}></div> */}
-
       </Layout>
 
       <ModalRequest

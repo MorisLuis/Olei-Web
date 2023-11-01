@@ -10,18 +10,12 @@ interface PageTransitionProps {
 const PageTransition: FC<PageTransitionProps> = ({ children, isEntering }) => {
 
 
-    /* const transitions = useTransition(isEntering, {
-        from: { opacity: 0 },
-        enter: { opacity: 1 },
-        leave: { opacity: 0 },
-    }); */
-
     const transitions = useTransition(isEntering, {
         from: { opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0 },
         config: { duration: 500 },
-      });
+    });
 
     return (
         <>
