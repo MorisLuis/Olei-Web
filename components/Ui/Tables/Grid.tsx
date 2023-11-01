@@ -17,7 +17,7 @@ interface Props {
 
 const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
-    const { cart, cartPending} = useContext(CartContext)
+    const { cart, cartPending } = useContext(CartContext)
     const [productsToDisplay, setProductsToDisplay] = useState<ProductInterface[]>([])
 
     useEffect(() => {
@@ -63,30 +63,35 @@ const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                         :
                         <>
                             <div className={styles.grid}>
-                                {
-                                    productsWithCartInfo?.map((product: ProductInterface, index: number) => {
-                                        return (
-                                            <ProductSquareCard
-                                                product={product}
-                                                key={product.Codigo && (product.Codigo + product.Id_Marca)}
-                                                image={images}
-                                                index={index}
-                                            />
-                                        )
-                                    })
-                                }
-                            </div>
+
+                                <div className={styles.contentGrid}>
+                                    {
+                                        productsWithCartInfo?.map((product: ProductInterface, index: number) => {
+                                            return (
+                                                <ProductSquareCard
+                                                    product={product}
+                                                    key={product.Codigo && (product.Codigo + product.Id_Marca)}
+                                                    image={images}
+                                                    index={index}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </div>
                                 {
                                     (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
-                                    <ButtonAnimated
-                                        onclick={loadMoreProducts}
-                                        disabled={isLoading}
-                                    />
+                                    <div className={styles.loadMore}>
+                                        <ButtonAnimated
+                                            onclick={loadMoreProducts}
+                                            disabled={isLoading}
+                                        />
+                                    </div>
                                 }
-                                {
-                                    !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
-                                    <p style={{ textAlign: "center", paddingTop: "1em", color: "gray" }}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
-                                }
+                            </div>
+                            {
+                                !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
+                                <p style={{ textAlign: "center", paddingTop: "1em", color: "gray" }}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
+                            }
                         </>
             }
         </>

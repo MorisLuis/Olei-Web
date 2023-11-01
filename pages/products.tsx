@@ -171,6 +171,7 @@ export default function Home({ productsProps }: Props) {
     config: { duration: 500 },
   });
 
+
   return (
     <>
       <Layout>
@@ -213,7 +214,6 @@ export default function Home({ productsProps }: Props) {
               </main>
             )
           )}
-
         </div>
       </Layout>
 
