@@ -5,7 +5,9 @@ import { AuthContext, ClientContext } from '@/context';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-export const LeftSection = ({ setModalClientsVisible }: any) => {
+export const LeftSection = ({
+    setModalClientsVisible
+}: any) => {
 
     const { push, pathname } = useRouter()
     const { user } = useContext(AuthContext);

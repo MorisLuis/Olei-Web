@@ -10,6 +10,8 @@ import QueryParams from '@/utils/queryParams';
 import ClientInterface from '@/interfaces/client';
 import { LeftSection } from './LeftSection';
 import { RightSection } from './RightSection';
+import { ModalMessage } from '@/components/Modals/ModalMessage';
+import { capitalizarTexto } from '@/utils/textCapitalize';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,110 +23,26 @@ const Header = ({
     setOpenModalMenu
 }: Props) => {
 
-    const { push } = useRouter()
     const { selectClient, setClientChanged } = useContext(ClientContext);
-    const { addFilters, filters, filtersValues, removeFilters, removeAllFilters } = useContext(FiltersContext);
 
-    const [modalSearchVisible, setModalSearchVisible] = useState(false);
     const [modalClientsVisible, setModalClientsVisible] = useState(false)
-
-    // Search
-
-    const handleRemoveAllFilters = () => {
-        removeAllFilters()
-        push("/products")
-    }
-
-    const handleCloseTag = (filter: string[]) => {
-
-        removeFilters({
-            [filter[0]]: filter[1]
-        })
-
-        const queryParams = {
-            nombre: filter[0] === "nombre" ? null : filters.nombre,
-            marca: filter[0] === "marca" ? null : filters.marca,
-            familia: filter[0] === "familia" ? null : filters.familia,
-            folio: filter[0] === "folio" ? null : filters.folio,
-            enStock: filter[0] === "enStock" ? null : filters.enStock,
-        }
-
-        const handleQueryParams = QueryParams();
-        let url = handleQueryParams({ queryParams });
-        push(url)
-    }
-
-    const onSelectProduct = (producto: any) => {
-        const newFilters: Partial<FiltersInterface> = {
-            ...filters,
-            nombre: producto,
-        };
-        addFilters(newFilters)
-
-        const queryParams = {
-            nombre: producto,
-            marca: filters.marca,
-            familia: filters.familia,
-            folio: filters.folio,
-            enStock: filters.enStock,
-        };
-
-        const handleQueryParams = QueryParams();
-        let url = handleQueryParams({ queryParams });
-        push(url)
-    }
-
-    const onInputProductChange = async (term: string) => {
-
-        const queryParams = {
-            nombre: term,
-            marca: filters.marca,
-            familia: filters.familia,
-            folio: filters.folio,
-            enStock: filters.enStock,
-        };
-
-        let url = "/api/search"
-        const handleQueryParams = QueryParams();
-        let newUrl = handleQueryParams({ queryParams, url });
-
-        try {
-            const { data: { products } } = await api.get(`${newUrl}`);
-            return { products };
-        } catch (error) {
-            console.log({ error })
-            return { products: [] };
-        }
-    }
-
-    const onProductKeyDown = (inputValue: string) => {
-        const newFilters: Partial<FiltersInterface> = {
-            ...filters,
-            nombre: inputValue,
-        };
-        addFilters(newFilters)
-
-        const queryParams = {
-            nombre: inputValue,
-            marca: filters.marca,
-            familia: filters.familia,
-            folio: filters.folio,
-            enStock: filters.enStock,
-        };
-
-        const handleQueryParams = QueryParams();
-        let url = handleQueryParams({ queryParams });
-        push(url)
-    }
+    const [openModalMessage, setOpenModalMessage] = useState(false)
+    const [selectedClient, setSelectedClient] = useState<ClientInterface | undefined>()
 
 
     // Clients
     const onSelectClient = (product: any) => {
+        setSelectedClient(product);
+        setOpenModalMessage(true);
+    }
+
+    const onAcceptClientSelected = () => {
         setClientChanged(true)
-        selectClient(product as ClientInterface)
+        selectClient(selectedClient as ClientInterface)
         setTimeout(() => {
             setClientChanged(false)
-        }, 300)
+        }, 300) 
+        setOpenModalMessage(false);
     }
 
     const onInputClientChange = async (term: string) => {
@@ -139,6 +57,7 @@ const Header = ({
 
     const onClientKeyDown = (inputValue: string) => {
     }
+
 
 
     return (
@@ -156,23 +75,26 @@ const Header = ({
             </div>
 
             <ModalSearch
-                visible={modalSearchVisible}
-                onClose={() => setModalSearchVisible(false)}
-                onSelectItem={onSelectProduct}
-                onInputChange={onInputProductChange}
-                onKeyDown={onProductKeyDown}
-                handleRemoveAllFilters={handleRemoveAllFilters}
-                handleCloseTag={handleCloseTag}
-                filtersValues={filtersValues}
-            />
-
-            <ModalSearch
                 visible={modalClientsVisible}
                 onClose={() => setModalClientsVisible(false)}
                 onSelectItem={onSelectClient}
                 onInputChange={onInputClientChange}
                 onKeyDown={onClientKeyDown}
             />
+
+            <ModalMessage
+                visible={openModalMessage}
+                onClose={() => {
+                    setOpenModalMessage(false);
+                    setSelectedClient(undefined);
+                }}
+                onAccept={onAcceptClientSelected}
+                title={`Seleccionar a ${capitalizarTexto(selectedClient?.Nombre as string)} como cliente.`}
+            >
+                <p>
+                    Si aceptas podran volverlo a seleccionar después.
+                </p>
+            </ModalMessage>
         </>
     )
 }
