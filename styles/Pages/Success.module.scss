@@ -2,6 +2,7 @@
 
 .success{
     padding: 8em 16em;
+    height: 85vh;
 
     @include respond(tab-land) {
         padding: 8em;
@@ -14,7 +15,7 @@
 
     h1{
         font-size: 80px;
-        color: $color-blue;
+        color: $color-tertiary;
         width: 80%;
         line-height: 80px;
         padding-bottom: 1rem;

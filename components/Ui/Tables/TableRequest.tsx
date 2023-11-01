@@ -8,6 +8,7 @@ import { format } from '@/utils/currency';
 import OrderInterface from '@/interfaces/order';
 import { Tag } from '../Tag';
 import Action from '../Action';
+import { dateFormat } from '@/utils/dateFormat';
 
 interface Props {
     order: OrderInterface[],
@@ -24,16 +25,21 @@ const TableRequest = ({ order, handleSelectOrder, receiptPending }: Props) => {
                         <div key={index} className={`${styles.requestCart} display-flex align space-between cursor`} onClick={() => handleSelectOrder?.(item.Folio as string)}>
                             <div className={`${styles.info}`}>
                                 <div className={`${styles.header}`}>
-                                    <p><span>Fecha:</span> {item?.Fecha}</p>
+                                    <p><span>Fecha:</span> {dateFormat(item?.Fecha as string)}</p>
                                 </div>
-                                <div className={styles.data}>
+                                <div className={`${styles.data}`}>
                                     <div className={`display-flex align mb-small`}>
                                         <FontAwesomeIcon icon={faMoneyBill1} className={`icon__small cursor display-flex align m-right`} />
                                         <p><span>Total:</span> {item?.Total && format(item?.Total)}</p>
                                     </div>
-                                    <Tag>
-                                        {item?.Piezas} Productos
-                                    </Tag>
+                                    <div className={`${styles.tags} display-flex`}>
+                                        <Tag color='gray'>
+                                            Estatus: En revision
+                                        </Tag>
+                                        <Tag color='blue'>
+                                            {item?.Piezas} Productos
+                                        </Tag>
+                                    </div>
                                 </div>
                             </div>
 

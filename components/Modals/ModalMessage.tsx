@@ -27,7 +27,9 @@ export const ModalMessage = ({
             <div className={styles.modalMessage}>
                 <div className={styles.content}>
                     <h2>{title}</h2>
-                    {children}
+                    <p>
+                        {children}
+                    </p>
                 </div>
                 <div className={`${styles.footer} display-flex space-between`}>
                     <button className='button-small white' onClick={onClose}>Cerrar</button><br/>

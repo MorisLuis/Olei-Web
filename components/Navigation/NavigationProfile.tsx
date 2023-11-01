@@ -15,14 +15,9 @@ const Menu = [
         key: 2
     },
     {
-        name: "Pedidos Pendientes",
-        pathname: "/profile/pendingrequest",
-        key: 3
-    },
-    {
         name: "Pedidos Anteriores",
         pathname: "/profile/pastrequest",
-        key: 4
+        key: 3
     }
 ]
 

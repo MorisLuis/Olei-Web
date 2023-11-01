@@ -2,6 +2,12 @@
 
 .products {
     padding: 2em 10em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
 
     .nameFilter {
         padding-bottom: 1em;
@@ -12,80 +18,96 @@
         }
     }
 
-    .filters {
+    .header {
         margin-bottom: 1em;
         position: relative;
-
-        @include respond(phone) {
-            display: none;
-            margin: 0px;
-        }
+        width: 100%;
+        justify-content: space-between;
+        height: 30px;
 
         span {
             margin-left: 1em;
         }
 
-        .buttonFilter {
+        .filters {
             display: flex;
-            position: relative;
-            margin-right: 1em;
+            height: 100%;
 
-            @include respond(phone) {
-                display: none;
-            }
-
-            button {
-                border: 1px solid black;
+            .buttonFilter {
+                display: flex;
+                position: relative;
+                border-radius: 5px;
 
                 @include respond(phone) {
-                    border-radius: 100%;
-                    width: 100%;
-                    height: 100%;
+                    width: 30px;
+                    height: 30px;
+                }
+
+                button {
+                    background-color: $color-primary;
+                    border: 1px solid $color-border;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    @include respond(phone) {
+                        border-radius: 100%;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                &.active {
+                    button {
+                        border: 1px solid black;
+                    }
+                }
+
+                p {
+                    @include respond(phone) {
+                        display: none;
+                    }
+                }
+
+                svg {
+                    @include respond(phone) {
+                        margin: 0px;
+                    }
+                }
+
+                .filtersCount {
+                    background-color: black;
+                    color: $text-color-secondary;
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    border-radius: 1em;
+                    transform: translate(50%, -50%);
+                    border: 1px solid $color-border;
+
+                    p {
+                        width: 16px;
+                        height: 16px;
+                        font-size: 10px;
+                    }
                 }
             }
 
-            p {
+            .filtersTag {
+                display: flex;
+
+                div {
+                    height: 100%;
+                    margin-right: 0.5em;
+                }
+
                 @include respond(phone) {
                     display: none;
                 }
             }
-
-            svg {
-                @include respond(phone) {
-                    margin: 0px;
-                }
-            }
-
-            .filtersCount {
-                background-color: black;
-                color: $text-color-secondary;
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                border-radius: 1em;
-                transform: translate(50%, -50%);
-                border: 1px solid $color-border;
-
-                p {
-                    width: 16px;
-                    height: 16px;
-                    font-size: 10px;
-                }
-            }
         }
 
-        .filtersTag {
-            display: flex;
-
-            div {
-                height: 100%;
-                margin-right: 0.5em;
-            }
-
-            @include respond(phone) {
-                display: none;
-            }
-        }
     }
 
     .nameFilterMobil {
@@ -158,6 +180,11 @@
     }
 
     .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
         @include respond(phone) {
             // Put this padding here because of search mobil design ( see Home.module.scss ).
             margin: 1em;
@@ -165,24 +192,27 @@
     }
 
     .search {
-        min-width: 30%;
+        min-width: 50%;
         width: fit-content;
         margin-bottom: 1em;
         position: relative;
         z-index: 999;
-        transition: width 0.6s ease-in-out; 
-    
+        transition: width 0.6s ease-in-out;
+
+
         @include respond(tab-port) {
             min-width: 60%;
         }
 
         @include respond(phone) {
             min-width: 100%;
+            margin-top: 1em;
         }
 
         &.active {
             width: 50%;
-            animation: appear-Left-to-Right 0.1s ease-in-out; /* Usar animation para controlar el tiempo exacto */
+            animation: appear-Left-to-Right 0.1s ease-in-out;
+            /* Usar animation para controlar el tiempo exacto */
         }
 
         .inputSearch {
@@ -198,7 +228,7 @@
                 padding: 0em 3.5em;
             }
 
-            &:hover{
+            &:hover {
                 opacity: 70%;
             }
         }
@@ -209,9 +239,13 @@
             left: 0px;
             transform: translate(100%, 0%);
             height: 100%;
+
+            @include respond(phone) {
+                left: 15px;
+            }
         }
 
-        .resultsSearch{
+        .resultsSearch {
             background-color: $background-color;
             border: 1px solid $color-border;
             border-radius: 5px;
@@ -221,14 +255,22 @@
             top: 110%;
             width: 100%;
 
-            .filtersSearch{
+            @include respond(phone) {
+                width: 90%;
+                position: fixed;
+                transform: translateX(-50%);
+                left: 50%;
+                top: 22%;
+            }
+
+            .filtersSearch {
                 background-color: $background-color-secondary;
                 border: 1px solid $color-border;
                 border-radius: 5px;
                 padding: 0.5em;
                 margin-bottom: 0.5em;
 
-                div:not(:first-child){
+                div:not(:first-child) {
                     margin-left: 0.75em;
                 }
             }
@@ -248,11 +290,45 @@
         z-index: 99;
     }
 
+    .background {
+        position: fixed;
+        height: 100vh;
+        width: 120vw;
+        bottom: 0%;
+        z-index: -1;
+
+        img {
+            width: 120vw;
+        }
+    }
+
     @include respond(tab-port) {
-        padding: 2em;
+        padding: 3em;
     }
 
     @include respond(phone) {
-        padding: 0em;
+        padding: 1em ;
     }
+}
+
+.lineBlue {
+    height: 20px;
+    width: 30%;
+    background-color: rgba($color: $color-tertiary, $alpha: 0.7);
+    position:fixed;
+    top: 40%;
+    left: 0px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    z-index: 0;
+}
+
+.lineYellow {
+    height: 20px;
+    width: 30%;
+    background-color: rgba($color: $color-yellow, $alpha: 0.7);
+    position:fixed;
+    bottom: 20%;
+    right: 7px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    z-index: 0;
 }

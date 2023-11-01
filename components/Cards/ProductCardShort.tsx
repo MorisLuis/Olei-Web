@@ -86,14 +86,14 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                     </div>
 
                     <div className='display-flex'>
-                        <p className={styles.subtotal}>Subtotal : {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
+                        <p className={styles.subtotal}>Subtotal: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
                     </div>
 
                 </div>
 
                 <div className={styles.counter}>
                     {
-                        counterVisible &&
+                        counterVisible ?
                         <Counter
                             currentValue={product?.Piezas || 0}
                             maxValue={
@@ -101,12 +101,14 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                             }
                             updatedQuantity={onUpdateQuantity}
                         />
+                        :
+                        <></>
                     }
                     {
                         user?.PrecioIncIVA === 1 ?
-                        <p className={styles.subtotal}>Total : {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
+                        <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
                         :
-                        <p className={styles.subtotal}>Total : {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (product.Impto / 100)))}</p>
+                        <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (parseInt(product.Impto) / 100)))}</p>
                     }
                 </div>
 

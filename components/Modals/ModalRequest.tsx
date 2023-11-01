@@ -108,7 +108,7 @@ const ModalRequest = ({
                             }}>Quitar filtros</button>
                         <button
                             style={{ width: "30%" }}
-                            className='button-small black'
+                            className='button-small'
                             onClick={() => {
                                 handleClose()
                                 handleFiltersToQuery?.()

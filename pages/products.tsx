@@ -15,6 +15,8 @@ import FiltersInterface from '@/interfaces/filters';
 import { CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
 import HomeSearch from '@/components/HomeSearch';
+import Grid from '@/components/Ui/Tables/Grid';
+import { useTransition, animated } from 'react-spring';
 
 interface Props {
   productsProps: ProductInterface[]
@@ -42,6 +44,7 @@ export default function Home({ productsProps }: Props) {
   const [nextPage, setNextPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
+  const [showGrid, setShowGrid] = useState(true)
 
   const handleFiltersToQuery = () => {
 
@@ -161,6 +164,13 @@ export default function Home({ productsProps }: Props) {
     }
   }, [])
 
+  const transitions = useTransition(showGrid, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: 500 },
+  });
+
 
   return (
     <>
@@ -175,16 +185,35 @@ export default function Home({ productsProps }: Props) {
             handleCloseTag={handleCloseTag}
             setOpenModalFilter={setOpenModalFilter}
             handleCleanAllFilters={handleCleanAllFilters}
+            setShowGrid={setShowGrid}
+            showGrid={showGrid}
           />
 
-          <main className={styles.main}>
-            <Table
-              data={products}
-              loadMoreProducts={loadMoreProducts}
-              isLoading={isLoading}
-              loadingData={loadingData}
-            />
-          </main>
+          {transitions((style, item) =>
+            item ? (
+              <main className={styles.main}>
+                <animated.div style={{ ...style, width: "100%" }}>
+                  <Grid
+                    data={products}
+                    loadMoreProducts={loadMoreProducts}
+                    isLoading={isLoading}
+                    loadingData={loadingData}
+                  />
+                </animated.div>
+              </main>
+            ) : (
+              <main className={styles.main}>
+                <animated.div style={{ ...style, width: "100%" }}>
+                  <Table
+                    data={products}
+                    loadMoreProducts={loadMoreProducts}
+                    isLoading={isLoading}
+                    loadingData={loadingData}
+                  />
+                </animated.div>
+              </main>
+            )
+          )}
         </div>
       </Layout>
 
@@ -222,7 +251,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   try {
     const { data } = await api.get(url);
-    const productsProps : ProductInterface[] = data.products
+    const productsProps: ProductInterface[] = data.products
 
     return {
       props: {

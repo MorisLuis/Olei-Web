@@ -1,12 +1,5 @@
 @import "../main.scss";
 
-.skeleton {
-    width: 100%;
-    height: 20px;
-    background-color: $color-border;
-    animation: loading 1s infinite;
-    border-radius: 3px;
-}
 
 .tableSkeleton {
     background-color: $background-color;
@@ -14,22 +7,311 @@
     border-radius: 1em;
     margin-bottom: 1em;
     padding: 1em;
+
+    @include respond(phone) {
+        .header {
+            display: none;
+        }
+    }
+}
+
+.tablesRequestSkeleton {
+    width: 100%;
+
+    .titles {
+        margin-bottom: 1em;
+
+        h2{
+            background-color: $color-border;
+            animation: loading 1s infinite;
+            height: 14px;
+            width: 20%;
+            margin-bottom: 0.25em;
+        }
+
+        p{
+            background-color: $color-border;
+            animation: loading 1s infinite;
+            height: 14px;
+            width: 40%;
+        }
+    }
+
+    .content {
+        width: 100%;
+        font-size: 12px;
+        border: 1px solid $color-border;
+        background-color: $background-color;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+        border-radius: 1em;
+
+        .requestCart {
+            border-bottom: 1px solid $color-border;
+            padding: 1em 2em;
+            height: 90px;
+
+            &:hover {
+                background-color: $color-secondary;
+            }
+
+            .info {
+                width: 50%;
+
+                .header {
+                    background-color: $color-border;
+                    animation: loading 1s infinite;
+                    height: 14px;
+                    width: 60%;
+                    margin-bottom: 0.5em;
+                    border-radius: 3px;
+                }
+
+                .data {
+
+                    .total {
+                        background-color: $color-border;
+                        animation: loading 1s infinite;
+                        height: 14px;
+                        width: 20%;
+                        border-radius: 3px;
+
+                    }
+
+                    .tags {
+                        gap: 1em;
+
+                        .status {
+                            background-color: $color-border;
+                            animation: loading 1s infinite;
+                            height: 14px;
+                            width: 20%;
+                            border-radius: 3px;
+
+                        }
+                    }
+                }
+            }
+
+            .actions {
+                width: 50%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                .contentActions {
+                    width: 30%;
+                    gap: 0.25em;
+                    display: flex;
+                    justify-content: flex-end;
+
+                    .action{
+                        background-color: $color-border;
+                        animation: loading 1s infinite;
+                        height: 30px;
+                        width: 30px;
+                        border-radius: 3px;
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
+.gridSkeleton {
+    width: 100%;
+    height: 100%;
+
+    .content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2em;
+        background-color: $background-color;
+        border-radius: 5px;
+
+        @include respond(phone) {
+            grid-template-columns: repeat(1, 1fr);
+
+        }
+    }
+}
+
+.productSkeleton {
+    width: 100%;
+    height: 20px;
+    background-color: $color-border;
+    animation: loading 1s infinite;
+    border-radius: 3px;
+    margin-bottom: 10px;
+
+    @include respond(phone) {
+        background-color: transparent;
+        animation: none;
+        height: 100%;
+
+        .top {
+            margin-bottom: 0.5em;
+
+            .title {
+                width: 100%;
+                height: 20px;
+                background-color: $color-border;
+                margin-bottom: 0.5em;
+                border-radius: 3px;
+            }
+
+            .code {
+                width: 80%;
+                height: 14px;
+                background-color: $color-border;
+                margin-bottom: 0.5em;
+                border-radius: 3px;
+            }
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            width: 100%;
+
+            .price {
+                width: 30%;
+                height: 16px;
+                background-color: $color-border;
+                margin-bottom: 0.5em;
+                border-radius: 3px;
+            }
+
+            .counter {
+                width: 30%;
+                height: 20px;
+                background-color: $color-border;
+                margin-bottom: 0.5em;
+                border-radius: 3px;
+            }
+        }
+    }
+}
+
+.productWithImageSkeleton {
+    .image {
+        background-color: $color-border;
+        animation: loading 1s infinite;
+        border-radius: 3px;
+        min-width: 180px;
+        height: 240px;
+        position: relative;
+        margin-bottom: 1em;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+
+        .description {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5em;
+            height: 22px;
+            width: 100%;
+            gap: 0.5em;
+
+            .first {
+                height: 22px;
+                width: 70%;
+                margin-bottom: 0.5em;
+                background-color: $color-border;
+                animation: loading 1s infinite;
+                border-radius: 3px;
+            }
+
+            .second {
+                height: 22px;
+                width: 25%;
+                background-color: $color-border;
+                animation: loading 1s infinite;
+                border-radius: 3px;
+                margin-bottom: 1em;
+            }
+        }
+
+        .first {
+            height: 12px;
+            width: 60%;
+            margin-bottom: 0.5em;
+            background-color: $color-border;
+            animation: loading 1s infinite;
+            border-radius: 3px;
+        }
+
+        .second {
+            height: 12px;
+            width: 50%;
+            background-color: $color-border;
+            animation: loading 1s infinite;
+            border-radius: 3px;
+            margin-bottom: 1em;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1em;
+
+            .price {
+                height: 16px;
+                width: 50%;
+                background-color: $color-border;
+                animation: loading 1s infinite;
+                border-radius: 3px;
+            }
+
+            .counterNumber {
+                height: 16px;
+                width: 50%;
+                background-color: $color-border;
+                animation: loading 1s infinite;
+                border-radius: 3px;
+            }
+        }
+    }
 }
 
 .homeFiltersSkeleton {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 
-    h1 {
-        width: 900px;
-        margin-bottom: 0.5em;
+    .left {
+        width: 100px;
+        height: 28px;
+        border-radius: 3px;
+        margin-bottom: 0.75em;
+        background-color: rgba($color: $color-border, $alpha: 0.3);
+        animation: loading 1s infinite;
+
+        @include respond(phone) {
+            background-color: rgba($color: $color-border, $alpha: 1);
+        }
     }
 
-    .buttonFilter {
-        display: flex;
-        position: relative;
-        margin-right: 1em;
-        margin-bottom: 1em;
-        width: 80px;
+    .right {
+        width: 100px;
+        height: 28px;
+        border-radius: 3px;
+        margin-bottom: 0.75em;
+        background-color: rgba($color: $color-border, $alpha: 0.3);
+
+        animation: loading 1s infinite;
+
+        @include respond(phone) {
+            background-color: rgba($color: $color-border, $alpha: 1);
+        }
     }
+
 }
 
 @keyframes loading {

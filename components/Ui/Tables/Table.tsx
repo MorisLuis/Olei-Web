@@ -18,7 +18,7 @@ interface Props {
 
 const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
-    const { cart, cartPending, subTotal, total } = useContext(CartContext)
+    const { cart, cartPending } = useContext(CartContext)
     const [productsToDisplay, setProductsToDisplay] = useState<ProductInterface[]>([])
 
     useEffect(() => {
@@ -62,32 +62,37 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                         :
                         <>
                             <div className={`${styles.table}`}>
-                                <div className={`${styles.headers} display-flex space-between`}>
-                                    <p>Nombre</p>
-                                    <p>Codigo</p>
-                                    <p>Marca</p>
-                                    <p>Familia</p>
-                                    <p>Precio (MXN)</p>
-                                    <p></p>
-                                </div>
-
                                 <div className={styles.content}>
-                                    {
-                                        productsWithCartInfo?.map((product: ProductInterface) => {
-                                            return (
-                                                <ProductCard product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
-                                            )
-                                        })
-                                    }
+                                    <div className={`${styles.headers} display-flex space-between`}>
+                                        <p>Nombre</p>
+                                        <p>Codigo</p>
+                                        <p>Marca</p>
+                                        <p>Familia</p>
+                                        <p>Precio (MXN)</p>
+                                        <p></p>
+                                    </div>
+
+                                    <div className={styles.data}>
+                                        {
+                                            productsWithCartInfo?.map((product: ProductInterface) => {
+                                                return (
+                                                    <ProductCard product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
+                                                )
+                                            })
+                                        }
+                                    </div>
                                 </div>
+                                {
+                                    (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
+                                    <div className={styles.loadMore}>
+                                        <ButtonAnimated
+                                            onclick={loadMoreProducts}
+                                            disabled={isLoading}
+                                        />
+                                    </div>
+                                }
                             </div>
-                            {
-                                (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
-                                <ButtonAnimated
-                                    onclick={loadMoreProducts}
-                                    disabled={isLoading}
-                                />
-                            }
+
                             {
                                 !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
                                 <p style={{ textAlign: "center", paddingTop: "1em", color: "gray" }}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>

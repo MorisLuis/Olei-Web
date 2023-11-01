@@ -287,6 +287,55 @@
     }
 }
 
+.productSquareCard{
+    min-width: 180px;
+
+    .content{
+        .image{
+            background-color: $background-color-tertiary;
+            height: 240px;
+            margin-bottom: 1em;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img{
+                height: fit-content;
+                max-height: 180px;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;            
+            }
+        }
+
+        .info{
+            display: flex;
+            flex-direction: column;
+            
+            .description{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.5em;
+                gap: 0.5em;
+
+            }
+
+            .data{
+                margin-bottom: 0.5em;
+            }
+
+            .counter{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                
+                >div{
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+
 .requestCart {
     width: 100%;
     font-size: 12px;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,7 +22,7 @@ const ButtonAnimated = ({
     return (
         <div className="loading-button-container display-flex align">
             <button
-                className={`loading-button ${disabled ? 'loading' : ''} `}
+                className={`button ${disabled ? 'loading' : ''} `}
                 onClick={handleClick}
                 disabled={disabled}
             >
