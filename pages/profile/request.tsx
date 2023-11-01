@@ -6,7 +6,6 @@ import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import ModalRequest from '@/components/Modals/ModalRequest';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
-import Cookies from 'js-cookie';
 import OrderInterface from '@/interfaces/order';
 import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
@@ -14,6 +13,7 @@ import toast from 'react-hot-toast';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import { api } from '@/api/api';
 import ProductInterface from '@/interfaces/product';
+import { TableRequestSkeleton } from '@/components/Skeletons/TableRequestSkeleton';
 
 const Pedidos = () => {
 
@@ -22,7 +22,7 @@ const Pedidos = () => {
     const { addOrderToCart } = useContext(CartContext)
 
     const [openModalMessage, setOpenModalMessage] = useState(false)
-    const [orders, setOrders] = useState<OrderInterface[]>([]);
+    const [orders, setOrders] = useState<OrderInterface[]>();
     const [orderSelect, setOrderSelect] = useState<ProductInterface[]>()
 
     useEffect(() => {
@@ -57,12 +57,14 @@ const Pedidos = () => {
         });
     };
 
+
     return (
         <>
             <LayoutProfile>
                 <div className={styles.request}>
                     <section className={styles.info}>
                         {
+                            !orders ? <TableRequestSkeleton/> :
                             orders.length > 0 ?
                                 <>
                                     <div className={styles.header}>

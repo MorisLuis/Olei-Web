@@ -15,6 +15,110 @@
     }
 }
 
+.tablesRequestSkeleton {
+    width: 100%;
+
+    .titles {
+        margin-bottom: 1em;
+
+        h2{
+            background-color: $color-border;
+            animation: loading 1s infinite;
+            height: 14px;
+            width: 20%;
+            margin-bottom: 0.25em;
+        }
+
+        p{
+            background-color: $color-border;
+            animation: loading 1s infinite;
+            height: 14px;
+            width: 40%;
+        }
+    }
+
+    .content {
+        width: 100%;
+        font-size: 12px;
+        border: 1px solid $color-border;
+        background-color: $background-color;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+        border-radius: 1em;
+
+        .requestCart {
+            border-bottom: 1px solid $color-border;
+            padding: 1em 2em;
+            height: 90px;
+
+            &:hover {
+                background-color: $color-secondary;
+            }
+
+            .info {
+                width: 50%;
+
+                .header {
+                    background-color: $color-border;
+                    animation: loading 1s infinite;
+                    height: 14px;
+                    width: 60%;
+                    margin-bottom: 0.5em;
+                    border-radius: 3px;
+                }
+
+                .data {
+
+                    .total {
+                        background-color: $color-border;
+                        animation: loading 1s infinite;
+                        height: 14px;
+                        width: 20%;
+                        border-radius: 3px;
+
+                    }
+
+                    .tags {
+                        gap: 1em;
+
+                        .status {
+                            background-color: $color-border;
+                            animation: loading 1s infinite;
+                            height: 14px;
+                            width: 20%;
+                            border-radius: 3px;
+
+                        }
+                    }
+                }
+            }
+
+            .actions {
+                width: 50%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                .contentActions {
+                    width: 30%;
+                    gap: 0.25em;
+                    display: flex;
+                    justify-content: flex-end;
+
+                    .action{
+                        background-color: $color-border;
+                        animation: loading 1s infinite;
+                        height: 30px;
+                        width: 30px;
+                        border-radius: 3px;
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
 .gridSkeleton {
     width: 100%;
     height: 100%;
@@ -46,9 +150,10 @@
         animation: none;
         height: 100%;
 
-        .top{
+        .top {
             margin-bottom: 0.5em;
-            .title{
+
+            .title {
                 width: 100%;
                 height: 20px;
                 background-color: $color-border;
@@ -56,7 +161,7 @@
                 border-radius: 3px;
             }
 
-            .code{
+            .code {
                 width: 80%;
                 height: 14px;
                 background-color: $color-border;
@@ -65,13 +170,13 @@
             }
         }
 
-        .bottom{
+        .bottom {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            width: 100%;            
+            width: 100%;
 
-            .price{
+            .price {
                 width: 30%;
                 height: 16px;
                 background-color: $color-border;
@@ -79,7 +184,7 @@
                 border-radius: 3px;
             }
 
-            .counter{
+            .counter {
                 width: 30%;
                 height: 20px;
                 background-color: $color-border;
