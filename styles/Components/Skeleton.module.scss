@@ -124,7 +124,7 @@
         height: 28px;
         border-radius: 3px;
         margin-bottom: 0.75em;
-        background-color: $color-border;
+        background-color:rgba($color: $color-border, $alpha: 0.3);
         animation: loading 1s infinite;
     }
 
@@ -133,7 +133,7 @@
         height: 28px;
         border-radius: 3px;
         margin-bottom: 0.75em;
-        background-color: $color-border;
+        background-color:rgba($color: $color-border, $alpha: 0.3);
         animation: loading 1s infinite;
     }
 
