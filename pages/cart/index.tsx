@@ -22,10 +22,12 @@ const Cart = () => {
     const { cart, cartPending, total, subTotal } = useContext(CartContext);
     const { user } = useContext(AuthContext);
 
-    const [requestOpen, setRequestOpen] = useState(false)
-    const [requestCartPending, setRequestCartPending] = useState(true)
-    const [cartShowed, setCartShowed] = useState(cart)
-    const [inputValue, setInputValue] = useState("")
+    const [requestOpen, setRequestOpen] = useState(false);
+    const [requestCartPending, setRequestCartPending] = useState(true);
+    const [cartShowed, setCartShowed] = useState(cart);
+    const [orderRequested, setOrderRequested] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+
 
     useEffect(() => {
         setCartShowed(cart)
@@ -55,7 +57,7 @@ const Cart = () => {
     return (
         <PageTransition key="login-transition" isEntering={isEntering === false}>
             {
-                cart.length > 0 ?
+                (cart.length > 0 || !orderRequested) ?
                     <Layout>
                         <div className={styles.cart}>
 
@@ -164,7 +166,9 @@ const Cart = () => {
                                 </div>
                             </div>
 
-                            <FooterCart />
+                            <FooterCart 
+                            setOrderRequested={setOrderRequested}
+                            />
 
                         </div>
                     </Layout>
