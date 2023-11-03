@@ -19,7 +19,7 @@ export const LeftSection = ({
                     push('/products');
                 }
             }}>
-                Olei Software
+                {user?.Company}
             </div>
 
             {user?.TipoUsuario == '2' && client?.Id_Almacen && pathname !== '/onboarding/selectClient' && (

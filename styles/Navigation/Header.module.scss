@@ -67,7 +67,6 @@
             }
 
             .client {
-                opacity: 60%;
 
                 span {
                     padding: 0em 0.5em;
@@ -132,7 +131,7 @@
                 }
 
                 &:hover {
-                    opacity: 100%;
+                    opacity: 70%;
                 }
             }
 
@@ -144,7 +143,7 @@
                 justify-content: center;
                 align-items: center;
                 overflow: hidden;
-                max-width: 125px;
+                //max-width: 125px;
                 overflow: hidden;
 
                 @include respond(phone) {
@@ -199,7 +198,6 @@
                 background-color: transparent;
                 border-radius: 5px;
                 cursor: pointer;
-                opacity: 60%;
 
                 @include respond(phone) {
                     position: static;
@@ -280,7 +278,7 @@
                 }
 
                 &:hover {
-                    opacity: 100%;
+                    opacity: 70%;
                 }
 
             }
