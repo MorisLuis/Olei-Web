@@ -23,15 +23,16 @@ const Profile = () => {
                         </div>
 
                         <div className={styles.item}>
+                            <label htmlFor="">Nombre</label>
+                            <p>{user?.Nombre}</p>
+                        </div>
+
+                        <div className={styles.item}>
                             <label htmlFor="">Tipo de Cliente</label>
-                            <p>
-                            {
-                                user?.TipoUsuario == "1" ? "Cliente" : "Vendedor"
-                            }
-                            </p>
+                            <p>{user?.TipoUsuario == "1" ? "Cliente" : "Vendedor"}</p>
+                        </div>
                     </div>
-            </div>
-        </section>
+                </section>
             </div >
         </LayoutProfile >
     )

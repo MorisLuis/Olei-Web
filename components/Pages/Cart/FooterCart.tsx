@@ -15,8 +15,10 @@ export const submitOrder = async ({
     total,
     numberOfItems,
     cart,
-    push
+    push,
+    setOrderRequested
 }: any) => {
+    setOrderRequested(true)
 
 
     const order: OrderInterface = {
@@ -61,7 +63,8 @@ export const submitOrder = async ({
     }
 }
 
-export const FooterCart = () => {
+export const FooterCart = ({    setOrderRequested
+}: any) => {
 
     const { cart, total, numberOfItems, removeAllCart, subTotal } = useContext(CartContext);
     const { push } = useRouter();
@@ -81,7 +84,8 @@ export const FooterCart = () => {
                     total,
                     numberOfItems,
                     cart,
-                    push
+                    push,
+                    setOrderRequested
                 });
                 setAnimationComplete(true);
             }

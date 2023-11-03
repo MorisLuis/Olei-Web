@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import styles from "./../../../styles/Navigation/Header.module.scss";
 
 import { AuthContext, ClientContext } from '@/context';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 export const LeftSection = ({
@@ -20,12 +19,7 @@ export const LeftSection = ({
                     push('/products');
                 }
             }}>
-                <Image
-                    src={'/logo02.png'}
-                    alt="photo"
-                    width={200}
-                    height={200}
-                />
+                Olei Software
             </div>
 
             {user?.TipoUsuario == '2' && client?.Id_Almacen && pathname !== '/onboarding/selectClient' && (

@@ -6,6 +6,7 @@ import { Tag } from '../Ui/Tag';
 import Counter from '../Ui/Counter';
 import { CartContext } from '@/context';
 import { format } from '../../utils/currency';
+import { capitalizarTexto } from '@/utils/textCapitalize';
 
 interface Props {
     product: ProductInterface,
@@ -48,7 +49,6 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
         });
     }
 
-
     return (
         <div className={styles.productSquareCard}>
             <div className={styles.content}>
@@ -62,7 +62,7 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
                 </div>
                 <div className={styles.info}>
                     <div className={styles.description}>
-                        <h4>{product.Descripcion}</h4>
+                        <h4>{capitalizarTexto(product.Descripcion)}</h4>
                         <Tag color='gray'>
                             {product.Familia}
                         </Tag>

@@ -7,6 +7,7 @@ import Counter from '../Ui/Counter';
 import { Tag } from '../Ui/Tag';
 import Skeleton from 'react-loading-skeleton';
 import { format } from '@/utils/currency';
+import { capitalizarTexto } from '@/utils/textCapitalize';
 
 
 interface Props {
@@ -48,12 +49,13 @@ const ProductCard = ({ product }: Props) => {
         });
     }
 
+    
     return (
         <div className={`${styles.item} cursor display-flex`}>
             <div className={`${styles.principalData} display-flex align`}>
                 <div className='display-flex align'>
                     {product ? (
-                        <p>{product.Descripcion}</p>
+                        <p>{capitalizarTexto(product.Descripcion)}</p>
                     ) : (
                         <Skeleton width={200} height={20} />
                     )}

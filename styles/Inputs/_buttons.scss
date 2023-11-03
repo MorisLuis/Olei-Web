@@ -68,6 +68,11 @@
         }
     }
 
+    &.red {
+        background-color: rgba($color: $color-red, $alpha: 0.3);
+        border: 1px solid rgba($color: $color-red, $alpha: 0.5);
+    }
+
     &.transparent {
         background-color: transparent;
         text-decoration: underline;
@@ -81,8 +86,6 @@
         opacity: 70%;
     }
 }
-
-//////
 
 .mainbutton {
     position: relative;

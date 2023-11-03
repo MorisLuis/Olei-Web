@@ -1,11 +1,13 @@
 @import "../main.scss";
 
 .header {
-    height: 60px;
-    padding: 0.75em 10em;
+    height: 50px;
+    padding: 1em 10em;
     position: sticky;
     top: 0;
     z-index: 9999;
+    color: $text-color-secondary;
+    background-color: $color-tertiary;
 
     &.secondary {
         background-color: $color-tertiary;
@@ -49,7 +51,6 @@
     @include respond(phone) {
         padding: 1em;
         position: relative;
-        background-color: $background-color;
     }
 
     .content {
@@ -83,12 +84,12 @@
                     margin-right: 0.5em;
 
                     .content {
-                        background-color: $background-color;
+                        background-color: $color-tertiary;
                         padding: 0.05em;
                         border-radius: 100%;
 
                         p {
-                            color: $text-color-secondary;
+                            color: $text-color;
                             font-size: $font-sm;
 
                             background-color: $color-yellow;
@@ -123,6 +124,7 @@
                     padding: 0.25em 0.5em;
                     font-size: $font-sm;
                     border-radius: 10em;
+                    color: $text-color;
 
                     @include respond(phone) {
                         display: none;
@@ -137,14 +139,12 @@
             .logo {
                 font-weight: bold;
                 font-size: 1.25em;
-                opacity: 100%;
                 height: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 overflow: hidden;
                 max-width: 125px;
-                opacity: 60%;
                 overflow: hidden;
 
                 @include respond(phone) {
@@ -215,7 +215,7 @@
                         overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: normal;
-                        color: $text-color-light;
+                        color: $text-color-secondary;
                     }
 
                     @include respond(phone) {
@@ -224,19 +224,19 @@
                 }
 
                 .circle {
-                    background-color: $color-tertiary;
+                    background-color: $color-primary;
                     padding: 0.1em;
                     border-radius: 100%;
 
                     .content {
-                        background-color: $background-color;
+                        background-color: $color-tertiary;
                         padding: 0.05em;
                         border-radius: 100%;
 
                         p {
-                            color: $text-color-secondary;
+                            color: $text-color;
                             font-size: $font-sm;
-                            background-color: $color-tertiary;
+                            background-color: $color-primary;
                             min-width: 18px;
                             height: 18px;
                             border-radius: 100%;
@@ -363,7 +363,7 @@
         }
     }
 
-    &::before {
+    /* &::before {
         content: "";
         height: 1px;
         width: 100%;
@@ -371,5 +371,5 @@
         position: absolute;
         bottom: 0px;
         right: 0px
-    }
+    } */
 }
