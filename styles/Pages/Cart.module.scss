@@ -1,9 +1,8 @@
 @import "../main.scss";
 
 .cart {
-    height: calc(100vh + 80px);
     position: relative;
-    //margin-bottom: 10em;
+    min-height: calc(100vh + 80px);
 
     @include respond(tab-land) {
         margin-bottom: 10em;
@@ -62,7 +61,7 @@
 
     .content {
         width: 100%;
-        padding: 2em 26em 0em 26em;
+        padding: 2em 26em 20em 26em;
 
         .orderConfig{
             padding: 1em;
@@ -90,14 +89,6 @@
 
         }
 
-        @include respond(tab-land) {
-            padding: 2em 10em;
-        }
-
-        @include respond(phone) {
-            padding: 1em;
-        }
-
         .table {
             padding-bottom: 3em;
         }
@@ -105,18 +96,13 @@
         .request {
             background-color: $background-color;
             box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-            border-radius: 1em;
+            border-radius: 0.5em;
             border: 1px solid $color-border;
             margin-bottom: 2em;
 
             .content {
                 padding: 1em;
             }
-
-            /* &:hover{
-                border: 1px solid  rgba($color: $color-border-tertiary, $alpha: 0.5);
-            } */
-
         }
 
         .cost {
@@ -128,6 +114,48 @@
                     font-weight: bold;
                 }
             }
+        }
+
+        .deleteCart{
+            width: 100%;
+            padding: 1em;
+            border-radius: 0.5em;
+            border: 1px solid rgba($color: $color-red, $alpha: 0.5);
+
+        
+            @include respond(phone) {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .text{
+                width: 80%;
+
+                @include respond(phone) {
+                    width: 100%;
+                    margin-bottom: 1em;
+                }
+
+                :first-child{
+                    font-weight: bold;
+                }
+            }
+
+            button{
+                width: 20%;
+
+                @include respond(phone) {
+                    width: 100%;
+                }
+            }
+        }
+
+        @include respond(tab-land) {
+            padding: 2em 10em;
+        }
+
+        @include respond(phone) {
+            padding: 1em;
         }
     }
 

@@ -15,7 +15,7 @@ export const HeaderCart = () => {
                 <p>Regresar</p>
             </div>
             <div className={styles.title}>
-                <h1>Compra</h1>
+                <h1>Carrito</h1>
                 <p className={styles.paragraph}>Revisa el pedido y despues confirma.</p>
             </div>
         </div>

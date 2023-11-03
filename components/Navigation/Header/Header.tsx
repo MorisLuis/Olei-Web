@@ -2,11 +2,8 @@ import React, { useContext, useState } from 'react';
 import styles from "./../../../styles/Navigation/Header.module.scss";
 
 import { api } from '@/api/api';
-import { useRouter } from 'next/router';
-import { ClientContext, FiltersContext } from '@/context';
+import { ClientContext } from '@/context';
 import { ModalSearch } from '../../Modals/ModalSearch';
-import FiltersInterface from '@/interfaces/filters';
-import QueryParams from '@/utils/queryParams';
 import ClientInterface from '@/interfaces/client';
 import { LeftSection } from './LeftSection';
 import { RightSection } from './RightSection';
@@ -91,9 +88,7 @@ const Header = ({
                 onAccept={onAcceptClientSelected}
                 title={`Seleccionar a ${capitalizarTexto(selectedClient?.Nombre as string)} como cliente.`}
             >
-                <p>
-                    Si aceptas podran volverlo a seleccionar después.
-                </p>
+                <p>Podras volver a seleccionar después.</p>
             </ModalMessage>
         </>
     )

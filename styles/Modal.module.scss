@@ -437,9 +437,14 @@
     animation: modal-open 0.1s ease-in-out forwards;
     opacity: 0;
 
+    @include respond(phone) {
+        width: 100%;
+    }
+
     .content {
         height: 70%;
         padding: 2em;
+
 
         h2{
             margin-bottom: 1em;
