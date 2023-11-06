@@ -12,6 +12,7 @@
             display: flex;
             padding: 1em;
             position: relative;
+            //font-size: $font-sm;
 
             .description {
                 width: 45%;
@@ -46,14 +47,17 @@
                     padding: 0.5em;
                     text-decoration: underline;
                     font-weight: bold;
-    
+
                     &:hover{
                         opacity: 50%;
                     }
                 }
-                .subtotal {
+
+                :nth-child(2) {
                     margin-top: 0.5em;
+
                 }
+
             }
 
             .delete{

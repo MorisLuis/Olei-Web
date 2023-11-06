@@ -33,7 +33,6 @@ export const ReceiptRender = () => {
 
     }, [receipt]);
 
-
     return (
         <div className={styles.receiptRender}>
             <div className={styles.brief}>

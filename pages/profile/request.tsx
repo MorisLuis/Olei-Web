@@ -36,6 +36,7 @@ const Pedidos = () => {
     }, []);
 
 
+
     const handleSelectOrder = async (folio: string) => {
         const { data } = await api.get(`/api/orderDetails?folio=${folio}`);
         const order: ProductInterface[] = data;

@@ -28,7 +28,7 @@ describe('submitOrder', () => {
                     Id_Marca: 1,
                     Piezas: 2,
                     Precio: 10,
-                    Impto: 1,
+                    Impuesto: 1,
                     Descripcion: 'Producto 1',
                     Existencia: 20,
                 },

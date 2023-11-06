@@ -83,7 +83,7 @@ export const CartProvider = ({ children }: any) => {
                 if (productWithTaxInPrice) {
                     return prev + (current.Precio * current.Piezas);
                 } else {
-                    const impt = current.Precio * current.Piezas * (current.Impto / 100)
+                    const impt = current.Precio * current.Piezas * (current.Impuesto / 100)
                     return prev + (current.Precio * current.Piezas) + impt;
                 }
 
@@ -95,7 +95,7 @@ export const CartProvider = ({ children }: any) => {
         const subTotal = state.cart.reduce((prev, current: ProductInterface) => {
             if (current?.Existencia >= 1) {
                 if(productWithTaxInPrice){
-                    const impt = current.Precio * current.Piezas * (current.Impto / 100)
+                    const impt = current.Precio * current.Piezas * (current.Impuesto / 100)
                     return prev + (current.Precio * current.Piezas) - impt;
                 } else {
                     return prev + (current.Precio * current.Piezas);

@@ -13,7 +13,7 @@ export default interface ProductInterface {
     Id_Marca?: number;
     Id_ListaPrecios?: number;
     Piezas: number;
-    Impto?: any;
+    Impuesto?: any;
     Importe?: any;
 }
 
@@ -25,7 +25,7 @@ export default interface ProductInterface {
     Id_Marca?: number, // @
     Piezas: number, // Antes Cantidad @
     Precio: number, // @
-    Impto?: number, // @
+    Impuesto?: number, // @
     Impuesto?: number, //@
     Descripcion?: string, // @
 

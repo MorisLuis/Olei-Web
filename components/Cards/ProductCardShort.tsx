@@ -69,7 +69,6 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
         }
     }
 
-
     return (
         <div className={`${styles.productCard} ${styles.receipt}`}>
             <div className={`${styles.content} display-flex space-between`}>
@@ -96,19 +95,17 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                         counterVisible ?
                         <Counter
                             currentValue={product?.Piezas || 0}
-                            maxValue={
-                                product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
-                            }
+                            maxValue={product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia}
                             updatedQuantity={onUpdateQuantity}
                         />
                         :
-                        <></>
+                        <p>Piezas: {product.Piezas}</p>
                     }
                     {
                         user?.PrecioIncIVA === 1 ?
                         <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
                         :
-                        <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (parseInt(product.Impto) / 100)))}</p>
+                        <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (parseInt(product.Impuesto) / 100)))}</p>
                     }
                 </div>
 

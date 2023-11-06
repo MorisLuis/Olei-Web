@@ -33,7 +33,7 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
         Existencia: product.Existencia,
         Familia: product.Familia,
         Marca: product.Marca,
-        Impto: product.Impto
+        Impuesto: product.Impuesto
     })
 
     const onUpdateQuantity = async (Piezas: number) => {
