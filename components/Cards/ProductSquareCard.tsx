@@ -21,6 +21,8 @@ export const ProductSquareCard = ({ product, index }: Props) => {
     const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
     const [imageLoaded, setImageLoaded] = useState(false);
+    const nameDB = "OLEIDB1_MXN01";
+    const imageDB = nameDB.split('_')[1].toLowerCase()
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../../styles/UI.module.scss";
 
 import { ProductSquareCard } from '@/components/Cards/ProductSquareCard';
-import { CartContext } from '@/context';
+import { AuthContext, CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
@@ -17,7 +17,8 @@ interface Props {
 
 const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
-    const { cart, cartPending } = useContext(CartContext)
+    const { cart, cartPending } = useContext(CartContext);
+
     const [productsToDisplay, setProductsToDisplay] = useState<ProductInterface[]>([])
 
     useEffect(() => {
