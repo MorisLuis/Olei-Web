@@ -1,25 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
 
 import ProductInterface from '@/interfaces/product';
 import { Tag } from '../Ui/Tag';
 import Counter from '../Ui/Counter';
-import { CartContext } from '@/context';
+import { AuthContext, CartContext } from '@/context';
 import { format } from '../../utils/currency';
 import { capitalizarTexto } from '@/utils/textCapitalize';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     product: ProductInterface,
-    image: string[],
     index: number
 }
 
 
-export const ProductSquareCard = ({ product, image, index }: Props) => {
+export const ProductSquareCard = ({ product, index }: Props) => {
 
-    format
-
-    const { addProductToCart } = useContext(CartContext)
+    const { addProductToCart } = useContext(CartContext);
+    const { user } = useContext(AuthContext);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,
@@ -49,16 +50,39 @@ export const ProductSquareCard = ({ product, image, index }: Props) => {
         });
     }
 
+    // Used to know if the image exist.
+    useEffect(() => {
+        const img = new Image();
+        img.src = `https://oleistorage.blob.core.windows.net/oleidb1/${product.Codigo}.jpg`;
+
+        img.onload = () => {
+            setImageLoaded(true);
+        };
+
+        img.onerror = () => {
+            setImageLoaded(false);
+        };
+    }, [product.Codigo]);
+
+
     return (
         <div className={styles.productSquareCard}>
             <div className={styles.content}>
                 <div className={styles.image}>
-                    <img
-                        src={image[index] ? image[index] : "/logo02.png"}
-                        alt="photo"
-                        width={200}
-                        height={200}
-                    />
+                    {
+                        imageLoaded ?
+                            <img
+                                src={imageLoaded ? `https://oleistorage.blob.core.windows.net/oleidb1/${product.Codigo}.jpg` : "/logo02.png"}
+                                alt={product.Descripcion}
+                                width={200}
+                                height={200}
+                            />
+                            :
+                            <div className={styles.notImage}>
+                                <FontAwesomeIcon icon={faImage} className={`icon`} />
+                                <h2>{user?.Company}</h2>
+                            </div>
+                    }
                 </div>
                 <div className={styles.info}>
                     <div className={styles.description}>

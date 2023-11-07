@@ -71,7 +71,7 @@ const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                                 <ProductSquareCard
                                                     product={product}
                                                     key={product.Codigo && (product.Codigo + product.Id_Marca)}
-                                                    image={images}
+                                                    //image={images}
                                                     index={index}
                                                 />
                                             )

@@ -12,7 +12,6 @@
             display: flex;
             padding: 1em;
             position: relative;
-            //font-size: $font-sm;
 
             .description {
                 width: 45%;
@@ -303,6 +302,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
+            .notImage{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
 
             img{
                 height: fit-content;
