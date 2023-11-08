@@ -12,7 +12,7 @@ import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersMod
 import PorductInterface from '@/interfaces/product';
 import ProductInterface from '@/interfaces/product';
 import FiltersInterface from '@/interfaces/filters';
-import { CartContext, ClientContext, FiltersContext } from '@/context';
+import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
 import HomeSearch from '@/components/HomeSearch';
 import Grid from '@/components/Ui/Tables/Grid';
@@ -36,6 +36,11 @@ export default function Home({ productsProps }: Props) {
   const { addFilters, removeFilters, filters, removeAllFilters } = useContext(FiltersContext);
   const { productDelete } = useContext(CartContext);
   const { clientChanged } = useContext(ClientContext);
+  const { user } = useContext(AuthContext);
+
+  console.log({
+    user
+  })
 
 
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
@@ -190,7 +195,7 @@ export default function Home({ productsProps }: Props) {
           />
 
           {transitions((style, item) =>
-            item ? (
+            (item && user?.SwImagenes ) ? (
               <main className={styles.main}>
                 <animated.div style={{ ...style, width: "100%" }}>
                   <Grid

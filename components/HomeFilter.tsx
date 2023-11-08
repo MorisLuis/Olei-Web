@@ -5,7 +5,7 @@ import { Tag } from './Ui/Tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
-import { FiltersContext } from '@/context';
+import { AuthContext, FiltersContext } from '@/context';
 import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
 
 interface Props {
@@ -27,6 +27,7 @@ const HomeFilter = ({
 }: Props) => {
 
     const { filtersValues } = useContext(FiltersContext);
+    const { user } = useContext(AuthContext);
 
     const [visible, setVisible] = useState(false)
 
@@ -49,16 +50,22 @@ const HomeFilter = ({
             {/* DESKTOP VERSION */}
             <div className={`${styles.header} display-flex`}>
 
-                <div className={styles.view}>
-                    <ToggleSquareSwitch
-                        label='Vista :'
-                        name="view"
-                        value={showGrid}
-                        onChange={(value: boolean) => {
-                            setShowGrid(value)
-                        }}
-                    />
-                </div>
+                {
+                    user?.SwImagenes ?
+                    <div className={styles.view}>
+                        <ToggleSquareSwitch
+                            label='Vista :'
+                            name="view"
+                            value={showGrid}
+                            onChange={(value: boolean) => {
+                                setShowGrid(value)
+                            }}
+                        />
+                    </div>
+                    :
+                    <div></div>
+                }
+
 
                 <div className={styles.filters}>
                     <div className={styles.filtersTag}>

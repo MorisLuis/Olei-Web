@@ -1,3 +1,4 @@
+
 export default interface UserInterface {
 
     //  The identifier for the warehouse where the products are distributed.
@@ -8,7 +9,6 @@ export default interface UserInterface {
 
     //The name of the company,
     Company: string,
-
 
     //  The ID of the price list that defines the prices of the products.
     Id_ListPre?: number | null;
@@ -35,6 +35,15 @@ export default interface UserInterface {
     PrivilegioTipoCliente: number;
 
     PrecioIncIVA: number;
+
+    //Represent if the images are available (1).
+    SwImagenes: 0 | 1;
+
+    //Represent if show the products without stock (1)
+    SwSinStock: 0 | 1;
+
+    //Represent if show the products without price (1)
+    SwsinPrecio: 0 | 1;
 
     // This field is currently not in use.
     Id_UsuarioOLEI: number | null;

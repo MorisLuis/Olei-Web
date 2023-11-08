@@ -15,6 +15,7 @@ export default interface ProductInterface {
     Piezas: number;
     Impuesto?: any;
     Importe?: any;
+    imagen?: string;
 }
 
 

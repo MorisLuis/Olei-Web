@@ -16,13 +16,11 @@ interface Props {
 }
 
 
-export const ProductSquareCard = ({ product, index }: Props) => {
+export const ProductSquareCard = ({ product }: Props) => {
 
     const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
     const [imageLoaded, setImageLoaded] = useState(false);
-    const nameDB = "OLEIDB1_MXN01";
-    const imageDB = nameDB.split('_')[1].toLowerCase()
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,
@@ -66,7 +64,6 @@ export const ProductSquareCard = ({ product, index }: Props) => {
         };
     }, [product.Codigo]);
 
-
     return (
         <div className={styles.productSquareCard}>
             <div className={styles.content}>
@@ -74,8 +71,8 @@ export const ProductSquareCard = ({ product, index }: Props) => {
                     {
                         imageLoaded ?
                             <img
-                                src={imageLoaded ? `https://oleistorage.blob.core.windows.net/oleidb1/${product.Codigo}.jpg` : "/logo02.png"}
-                                alt={product.Descripcion}
+                            src={(imageLoaded && product.imagen) ? product?.imagen : "/logo02.png"}
+                            alt={product.Descripcion}
                                 width={200}
                                 height={200}
                             />

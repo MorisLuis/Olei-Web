@@ -1,10 +1,11 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { api } from '@/api/api';
 import Input from '@/components/Inputs/inputs';
 import SelectReact from '@/components/Inputs/select';
 import ToggleSwitch from '@/components/Inputs/toggleSwitch';
 import FiltersInterface from '@/interfaces/filters';
 import Cookies from 'js-cookie';
+import { AuthContext } from '@/context';
 
 interface Props {
     setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>,
@@ -18,6 +19,7 @@ const FiltersModalContent = ({
     visible
 }: Props) => {
 
+    const { user } = useContext(AuthContext);
 
     const [familiasFilter, setFamiliasFilter] = useState([])
     const [marcasFilter, setMarcasFilter] = useState([])
@@ -55,24 +57,30 @@ const FiltersModalContent = ({
 
     return (
         <div>
-            <div className='display-flex space-between mb-small'>
-                <div>
-                    <h3>Producto en stock</h3>
-                    <p>Mostrar solo los productos que tienen stock disponibles hoy.</p>
-                </div>
-                <ToggleSwitch
-                    name='enStock'
-                    value={temporalFilters.enStock}
-                    onChange={(value: boolean) => {
-                        setTemporalFilters((prevState: FiltersInterface) => ({
-                            ...prevState,
-                            enStock: value || false
-                        }))
-                    }}
-                />
-            </div>
 
-            <div className='divider'></div>
+            {
+                user?.SwSinStock &&
+                <>
+                    <div className='display-flex space-between mb-small'>
+                        <div>
+                            <h3>Producto en stock</h3>
+                            <p>Mostrar solo los productos que tienen stock disponibles hoy.</p>
+                        </div>
+                        <ToggleSwitch
+                            name='enStock'
+                            value={temporalFilters.enStock}
+                            onChange={(value: boolean) => {
+                                setTemporalFilters((prevState: FiltersInterface) => ({
+                                    ...prevState,
+                                    enStock: value || false
+                                }))
+                            }}
+                        />
+                    </div>
+
+                    <div className='divider'></div>
+                </>
+            }
 
             <SelectReact
                 options={familiasFilter?.map((familia) => ({
