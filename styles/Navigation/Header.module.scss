@@ -5,7 +5,7 @@
     padding: 1em 10em;
     position: sticky;
     top: 0;
-    z-index: 9999;
+    z-index: 999;
     color: $text-color-secondary;
     background-color: $color-tertiary;
 
@@ -360,14 +360,4 @@
             }
         }
     }
-
-    /* &::before {
-        content: "";
-        height: 1px;
-        width: 100%;
-        background: radial-gradient(circle, rgba($color-yellow, 100%) 0%, rgba($color-yellow, 100%) 0%, rgba(249, 249, 249, 1) 100%);
-        position: absolute;
-        bottom: 0px;
-        right: 0px
-    } */
 }

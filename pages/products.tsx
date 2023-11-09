@@ -4,18 +4,20 @@ import styles from "../styles/Pages/Products.module.scss";
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { api } from '@/api/api';
+
 import { Layout } from '@/components/Layouts/Layout';
 import HomeFilter from '@/components/HomeFilter';
 import Table from '@/components/Ui/Tables/Table';
 import ModalRequest from '@/components/Modals/ModalRequest';
 import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersModalContent';
+import Grid from '@/components/Ui/Tables/Grid';
+import HomeSearch from '@/components/Search/HomeSearch';
+
 import PorductInterface from '@/interfaces/product';
 import ProductInterface from '@/interfaces/product';
 import FiltersInterface from '@/interfaces/filters';
 import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
-import HomeSearch from '@/components/HomeSearch';
-import Grid from '@/components/Ui/Tables/Grid';
 import { useTransition, animated } from 'react-spring';
 
 interface Props {
@@ -37,11 +39,6 @@ export default function Home({ productsProps }: Props) {
   const { productDelete } = useContext(CartContext);
   const { clientChanged } = useContext(ClientContext);
   const { user } = useContext(AuthContext);
-
-  console.log({
-    user
-  })
-
 
   const [products, setProducts] = useState<ProductInterface[]>(productsProps)
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
@@ -181,7 +178,6 @@ export default function Home({ productsProps }: Props) {
     <>
       <Layout>
         <div className={styles.products}>
-
           <HomeSearch
             setTemporalFilters={setTemporalFilters}
           />
