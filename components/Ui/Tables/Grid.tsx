@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../../styles/UI.module.scss";
 
 import { ProductSquareCard } from '@/components/Cards/ProductSquareCard';
-import { AuthContext, CartContext } from '@/context';
+import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
@@ -48,9 +48,6 @@ const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
         return productWithCartInfo;
     });
 
-    const images = ["/OleiImageTest/Buje.jpeg", "/OleiImageTest/rotula.jpeg", "/OleiImageTest/terminal.jpeg", "/OleiImageTest/tornilloEstabilizador.jpeg", "/OleiImageTest/topeRebote.webp"]
-
-
     return (
         <>
             {
@@ -72,7 +69,6 @@ const Grid = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                                 <ProductSquareCard
                                                     product={product}
                                                     key={product.Codigo && (product.Codigo + product.Id_Marca)}
-                                                    //image={images}
                                                     index={index}
                                                 />
                                             )

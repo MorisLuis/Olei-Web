@@ -211,7 +211,7 @@ const Cart = () => {
                 }}
                 title={`Estas seguro de vaciar el carrito?`}
             >
-                <p>Podras volver a seleccionar después.</p>
+                Podras volver a seleccionar después.
             </ModalMessage>
         </>
     )

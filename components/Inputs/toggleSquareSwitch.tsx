@@ -19,18 +19,17 @@ const ToggleSquareSwitch: React.FC<ToggleSwitchProps> = ({
 
     useEffect(() => {
         setChecked(value)
-    }, [])
+    }, [value])
 
     const handleToggle = () => {
         const newChecked = !checked;
         setChecked(newChecked)
-        console.log({ newChecked })
         onChange(newChecked);
     };
 
     return (
         <>
-            <label htmlFor="view" className="toggleSquareSwitch">
+            <label htmlFor={name || "view"} className="toggleSquareSwitch">
                 {
                     label && <p style={{ marginRight: "1em" }}>{label}</p>
                 }

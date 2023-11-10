@@ -9,6 +9,7 @@ import { format } from '../../utils/currency';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
 
 interface Props {
     product: ProductInterface,
@@ -20,7 +21,7 @@ export const ProductSquareCard = ({ product }: Props) => {
 
     const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
-    const [imageLoaded, setImageLoaded] = useState(false);
+
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,
@@ -50,29 +51,15 @@ export const ProductSquareCard = ({ product }: Props) => {
         });
     }
 
-    // Used to know if the image exist.
-    useEffect(() => {
-        const img = new Image();
-        img.src = `https://oleistorage.blob.core.windows.net/oleidb1/${product.Codigo}.jpg`;
-
-        img.onload = () => {
-            setImageLoaded(true);
-        };
-
-        img.onerror = () => {
-            setImageLoaded(false);
-        };
-    }, [product.Codigo]);
-
     return (
         <div className={styles.productSquareCard}>
             <div className={styles.content}>
                 <div className={styles.image}>
                     {
-                        imageLoaded ?
-                            <img
-                            src={(imageLoaded && product.imagen) ? product?.imagen : "/logo02.png"}
-                            alt={product.Descripcion}
+                        product?.imagen ?
+                            <Image
+                                src={product?.imagen}
+                                alt={product.Descripcion}
                                 width={200}
                                 height={200}
                             />

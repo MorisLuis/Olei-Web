@@ -44,18 +44,12 @@ export const submitOrder = async ({
 
     let newOrder;
 
-    console.log({
-        productOrdered
-    })
-
     try {
         await api.post('/api/orderDetails', productOrdered);
     } catch (error) {
         console.log({ error })
     }
-    console.log({
-        order
-    })
+
 
     try {
         newOrder = await api.post('/api/order', order)

@@ -65,21 +65,21 @@ const Pedidos = () => {
                 <div className={styles.request}>
                     <section className={styles.info}>
                         {
-                            !orders ? <TableRequestSkeleton/> :
-                            orders.length > 0 ?
-                                <>
-                                    <div className={styles.header}>
-                                        <h2>Pedidos actuales</h2>
-                                        <p>Para cambiar la información, habla con tu administrador.</p>
-                                    </div>
-                                    <div className={styles.item}>
-                                        <TableRequest order={orders} handleSelectOrder={handleSelectOrder} />
-                                    </div>
-                                </>
-                                :
-                                <MessageCard title="No hay pedidos actuales">
-                                    No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
-                                </MessageCard>
+                            !orders ? <TableRequestSkeleton /> :
+                                orders.length > 0 ?
+                                    <>
+                                        <div className={styles.header}>
+                                            <h2>Pedidos actuales</h2>
+                                            <p>Para cambiar la información, habla con tu administrador.</p>
+                                        </div>
+                                        <div className={styles.item}>
+                                            <TableRequest order={orders} handleSelectOrder={handleSelectOrder} />
+                                        </div>
+                                    </>
+                                    :
+                                    <MessageCard title="No hay pedidos actuales">
+                                        No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
+                                    </MessageCard>
                         }
                     </section>
                 </div>
@@ -101,9 +101,7 @@ const Pedidos = () => {
                 onAccept={onSubmitOrderToCart}
                 title="Usar esta lista en carrito"
             >
-                <p>
-                    Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.
-                </p>
+                Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.
             </ModalMessage>
         </>
 

@@ -17,7 +17,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
 
     useEffect(() => {
         setChecked(value)
-    },  [])
+    },  [value])
 
     const handleToggle = () => {
         const newChecked = !checked;
@@ -26,7 +26,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
     };
 
     return (
-        <label htmlFor="enStock" className="toggleSwitch">
+        <label htmlFor={name || "enStock"} className="toggleSwitch">
             {
                 label && <p className="label">{label}</p>
             }

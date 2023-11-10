@@ -42,7 +42,7 @@ const HomeFilter = ({
             setShowGrid(showGrid)
         }
         setGrid()
-    }, [setShowGrid])
+    }, [showGrid, setShowGrid])
 
 
     return visible ? 

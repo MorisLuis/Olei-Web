@@ -3,6 +3,8 @@ import React from 'react';
 import styles from "../../styles/Navigation/Footer.module.scss";
 
 const Footer = () => {
+
+
     return (
         <div className={`${styles.footer} display-flex align`}>
             <div className={styles.image}>
@@ -11,6 +13,7 @@ const Footer = () => {
                     alt="photo"
                     width={200}
                     height={200}
+                    priority={true}
                 />
             </div>
         </div>

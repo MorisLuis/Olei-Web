@@ -178,8 +178,6 @@ export const CartProvider = ({ children }: any) => {
                 return p;
             });
 
-            console.log({updatedProducts})
-
             dispatch({ type: '[Cart] - Update products in cart', payload: updatedProducts });
         }
     }

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useCallback, useContext, useEffect, useState } from 'react';
 import styles from "../styles/Pages/Products.module.scss";
 
@@ -92,7 +94,7 @@ export default function Home({ productsProps }: Props) {
     push(url)
   }
 
-  const loadMoreProducts = async () => {
+  const loadMoreProducts = useCallback(async () => {
     setIsLoading(true);
 
     let url = `/api/product?page=${nextPage}&limit=20`;
@@ -119,7 +121,7 @@ export default function Home({ productsProps }: Props) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [nextPage, query]);
 
   const handleCleanAllFilters = () => {
     setTemporalFilters(filterState)
@@ -156,6 +158,7 @@ export default function Home({ productsProps }: Props) {
     setNextPage(2)
   }, [query, UseFetchPagination, productDelete, productsProps, clientChanged])
 
+
   useEffect(() => {
     loadMoreProducts()
   }, [])
@@ -191,7 +194,7 @@ export default function Home({ productsProps }: Props) {
           />
 
           {transitions((style, item) =>
-            (item && user?.SwImagenes ) ? (
+            (item && user?.SwImagenes) ? (
               <main className={styles.main}>
                 <animated.div style={{ ...style, width: "100%" }}>
                   <Grid

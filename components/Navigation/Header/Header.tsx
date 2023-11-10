@@ -88,7 +88,7 @@ const Header = ({
                 onAccept={onAcceptClientSelected}
                 title={`Seleccionar a ${capitalizarTexto(selectedClient?.Nombre as string)} como cliente.`}
             >
-                <p>Podras volver a seleccionar después.</p>
+                Podras volver a seleccionar después.
             </ModalMessage>
         </>
     )
