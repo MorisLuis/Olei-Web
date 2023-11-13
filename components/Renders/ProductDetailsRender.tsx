@@ -36,6 +36,9 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
         setTempCartProduct(productWithCartInfo);
     }, [productWithCartInfo]);
 
+
+    console.log({imagen})
+
     return (
         <>
             {product ? (
