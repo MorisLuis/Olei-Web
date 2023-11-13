@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
 
 import ProductInterface from '@/interfaces/product';
@@ -10,17 +10,21 @@ import { capitalizarTexto } from '@/utils/textCapitalize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from "framer-motion";
+import { useRouter } from 'next/router';
 
 interface Props {
     product: ProductInterface,
-    index: number
+    onClick?: any
 }
 
 
-export const ProductSquareCard = ({ product }: Props) => {
+export const ProductSquareCard = ({ product, onClick }: Props) => {
 
     const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
+    const { pathname, query } = useRouter();
 
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
@@ -52,24 +56,38 @@ export const ProductSquareCard = ({ product }: Props) => {
     }
 
     return (
-        <div className={styles.productSquareCard}>
+        <div className={styles.productSquareCard} onClick={() => onClick(product)}>
             <div className={styles.content}>
-                <div className={styles.image}>
-                    {
-                        product?.imagen ?
-                            <Image
-                                src={product?.imagen}
-                                alt={product.Descripcion}
-                                width={200}
-                                height={200}
-                            />
-                            :
-                            <div className={styles.notImage}>
-                                <FontAwesomeIcon icon={faImage} className={`icon`} />
-                                <h2>{user?.Company}</h2>
-                            </div>
-                    }
-                </div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                >
+                    <Link
+                        className={styles.image}
+                        scroll={false}
+                        shallow
+                        href={{ pathname, query: { ...query, product: `/products?product=${product.Codigo}&Marca=${product.Marca}` } }}
+                        as={`/product/${product.Codigo}?Marca=${product.Marca}`}
+                    >
+                        {
+                            product?.imagen ?
+                                <Image
+                                    src={product?.imagen?.[0]}
+                                    alt={product.Descripcion}
+                                    width={200}
+                                    height={200}
+                                />
+                                :
+                                <div className={styles.notImage}>
+                                    <FontAwesomeIcon icon={faImage} className={`icon`} />
+                                    <h2>{user?.Company}</h2>
+                                </div>
+                        }
+                    </Link>
+                </motion.div>
+
+
                 <div className={styles.info}>
                     <div className={styles.description}>
                         <h4>{capitalizarTexto(product.Descripcion)}</h4>

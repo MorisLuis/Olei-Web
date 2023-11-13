@@ -7,6 +7,9 @@ import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 import { AuthContext, FiltersContext } from '@/context';
 import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
+import FiltersInterface from '@/interfaces/filters';
+import QueryParams from '@/utils/queryParams';
+import { useRouter } from 'next/router';
 
 interface Props {
     setOpenModalFilter: Dispatch<SetStateAction<boolean>>;
@@ -14,22 +17,49 @@ interface Props {
 
     //Methods
     setShowGrid: any;
-    handleCloseTag: (filter: any) => void;
+    setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>;
+    //handleCloseTag: (filter: any) => void;
     handleCleanAllFilters: () => void
 }
 
 const HomeFilter = ({
-    handleCloseTag,
+    //handleCloseTag,
     showGrid,
     setShowGrid,
     setOpenModalFilter,
+    setTemporalFilters,
     handleCleanAllFilters,
 }: Props) => {
 
-    const { filtersValues } = useContext(FiltersContext);
+    const { addFilters, removeFilters, filters, removeAllFilters, filtersValues } = useContext(FiltersContext);
     const { user } = useContext(AuthContext);
+    const { push, query } = useRouter()
 
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(false);
+
+    const handleCloseTag = (filter: string[]) => {
+
+        removeFilters({
+            [filter[0]]: filter[1]
+        })
+
+        setTemporalFilters((prevState: FiltersInterface) => ({
+            ...prevState,
+            [filter[0]]: filter[1] === "true" ? false : undefined
+        }))
+
+        const queryParams = {
+            nombre: filter[0] === "nombre" ? undefined : filters.nombre,
+            marca: filter[0] === "marca" ? null : filters.marca,
+            familia: filter[0] === "familia" ? null : filters.familia,
+            folio: filter[0] === "folio" ? null : filters.folio,
+            enStock: filter[0] === "enStock" ? false : filters.enStock,
+        }
+
+        const handleQueryParams = QueryParams();
+        let url = handleQueryParams({ queryParams });
+        push(url)
+    }
 
     useEffect(() => {
         setTimeout(() => {
@@ -45,25 +75,25 @@ const HomeFilter = ({
     }, [showGrid, setShowGrid])
 
 
-    return visible ? 
+    return visible ?
         <>
             {/* DESKTOP VERSION */}
             <div className={`${styles.header} display-flex`}>
 
                 {
                     user?.SwImagenes ?
-                    <div className={styles.view}>
-                        <ToggleSquareSwitch
-                            label='Vista :'
-                            name="view"
-                            value={showGrid}
-                            onChange={(value: boolean) => {
-                                setShowGrid(value)
-                            }}
-                        />
-                    </div>
-                    :
-                    <div></div>
+                        <div className={styles.view}>
+                            <ToggleSquareSwitch
+                                label='Vista :'
+                                name="view"
+                                value={showGrid}
+                                onChange={(value: boolean) => {
+                                    setShowGrid(value)
+                                }}
+                            />
+                        </div>
+                        :
+                        <div></div>
                 }
 
 

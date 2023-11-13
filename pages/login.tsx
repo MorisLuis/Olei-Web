@@ -19,8 +19,8 @@ type FormData = {
 const Login = () => {
 
     const { loginUser, loggingIn } = useContext(AuthContext);
-
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const [isEntering, setIsEntering] = useState(true);
 
     const onLoginUser = async ({ email, password }: FormData) => {
         try {
@@ -29,8 +29,6 @@ const Login = () => {
             toast.error(error?.response?.data?.message)
         }
     }
-
-    const [isEntering, setIsEntering] = useState(true);
 
     useEffect(() => {
         setIsEntering(false);
@@ -41,7 +39,6 @@ const Login = () => {
         <PageTransition key="login-transition" isEntering={isEntering === false}>
             <LayoutOnboarding>
                 <div className={`${styles.login}`}>
-
                     <div className={`${styles.content} display-flex column allCenter`}>
                         <Image
                             src={"/logo01.png" || ""}

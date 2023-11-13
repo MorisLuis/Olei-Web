@@ -49,7 +49,6 @@ const ProductCard = ({ product }: Props) => {
         });
     }
 
-    
     return (
         <div className={`${styles.item} cursor display-flex`}>
             <div className={`${styles.principalData} display-flex align`}>

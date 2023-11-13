@@ -3,7 +3,7 @@ import styles from "../../styles/Pages/Request.module.scss";
 
 import TableRequest from '@/components/Ui/Tables/TableRequest';
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
-import ModalRequest from '@/components/Modals/ModalRequest';
+import Modal from '@/components/Modals/Modal';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 import OrderInterface from '@/interfaces/order';
@@ -21,7 +21,8 @@ const Pedidos = () => {
 
     const { addOrderToCart } = useContext(CartContext)
 
-    const [openModalMessage, setOpenModalMessage] = useState(false)
+    const [openModalMessage, setOpenModalMessage] = useState(false);
+    const [openModalRequest, setOpenModalRequest] = useState(false)
     const [orders, setOrders] = useState<OrderInterface[]>();
     const [orderSelect, setOrderSelect] = useState<ProductInterface[]>()
 
@@ -38,9 +39,11 @@ const Pedidos = () => {
 
 
     const handleSelectOrder = async (folio: string) => {
+        setOpenModalRequest(true)
         const { data } = await api.get(`/api/orderDetails?folio=${folio}`);
         const order: ProductInterface[] = data;
         setOrderSelect(order)
+
     }
 
 
@@ -85,15 +88,18 @@ const Pedidos = () => {
                 </div>
             </LayoutProfile>
 
-            <ModalRequest
-                visible={query.receipt}
-                onClose={() => back()}
+            <Modal
+                visible={query.receipt && openModalRequest}
+                onClose={() => {
+                    setOpenModalRequest(false)
+                    back()
+                }}
                 handleOpenModalMessage={() => setOpenModalMessage(true)}
                 receipt
                 actionsVisible
             >
                 <ReceiptRender />
-            </ModalRequest>
+            </Modal>
 
             <ModalMessage
                 visible={openModalMessage}

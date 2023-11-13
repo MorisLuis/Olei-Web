@@ -25,7 +25,7 @@ interface Props {
     handleCleanAllFilters?: () => void;
 }
 
-const ModalRequest = ({
+const Modal = ({
     visible,
     children,
     title,
@@ -71,7 +71,7 @@ const ModalRequest = ({
                         {
                             actionsVisible &&
                             <>
-                                <button className={`${styles.expand} button-small display-flex align m-right`} onClick={() => push(`/${query?.receipt}`)}>
+                                <button className={`${styles.expand} button-small display-flex align m-right`} onClick={() => push(`/request/${query?.receipt}`)}>
                                     Expandir
                                     <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align rotat45`} />
                                 </button>
@@ -121,4 +121,4 @@ const ModalRequest = ({
         : null
 }
 
-export default ModalRequest
+export default Modal

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import styles from "../../styles/Pages/Request.module.scss";
 
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
-import ModalRequest from '@/components/Modals/ModalRequest';
+import ModalRequest from '@/components/Modals/Modal';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 

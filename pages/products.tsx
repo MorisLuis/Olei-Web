@@ -10,7 +10,7 @@ import { api } from '@/api/api';
 import { Layout } from '@/components/Layouts/Layout';
 import HomeFilter from '@/components/HomeFilter';
 import Table from '@/components/Ui/Tables/Table';
-import ModalRequest from '@/components/Modals/ModalRequest';
+import Modal from '@/components/Modals/Modal';
 import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersModalContent';
 import Grid from '@/components/Ui/Tables/Grid';
 import HomeSearch from '@/components/Search/HomeSearch';
@@ -21,6 +21,8 @@ import FiltersInterface from '@/interfaces/filters';
 import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/context';
 import QueryParams from '@/utils/queryParams';
 import { useTransition, animated } from 'react-spring';
+import PageTransition from '@/components/PageTranstion';
+import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
 
 interface Props {
   productsProps: ProductInterface[]
@@ -37,18 +39,21 @@ const filterState: FiltersInterface = {
 export default function Home({ productsProps }: Props) {
 
   const { push, query } = useRouter()
-  const { addFilters, removeFilters, filters, removeAllFilters } = useContext(FiltersContext);
+  const { addFilters, removeAllFilters } = useContext(FiltersContext);
   const { productDelete } = useContext(CartContext);
   const { clientChanged } = useContext(ClientContext);
   const { user } = useContext(AuthContext);
 
-  const [products, setProducts] = useState<ProductInterface[]>(productsProps)
-  const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState)
-  const [openModalFilter, setOpenModalFilter] = useState<boolean>(false)
+  const [products, setProducts] = useState<ProductInterface[]>(productsProps);
+  const [productDetails, setProductDetails] = useState<PorductInterface>();
+  const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState);
+  const [openModalFilter, setOpenModalFilter] = useState<boolean>(false);
+  const [openModalProduct, setOpenModalProduct] = useState<boolean>(false);
   const [nextPage, setNextPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState(false)
   const [loadingData, setLoadingData] = useState(true);
   const [showGrid, setShowGrid] = useState(true)
+  const [isEntering, setIsEntering] = useState(true);
 
   const handleFiltersToQuery = () => {
 
@@ -70,28 +75,27 @@ export default function Home({ productsProps }: Props) {
     push(url)
   };
 
-  const handleCloseTag = (filter: string[]) => {
+  const handleCleanAllFilters = () => {
+    setTemporalFilters(filterState)
+    removeAllFilters()
+    setOpenModalFilter(false);
+    push("/products");
+  }
 
-    removeFilters({
-      [filter[0]]: filter[1]
-    })
+  const handleSelectProduct = async (product: ProductInterface) => {
 
-    setTemporalFilters((prevState: FiltersInterface) => ({
-      ...prevState,
-      [filter[0]]: filter[1] === "true" ? false : undefined
-    }))
+    if (!product) return;
 
-    const queryParams = {
-      nombre: filter[0] === "nombre" ? undefined : filters.nombre,
-      marca: filter[0] === "marca" ? null : filters.marca,
-      familia: filter[0] === "familia" ? null : filters.familia,
-      folio: filter[0] === "folio" ? null : filters.folio,
-      enStock: filter[0] === "enStock" ? false : filters.enStock,
+    try {
+      setOpenModalProduct(true)
+      const { data } = await api.get(`/api/product/${product.Codigo}?Marca=${product.Marca}`);
+      if (data) {
+        setProductDetails(data);
+      }
+    } catch (error) {
+      console.log({ error })
     }
 
-    const handleQueryParams = QueryParams();
-    let url = handleQueryParams({ queryParams });
-    push(url)
   }
 
   const loadMoreProducts = useCallback(async () => {
@@ -123,16 +127,11 @@ export default function Home({ productsProps }: Props) {
     }
   }, [nextPage, query]);
 
-  const handleCleanAllFilters = () => {
-    setTemporalFilters(filterState)
-    removeAllFilters()
-    setOpenModalFilter(false);
-    push("/products");
-  }
-
   const UseFetchPagination = useCallback(() => {
     setProducts(productsProps);
   }, [productsProps]);
+
+
 
   useEffect(() => {
     if (clientChanged) {
@@ -158,7 +157,6 @@ export default function Home({ productsProps }: Props) {
     setNextPage(2)
   }, [query, UseFetchPagination, productDelete, productsProps, clientChanged])
 
-
   useEffect(() => {
     loadMoreProducts()
   }, [])
@@ -176,52 +174,57 @@ export default function Home({ productsProps }: Props) {
     config: { duration: 500 },
   });
 
+  useEffect(() => {
+    setIsEntering(false);
+  }, []);
 
   return (
     <>
-      <Layout>
-        <div className={styles.products}>
-          <HomeSearch
-            setTemporalFilters={setTemporalFilters}
-          />
+      <PageTransition key="login-transition" isEntering={isEntering === false}>
+        <Layout>
+          <div className={styles.products}>
 
-          <HomeFilter
-            handleCloseTag={handleCloseTag}
-            setOpenModalFilter={setOpenModalFilter}
-            handleCleanAllFilters={handleCleanAllFilters}
-            setShowGrid={setShowGrid}
-            showGrid={showGrid}
-          />
+            <HomeSearch setTemporalFilters={setTemporalFilters}/>
 
-          {transitions((style, item) =>
-            (item && user?.SwImagenes) ? (
-              <main className={styles.main}>
-                <animated.div style={{ ...style, width: "100%" }}>
-                  <Grid
-                    data={products}
-                    loadMoreProducts={loadMoreProducts}
-                    isLoading={isLoading}
-                    loadingData={loadingData}
-                  />
-                </animated.div>
-              </main>
-            ) : (
-              <main className={styles.main}>
-                <animated.div style={{ ...style, width: "100%" }}>
-                  <Table
-                    data={products}
-                    loadMoreProducts={loadMoreProducts}
-                    isLoading={isLoading}
-                    loadingData={loadingData}
-                  />
-                </animated.div>
-              </main>
-            )
-          )}
-        </div>
-      </Layout>
+            <HomeFilter
+              setOpenModalFilter={setOpenModalFilter}
+              handleCleanAllFilters={handleCleanAllFilters}
+              setShowGrid={setShowGrid}
+              showGrid={showGrid}
+              setTemporalFilters={setTemporalFilters}
+            />
 
-      <ModalRequest
+            {transitions((style, item) =>
+              (item && user?.SwImagenes) ? (
+                <main className={styles.main}>
+                  <animated.div style={{ ...style, width: "100%" }}>
+                    <Grid
+                      data={products}
+                      loadMoreProducts={loadMoreProducts}
+                      isLoading={isLoading}
+                      loadingData={loadingData}
+                      handleSelectProduct={handleSelectProduct}
+                    />
+                  </animated.div>
+                </main>
+              ) : (
+                <main className={styles.main}>
+                  <animated.div style={{ ...style, width: "100%" }}>
+                    <Table
+                      data={products}
+                      loadMoreProducts={loadMoreProducts}
+                      isLoading={isLoading}
+                      loadingData={loadingData}
+                    />
+                  </animated.div>
+                </main>
+              )
+            )}
+          </div>
+        </Layout>
+      </PageTransition>
+
+      <Modal
         visible={openModalFilter}
         title="Filtros"
         small
@@ -238,7 +241,24 @@ export default function Home({ productsProps }: Props) {
           temporalFilters={temporalFilters}
           visible={openModalFilter}
         />
-      </ModalRequest>
+      </Modal>
+
+      <Modal
+        visible={query.product && openModalProduct}
+        title="Producto"
+        modalBlack
+
+        //Methods
+        onClose={() => {
+          push('/products', undefined, { scroll: false });
+          setOpenModalProduct(false);
+          setProductDetails(undefined);
+        }}
+        handleFiltersToQuery={handleFiltersToQuery}
+        handleCleanAllFilters={handleCleanAllFilters}
+      >
+        <ProductDetailsRender product={productDetails as ProductInterface}/>
+      </Modal>
     </>
   )
 }
