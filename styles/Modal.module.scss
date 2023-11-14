@@ -196,7 +196,6 @@
 .modalPrincipal {
     background-color: $background-color;
     width: 75%;
-    height: 80%;
     max-width: 1200px;
     max-height: 550px;
     position: absolute;
@@ -205,7 +204,6 @@
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     overflow: hidden;
     z-index: 999999;
-    padding-bottom: 4em;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) scale(0.8);
