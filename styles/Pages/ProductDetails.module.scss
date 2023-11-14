@@ -11,6 +11,15 @@
         width: 60%;
         padding: 3em 0em 10em 0em;
 
+        @include respond(tab-port) {
+            width: 90%;
+        }
+
+
+        @include respond(phone) {
+            width: 90%;
+        }
+
         .back{
             margin-bottom: 20px;
             display: flex;
