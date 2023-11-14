@@ -197,6 +197,8 @@
     background-color: $background-color;
     width: 75%;
     height: 80%;
+    max-width: 1200px;
+    max-height: 550px;
     position: absolute;
     border-radius: 1em;
     border: 1px solid $color-border;
