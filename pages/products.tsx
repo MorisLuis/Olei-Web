@@ -23,6 +23,7 @@ import QueryParams from '@/utils/queryParams';
 import { useTransition, animated } from 'react-spring';
 import PageTransition from '@/components/PageTranstion';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
+import Image from 'next/image';
 
 interface Props {
   productsProps: ProductInterface[]
@@ -184,7 +185,7 @@ export default function Home({ productsProps }: Props) {
         <Layout>
           <div className={styles.products}>
 
-            <HomeSearch setTemporalFilters={setTemporalFilters}/>
+            <HomeSearch setTemporalFilters={setTemporalFilters} />
 
             <HomeFilter
               setOpenModalFilter={setOpenModalFilter}
@@ -257,7 +258,7 @@ export default function Home({ productsProps }: Props) {
         handleFiltersToQuery={handleFiltersToQuery}
         handleCleanAllFilters={handleCleanAllFilters}
       >
-        <ProductDetailsRender product={productDetails as ProductInterface}/>
+        <ProductDetailsRender product={productDetails as ProductInterface} />
       </Modal>
     </>
   )

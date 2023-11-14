@@ -38,7 +38,7 @@ const Header = ({
         selectClient(selectedClient as ClientInterface)
         setTimeout(() => {
             setClientChanged(false)
-        }, 300) 
+        }, 300)
         setOpenModalMessage(false);
     }
 

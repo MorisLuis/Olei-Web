@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -7,6 +7,7 @@ import ModalCart from '../Modals/ModalCart';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header/Header';
 import ModalMenu from '../Modals/ModalMenu';
+import Image from 'next/image';
 
 interface Props {
     children: ReactNode
@@ -29,6 +30,15 @@ export const Layout = ({ children }: Props) => {
             </Head>
 
             <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu} />
+
+            {/* <div className='banner'>
+                <Image
+                    src="/banner2.jpg"
+                    alt="banner"
+                    width={500}
+                    height={500}
+                />
+            </div> */}
 
             <div>
                 {children}
