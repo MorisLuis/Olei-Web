@@ -56,28 +56,33 @@ export const ImageGallery = ({ images }: { images: any[] | undefined }) => {
         setImages()
     }, [images])
 
+
     return (
         <div className={styles.imageGallery}>
             <main className={styles.primary_container}>
                 <AnimatePresence>
-                    <motion.img
-                        key={primaryProduct?.id}
-                        className={styles.primary_product_image}
-                        src={primaryProduct?.url}
-                        alt={primaryProduct?.url}
-                        layoutId={`product-${primaryProduct?.id}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    />
 
-                    <div className={styles.notImage}>
-                        <FontAwesomeIcon icon={faImage} className={`icon`} />
-                        <h2>{user?.Company}</h2>
-                    </div>
-
+                    {
+                        primaryProduct ?
+                        <motion.img
+                            key={primaryProduct?.id}
+                            className={styles.primary_product_image}
+                            src={primaryProduct?.url}
+                            alt={primaryProduct?.url}
+                            layoutId={`product-${primaryProduct?.id}`}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        />
+                        :
+                        <div className={styles.notImage}>
+                            <FontAwesomeIcon icon={faImage} className={`icon`} />
+                            <h2>{user?.Company}</h2>
+                        </div>
+                    }
                 </AnimatePresence>
             </main>
+
             <aside className={styles.product_gallery}>
                 <AnimatePresence>
                     {productIds?.map((img: imageInterface) => (

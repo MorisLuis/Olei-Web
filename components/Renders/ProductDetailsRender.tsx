@@ -40,31 +40,46 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
         <>
             {product ? (
                 <div className={styles.pageDetails}>
+
                     <ImageGallery images={imagen} />
+
                     <div className={styles.content}>
-                        <section className={styles.details}>
+
+                        <div className={styles.header}>
                             <h1>{Descripcion}</h1>
-                            <p><span>Codigo: </span>{Codigo}</p>
-                            <p><span>Marca: </span>{Marca}</p>
-                            <p><span>Familia: </span>{Familia}</p>
-
-                            {
-                                Observaciones &&
-                                <>
-                                    <div className='divider'></div>
-                                    <span>Obervaciones</span>
-                                    <p>{Observaciones}</p>
-                                </>
-                            }
-                        </section>
-
-
-                        <section className={styles.price}>
-                            <div className={styles.number}>
+                            <div className={styles.price}>
                                 <span>Precio</span>
                                 <p>{format(Precio)} MXN</p>
                             </div>
+                        </div>
 
+                        {
+                            Observaciones &&
+                            <div className={styles.observations}>
+                                <span>Obervaciones: </span>
+                                <p>{Observaciones}</p>
+                            </div>
+                        }
+
+                        <section className={styles.details}>
+                            <div>
+                                <p>Codigo: </p>
+                                <span>{Codigo}</span>
+                            </div>
+
+                            <div>
+                                <p>Marca: </p>
+                                <span>{Marca}</span>
+                            </div>
+
+                            <div>
+                                <p>Familia: </p>
+                                <span>{Familia}</span>
+                            </div>
+                        </section>
+
+                        <section className={styles.counter}>
+                            <p>Agregar al carrito: </p>
                             <Counter
                                 currentValue={Piezas > 0 ? Piezas : (tempCartProduct?.Piezas || 0)}
                                 maxValue={Existencia && Existencia < 0 ? null : Existencia}
@@ -72,7 +87,6 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                             />
                         </section>
                     </div>
-
                 </div>
             ) : (
                 <p>Cargando...</p>

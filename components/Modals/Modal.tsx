@@ -54,7 +54,6 @@ const Modal = ({
     };
 
 
-
     return visible ?
         <>
             {

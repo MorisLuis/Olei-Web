@@ -195,7 +195,7 @@
 
 .modalPrincipal {
     background-color: $background-color;
-    width: 60%;
+    width: 75%;
     height: 80%;
     position: absolute;
     border-radius: 1em;
@@ -241,6 +241,7 @@
 
     &.receipt {
         font-family: "VictorMono";
+        width: 60%;
     }
 
     &.small {
