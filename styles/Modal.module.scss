@@ -215,7 +215,7 @@
     }
 
     @include respond(tab-land) {
-        width: 50%;
+        width: 75%;
     }
 
     @include respond(tab-port) {
@@ -316,7 +316,7 @@
     }
 
     .content {
-        padding: 2em 2em 6em 2em;
+        padding: 1em 1em 6em 1em;
         overflow-y: scroll;
         overflow-x: hidden;
         height: 90%;

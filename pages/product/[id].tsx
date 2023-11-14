@@ -7,23 +7,28 @@ import { Layout } from '@/components/Layouts/Layout';
 import ProductInterface from '@/interfaces/product';
 import { api } from '@/api/api';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
+import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ProductDetails = (productProps: ProductInterface) => {
 
-    const { back } = useRouter();
+    const { push } = useRouter();
 
     const handleGoBack = () => {
-        back();
+        push('/products');
     }
 
     return (
         <Layout>
-            <div onClick={handleGoBack}>
-                Regresar
+            <div className={styles.pageDetails}>
+                <section className={styles.page}>
+                    <div onClick={handleGoBack} className={styles.back}>
+                        <FontAwesomeIcon icon={faArrowLeftLong} className={`icon__small`} />
+                        <p>Regresar</p>
+                    </div>
+                    <ProductDetailsRender product={productProps} />
+                </section>
             </div>
-
-            <ProductDetailsRender product={productProps} />
-
         </Layout>
     )
 }

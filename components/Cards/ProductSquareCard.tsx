@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
 
 import ProductInterface from '@/interfaces/product';
@@ -73,7 +73,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         {
                             product?.imagen ?
                                 <Image
-                                    src={product?.imagen?.[0]}
+                                    src={product?.imagen?.[0].url}
                                     alt={product.Descripcion}
                                     width={200}
                                     height={200}

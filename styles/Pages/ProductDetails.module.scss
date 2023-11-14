@@ -2,50 +2,90 @@
 
 .pageDetails{
     min-height: 80vh;
-    padding: 1em;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    .title{
-        margin-bottom: 1em;
-    }
+    .page{
+        width: 60%;
+        padding: 3em 0em 10em 0em;
 
-    .images{
-
-        .principalImage{
-            background-color: $background-color-secondary;
-            margin-bottom: 1em;
-            border-radius:  0.35em;
-            border: 1px solid rgba($color: $color-border, $alpha: 0.5);
-            height: 40vh;
+        .back{
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap:1em;
 
-            img{
-                object-fit: contain;
-                box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+            &:hover{
+                text-decoration: underline;
+                cursor: pointer;
             }
+        }
+    }
 
+    .content{
+        display: flex;
+        justify-content: space-between;
+        gap: 1em;
+        padding: 0em 4em;
+        min-width: 100%;
 
+        @include respond(phone) {
+            padding: 0em 1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: none;
         }
 
-        .otherImages{
+
+        .details{
+            width: 55%;
+            color: $text-color-light;
+
+            h1{
+                margin-bottom: 10px;
+                font-size: 26px;
+                color: $text-color;
+            }
+
+            span{
+                color: $text-color;
+                font-weight: bold;
+            }
+
+            @include respond(phone) {
+                width: 100%;
+            }
+        }
+
+        .price{
+            width: 35%;
+            height: fit-content;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            padding: 1em 2em;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;    
             
-            > img{
-                width: 70px;
-                height: 70px;
-                object-fit: cover;
-                border-radius:  0.35em;
-                border: 1px solid rgba($color: $color-border, $alpha: 0.5);
+            p{
+                margin-bottom: 10px;
+                font-size: 20px;
+                font-weight: bold;
+            }
 
-                &:not(:last-child){
-                    margin-right: 1em;
-                }
+            @include respond(phone) {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
 
-                &:hover{
-                    cursor: pointer;
-                    border: 1px solid $color-border-secondary;
+                width: 100%;
+                position: fixed;
+                bottom: 0px;
+                left: 0px;
+                background-color: $background-color;
+
+                > div{
+                    width: 50%;
                 }
             }
         }
