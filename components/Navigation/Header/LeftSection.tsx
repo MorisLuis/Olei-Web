@@ -22,7 +22,7 @@ export const LeftSection = ({
                 {user?.Company}
             </div>
 
-            {user?.TipoUsuario == '2' && client?.Id_Almacen && pathname !== '/onboarding/selectClient' && (
+            {user?.TipoUsuario === 2 && client?.Id_Almacen && pathname !== '/onboarding/selectClient' && (
                 <div className={`${styles.client} display-flex align cursor`} onClick={() => setModalClientsVisible(true)}>
                     <span>|</span>
                     <div className={`${styles.circular} display-flex allCenter`}>

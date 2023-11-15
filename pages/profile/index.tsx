@@ -29,7 +29,7 @@ const Profile = () => {
 
                         <div className={styles.item}>
                             <label htmlFor="Cliente">Tipo de Cliente</label>
-                            <p>{user?.TipoUsuario == "1" ? "Cliente" : "Vendedor"}</p>
+                            <p>{user?.TipoUsuario === 1 ? "Cliente" : "Vendedor"}</p>
                         </div>
                     </div>
                 </section>
