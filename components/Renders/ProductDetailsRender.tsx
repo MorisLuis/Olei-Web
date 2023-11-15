@@ -7,6 +7,7 @@ import { CartContext } from '@/context';
 import { useProductWithCartInfo } from '@/hooks/useProductWithCartInfo';
 import { ImageGallery } from './ImageGallery';
 import { format } from '@/utils/currency';
+import { ProductDetailsRenderSkeleton } from '../Skeletons/ProductDetailsRenderSkeleton';
 
 export const ProductDetailsRender = ({ product }: { product: ProductInterface }) => {
 
@@ -88,9 +89,9 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                         </section>
                     </div>
                 </div>
-            ) : (
-                <p>Cargando...</p>
-            )}
+            ) :
+            <ProductDetailsRenderSkeleton/>
+            }
         </>
     );
 };
