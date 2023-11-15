@@ -24,7 +24,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
 
     const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
-    const isEmployee = user?.TipoUsuario !== 2;
+    const isEmployee = user?.TipoUsuario === 2;
     const { pathname, query } = useRouter();
 
 

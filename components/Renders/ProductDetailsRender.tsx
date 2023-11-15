@@ -15,7 +15,7 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
     const { productWithCartInfo } = useProductWithCartInfo(product);
     const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
-    const isEmployee = user?.TipoUsuario !== 2;
+    const isEmployee = user?.TipoUsuario === 2;
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface | null>(null);
 
     const { Precio, Descripcion, Codigo, Existencia, Familia, Marca, imagen, Observaciones, Piezas } = productWithCartInfo || {};
