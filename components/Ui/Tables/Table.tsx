@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
-import styles from "../../../styles/UI.module.scss";
+import React, { useContext } from 'react';
+import styles from "../../../styles/Tables.module.scss";
 
-import ProductCard from '../../Cards/ProductCard';
-import { CartContext } from '@/context';
+import { ProductCard, ProductCardMovil } from '../../Cards/ProductCard';
+import { AuthContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '../../Cards/MessageCard';
 import TableSkeleton from '../../Skeletons/TableSkeleton';
 import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
 import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
+import { useWindowWith } from '@/hooks/useWindowWith';
 
 interface Props {
     data: ProductInterface[],
@@ -18,7 +19,12 @@ interface Props {
 
 const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
 
-    const { productsWithCartInfo } =  useProductsWithCartInfo(data)
+    const { productsWithCartInfo } = useProductsWithCartInfo(data)
+    const { user } = useContext(AuthContext);
+
+    const windowWidth = useWindowWith();
+    const isTable = windowWidth && windowWidth <= 920;
+    const isEmployee = user?.TipoUsuario === 2
 
     return (
         <>
@@ -34,20 +40,29 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                         <>
                             <div className={`${styles.table}`}>
                                 <div className={styles.content}>
-                                    <div className={`${styles.headers} display-flex space-between`}>
-                                        <p>Nombre</p>
-                                        <p>Codigo</p>
-                                        <p>Marca</p>
-                                        <p>Familia</p>
-                                        <p>Precio (MXN)</p>
-                                        <p></p>
+                                    <div className={
+                                        isTable ? `${styles.headers} none` :
+                                            `${styles.headers} display-flex space-between`
+                                    }>
+                                        <p className={styles.name}>Nombre</p>
+                                        <div className={styles.otherInformation}>
+                                            <div>Codigo</div>
+                                            <div>Marca</div>
+                                            <div>Familia</div>
+                                            {isEmployee  && <div>Existencias</div>}
+                                            <div>Precio (MXN)</div>
+                                            <div></div>
+                                        </div>
                                     </div>
 
                                     <div className={styles.data}>
                                         {
                                             productsWithCartInfo?.map((product: ProductInterface) => {
                                                 return (
-                                                    <ProductCard product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
+                                                    isTable ?
+                                                        <ProductCardMovil product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
+                                                        :
+                                                        <ProductCard product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
                                                 )
                                             })
                                         }

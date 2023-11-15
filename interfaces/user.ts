@@ -29,7 +29,7 @@ export default interface UserInterface {
     BaseSQL: string;
 
     // Represents whether the user is an employee or a direct client.
-    TipoUsuario: string;
+    TipoUsuario: number;
 
     // Represents some privileges associated with the user.
     PrivilegioTipoCliente: number;

@@ -3,16 +3,19 @@ import styles from './../../styles/Pages/ProductDetails.module.scss';
 
 import ProductInterface from '@/interfaces/product';
 import Counter from '../Ui/Counter';
-import { CartContext } from '@/context';
+import { AuthContext, CartContext } from '@/context';
 import { useProductWithCartInfo } from '@/hooks/useProductWithCartInfo';
 import { ImageGallery } from './ImageGallery';
 import { format } from '@/utils/currency';
 import { ProductDetailsRenderSkeleton } from '../Skeletons/ProductDetailsRenderSkeleton';
+import { Tag } from '../Ui/Tag';
 
 export const ProductDetailsRender = ({ product }: { product: ProductInterface }) => {
 
     const { productWithCartInfo } = useProductWithCartInfo(product);
     const { addProductToCart } = useContext(CartContext);
+    const { user } = useContext(AuthContext);
+    const isEmployee = user?.TipoUsuario !== 2;
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface | null>(null);
 
     const { Precio, Descripcion, Codigo, Existencia, Familia, Marca, imagen, Observaciones, Piezas } = productWithCartInfo || {};
@@ -80,17 +83,31 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                         </section>
 
                         <section className={styles.counter}>
-                            <p>Agregar al carrito: </p>
-                            <Counter
-                                currentValue={Piezas > 0 ? Piezas : (tempCartProduct?.Piezas || 0)}
-                                maxValue={Existencia && Existencia < 0 ? null : Existencia}
-                                updatedQuantity={onUpdateQuantity}
-                            />
+                            {isEmployee &&
+                                <div className={styles.stock}>
+                                    <p className={`display-flex text-ellipsis align`}>
+                                        Existencia:
+                                        {
+                                            product?.Existencia < 0 ?
+                                                <Tag>No Stock</Tag> :
+                                                <strong>{product?.Existencia}</strong>
+                                        }
+                                    </p>
+                                </div>
+                            }
+                            <div className={styles.action}>
+                                <p>Agregar al carrito: </p>
+                                <Counter
+                                    currentValue={Piezas > 0 ? Piezas : (tempCartProduct?.Piezas || 0)}
+                                    maxValue={Existencia && Existencia < 0 ? null : Existencia}
+                                    updatedQuantity={onUpdateQuantity}
+                                />
+                            </div>
                         </section>
                     </div>
                 </div>
             ) :
-            <ProductDetailsRenderSkeleton/>
+                <ProductDetailsRenderSkeleton />
             }
         </>
     );

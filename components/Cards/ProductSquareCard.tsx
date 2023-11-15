@@ -24,6 +24,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
 
     const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
+    const isEmployee = user?.TipoUsuario !== 2;
     const { pathname, query } = useRouter();
 
 
@@ -99,6 +100,18 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                     <div className={styles.data}>
                         <p>Codigo: {product.Codigo}</p>
                         <p>Marca: {product.Marca}</p>
+                        {isEmployee &&
+                            <div>
+                                <p className={`${styles.stock} display-flex text-ellipsis align`}>
+                                    Existencia:
+                                    {
+                                        product?.Existencia < 0 ?
+                                            <Tag>No Stock</Tag> :
+                                            <strong>{product?.Existencia}</strong>
+                                    }
+                                </p>
+                            </div>
+                        }
                     </div>
 
 
