@@ -7,7 +7,6 @@ import ModalCart from '../Modals/ModalCart';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header/Header';
 import ModalMenu from '../Modals/ModalMenu';
-import Image from 'next/image';
 
 interface Props {
     children: ReactNode
@@ -32,7 +31,6 @@ export const LayoutOnboarding = ({ children }: Props) => {
                 pathname !== "/login" &&
                 <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu} />
             }
-
 
             <div>
                 {children}

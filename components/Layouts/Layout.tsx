@@ -31,25 +31,23 @@ export const Layout = ({ children }: Props) => {
 
             <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu} />
 
-            {/* <div className='banner'>
+            <div className='banner'>
                 <Image
                     src="/banner2.jpg"
                     alt="banner"
                     width={500}
                     height={500}
                 />
-            </div> */}
+            </div>
 
             <div>
                 {children}
             </div>
 
-
             {
                 pathname !== "/cart" &&
                 <Footer />
             }
-
 
             <ModalCart
                 visible={openModalCart}

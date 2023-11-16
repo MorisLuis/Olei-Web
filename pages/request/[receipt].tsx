@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 
-
 const ReceiptPage = () => {
 
     const {push} = useRouter();
