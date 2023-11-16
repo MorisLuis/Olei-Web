@@ -9,13 +9,15 @@ import { Tag } from '../Ui/Tag';
 import QueryParams from '@/utils/queryParams';
 
 interface ResultsContainerInterface {
+    inputValue: string,
+    searchResults: string[],
+    modalSearchVisible: boolean,
+
     setInputValue: React.Dispatch<React.SetStateAction<string>>,
     setModalSearchVisible: React.Dispatch<React.SetStateAction<boolean>>,
     setSearchActive: React.Dispatch<React.SetStateAction<boolean>>,
-    setTemporalFilters: any,
-    inputValue: string,
-    searchResults: any,
-    modalSearchVisible: boolean
+    setTemporalFilters: React.Dispatch<React.SetStateAction<FiltersInterface>>,
+    setLoadingData: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ResultsContainer = ({
@@ -25,7 +27,8 @@ const ResultsContainer = ({
     setTemporalFilters,
     inputValue,
     searchResults,
-    modalSearchVisible
+    modalSearchVisible,
+    setLoadingData
 }: ResultsContainerInterface) => {
 
     const { push } = useRouter();
@@ -37,6 +40,7 @@ const ResultsContainer = ({
     };
 
     const onSelectProduct = (producto: any) => {
+        setLoadingData(false)
         const newFilters: Partial<FiltersInterface> = {
             ...filters,
             nombre: producto,
@@ -57,6 +61,7 @@ const ResultsContainer = ({
         push(url)
         setModalSearchVisible(false)
         setSearchActive(false)
+        setLoadingData(true)
     }
 
     const handleCloseTag = (filter: string[]) => {

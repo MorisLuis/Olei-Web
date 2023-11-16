@@ -13,11 +13,11 @@ import { useWindowWith } from '@/hooks/useWindowWith';
 interface Props {
     data: ProductInterface[],
     loadMoreProducts: () => Promise<void>,
-    isLoading: boolean,
+    buttonIsLoading: boolean,
     loadingData: boolean
 }
 
-const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
+const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData }: Props) => {
 
     const { productsWithCartInfo } = useProductsWithCartInfo(data)
     const { user } = useContext(AuthContext);
@@ -68,12 +68,14 @@ const Table = ({ data, loadMoreProducts, isLoading, loadingData }: Props) => {
                                         }
                                     </div>
                                 </div>
+
+                                {/* LOAD MORE PRODUCTS */}
                                 {
                                     (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
                                     <div className={styles.loadMore}>
                                         <ButtonAnimated
                                             onclick={loadMoreProducts}
-                                            disabled={isLoading}
+                                            disabled={buttonIsLoading}
                                         />
                                     </div>
                                 }

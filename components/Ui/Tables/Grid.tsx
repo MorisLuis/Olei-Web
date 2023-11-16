@@ -12,12 +12,12 @@ import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
 interface Props {
     data: ProductInterface[],
     loadMoreProducts: () => Promise<void>,
-    isLoading: boolean,
+    buttonIsLoading: boolean,
     loadingData: boolean,
     handleSelectProduct: (product: ProductInterface) => Promise<void>;
 }
 
-const Grid = ({ data, loadMoreProducts, isLoading, loadingData, handleSelectProduct}: Props) => {
+const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSelectProduct}: Props) => {
 
     const { productsWithCartInfo } =  useProductsWithCartInfo(data)
 
@@ -53,7 +53,7 @@ const Grid = ({ data, loadMoreProducts, isLoading, loadingData, handleSelectProd
                                     <div className={styles.loadMore}>
                                         <ButtonAnimated
                                             onclick={loadMoreProducts}
-                                            disabled={isLoading}
+                                            disabled={buttonIsLoading}
                                         />
                                     </div>
                                 }

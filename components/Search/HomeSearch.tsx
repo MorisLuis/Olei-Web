@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
 import styles from "../../styles/Pages/Products.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,9 +10,15 @@ import QueryParams from '@/utils/queryParams';
 import { api } from '@/api/api';
 import ResultsContainer from './ResultsContainer';
 
+interface HomeSearchInterface {
+    setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>,
+    setLoadingData: Dispatch<SetStateAction<boolean>>
+}
+
 const HomeSearch = ({
-    setTemporalFilters
-}: any) => {
+    setTemporalFilters,
+    setLoadingData
+}: HomeSearchInterface) => {
 
     const { addFilters, filters } = useContext(FiltersContext);
     const { push, query } = useRouter();
@@ -20,7 +26,7 @@ const HomeSearch = ({
 
     const [inputValue, setInputValue] = useState('');
     const [modalSearchVisible, setModalSearchVisible] = useState(false);
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState<string[]>([]);
     const [searchActive, setSearchActive] = useState(false);
 
     const onSearchProduct = async (event: any) => {
@@ -118,14 +124,15 @@ const HomeSearch = ({
 
             {/* RESULTS CONTAINER */}
             <ResultsContainer
-                searchResults={searchResults}
                 inputValue={inputValue}
-
+                searchResults={searchResults}
                 modalSearchVisible={modalSearchVisible}
+                
                 setInputValue={setInputValue}
                 setModalSearchVisible={setModalSearchVisible}
                 setSearchActive={setSearchActive}
                 setTemporalFilters={setTemporalFilters}
+                setLoadingData={setLoadingData}
             />
 
             {/* BACKGROUND */}

@@ -263,7 +263,7 @@
         }
 
         .content {
-            height: 87.5%;
+            height: 75%;
 
             @include respond(phone) {
                 height: 90%;
@@ -271,7 +271,7 @@
         }
 
         .footer {
-            height: 7.5%;
+            height: 25%;
 
             @include respond(phone) {
                 height: 10%;

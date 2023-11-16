@@ -12,33 +12,31 @@ import QueryParams from '@/utils/queryParams';
 import { useRouter } from 'next/router';
 
 interface Props {
-    setOpenModalFilter: Dispatch<SetStateAction<boolean>>;
     showGrid: boolean;
-
-    //Methods
-    setShowGrid: any;
+    setOpenModalFilter: Dispatch<SetStateAction<boolean>>;
+    setShowGrid: Dispatch<SetStateAction<boolean>>;
+    setLoadingData: Dispatch<SetStateAction<boolean>>,
     setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>;
-    //handleCloseTag: (filter: any) => void;
     handleCleanAllFilters: () => void
 }
 
 const HomeFilter = ({
-    //handleCloseTag,
     showGrid,
     setShowGrid,
     setOpenModalFilter,
     setTemporalFilters,
+    setLoadingData,
     handleCleanAllFilters,
 }: Props) => {
 
-    const { addFilters, removeFilters, filters, removeAllFilters, filtersValues } = useContext(FiltersContext);
+    const { removeFilters, filters, filtersValues } = useContext(FiltersContext);
     const { user } = useContext(AuthContext);
-    const { push, query } = useRouter()
+    const { push } = useRouter();
 
     const [visible, setVisible] = useState(false);
 
     const handleCloseTag = (filter: string[]) => {
-
+        setLoadingData(false)
         removeFilters({
             [filter[0]]: filter[1]
         })
@@ -59,6 +57,7 @@ const HomeFilter = ({
         const handleQueryParams = QueryParams();
         let url = handleQueryParams({ queryParams });
         push(url)
+        setLoadingData(true)
     }
 
     useEffect(() => {
