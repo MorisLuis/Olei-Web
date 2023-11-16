@@ -3,6 +3,7 @@ import styles from "./../../../styles/Navigation/Header.module.scss";
 
 import { AuthContext, ClientContext } from '@/context';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export const LeftSection = ({
     setModalClientsVisible
@@ -14,13 +15,23 @@ export const LeftSection = ({
 
     return (
         <div className={`${styles.left} display-flex align`}>
-            <div className={`${styles.logo} cursor`} onClick={() => {
+            {/* <div className={`${styles.logo} cursor`} onClick={() => {
                 if (pathname !== '/onboarding/selectClient') {
                     push('/products');
                 }
             }}>
                 {user?.Company}
+            </div> */}
+
+            <div className={`${styles.logo} cursor`} onClick={() => { }}>
+                <Image
+                    fill
+                    alt="logo"
+                    src={'/logoOlei.png'}
+                />
             </div>
+
+
 
             {user?.TipoUsuario === 2 && client?.Id_Almacen && pathname !== '/onboarding/selectClient' && (
                 <div className={`${styles.client} display-flex align cursor`} onClick={() => setModalClientsVisible(true)}>
