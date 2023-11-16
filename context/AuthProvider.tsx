@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: any) => {
     const [loggingIn, setLoggingIn] = useState(false)
     const {pathname} = useRouter()
 
-    const { replace } = useRouter()
+    const { push } = useRouter()
 
     useEffect(() => {
         checkToken();
@@ -61,14 +61,13 @@ export const AuthProvider = ({ children }: any) => {
             dispatch({ type: '[Auth] - Login', payload: user });
 
             if (user.TipoUsuario === 2) {
-                replace("/onboarding/selectClient")
+                push("/onboarding/selectClient");
+                setLoggingIn(false);
             } else {
-                replace("/products")
+                push("/products");
+                setLoggingIn(false);
             }
 
-            setTimeout(() => {
-                setLoggingIn(false)
-            }, 500);
         } catch (error: any) {
             setLoggingIn(false)
             toast.error(error?.response?.data?.error)
@@ -80,7 +79,7 @@ export const AuthProvider = ({ children }: any) => {
             Cookies.remove("token")
             await api.post('/api/auth/logout');
             dispatch({ type: '[Auth] - Logout' });
-            replace("/")
+            push("/")
 
         } catch (error: any) {
             toast.error(error?.response?.data?.error)
