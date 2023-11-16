@@ -33,7 +33,7 @@ export const Layout = ({ children }: Props) => {
 
             <div className='banner'>
                 <Image
-                    src="/bannerRosco2.png"
+                    src="/bannerRosco3.jpeg"
                     alt="banner"
                     width={500}
                     height={500}

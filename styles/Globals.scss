@@ -192,11 +192,13 @@ input {
   width: 100%;
   bottom: 0px;
   left: 0px;
+  height: 200px;
 
   img {
     width: 100%;
-    object-fit: cover;
-    max-height: 200px;
+    height: 100%;
+    object-fit: cover; /* Para ajustar la imagen manteniendo la relación de aspecto */
+    object-position:top ;
 
     @include respond(phone) {
       max-height: 100px;
