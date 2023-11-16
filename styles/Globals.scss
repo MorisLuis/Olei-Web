@@ -192,14 +192,14 @@ input {
   width: 100%;
   bottom: 0px;
   left: 0px;
-  height: 200px;
+  height: 300px;
   position: relative;
   
   img {
     width: 100%;
-    max-height: 200px;
+    max-height: 300px;
     object-fit: cover;
-    object-position:top ;
+    object-position: center;
 
     @include respond(phone) {
       max-height: 100px;

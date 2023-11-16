@@ -35,7 +35,7 @@ export const Layout = ({ children }: Props) => {
                 <Image
                     fill
                     alt="banner"
-                    src={'/bannerMario.jpg'}
+                    src={'/bannerOlei.jpeg'}
                     //src={'https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/5a6f9d5c-c80d-4e1f-ad48-08a13d7be695._CR0%2C0%2C3000%2C600_SX3000_.jpg'}
                 />
             </div>
