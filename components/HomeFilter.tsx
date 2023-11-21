@@ -10,6 +10,7 @@ import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
 import FiltersInterface from '@/interfaces/filters';
 import QueryParams from '@/utils/queryParams';
 import { useRouter } from 'next/router';
+import HomeSearch from './Search/HomeSearch';
 
 interface Props {
     showGrid: boolean;
@@ -32,7 +33,6 @@ const HomeFilter = ({
     const { removeFilters, filters, filtersValues } = useContext(FiltersContext);
     const { user } = useContext(AuthContext);
     const { push } = useRouter();
-
     const [visible, setVisible] = useState(false);
 
     const handleCloseTag = (filter: string[]) => {
@@ -60,11 +60,28 @@ const HomeFilter = ({
         setLoadingData(true)
     }
 
+
+    // Renders
+    const cleanFiltersRender = () => {
+        return filtersValues.length > 0 ? <Tag close color='gray' onClose={handleCleanAllFilters}>Limpiar filtros</Tag> : <></>
+    }
+
+    const tagsRender = () => {
+        return (
+            filtersValues.map((filter: any, Index) => (
+                <Tag color='yellow' key={Index} onClose={() => handleCloseTag(filter)} close cursor>
+                    {filter[1] === "true" ? "En Stock" : filter[1]}
+                </Tag>
+            ))
+        )
+    }
+
+
     useEffect(() => {
         setTimeout(() => {
             setVisible(true)
         }, 100);
-    })
+    }, [])
 
     useEffect(() => {
         const setGrid = () => {
@@ -74,63 +91,69 @@ const HomeFilter = ({
     }, [showGrid, setShowGrid])
 
 
+
     return visible ?
         <>
             {/* DESKTOP VERSION */}
-            <div className={`${styles.header} display-flex`}>
+            <div className={`${styles.header}`}>
 
-                {
-                    user?.SwImagenes ?
-                        <div className={styles.view}>
-                            <ToggleSquareSwitch
-                                label='Vista :'
-                                name="view"
-                                value={showGrid}
-                                onChange={(value: boolean) => {
-                                    setShowGrid(value)
-                                }}
-                            />
+                <p className={styles.company}>{user?.Company}</p>
+
+                <div className={`${styles.content} display-flex`}>
+
+                    <HomeSearch
+                        setTemporalFilters={setTemporalFilters}
+                        setLoadingData={setLoadingData}
+                    />
+
+                    <div className={`${styles.right} display-flex`}>
+
+                        <div className={styles.filters}>
+                            <div className={styles.filtersTag}>
+                                {cleanFiltersRender()}
+                            </div>
+
+                            <div className={styles.filtersTag}>
+                                {tagsRender()}
+                            </div>
+
+                            {
+                                filtersValues.length <= 0 ?
+                                    <div className={styles.buttonFilter}>
+                                        <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                                            <p>Filtros</p>
+                                            <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                                        </button>
+                                    </div>
+                                    :
+                                    <div className={`${styles.buttonFilter} ${styles.active}`}>
+                                        <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
+                                            <p>Filtros</p>
+                                            <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
+                                        </button>
+                                        <div className={`${styles.filtersCount}`}>
+                                            <p className={`display-flex allCenter`}>{filtersValues.length}</p>
+                                        </div>
+                                    </div>
+                            }
                         </div>
-                        :
-                        <div></div>
-                }
 
-
-                <div className={styles.filters}>
-                    <div className={styles.filtersTag}>
                         {
-                            filtersValues.length > 0 ? <Tag close color='gray' onClose={handleCleanAllFilters}>Limpiar filtros</Tag> : <></>
-                        }
-                    </div>
-
-                    <div className={styles.filtersTag}>
-                        {
-                            filtersValues.map((filter: any, Index) => (
-                                <Tag color='yellow' key={Index} onClose={() => handleCloseTag(filter)} close cursor>
-                                    {filter[1] === "true" ? "En Stock" : filter[1]}
-                                </Tag>
-                            ))
-                        }
-                    </div>
-                    {
-                        filtersValues.length <= 0 ?
-                            <div className={styles.buttonFilter}>
-                                <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                                    <p>Filtros</p>
-                                    <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                                </button>
-                            </div>
-                            :
-                            <div className={`${styles.buttonFilter} ${styles.active}`}>
-                                <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                                    <p>Filtros</p>
-                                    <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                                </button>
-                                <div className={`${styles.filtersCount}`}>
-                                    <p className={`display-flex allCenter`}>{filtersValues.length}</p>
+                            user?.SwImagenes ?
+                                <div className={styles.view}>
+                                    <ToggleSquareSwitch
+                                        label=''
+                                        name="view"
+                                        value={showGrid}
+                                        onChange={(value: boolean) => {
+                                            setShowGrid(value)
+                                        }}
+                                    />
                                 </div>
-                            </div>
-                    }
+                                :
+                                null
+                        }
+                    </div>
                 </div>
             </div>
         </>

@@ -18,7 +18,6 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
                 user: action.payload
             }
 
-
         case '[Auth] - Update User':
             return {
                 ...state,

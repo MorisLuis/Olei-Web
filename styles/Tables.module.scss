@@ -1,6 +1,11 @@
 @import "./main.scss";
 
 .table {
+    padding: 0px 0.5em;
+
+    @include respond(tab-port) {
+        padding: 0px;
+    }
 
     .content {
         background-color: $background-color;
@@ -8,7 +13,6 @@
         border-radius: 1em;
         margin-bottom: 1em;
         width: 100%;
-        padding: 0px;
 
         .headers {
             padding: 0.75em;

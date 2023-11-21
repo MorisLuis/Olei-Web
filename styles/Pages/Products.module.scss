@@ -4,12 +4,10 @@
     padding: 2em 10em;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
     position: relative;
     z-index: 1;
     min-height: 85vh;
-
 
     .nameFilter {
         padding-bottom: 1em;
@@ -22,97 +20,208 @@
 
     .header {
         margin-bottom: 1em;
-        position: relative;
+        position: sticky;
+        top: 0px;
         width: 100%;
-        justify-content: space-between;
-        height: 30px;
+        background-color: $background-color;
+        padding: 1em 0em 2em 0em;
+        z-index: 999;
 
-        span {
-            margin-left: 1em;
+        .company{
+            margin-bottom: 5px;
+            font-size: $font-sm;
+            color: $color-gray;
         }
 
-        .filters {
-            display: flex;
-            height: 100%;
+        .content{
+            justify-content: space-between;
+            height: 30px;
+            width: 100%;
 
-            .buttonFilter {
-                display: flex;
+
+            @include respond(phone) {
+                gap: 5px;
+            }
+
+            span {
+                margin-left: 1em;
+            }
+
+            .search {
+                height: 100%;
+                min-width: 40%;
+                width: fit-content;
                 position: relative;
-                border-radius: 5px;
+                transition: width 0.6s ease-in-out;
+                z-index: 9999;
 
+                @include respond(tab-port) {
+                    min-width: 60%;
+                }
+        
                 @include respond(phone) {
-                    width: 30px;
-                    height: 30px;
+                    width: 60%;
                 }
-
-                button {
-                    background-color: $color-primary;
-                    border: 1px solid $color-border;
-
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    @include respond(phone) {
-                        border-radius: 100%;
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
-
+        
                 &.active {
-                    button {
-                        border: 1px solid black;
+                    width: 50%;
+                    animation: appear-Left-to-Right 0.1s ease-in-out;
+                }
+        
+                .inputSearch {
+                    position: relative;
+                    border: none;
+                    width: 100%;
+                    position: relative;
+                    border: 1px solid $color-border;
+                    border-radius: 5px;
+                    z-index: 9999;
+
+                    &:valid {
+                        padding: 0em 3.5em;
+                    }
+
+                    &:hover {
+                        opacity: 70%;
                     }
                 }
 
-                p {
-                    @include respond(phone) {
-                        display: none;
-                    }
-                }
-
-                svg {
-                    @include respond(phone) {
-                        margin: 0px;
-                    }
-                }
-
-                .filtersCount {
-                    background-color: black;
-                    color: $text-color-secondary;
+                .iconSearch {
                     position: absolute;
                     top: 0px;
-                    right: 0px;
-                    border-radius: 1em;
-                    transform: translate(50%, -50%);
-                    border: 1px solid $color-border;
+                    left: 0px;
+                    transform: translate(100%, 0%);
+                    height: 100%;
+                    z-index: 9999;
+                }
 
-                    p {
-                        width: 16px;
-                        height: 16px;
-                        font-size: 10px;
+                .resultsSearch {
+                    background-color: $background-color;
+                    border: 1px solid $color-border;
+                    border-radius: 5px;
+                    padding: 1em;
+                    position: absolute;
+                    top: 110%;
+                    width: 100%;
+                    z-index: 9999;
+
+                    @include respond(phone) {
+                        width: 90%;
+                        position: fixed;
+                        transform: translateX(-50%);
+                        left: 50%;
+                        top: 22%;
+                    }
+        
+                    .filtersSearch {
+                        background-color: $background-color-secondary;
+                        border: 1px solid $color-border;
+                        border-radius: 5px;
+                        padding: 0.5em;
+                        margin-bottom: 0.5em;
+        
+                        div:not(:first-child) {
+                            margin-left: 0.75em;
+                        }
                     }
                 }
             }
 
-            .filtersTag {
-                display: flex;
-
-                div {
-                    height: 100%;
-                    margin-right: 0.5em;
+            .right{
+                    
+                @include respond(phone) {
+                    width: 40%;
+                    margin-right: 0em;
+                    display: flex;
+                    justify-content: center;
                 }
 
-                @include respond(phone) {
-                    display: none;
+                .filters {
+                    display: flex;
+                    height: 100%;
+                    margin-right: 1em;
+
+                    .buttonFilter {
+                        display: flex;
+                        position: relative;
+                        border-radius: 5px;
+        
+                        @include respond(phone) {
+                            width: 30px;
+                            height: 30px;
+                        }
+        
+                        button {
+                            background-color: $color-primary;
+                            border: 1px solid $color-border;
+                            height: 100%;
+    
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+    
+                            @include respond(phone) {
+                                border-radius: 100%;
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+    
+                        &.active {
+                            button {
+                                border: 1px solid black;
+                            }
+                        }
+    
+                        p {
+                            @include respond(phone) {
+                                display: none;
+                            }
+                        }
+    
+                        svg {
+                            @include respond(phone) {
+                                margin: 0px;
+                            }
+                        }
+        
+                        .filtersCount {
+                            background-color: black;
+                            color: $text-color-secondary;
+                            position: absolute;
+                            top: 0px;
+                            right: 0px;
+                            border-radius: 1em;
+                            transform: translate(50%, -50%);
+                            border: 1px solid $color-border;
+        
+                            p {
+                                width: 16px;
+                                height: 16px;
+                                font-size: 10px;
+                            }
+                        }
+                    }
+
+                    .filtersTag {
+                        display: flex;
+        
+                        div {
+                            height: 100%;
+                            margin-right: 0.5em;
+                        }
+        
+                        @include respond(phone) {
+                            display: none;
+                        }
+                    }
                 }
             }
+    
         }
-
     }
 
-    .nameFilterMobil {
+    /* .nameFilterMobil {
         padding: 1em 1.25em 0em 1.25em;
         max-width: 900px;
         text-align: center;
@@ -121,9 +230,9 @@
         @include respond(phone) {
             display: flex;
         }
-    }
+    } */
 
-    .filtersMobil {
+    /* .filtersMobil {
         position: relative;
         position: sticky;
         top: 0%;
@@ -179,105 +288,13 @@
                 }
             }
         }
-    }
+    } */
 
     .main {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
-
-        @include respond(phone) {
-            // Put this padding here because of search mobil design ( see Home.module.scss ).
-            margin: 1em;
-        }
-    }
-
-    .search {
-
-        min-width: 50%;
-        width: fit-content;
-        margin-bottom: 1em;
-        position: relative;
-        transition: width 0.6s ease-in-out;
-        z-index: 9999;
-
-        @include respond(tab-port) {
-            min-width: 60%;
-        }
-
-        @include respond(phone) {
-            min-width: 100%;
-            margin-top: 1em;
-        }
-
-        &.active {
-            width: 50%;
-            animation: appear-Left-to-Right 0.1s ease-in-out;
-        }
-
-        .inputSearch {
-            position: relative;
-            border: none;
-            width: 100%;
-            height: 40px;
-            position: relative;
-            border: 1px solid $color-border;
-            border-radius: 5px;
-            z-index: 9999;
-
-            &:valid {
-                padding: 0em 3.5em;
-            }
-
-            &:hover {
-                opacity: 70%;
-            }
-        }
-
-        .iconSearch {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            transform: translate(100%, 0%);
-            height: 100%;
-            z-index: 9999;
-
-            @include respond(phone) {
-                left: 15px;
-            }
-        }
-
-        .resultsSearch {
-            background-color: $background-color;
-            border: 1px solid $color-border;
-            border-radius: 5px;
-            padding: 1em;
-            position: absolute;
-            top: 110%;
-            width: 100%;
-            z-index: 9999;
-
-            @include respond(phone) {
-                width: 90%;
-                position: fixed;
-                transform: translateX(-50%);
-                left: 50%;
-                top: 22%;
-            }
-
-            .filtersSearch {
-                background-color: $background-color-secondary;
-                border: 1px solid $color-border;
-                border-radius: 5px;
-                padding: 0.5em;
-                margin-bottom: 0.5em;
-
-                div:not(:first-child) {
-                    margin-left: 0.75em;
-                }
-            }
-        }
     }
 
     .backgroundSearch {
@@ -292,18 +309,6 @@
         background-color: rgba(0, 0, 0, 0.03);
         z-index: 1;
     }
-
-    /* .background {
-        position: fixed;
-        height: 100vh;
-        width: 120vw;
-        bottom: 0%;
-        z-index: -1;
-
-        img {
-            width: 120vw;
-        }
-    } */
 
     @include respond(tab-port) {
         padding: 3em;

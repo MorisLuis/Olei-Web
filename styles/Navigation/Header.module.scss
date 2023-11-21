@@ -1,10 +1,9 @@
 @import "../main.scss";
 
 .header {
-    //height: 80px;
     height: 60px;
     padding: 1em 10em;
-    position: sticky;
+    //position: sticky;
     top: 0;
     z-index: 999;
     color: $text-color-secondary;

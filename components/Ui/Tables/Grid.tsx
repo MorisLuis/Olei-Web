@@ -1,19 +1,18 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import React from 'react';
 import styles from "../../../styles/UI.module.scss";
 
-import { ProductSquareCard } from '@/components/Cards/ProductSquareCard';
-import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
-import { MessageCard } from '@/components/Cards/MessageCard';
 import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
 import GridSkeleton from '@/components/Skeletons/GridSkeleton';
 import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
+import { MessageCard } from '@/components/Cards/MessageCard';
+import { ProductSquareCard } from '@/components/Cards/ProductSquareCard';
 
 interface Props {
-    data: ProductInterface[],
-    loadMoreProducts: () => Promise<void>,
-    buttonIsLoading: boolean,
-    loadingData: boolean,
+    data: ProductInterface[];
+    loadMoreProducts: () => Promise<void>;
+    buttonIsLoading: boolean;
+    loadingData: boolean;
     handleSelectProduct: (product: ProductInterface) => Promise<void>;
 }
 

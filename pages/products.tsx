@@ -192,12 +192,6 @@ export default function Home({ productsProps }: Props) {
       <PageTransition key="login-transition" isEntering={isEntering === false}>
         <Layout>
           <div className={styles.products}>
-
-            <HomeSearch
-              setTemporalFilters={setTemporalFilters}
-              setLoadingData={setLoadingData}
-            />
-
             <HomeFilter
               setOpenModalFilter={setOpenModalFilter}
               setShowGrid={setShowGrid}
