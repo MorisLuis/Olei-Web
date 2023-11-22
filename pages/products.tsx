@@ -134,11 +134,6 @@ export default function Home({ productsProps }: Props) {
     }
   }, [nextPage, query]);
 
-
-  /* const UseFetchPagination = useCallback(() => {
-    setProducts(productsProps);
-  }, [productsProps]); */
-
   useEffect(() => {
     if (clientChanged) {
       setLoadingData(false)
@@ -164,10 +159,6 @@ export default function Home({ productsProps }: Props) {
     setNextPage(2)
   }, [query, productDelete, productsProps, clientChanged])
 
-  /* useEffect(() => {
-    loadMoreProducts()
-  }, []) */
-
   // Effect to clean all filter if the query is clean of filters.
   useEffect(() => {
     if (Object.keys(query).length === 0) {
@@ -192,6 +183,7 @@ export default function Home({ productsProps }: Props) {
       <PageTransition key="login-transition" isEntering={isEntering === false}>
         <Layout>
           <div className={styles.products}>
+
             <HomeFilter
               setOpenModalFilter={setOpenModalFilter}
               setShowGrid={setShowGrid}
@@ -205,7 +197,7 @@ export default function Home({ productsProps }: Props) {
 
             {transitions((style, item) =>
               (item && user?.SwImagenes) ? (
-                <main className={styles.main}>
+                <main className={styles.content}>
                   <animated.div style={{ ...style, width: "100%" }}>
                     <Grid
                       data={products}
@@ -217,7 +209,7 @@ export default function Home({ productsProps }: Props) {
                   </animated.div>
                 </main>
               ) : (
-                <main className={styles.main}>
+                <main className={styles.content}>
                   <animated.div style={{ ...style, width: "100%" }}>
                     <Table
                       data={products}

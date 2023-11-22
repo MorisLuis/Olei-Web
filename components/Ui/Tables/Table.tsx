@@ -25,6 +25,7 @@ const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData }: Props) 
     const windowWidth = useWindowWith();
     const isTable = windowWidth && windowWidth <= 920;
     const isEmployee = user?.TipoUsuario === 2
+    const NoMoreProductToShow = !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0)
 
     return (
         <>
@@ -82,8 +83,8 @@ const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData }: Props) 
                             </div>
 
                             {
-                                !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
-                                <p style={{ textAlign: "center", paddingTop: "1em", color: "gray" }}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
+                                NoMoreProductToShow &&
+                                <p className={styles.message}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
                             }
                         </>
             }

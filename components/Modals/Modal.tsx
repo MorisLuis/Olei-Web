@@ -82,11 +82,7 @@ const Modal = ({
                         }
                     </div>
 
-                    <div
-                        className={`${styles.close} cursor`}
-                        onClick={() => {
-                            handleClose()
-                        }}>
+                    <div className={`${styles.close} cursor`} onClick={handleClose}>
                         <FontAwesomeIcon icon={faClose} className={`icon cursor display-flex align`} />
                     </div>
                 </div>

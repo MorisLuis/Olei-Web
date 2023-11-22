@@ -161,6 +161,38 @@
     }
 }
 
+.grid {
+    
+    .contentGrid{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2em;
+        background-color: $background-color;
+        border-radius: 5px;
+
+        @include respond(tab-port) {
+            grid-template-columns: repeat(3, 1fr);
+            padding: 0em 20px;
+        }
+    
+        @include respond(phone) {
+            grid-template-columns: repeat(1, 1fr);
+            padding: 0em;
+        }
+    }
+
+
+
+    .loadMore{
+        width: 100%;
+
+        button{
+            width: 20%;
+        }
+    }
+
+}
+
 .tablesRequest {
     width: 100%;
     font-size: 12px;
@@ -201,4 +233,10 @@
         }
     }
 
+}
+
+.message{
+    padding: 6em 0em;
+    text-align: center;
+    color: $color-gray;
 }

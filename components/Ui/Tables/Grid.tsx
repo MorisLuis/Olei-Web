@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "../../../styles/UI.module.scss";
+import styles from "../../../styles/Tables.module.scss";
 
 import ProductInterface from '@/interfaces/product';
 import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
@@ -18,7 +18,8 @@ interface Props {
 
 const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSelectProduct}: Props) => {
 
-    const { productsWithCartInfo } =  useProductsWithCartInfo(data)
+    const { productsWithCartInfo } =  useProductsWithCartInfo(data);
+    const NoMoreProductToShow = !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0)
 
     return (
         <>
@@ -58,8 +59,8 @@ const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSele
                                 }
                             </div>
                             {
-                                !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
-                                <p style={{ textAlign: "center", paddingTop: "1em", color: "gray" }}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
+                                NoMoreProductToShow &&
+                                <p className={styles.message}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
                             }
                         </>
             }

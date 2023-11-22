@@ -99,14 +99,14 @@ const HomeFilter = ({
 
                 <p className={styles.company}>{user?.Company}</p>
 
-                <div className={`${styles.content} display-flex`}>
+                <div className={`${styles.container} display-flex`}>
 
                     <HomeSearch
                         setTemporalFilters={setTemporalFilters}
                         setLoadingData={setLoadingData}
                     />
 
-                    <div className={`${styles.right} display-flex`}>
+                    <div className={`${styles.rightContent} display-flex`}>
 
                         <div className={styles.filters}>
                             <div className={styles.filtersTag}>
