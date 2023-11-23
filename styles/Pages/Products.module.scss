@@ -12,11 +12,16 @@
     .header {
         margin-bottom: 1em;
         position: sticky;
-        top: 0px;
+        top: 260px;
         width: 100%;
         background-color: $background-color;
         padding: 1em 0em 2em 0em;
         z-index: 999;
+
+
+        @include respond(phone) {
+            top: 160px;
+        }
 
         .company{
             margin-bottom: 5px;
