@@ -16,7 +16,7 @@ const Custum404 = () => {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
-                    transition={{ type: 'tween', stiffness: 260, damping: 20 }}
+                    //transition={{ type: 'tween', stiffness: 260, damping: 20 }}
                 >
                     <motion.h1
                         initial={{ opacity: 0 }}
