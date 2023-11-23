@@ -67,8 +67,17 @@
                     border-radius: 5px;
                     z-index: 9999;
 
+                    @include respond(phone) {
+                        font-size: $font-normal-phone;
+                    }
+                    
+
                     &:valid {
                         padding: 0em 3.5em;
+
+                        @include respond(phone) {
+                            padding: 0em 2.5em;
+                        }
                     }
 
                     &:hover {
