@@ -31,13 +31,16 @@ export const Layout = ({ children }: Props) => {
 
             <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu} />
 
-            <div className='banner'>
-                <Image
-                    fill
-                    alt="banner"
-                    src={'/bannerOlei2.png'}
-                />
-            </div>
+            {
+                pathname === '/products' &&
+                <div className='banner'>
+                    <Image
+                        fill
+                        alt="banner"
+                        src={'/bannerOlei2.png'}
+                    />
+                </div>
+            }
 
             <div>
                 {children}
