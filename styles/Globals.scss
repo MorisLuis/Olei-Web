@@ -193,10 +193,7 @@ input {
   height: 200px;
   bottom: 0px;
   left: 0px;
-
-  //temporal
-  top: 60px;
-  position: sticky;
+  position: relative;
   z-index: 99;
 
   @include respond(phone) {
@@ -217,7 +214,7 @@ input {
 
 //temporal
 
-.inputSearch {
+/* .inputSearch {
   position: relative;
   border: none;
   width: 100%;
@@ -234,4 +231,4 @@ input {
   &:hover {
       opacity: 70%;
   }
-}
+} */

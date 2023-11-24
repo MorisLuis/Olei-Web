@@ -18,7 +18,6 @@ import { TableRequestSkeleton } from '@/components/Skeletons/TableRequestSkeleto
 const Pedidos = () => {
 
     const { query, back } = useRouter()
-
     const { addOrderToCart } = useContext(CartContext)
 
     const [openModalMessage, setOpenModalMessage] = useState(false);
@@ -26,26 +25,13 @@ const Pedidos = () => {
     const [orders, setOrders] = useState<OrderInterface[]>();
     const [orderSelect, setOrderSelect] = useState<ProductInterface[]>()
 
-    useEffect(() => {
-        const getOrder = async () => {
-            const { data } = await api.get(`/api/order/all`);
-            const order: OrderInterface[] = data;
-            setOrders(order)
-        }
-
-        getOrder()
-    }, []);
-
-
 
     const handleSelectOrder = async (folio: string) => {
         setOpenModalRequest(true)
         const { data } = await api.get(`/api/orderDetails?folio=${folio}`);
         const order: ProductInterface[] = data;
         setOrderSelect(order)
-
     }
-
 
     const onSubmitOrderToCart = async () => {
         if (!orderSelect) return;
@@ -62,13 +48,25 @@ const Pedidos = () => {
     };
 
 
+    useEffect(() => {
+        const getOrder = async () => {
+            const { data } = await api.get(`/api/order/all`);
+            console.log({ data })
+            const order: OrderInterface[] = data;
+            setOrders(order)
+        }
+
+        getOrder()
+    }, []);
+
     return (
         <>
             <LayoutProfile>
                 <div className={styles.request}>
                     <section className={styles.info}>
                         {
-                            !orders ? <TableRequestSkeleton /> :
+                            !orders ?
+                                <TableRequestSkeleton /> :
                                 orders.length > 0 ?
                                     <>
                                         <div className={styles.header}>

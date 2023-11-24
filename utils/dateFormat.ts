@@ -9,7 +9,9 @@ const capitalizeProperNouns = (str: string) => {
         return word.charAt(0).toUpperCase() + word.slice(1);
     });
 }
-export const dateFormat = (date: string) => {
+export const dateFormat = (date: string | undefined ) => {
+
+    if(!date) return;
 
     const formattedDate = format(new Date(date), "EEEE, d 'de' MMMM 'de' y", { locale: es });
 

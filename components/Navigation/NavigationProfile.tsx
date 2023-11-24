@@ -1,7 +1,10 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 import styles from "../../styles/Navigation/NavigationProfile.module.scss";
+
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Menu = [
     {
@@ -23,10 +26,16 @@ const Menu = [
 
 const NavigationProfile = () => {
 
-    const { pathname } = useRouter()
+    const { pathname, push } = useRouter()
 
     return (
         <div className={styles.navigationProfile}>
+
+            <div className={`${styles.back} display-flex align cursor`} onClick={() => push('/products')}>
+                <FontAwesomeIcon icon={faArrowLeftLong} className={`icon__small`} />
+                <p>Regresar a Inicio</p>
+            </div>
+
             <h1>Perfil</h1>
             <div className={`${styles.menu} display-flex`}>
                 {

@@ -7,10 +7,12 @@ interface Props {
     children: any
 }
 
-const LayoutProfile = ({ children } : Props) => {
+const LayoutProfile = ({ children }: Props) => {
+
     return (
         <Layout>
-            <NavigationProfile/>
+
+            <NavigationProfile />
             <div className={styles.layoutProfile}>
                 {children}
             </div>

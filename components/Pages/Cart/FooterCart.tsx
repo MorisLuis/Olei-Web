@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { useSpring, animated } from '@react-spring/web';
 import styles from "../../../styles/Pages/Cart.module.scss";
+
+import { useSpring, animated } from '@react-spring/web';
 import { format } from '@/utils/currency';
 import { CartContext } from '@/context';
 import useMeasure from 'react-use-measure'

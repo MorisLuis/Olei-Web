@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
 
-import Counter from '../Ui/Counter'
+import Counter from '../Ui/Counter';
 import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
@@ -70,42 +70,44 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
     }
 
     return (
-        <div className={`${styles.productCard} ${styles.receipt}`}>
+        <div className={`${styles.productCard}`}>
             <div className={`${styles.content} display-flex space-between`}>
 
-                <div className={styles.description}>
+                <div className={styles.productDescription}>
                     <p className={styles.title}>{product?.Descripcion?.trim()}</p>
-                    <p className={styles.code}>{product?.Codigo}</p>
+                    <p className={styles.code}>Codigo: {product?.Codigo}</p>
+                    <p className={styles.code}>Marca: {product?.Marca}</p>
                 </div>
 
-                <div className={styles.data}>
+                <div className={styles.productData}>
                     <div className={styles.price}>
-                        {product?.Precio ? <p>{format(product?.Precio)}</p> :
-                            <Tag color="blue">No tiene precio</Tag>}
+                        {
+                            product?.Precio ? <p>{format(product?.Precio)}</p> :
+                                <Tag color="blue">No tiene precio</Tag>
+                        }
                     </div>
 
                     <div className='display-flex'>
                         <p className={styles.subtotal}>Subtotal: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
                     </div>
-
                 </div>
 
-                <div className={styles.counter}>
+                <div className={styles.productCounter}>
                     {
                         counterVisible ?
-                        <Counter
-                            currentValue={product?.Piezas || 0}
-                            maxValue={product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia}
-                            updatedQuantity={onUpdateQuantity}
-                        />
-                        :
-                        <p>Piezas: {product.Piezas}</p>
+                            <Counter
+                                currentValue={product?.Piezas || 0}
+                                maxValue={product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia}
+                                updatedQuantity={onUpdateQuantity}
+                            />
+                            :
+                            <p>Piezas: {product.Piezas}</p>
                     }
                     {
                         user?.PrecioIncIVA === 1 ?
-                        <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
-                        :
-                        <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (parseInt(product.Impuesto) / 100)))}</p>
+                            <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
+                            :
+                            <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (parseInt(product.Impuesto) / 100)))}</p>
                     }
                 </div>
 
@@ -125,8 +127,6 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                         </div>
                     </>
                 }
-
-
             </div>
         </div>
     )

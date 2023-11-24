@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from "../../styles/Pages/Receipt.module.scss";
 
 import ProductInterface from '@/interfaces/product';
@@ -7,9 +7,13 @@ import { useRouter } from 'next/router';
 import OrderInterface from '@/interfaces/order';
 import { format } from '@/utils/currency';
 import { api } from '@/api/api';
+import { dateFormat } from '@/utils/dateFormat';
+import { AuthContext } from '@/context';
 
 
 export const ReceiptRender = () => {
+
+    const { user } = useContext(AuthContext)
     const { query: { receipt } } = useRouter();
     const [orderSelect, setOrderSelect] = useState<OrderInterface | undefined>(undefined);
     const [orderDetailsSelect, setOrderDetailsSelect] = useState<ProductInterface[] | undefined>(undefined)
@@ -24,6 +28,7 @@ export const ReceiptRender = () => {
 
         const getOrderDetails = async () => {
             const { data } = await api.get(`/api/orderDetails?folio=${receipt}`);
+            console.log({data})
             const orderDetails: ProductInterface[] = data;
             setOrderDetailsSelect(orderDetails)
         } 
@@ -33,6 +38,8 @@ export const ReceiptRender = () => {
 
     }, [receipt]);
 
+    const isEmployee = user?.TipoUsuario === 2
+
     return (
         <div className={styles.receiptRender}>
             <div className={styles.brief}>
@@ -40,11 +47,14 @@ export const ReceiptRender = () => {
                 <div className={`${styles.details} display-flex space-between`}>
                     <div className={`${styles.date} display-flex column`}>
                         <div className={styles.item}>
-                            <p><span>Fecha:</span> {orderSelect?.Fecha}</p>
+                            <p><span>Fecha:</span> {dateFormat(orderSelect?.Fecha)}</p>
                         </div>
-                        <div className={styles.item}>
-                            <p><span>Pedido por:</span> {orderSelect?.Vendedor}</p>
-                        </div>
+                        {
+                            isEmployee &&
+                            <div className={styles.item}>
+                                <p><span>Pedido por:</span> {orderSelect?.Vendedor}</p>
+                            </div>
+                        }
                         <div className={styles.item}>
                             <p><span>Cliente:</span> {orderSelect?.Cliente}</p>
                         </div>
@@ -53,6 +63,9 @@ export const ReceiptRender = () => {
                     <div className={`${styles.price} display-flex column`}>
                         <div className={styles.item}>
                             <p><span>Total de productos:</span> {orderSelect?.Piezas}</p>
+                        </div>
+                        <div className={styles.item}>
+                            <p><span>Folio: </span> {orderSelect?.Folio}</p>
                         </div>
                         <div className={styles.item}>
                             <p className={styles.totalprice}><span>Total (Subtotal + IVA ):</span> {format(orderSelect?.Total as number)}</p>

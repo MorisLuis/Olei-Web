@@ -54,11 +54,11 @@ const TableRequest = ({ order, handleSelectOrder, receiptPending }: Props) => {
                                         </Action>
                                     </Link>
 
-                                    <Action textHover="Editar">
+                                    {/* <Action textHover="Editar">
                                         <button>
                                             <FontAwesomeIcon icon={faFilePen} className={`icon__small cursor display-flex align`} />
                                         </button>
-                                    </Action>
+                                    </Action> */}
                                 </div>
                             </div>
                         </div>

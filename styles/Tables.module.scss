@@ -179,6 +179,7 @@
             grid-template-columns: repeat(1, 1fr);
             padding: 0em;
         }
+
     }
 
 
@@ -195,7 +196,7 @@
 
 .tablesRequest {
     width: 100%;
-    font-size: 12px;
+    font-size: $font-sm-phone;
     margin-bottom: 1em;
     border: 1px solid $color-border;
     background-color: $background-color;
@@ -217,9 +218,13 @@
             }
 
             .data {
-
                 .tags {
                     gap: 1em;
+
+                    @include respond(phone) {
+                        display: flex;
+                        flex-direction: column;
+                    }
                 }
             }
         }
