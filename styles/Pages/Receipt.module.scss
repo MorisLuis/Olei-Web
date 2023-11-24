@@ -109,5 +109,12 @@
         font-family: "VictorMono";
         padding: 2em 0em;
         height: auto;
+        
+        >div{
+            
+            &:nth-child(odd) {
+                background-color: $background-color-secondary;
+            }
+        }
     }
 }

@@ -77,7 +77,9 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                     <p className={styles.title}>{product?.Descripcion?.trim()}</p>
                     <p className={styles.code}>Codigo: {product?.Codigo}</p>
                     <p className={styles.code}>Marca: {product?.Marca}</p>
+                    <div className={`divider__small ${styles.divider} `}></div>
                 </div>
+
 
                 <div className={styles.productData}>
                     <div className={styles.price}>
@@ -90,6 +92,8 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                     <div className='display-flex'>
                         <p className={styles.subtotal}>Subtotal: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
                     </div>
+                    <div className={`divider__small ${styles.divider} `}></div>
+
                 </div>
 
                 <div className={styles.productCounter}>

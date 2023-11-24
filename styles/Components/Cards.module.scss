@@ -13,13 +13,25 @@
         position: relative;
         font-size: $font-sm-phone;
 
+        .divider{
+            display: none;
+
+            @include respond(phone) {
+                display: flex;
+                margin: 1em 0em;
+            }
+        }
+
         @include respond(phone) {
             display: grid;
             grid-template-rows: auto auto;
             grid-template-areas:
                 "first first"
-                "second third";
+                "second second"
+                "third third";
             grid-gap: 5px;
+
+            
         }
 
         .productDescription {
@@ -48,8 +60,8 @@
 
             .price {
                 font-weight: bold;
-                margin-bottom: 0.25em;
-                min-height: 20px;
+                //margin-bottom: 0.25em;
+                //min-height: 20px;
             }
 
             .existent {
@@ -59,7 +71,7 @@
 
         .productCounter {
             width: 20%;
-            text-align: end;
+            //text-align: end;
 
             @include respond(phone) {
                 width: 100%;
@@ -76,10 +88,9 @@
                 }
             }
 
-            :nth-child(2) {
+            /* :nth-child(2) {
                 margin-top: 0.5em;
-
-            }
+            } */
 
         }
 
