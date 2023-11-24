@@ -2,7 +2,7 @@
 
 .cart {
     position: relative;
-    min-height: calc(100vh + 80px);
+    min-height: calc(100svh + 80px);
 
     @include respond(tab-land) {
         margin-bottom: 10em;
@@ -211,7 +211,7 @@
 
 .proccesingCart{
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
 
     display: flex;
     justify-content: center;
