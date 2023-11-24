@@ -111,10 +111,7 @@
                     text-overflow: ellipsis;
                     white-space: normal;
                     margin-right: 0.5em;
-
-                    @include respond(phone) {
-                        font-size: $font-sm;
-                    }
+                    width: max-content;
                 }
 
                 .description {
