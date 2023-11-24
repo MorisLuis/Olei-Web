@@ -58,8 +58,6 @@ const OnboardingSearch = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className={styles.lineYellow}></div> */}
-
             </LayoutOnboarding>
         </PageTransition>
 

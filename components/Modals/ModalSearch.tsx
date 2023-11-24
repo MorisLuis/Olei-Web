@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark, } from '@fortawesome/free-solid-svg-icons';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { Tag } from '../Ui/Tag';
-import { capitalizarTexto } from '@/utils/textCapitalize';
-import ClientInterface from '@/interfaces/client';
+
 
 interface Props {
     visible: boolean;

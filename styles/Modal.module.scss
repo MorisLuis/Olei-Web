@@ -383,6 +383,7 @@
                 height: 40px;
                 position: relative;
                 background-color: transparent;
+                font-size: $font-normal-phone;
 
                 &:valid {
                     padding: 0em 2.5em;
@@ -419,12 +420,12 @@
     }
 
     @include respond(phone) {
-        top: 0%;
-        left: 0px;
-        transform: translateX(0%);
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
 
         border-radius: 0px;
-        width: 100%;
+        width: 95%;
         max-width: none;
         border: none;
         border-bottom: 1px solid $color-border;
