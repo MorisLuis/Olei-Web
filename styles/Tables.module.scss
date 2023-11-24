@@ -208,6 +208,10 @@
         border-bottom: 1px solid $color-border;
         padding: 1em 2em;
 
+        @include respond(phone) {
+            padding: 1em;
+        }
+
         &:hover {
             background-color: $color-secondary;
         }
