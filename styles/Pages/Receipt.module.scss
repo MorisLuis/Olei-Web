@@ -91,6 +91,7 @@
 
             font-size: $font-sm;
             background-color: $background-color;
+            gap: 10px;
 
             .item{
                 margin-bottom: 0.5em;
@@ -111,7 +112,7 @@
         height: auto;
         
         >div{
-            
+            margin-bottom: 15px;
             &:nth-child(odd) {
                 background-color: $background-color-secondary;
             }
