@@ -9,6 +9,7 @@ import { format } from '@/utils/currency';
 import { api } from '@/api/api';
 import { dateFormat } from '@/utils/dateFormat';
 import { AuthContext } from '@/context';
+import ReceiptRenderSkeleton from '../Skeletons/ReceiptRenderSkeleton';
 
 
 export const ReceiptRender = () => {
@@ -38,9 +39,9 @@ export const ReceiptRender = () => {
 
     }, [receipt]);
 
-    const isEmployee = user?.TipoUsuario === 2
+    const isEmployee = user?.TipoUsuario === 2;
 
-    return (
+    return  orderDetailsSelect ?
         <div className={styles.receiptRender}>
             <div className={styles.brief}>
                 <h4>Resumen del pedido</h4>
@@ -74,6 +75,7 @@ export const ReceiptRender = () => {
                 </div>
             </div>
 
+            
             <div className={styles.productsDetails}>
                 {
                     orderDetailsSelect?.map((product: ProductInterface, Index: number) =>
@@ -82,5 +84,6 @@ export const ReceiptRender = () => {
                 }
             </div>
         </div>
-    )
+        :
+        <ReceiptRenderSkeleton/>
 }

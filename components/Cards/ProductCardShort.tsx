@@ -80,7 +80,6 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                     <div className={`divider__small ${styles.divider} `}></div>
                 </div>
 
-
                 <div className={styles.productData}>
                     <div className={styles.price}>
                         {
@@ -93,7 +92,6 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                         <p className={styles.subtotal}>Subtotal: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
                     </div>
                     <div className={`divider__small ${styles.divider} `}></div>
-
                 </div>
 
                 <div className={styles.productCounter}>

@@ -322,6 +322,10 @@
     padding-bottom: 5em;
     gap: 2em;
 
+    @include respond(phone) {
+        flex-direction: column;
+    }
+
     .imageGallery {
         display: flex;
         flex-direction: column;
@@ -401,7 +405,7 @@
             margin-bottom: 30px;
         }
 
-        .counter{
+        .counter {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -413,9 +417,192 @@
                 border-radius: 5px;
             }
 
-            .number{
+            .number {
                 height: 100%;
                 width: 50%;
+            }
+        }
+    }
+}
+
+.ReceiptRenderSkeleton {
+
+    .item {
+        background-color: $color-border;
+        animation: loading 1s infinite;
+    }
+
+    .brief {
+        padding: 0em;
+
+        h4 {
+            height: 24px;
+            width: 100px;
+            margin-bottom: 10px;
+            background-color: $color-border;
+            animation: loading 1s infinite;
+        }
+
+        .details {
+            border-radius: 1em;
+            padding: 2em 1em;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            gap: 10px;
+            display: flex;
+            justify-content: space-between;
+
+            .date {
+                width: 100%;
+                display: flex;
+
+                >div {
+                    height: 14px;
+                    margin-bottom: 10px;
+                    width: 50%;
+
+
+                    @include respond(phone) {
+                        height: 20px;
+                        width: 100%;
+                    }
+                }
+
+                :first-child {
+                    width: 60%;
+
+                    @include respond(phone) {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .price {
+                width: 100%;
+                display: flex;
+                align-items: flex-end;
+
+                >div {
+                    height: 14px;
+                    margin-bottom: 10px;
+                    width: 50%;
+
+                    @include respond(phone) {
+                        height: 20px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .productsDetails {
+        padding: 2em 0em;
+        height: auto;
+
+        >div {
+            margin-bottom: 15px;
+
+            &:nth-child(odd) {
+                background-color: $background-color-secondary;
+            }
+        }
+
+        .item {
+            background-color: $color-border;
+            animation: loading 1s infinite;
+        }
+
+        .productCard {
+            border: 1px solid transparent;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+                rgba(74, 86, 98, 0.15) 0px 0px 0px 1px;
+            margin-bottom: 15px;
+
+            .content {
+                display: flex;
+                flex-direction: row;
+                padding: 1em;
+
+                @include respond(phone) {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .productDescription {
+                    width: 100%;
+                    margin-right: 1em;
+
+                    .divider{
+                        display: none;
+                    }
+
+                    >div {
+                        height: 10px;
+                        margin-bottom: 10px;
+                        width: 60%;
+                    }
+
+                    @include respond(phone) {
+                        display: flex;
+                        flex-direction: column;
+
+                        .divider {
+                            display: flex;
+                            height: 1px;
+                            width: 100%;
+                            margin: 20px 0px;
+                        }
+
+                        :first-child {
+                            height: 16px;
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .productData {
+                    width: 100%;
+                    .divider{
+                        display: none;
+                    }
+
+                    >div {
+                        height: 10px;
+                        margin-bottom: 10px;
+                        width: 60%;
+                    }
+
+                    .existent {
+                        margin-right: 0.5em;
+                    }
+
+                    @include respond(phone) {
+                        .divider {
+                            display: flex;
+                            height: 1px;
+                            width: 100%;
+                            margin: 20px 0px;
+                        }
+                    }
+                }
+
+                .productCounter {
+                    width: 100%;
+
+                    >div {
+                        height: 10px;
+                        margin-bottom: 10px;
+                        width: 60%;
+                    }
+                }
+            }
+
+            &:first-child {
+                border-radius: 1em 1em 0em 0em;
+            }
+
+            &:last-child {
+                border-radius: 0em 0em 1em 1em;
             }
         }
     }

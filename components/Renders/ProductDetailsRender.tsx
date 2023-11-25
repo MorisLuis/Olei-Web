@@ -42,72 +42,74 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
 
     return (
         <>
-            {product ? (
-                <div className={styles.pageDetails}>
+            {
+                product ? (
+                    <div className={styles.pageDetails}>
 
-                    <ImageGallery images={imagen} />
+                        <ImageGallery images={imagen} />
 
-                    <div className={styles.content}>
+                        <div className={styles.content}>
 
-                        <div className={styles.header}>
-                            <h1>{Descripcion}</h1>
-                            <div className={styles.price}>
-                                <span>Precio</span>
-                                <p>{format(Precio)} MXN</p>
-                            </div>
-                        </div>
-
-                        {
-                            Observaciones &&
-                            <div className={styles.observations}>
-                                <span>Obervaciones: </span>
-                                <p>{Observaciones}</p>
-                            </div>
-                        }
-
-                        <section className={styles.details}>
-                            <div>
-                                <p>Codigo: </p>
-                                <span>{Codigo}</span>
+                            <div className={styles.header}>
+                                <h1>{Descripcion}</h1>
+                                <div className={styles.price}>
+                                    <span>Precio</span>
+                                    <p>{format(Precio)} MXN</p>
+                                </div>
                             </div>
 
-                            <div>
-                                <p>Marca: </p>
-                                <span>{Marca}</span>
-                            </div>
-
-                            <div>
-                                <p>Familia: </p>
-                                <span>{Familia}</span>
-                            </div>
-                        </section>
-
-                        <section className={styles.counter}>
-                            {isEmployee &&
-                                <div className={styles.stock}>
-                                    <p className={`display-flex text-ellipsis align`}>
-                                        Existencia:
-                                        {
-                                            product?.Existencia < 0 ?
-                                                <Tag>No Stock</Tag> :
-                                                <strong>{product?.Existencia}</strong>
-                                        }
-                                    </p>
+                            {
+                                Observaciones &&
+                                <div className={styles.observations}>
+                                    <span>Obervaciones: </span>
+                                    <p>{Observaciones}</p>
                                 </div>
                             }
-                            <div className={styles.action}>
-                                <p>Agregar al carrito: </p>
-                                <Counter
-                                    currentValue={Piezas > 0 ? Piezas : (tempCartProduct?.Piezas || 0)}
-                                    maxValue={Existencia && Existencia < 0 ? null : Existencia}
-                                    updatedQuantity={onUpdateQuantity}
-                                />
-                            </div>
-                        </section>
+
+                            <section className={styles.details}>
+                                <div>
+                                    <p>Codigo: </p>
+                                    <span>{Codigo}</span>
+                                </div>
+
+                                <div>
+                                    <p>Marca: </p>
+                                    <span>{Marca}</span>
+                                </div>
+
+                                <div>
+                                    <p>Familia: </p>
+                                    <span>{Familia}</span>
+                                </div>
+                            </section>
+
+                            <section className={styles.counter}>
+                                {
+                                    isEmployee &&
+                                    <div className={styles.stock}>
+                                        <p className={`display-flex text-ellipsis align`}>
+                                            Existencia:
+                                            {
+                                                product?.Existencia < 0 ?
+                                                    <Tag>No Stock</Tag> :
+                                                    <strong>{product?.Existencia}</strong>
+                                            }
+                                        </p>
+                                    </div>
+                                }
+                                <div className={styles.action}>
+                                    <p>Agregar al carrito: </p>
+                                    <Counter
+                                        currentValue={Piezas > 0 ? Piezas : (tempCartProduct?.Piezas || 0)}
+                                        maxValue={Existencia && Existencia < 0 ? null : Existencia}
+                                        updatedQuantity={onUpdateQuantity}
+                                    />
+                                </div>
+                            </section>
+                        </div>
                     </div>
-                </div>
-            ) :
-                <ProductDetailsRenderSkeleton />
+                ) :
+                    <ProductDetailsRenderSkeleton />
             }
         </>
     );

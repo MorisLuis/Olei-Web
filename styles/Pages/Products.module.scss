@@ -7,7 +7,7 @@
     width: 100%;
     position: relative;
     z-index: 1;
-    min-height: 85ssvh;
+    min-height: 85svh;
 
     .header {
         margin-bottom: 1em;
@@ -17,11 +17,6 @@
         background-color: $background-color;
         padding: 1em 0em 2em 0em;
         z-index: 999;
-
-
-        @include respond(phone) {
-            top: 60px;
-        }
 
         .company{
             margin-bottom: 5px;
