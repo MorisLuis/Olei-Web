@@ -28,9 +28,12 @@ const TableRequest = ({ order, handleSelectOrder, receiptPending }: Props) => {
                                     <p><span>Fecha:</span> {dateFormat(item?.Fecha as string)}</p>
                                 </div>
                                 <div className={`${styles.data}`}>
-                                    <div className={`display-flex align mb-small`}>
+                                    <div className={`display-flex align`}>
                                         <FontAwesomeIcon icon={faMoneyBill1} className={`icon__small cursor display-flex align m-right`} />
                                         <p><span>Total:</span> {item?.Total && format(item?.Total)}</p>
+                                    </div>
+                                    <div className={`display-flex align mb-small`}>
+                                        <p><span>Folio:</span> {item.Folio}</p>
                                     </div>
                                     <div className={`${styles.tags} display-flex`}>
                                         <Tag color='gray'>
@@ -53,12 +56,6 @@ const TableRequest = ({ order, handleSelectOrder, receiptPending }: Props) => {
                                             <FontAwesomeIcon icon={faFileLines} className={`icon__small cursor display-flex align`} />
                                         </Action>
                                     </Link>
-
-                                    {/* <Action textHover="Editar">
-                                        <button>
-                                            <FontAwesomeIcon icon={faFilePen} className={`icon__small cursor display-flex align`} />
-                                        </button>
-                                    </Action> */}
                                 </div>
                             </div>
                         </div>
