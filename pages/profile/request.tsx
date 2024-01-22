@@ -51,7 +51,6 @@ const Pedidos = () => {
     useEffect(() => {
         const getOrder = async () => {
             const { data } = await api.get(`/api/order/all`);
-            console.log({ data })
             const order: OrderInterface[] = data;
             setOrders(order)
         }

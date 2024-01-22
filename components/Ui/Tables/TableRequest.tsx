@@ -49,6 +49,8 @@ const TableRequest = ({ order, handleSelectOrder, receiptPending }: Props) => {
                             <div className={`${styles.action} display-flex`}>
                                 <div className={`${styles.content} display-flex`}>
                                     <Link
+                                        scroll={false}
+                                        shallow
                                         href={receiptPending ? `/profile/pendingrequest/?receipt=${item.Folio}` : `/profile/request/?receipt=${item.Folio}`}
                                         as={receiptPending ? `/profile/pendingrequest/?receipt=${item.Folio}` : `/profile/request/?receipt=${item.Folio}`}
                                     >
