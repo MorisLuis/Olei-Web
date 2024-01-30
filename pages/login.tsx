@@ -46,6 +46,7 @@ const Login = () => {
                             width={200}
                             height={200}
                             priority={true}
+                            unoptimized
                         />
                         <div className={`${styles.form} display-flex column justify`}>
 
