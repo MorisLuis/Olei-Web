@@ -97,6 +97,10 @@ export default function Home({ productsProps }: Props) {
     })
     if (!product) return;
 
+    console.log({
+      endpoint: `/api/product/${product.Codigo}?Marca=${product.Marca}`
+    })
+
     try {
       setOpenModalProduct(true)
       const { data } = await api.get(`/api/product/${product.Codigo}?Marca=${product.Marca}`);
