@@ -69,6 +69,7 @@ export const AuthProvider = ({ children }: any) => {
             }
 
         } catch (error: any) {
+            console.log({error})
             setLoggingIn(false)
             toast.error(error?.response?.data?.error)
         }
