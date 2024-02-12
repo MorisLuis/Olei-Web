@@ -42,12 +42,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
         const { data } = await api.get(`/api/product/${id}?Marca=${Marca}`);
         const productProps: ProductInterface[] = data
+        console.log({
+            data
+        })
 
         return {
             props: productProps,
         };
     } catch (error) {
-        console.error(error);
+        console.log(error);
         return {
             props: []
         }
