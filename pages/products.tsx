@@ -90,12 +90,19 @@ export default function Home({ productsProps }: Props) {
 
   // Used to fetch product when this is selected.
   const handleSelectProduct = async (product: ProductInterface) => {
+    
 
+    console.log({
+      product
+    })
     if (!product) return;
 
     try {
       setOpenModalProduct(true)
       const { data } = await api.get(`/api/product/${product.Codigo}?Marca=${product.Marca}`);
+      console.log({
+        data
+      })
       if (data) {
         setProductDetails(data);
       }
