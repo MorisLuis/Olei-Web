@@ -55,7 +55,7 @@ const Login = () => {
                             </div>
 
                             <h1>Bienvenido!</h1>
-                            <p className='mb-medium'>Por favor, inicia sesión abajo.</p>
+                            <p className='mb-medium'>Por favor, inicia sesión abajo</p>
                             <form onSubmit={handleSubmit(onLoginUser)} noValidate className="animation display-flex column">
                                 <input
                                     {...register("email", {
