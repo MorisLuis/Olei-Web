@@ -21,12 +21,12 @@ const ModalMenu = ({
 
     const { replace } = useRouter()
     const [closing, setClosing] = useState(false);
-    const { user } = useContext(AuthContext);
+    const { user, logoutUser} = useContext(AuthContext);
 
     const onLogOut = async () => {
         try {
             await api.post('/api/auth/logout');
-            Cookies.remove("token")
+            logoutUser()
             replace("/login")
         } catch (error) {
             console.log({ error })

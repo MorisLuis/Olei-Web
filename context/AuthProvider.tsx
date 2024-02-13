@@ -62,10 +62,8 @@ export const AuthProvider = ({ children }: any) => {
 
             if (user.TipoUsuario === 2) {
                 push("/onboarding/selectClient");
-                setLoggingIn(false);
             } else {
                 push("/products");
-                setLoggingIn(false);
             }
 
         } catch (error: any) {
@@ -81,7 +79,7 @@ export const AuthProvider = ({ children }: any) => {
             await api.post('/api/auth/logout');
             dispatch({ type: '[Auth] - Logout' });
             push("/")
-
+            setLoggingIn(false);
         } catch (error: any) {
             toast.error(error?.response?.data?.error)
             console.log(error?.response?.data?.error)

@@ -90,23 +90,13 @@ export default function Home({ productsProps }: Props) {
 
   // Used to fetch product when this is selected.
   const handleSelectProduct = async (product: ProductInterface) => {
-    
 
-    console.log({
-      product
-    })
     if (!product) return;
-
-    console.log({
-      endpoint: `/api/product/${product.Codigo}?Marca=${product.Marca}`
-    })
 
     try {
       setOpenModalProduct(true)
       const { data } = await api.get(`/api/product/${product.Codigo}?Marca=${product.Marca}`);
-      console.log({
-        data
-      })
+
       if (data) {
         setProductDetails(data);
       }
@@ -164,7 +154,6 @@ export default function Home({ productsProps }: Props) {
       return;
     }
     setLoadingData(true);
-    //UseFetchPagination();
     setProducts(productsProps);
     setLoadingData(false);
     setNextPage(2)

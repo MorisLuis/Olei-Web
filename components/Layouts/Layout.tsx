@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -8,6 +8,7 @@ import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header/Header';
 import ModalMenu from '../Modals/ModalMenu';
 import Image from 'next/image';
+import { AuthContext } from '@/context';
 
 interface Props {
     children: ReactNode
@@ -18,7 +19,16 @@ export const Layout = ({ children }: Props) => {
     const [openModalCart, setOpenModalCart] = useState(false)
     const [openModalMenu, setOpenModalMenu] = useState(false)
     const { pathname } = useRouter()
+    const { user } = useContext(AuthContext);
 
+
+    const getBanner = () => {
+        const database = user?.BaseSQL
+        const databaseSplit = database?.split('_')
+        const newPath = databaseSplit?.[1]?.toLowerCase().trim();
+        const banner = newPath ? `https://oleistorage.blob.core.windows.net/${newPath}/BANNER.png` : '/bannerOlei2.png'
+        return banner;
+    }
 
     return (
         <>
@@ -37,7 +47,7 @@ export const Layout = ({ children }: Props) => {
                     <Image
                         fill
                         alt="banner"
-                        src={'/bannerOlei2.png'}
+                        src={getBanner()}
                     />
                 </div>
             }

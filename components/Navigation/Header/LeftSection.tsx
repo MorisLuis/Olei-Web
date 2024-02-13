@@ -25,6 +25,14 @@ export const LeftSection = ({
 
     const showClientOfTheCompany = user?.TipoUsuario === 2 && client?.Id_Almacen && pathname !== '/onboarding/selectClient'
 
+    const getLogo = () => {
+        const database = user?.BaseSQL
+        const databaseSplit = database?.split('_')
+        const newPath = databaseSplit?.[1]?.toLowerCase().trim();
+        const logo = newPath ? `https://oleistorage.blob.core.windows.net/${newPath}/LOGO.png` : '/logoOlei.png'
+        return logo;
+    }
+
     return (
         <div className={`${styles.left} display-flex align`}>
 
@@ -35,7 +43,7 @@ export const LeftSection = ({
                 <Image
                     fill
                     alt="logo"
-                    src={'/logoOlei.png'}
+                    src={getLogo()}
                 />
             </div>
 
