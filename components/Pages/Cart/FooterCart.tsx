@@ -59,7 +59,7 @@ export const submitOrder = async ({
     }
 
     if (newOrder) {
-        const folio = newOrder.data.order.Folio.value;
+        const folio = newOrder.data.Folio;
         removeAllCart()
         push(`/cart/success?order=${folio}`)
     }

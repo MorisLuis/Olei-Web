@@ -15,7 +15,7 @@ interface Props {
     productPending?: boolean
 }
 
-// ProductCardShort - IS USED PRINCIPAL IN REQUEST PAGE.
+// ProductCardShort - IS USED PRINCIPAL IN REQUEST PAGE AND CART.
 
 export const ProductCardShort = ({ product, counterVisible = true, productPending }: Props) => {
 
@@ -69,6 +69,7 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
         }
     }
 
+
     return (
         <div className={`${styles.productCard}`}>
             <div className={`${styles.content} display-flex space-between`}>
@@ -109,12 +110,12 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                         user?.PrecioIncIVA === 1 ?
                             <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
                             :
-                            <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (parseInt(product.Impuesto) / 100)))}</p>
+                            <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (parseInt(product.Impuesto ? product.Impuesto : 0) / 100)))}</p>
                     }
                 </div>
 
                 {
-                    (pathname !== "/profile/request" && pathname !== "/profile/pendingrequest" && pathname !== "/[receipt]") &&
+                    (pathname !== "/profile/request" && pathname !== "/profile/pendingrequest" && pathname !== "/request/[receipt]") &&
                     <>
                         <div className={`${styles.deleteText} display-flex`} onClick={handleRemoveCartProduct}>
                             <p>Eliminar</p>

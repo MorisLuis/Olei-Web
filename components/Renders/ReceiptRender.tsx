@@ -29,7 +29,6 @@ export const ReceiptRender = () => {
 
         const getOrderDetails = async () => {
             const { data } = await api.get(`/api/orderDetails?folio=${receipt}`);
-            console.log({data})
             const orderDetails: ProductInterface[] = data;
             setOrderDetailsSelect(orderDetails)
         } 
