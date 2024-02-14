@@ -23,6 +23,16 @@
         }
     }
 
+    &.yellow {
+        background-color: $color-yellow;
+        color: $text-color;
+        border: 1px solid $color-border-tertiary;
+
+        &:hover {
+            opacity: 70%;
+        }
+    }
+
     &.search{
         background-color: transparent;
         border: 1px solid rgba($color: $color-border-tertiary, $alpha: 1);

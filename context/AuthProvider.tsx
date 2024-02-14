@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
     const [loggingIn, setLoggingIn] = useState(false)
+    const [isDemo, setIsDemo] = useState(true)
     const {pathname} = useRouter()
 
     const { push } = useRouter()
@@ -30,7 +31,6 @@ export const AuthProvider = ({ children }: any) => {
     useEffect(() => {
         checkToken();
     }, [])
-
 
 
     const checkToken = async () => {
@@ -90,6 +90,7 @@ export const AuthProvider = ({ children }: any) => {
         <AuthContext.Provider value={{
             ...state,
             loggingIn,
+            isDemo,
 
             // Methods
             loginUser,

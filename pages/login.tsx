@@ -18,7 +18,7 @@ type FormData = {
 
 const Login = () => {
 
-    const { loginUser, loggingIn } = useContext(AuthContext);
+    const { loginUser, loggingIn, isDemo } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [isEntering, setIsEntering] = useState(true);
 
@@ -56,35 +56,52 @@ const Login = () => {
 
                             <h1>Bienvenido!</h1>
                             <p className='mb-medium'>Por favor, inicia sesión abajo</p>
-                            <form onSubmit={handleSubmit(onLoginUser)} noValidate className="animation display-flex column">
-                                <input
-                                    {...register("email", {
-                                        required: {
-                                            value: true,
-                                            message: `Es obligatorio`
+                            {
+                                isDemo ?
+                                    <>
+                                        {
+                                            loggingIn ?
+                                                <>
+                                                    <h2>Ingresando...</h2>
+                                                </>
+                                                :
+                                                <>
+                                                    <button onClick={() => onLoginUser({ email: "idaliahc@gmail.com", password: "1234" })} disabled={loggingIn} className='button yellow mb-small' type="submit">{loggingIn ? "Cargando..." : "Iniciar Cliente Demo"}</button>
+                                                    <button onClick={() => onLoginUser({ email: "oscar.hinojosa@hotmail.com", password: "1234" })} disabled={loggingIn} className='button' type="submit">{loggingIn ? "Cargando..." : "Iniciar Vendedor Demo"}</button>
+                                                </>
                                         }
-                                    })}
-                                    type="text"
-                                    className='input mb-small'
-                                    placeholder='Escribe tu e-mail...'
-                                />
-                                {errors.email && <span className='warning'>La cuenta es requerida</span>}
 
-                                <input
-                                    {...register("password", {
-                                        required: {
-                                            value: true,
-                                            message: `Es obligatorio`
-                                        }
-                                    })}
-                                    type="password"
-                                    className='input mb-small'
-                                    placeholder='Escribe la contraseña...'
-                                />
-                                {errors.password && <span className='warning'>La contraseña es requerida</span>}
-                                <button disabled={loggingIn} className='button' type="submit">{loggingIn ? "Cargando..." : "Iniciar sesión"}</button>
-                            </form>
+                                    </>
+                                    :
+                                    <form onSubmit={handleSubmit(onLoginUser)} noValidate className="animation display-flex column">
+                                        <input
+                                            {...register("email", {
+                                                required: {
+                                                    value: true,
+                                                    message: `Es obligatorio`
+                                                }
+                                            })}
+                                            type="text"
+                                            className='input mb-small'
+                                            placeholder='Escribe tu e-mail...'
+                                        />
+                                        {errors.email && <span className='warning'>La cuenta es requerida</span>}
 
+                                        <input
+                                            {...register("password", {
+                                                required: {
+                                                    value: true,
+                                                    message: `Es obligatorio`
+                                                }
+                                            })}
+                                            type="password"
+                                            className='input mb-small'
+                                            placeholder='Escribe la contraseña...'
+                                        />
+                                        {errors.password && <span className='warning'>La contraseña es requerida</span>}
+                                        <button disabled={loggingIn} className='button' type="submit">{loggingIn ? "Cargando..." : "Iniciar sesión"}</button>
+                                    </form>
+                            }
                             <div className={styles.blur}></div>
                         </div>
                     </div>
