@@ -26,7 +26,9 @@ export const Layout = ({ children }: Props) => {
         const database = user?.BaseSQL
         const databaseSplit = database?.split('_')
         const newPath = databaseSplit?.[1]?.toLowerCase().trim();
+        console.log({newPath})
         const banner = newPath ? `https://oleistorage.blob.core.windows.net/${newPath}/BANNER.png` : '/bannerOlei2.png'
+        console.log({banner})
         return banner;
     }
 
