@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: any) => {
     const loginUser = async (email: string, password: string) => {
         setLoggingIn(true)
         try {
-            const data = await api.post('/api/auth/login', { email, password });
+            const data = await api.post('/api/auth/loginWeb', { email, password });
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
