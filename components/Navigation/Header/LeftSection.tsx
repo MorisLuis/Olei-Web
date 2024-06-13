@@ -18,7 +18,7 @@ export const LeftSection = ({
     const { client } = useContext(ClientContext);
 
     const handleClickLogo = () => {
-        if (pathname !== '/onboarding/selectClient') {
+        if (pathname !== '/onboarding/selectClient' && pathname !== '/privacy') {
             push('/products');
         }
     }

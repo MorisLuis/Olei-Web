@@ -9,6 +9,7 @@ import { LeftSection } from './LeftSection';
 import { RightSection } from './RightSection';
 import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { capitalizarTexto } from '@/utils/textCapitalize';
+import { useRouter } from 'next/router';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +20,9 @@ const Header = ({
     setOpenModalCart,
     setOpenModalMenu
 }: Props) => {
+
+    const {pathname} = useRouter()
+    console.log({pathname})
 
     const { selectClient, setClientChanged } = useContext(ClientContext);
 
@@ -63,10 +67,13 @@ const Header = ({
                     <LeftSection
                         setModalClientsVisible={setModalClientsVisible}
                     />
-                    <RightSection
-                        setOpenModalMenu={setOpenModalMenu}
-                        setOpenModalCart={setOpenModalCart}
-                    />
+                    {
+                        pathname !== '/privacy' &&
+                        <RightSection
+                            setOpenModalMenu={setOpenModalMenu}
+                            setOpenModalCart={setOpenModalCart}
+                        />
+                    }
                 </div>
             </div>
 
