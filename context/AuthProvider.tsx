@@ -38,13 +38,7 @@ export const AuthProvider = ({ children }: any) => {
         if(pathname === "/login") return;
 
         try {
-            const token = Cookies.get('token')
-            const { data } = await api.get<any>('/api/auth/renew', {
-                headers: {
-                    'Content-type': 'application/json',
-                    'x-token': token || ''
-                }
-            });
+            const { data } = await api.get<any>('/api/auth/renewWeb');
             Cookies.set('token', data.token as string);
             dispatch({ type: '[Auth] - Login', payload: data.user });
         } catch (error) {
@@ -59,6 +53,7 @@ export const AuthProvider = ({ children }: any) => {
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
+
 
             if (user.TipoUsuario === 2) {
                 push("/onboarding/selectClient");

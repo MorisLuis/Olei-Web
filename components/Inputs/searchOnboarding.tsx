@@ -1,10 +1,11 @@
-import React, { Dispatch, useRef, useState } from 'react';
+import React, { Dispatch, useContext, useRef, useState } from 'react';
 import styles from "../../styles/Components/SearchGlobal.module.scss";
 
 import ClientInterface from '@/interfaces/client';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import { ClientContext } from '@/context';
 
 interface Props {
     searchResults: any;
@@ -26,6 +27,7 @@ export const SearchOnboarding = ({
 
     const [inputValue, setInputValue] = useState<string | ClientInterface | undefined>("");
     const inputRef = useRef<HTMLInputElement>(null);
+    const { selectClient } = useContext(ClientContext);
 
     const highlightSearchTerm = (text: string, term: string) => {
         const regex = new RegExp(`(${term})`, 'gi');
@@ -33,6 +35,7 @@ export const SearchOnboarding = ({
     };
 
     const handleSelectProduct = (result: any) => {
+        selectClient(result as ClientInterface)
         setInputValue(result)
         setSearchResults([])
     }

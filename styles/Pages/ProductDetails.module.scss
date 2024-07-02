@@ -43,6 +43,7 @@
         justify-content: space-between;
         width: 100%;
         padding-left: 2em;
+        //background-color: red;
 
         @include respond(phone) {
             padding: 0em 1em;
@@ -55,7 +56,7 @@
             margin-bottom: 30px;
 
             h1 {
-                font-size: 26px;
+                font-size: $font-med;
             }
         }
 
@@ -65,6 +66,7 @@
             border: 1px solid rgba($color: $color-border, $alpha: 0.3);
             border-radius: 0.25em;
             margin-bottom: 30px;
+            
 
             @include respond(phone) {
                 padding: 1em;
@@ -140,7 +142,11 @@
                 width: 100%;
                 display: flex;
                 justify-content: flex-end;
-                align-items: flex-end;
+                align-items: center;
+                
+                p{
+                    margin-right: 1em;
+                }
 
                 strong{
                     margin-left: 10px;

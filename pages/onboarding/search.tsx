@@ -3,7 +3,7 @@ import styles from "../../styles/Pages/Home.module.scss";
 
 import { SearchOnboarding } from '@/components/Inputs/searchOnboarding';
 import { useRouter } from 'next/router';
-import { AuthContext, FiltersContext } from '@/context';
+import { AuthContext, ClientContext, FiltersContext } from '@/context';
 import { api } from '@/api/api';
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
 
@@ -11,8 +11,9 @@ const OnboardingSearch = () => {
 
     const { push } = useRouter()
     const { addFilters } = useContext(FiltersContext);
-    const [searchResults, setSearchResults] = useState<string[]>([])
     const { user } = useContext(AuthContext);
+
+    const [searchResults, setSearchResults] = useState<string[]>([])
 
     const handleSearch = (url: string) => {
         push(`/products?nombre=${url}`)

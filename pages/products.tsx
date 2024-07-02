@@ -12,7 +12,6 @@ import Table from '@/components/Ui/Tables/Table';
 import Modal from '@/components/Modals/Modal';
 import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersModalContent';
 import Grid from '@/components/Ui/Tables/Grid';
-import HomeSearch from '@/components/Search/HomeSearch';
 
 import PorductInterface from '@/interfaces/product';
 import ProductInterface from '@/interfaces/product';
@@ -22,6 +21,10 @@ import QueryParams from '@/utils/queryParams';
 import { useTransition, animated } from 'react-spring';
 import PageTransition from '@/components/PageTranstion';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
+import cookie from 'cookie';
+import axios from 'axios';
+
+
 
 interface Props {
   productsProps: ProductInterface[]
@@ -32,7 +35,7 @@ const filterState: FiltersInterface = {
   marca: null,
   familia: null,
   folio: null,
-  enStock: false,
+  enStock: false
 }
 
 export default function Home({ productsProps }: Props) {
@@ -56,7 +59,6 @@ export default function Home({ productsProps }: Props) {
 
   // Used when filters are selected to change the query. Used in Modal.
   const handleFiltersToQuery = () => {
-
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
     setLoadingData(false)
     setOpenModalFilter(false);
@@ -95,8 +97,7 @@ export default function Home({ productsProps }: Props) {
 
     try {
       setOpenModalProduct(true)
-      const { data } = await api.get(`/api/product/${product.Codigo}?Marca=${product.Marca}`);
-      console.log({datam: data})
+      const { data } = await api.get(`/api/product/web/${product.Codigo}?Marca=${product.Marca}`);
 
       if (data) {
         setProductDetails(data);
@@ -106,6 +107,14 @@ export default function Home({ productsProps }: Props) {
     }
 
   }
+
+  // Animation
+  const transitions = useTransition(showGrid, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: 500 },
+  });
 
   const loadMoreProducts = useCallback(async () => {
     setButtonIsLoading(true);
@@ -140,6 +149,7 @@ export default function Home({ productsProps }: Props) {
     if (clientChanged) {
       setLoadingData(false)
       const productsOfTheClient = async () => {
+        console.log("productsOfTheClient")
         const { data } = await api.get('/api/product?page=1&limit=20');
         const productsProps: PorductInterface[] = data.products;
         setProducts(productsProps)
@@ -148,12 +158,14 @@ export default function Home({ productsProps }: Props) {
       setLoadingData(true);
       return;
     }
+
     if (productDelete) {
       setLoadingData(false)
       setProducts(productsProps)
       setLoadingData(true)
       return;
     }
+
     setLoadingData(true);
     setProducts(productsProps);
     setLoadingData(false);
@@ -166,14 +178,6 @@ export default function Home({ productsProps }: Props) {
       removeAllFilters()
     }
   }, [])
-
-  // Animation
-  const transitions = useTransition(showGrid, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: { duration: 500 },
-  });
 
   useEffect(() => {
     setIsEntering(false);
@@ -275,8 +279,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (folio) url += `&folio=${folio}`;
   if (familia) url += `&familia=${familia}`;
 
+  // Read cookies from request headers
+  const cookies = ctx.req.headers.cookie ? cookie.parse(ctx.req.headers.cookie) : {};
+  const token = cookies.token;
+
   try {
-    const { data } = await api.get(url);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
     const productsProps: ProductInterface[] = data.products
 
     return {
@@ -284,6 +296,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         productsProps
       },
     };
+
   } catch (error) {
     console.error(error);
     return {

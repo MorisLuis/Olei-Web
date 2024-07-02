@@ -1,8 +1,7 @@
 import { api } from "@/api/api";
 import ClientInterface from "@/interfaces/client";
 import Cookies from "js-cookie";
-import { useContext, useEffect, useReducer, useState } from "react";
-import { AuthContext } from "../AuthContext";
+import { useEffect, useReducer, useState } from "react";
 import { ClientContext } from "./ClientContext"
 import { clientReducer } from "./clientReducer";
 
@@ -51,11 +50,13 @@ export const ClientProvider = ({ children }: any) => {
 
     const selectClient = async (client: ClientInterface) => {
         try {
-            await api.post("/api/client", client)
+            const { data } = await api.post("/api/client", client)
+            const { token } = data;
+            Cookies.set('token', token);
+            dispatch({ type: '[Client] - selectClient', payload: client })
         } catch (error) {
-            console.log({error})
+            console.log({ error })
         }
-        dispatch({ type: '[Client] - selectClient', payload: client })
     }
 
 

@@ -21,9 +21,7 @@ const Header = ({
     setOpenModalMenu
 }: Props) => {
 
-    const {pathname} = useRouter()
-    console.log({pathname})
-
+    const {pathname, push} = useRouter()
     const { selectClient, setClientChanged } = useContext(ClientContext);
 
     const [modalClientsVisible, setModalClientsVisible] = useState(false)
@@ -44,6 +42,7 @@ const Header = ({
             setClientChanged(false)
         }, 300)
         setOpenModalMessage(false);
+        push(`/products`)
     }
 
     const onInputClientChange = async (term: string) => {

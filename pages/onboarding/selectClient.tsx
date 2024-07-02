@@ -6,12 +6,12 @@ import { SearchOnboarding } from '@/components/Inputs/searchOnboarding';
 import { useRouter } from 'next/router';
 import { api } from '@/api/api';
 import ClientInterface from '@/interfaces/client';
-import { ClientContext } from '@/context';
+import { ClientContext, FiltersContext } from '@/context';
 import PageTransition from '@/components/PageTranstion';
 
 const OnboardingSearch = () => {
 
-    const { push } = useRouter()
+    const router = useRouter()
     const [searchResults, setSearchResults] = useState<ClientInterface[]>([]);
     const { selectClient } = useContext(ClientContext);
 
@@ -24,9 +24,9 @@ const OnboardingSearch = () => {
         }
     };
 
-    const handleContinue = (client : ClientInterface) => {
-        selectClient(client as ClientInterface)
-        push(`/products`)
+    const handleContinue = (client: ClientInterface) => {
+        //selectClient(client as ClientInterface)
+        router.push(`/products`)
     }
 
 

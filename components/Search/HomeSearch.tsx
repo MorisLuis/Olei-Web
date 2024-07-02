@@ -3,7 +3,7 @@ import styles from "../../styles/Pages/Products.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FiltersContext } from '@/context';
+import { ClientContext, FiltersContext } from '@/context';
 import { useRouter } from 'next/router';
 import FiltersInterface from '@/interfaces/filters';
 import QueryParams from '@/utils/queryParams';
@@ -21,6 +21,8 @@ const HomeSearch = ({
 }: HomeSearchInterface) => {
 
     const { addFilters, filters } = useContext(FiltersContext);
+    const { client } = useContext(ClientContext);
+
     const { push, query } = useRouter();
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,7 +43,7 @@ const HomeSearch = ({
             enStock: filters.enStock,
         };
 
-        let url = "/api/search"
+        let url = `/api/search`
         const handleQueryParams = QueryParams();
         let newUrl = handleQueryParams({ queryParams, url });
 
@@ -55,6 +57,8 @@ const HomeSearch = ({
 
     const onProductKeyDown = (event: any) => {
         if (event.key === 'Enter') {
+
+            console.log("onProductKeyDown")
 
             const newFilters: Partial<FiltersInterface> = {
                 ...filters,

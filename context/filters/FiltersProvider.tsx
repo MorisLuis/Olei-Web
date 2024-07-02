@@ -16,7 +16,7 @@ const FILTERS_INITIAL_STATE: FilterState = {
         marca: undefined,
         familia: undefined,
         folio: undefined,
-        enStock: false,
+        enStock: false
     },
     filtersValues: []
 }

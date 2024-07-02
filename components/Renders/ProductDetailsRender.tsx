@@ -54,7 +54,7 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                                 <h1>{Descripcion}</h1>
                                 <div className={styles.price}>
                                     <span>Precio</span>
-                                    <p>{format(Precio)} MXN</p>
+                                    <p>{format(Precio)}</p>
                                 </div>
                             </div>
 
@@ -89,12 +89,14 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                                     <div className={styles.stock}>
                                         <p className={`display-flex text-ellipsis align`}>
                                             Existencia:
+                                        </p>
+                                        <div>
                                             {
                                                 product?.Existencia < 0 ?
                                                     <Tag>No Stock</Tag> :
                                                     <strong>{product?.Existencia}</strong>
                                             }
-                                        </p>
+                                        </div>
                                     </div>
                                 }
                                 <div className={styles.action}>
