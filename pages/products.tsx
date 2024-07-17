@@ -40,6 +40,7 @@ const filterState: FiltersInterface = {
 
 export default function Home({ productsProps }: Props) {
 
+  console.log({productsProps})
   const { push, query } = useRouter();
   const { addFilters, removeAllFilters } = useContext(FiltersContext);
   const { productDelete } = useContext(CartContext);
