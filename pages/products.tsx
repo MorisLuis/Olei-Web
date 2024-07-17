@@ -187,7 +187,7 @@ export default function Home({ productsProps }: Props) {
 
   useEffect(() => {
     const getProducts = async () => {
-      let url = `/api/product?page=1&limit=20`;
+      let url = `api/product?page=1&limit=20`;
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${url}`);
       console.log({data})
     } 
