@@ -40,7 +40,6 @@ const filterState: FiltersInterface = {
 
 export default function Home({ productsProps }: Props) {
 
-  console.log({productsProps})
   const { push, query } = useRouter();
   const { addFilters, removeAllFilters } = useContext(FiltersContext);
   const { productDelete } = useContext(CartContext);
@@ -150,7 +149,6 @@ export default function Home({ productsProps }: Props) {
     if (clientChanged) {
       setLoadingData(false)
       const productsOfTheClient = async () => {
-        console.log("productsOfTheClient")
         const { data } = await api.get('/api/product?page=1&limit=20');
         const productsProps: PorductInterface[] = data.products;
         setProducts(productsProps)
@@ -184,17 +182,6 @@ export default function Home({ productsProps }: Props) {
     setIsEntering(false);
   }, []);
 
-
-/*   useEffect(() => {
-    const getProducts = async () => {
-      let url = `api/product?page=1&limit=20`;
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${url}`);
-      console.log({data})
-    } 
-
-    getProducts()
-  }, [])
-   */
 
   return (
     <>
@@ -297,7 +284,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = cookies.token;
 
   try {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
