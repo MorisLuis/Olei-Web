@@ -284,7 +284,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = cookies.token;
 
   try {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
