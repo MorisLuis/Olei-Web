@@ -185,7 +185,7 @@ export default function Home({ productsProps }: Props) {
   }, []);
 
 
-  useEffect(() => {
+/*   useEffect(() => {
     const getProducts = async () => {
       let url = `api/product?page=1&limit=20`;
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${url}`);
@@ -194,7 +194,7 @@ export default function Home({ productsProps }: Props) {
 
     getProducts()
   }, [])
-  
+   */
 
   return (
     <>
@@ -284,7 +284,7 @@ export default function Home({ productsProps }: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { nombre, enStock, marca, folio, familia } = ctx.query;
-  let url = `/api/product?page=1&limit=20`;
+  let url = `api/product?page=1&limit=20`;
 
   if (nombre) url += `&nombre=${nombre}`;
   if (enStock) url += `&enStock=${enStock}`;
