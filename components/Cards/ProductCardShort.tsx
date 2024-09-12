@@ -76,7 +76,7 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
 
                 <div className={styles.productDescription}>
                     <p className={styles.title}>{product?.Descripcion?.trim()}</p>
-                    <p className={styles.code}>Codigo: {product?.Codigo} ka</p>
+                    <p className={styles.code}>Codigo: {product?.Codigo}</p>
                     <p className={styles.code}>Marca: {product?.Marca}</p>
                     <div className={`divider__small ${styles.divider} `}></div>
                 </div>

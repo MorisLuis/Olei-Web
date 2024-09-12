@@ -97,7 +97,7 @@ const HomeSearch = ({
         }
         resetInputValue()
 
-    }, [query])
+    }, [query]);
 
     return (
         <div className={`${styles.search} ${searchActive ? `${styles.active}` : ''} display-flex cursor`}>

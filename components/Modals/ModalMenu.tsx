@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { AuthContext } from '@/context';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
-import { api } from '@/api/api';
 
 interface Props {
     visible: boolean;

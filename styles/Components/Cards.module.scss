@@ -44,7 +44,7 @@
 
             @include respond(phone) {
                 width: 100%;
-                grid-area: first; /* Asignar el primer div al área "first" */
+                grid-area: first;
             }
 
             .title {
@@ -74,9 +74,10 @@
             }
         }
 
+
         .productCounter {
             width: 20%;
-            //text-align: end;
+
 
             @include respond(phone) {
                 width: 100%;
@@ -93,10 +94,10 @@
                 }
             }
 
-            /* :nth-child(2) {
-                margin-top: 0.5em;
-            } */
+        }
 
+        .subtotal{
+            margin-top: 5px;
         }
 
         .delete {

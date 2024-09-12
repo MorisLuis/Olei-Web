@@ -3,7 +3,6 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import styles from "../styles/Pages/Products.module.scss";
 
 import { useRouter } from 'next/router';
-import { api } from '@/api/api';
 
 import { Layout } from '@/components/Layouts/Layout';
 import HomeFilter from '@/components/HomeFilter';
@@ -12,7 +11,6 @@ import Modal from '@/components/Modals/Modal';
 import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersModalContent';
 import Grid from '@/components/Ui/Tables/Grid';
 
-import PorductInterface from '@/interfaces/product';
 import ProductInterface from '@/interfaces/product';
 import FiltersInterface from '@/interfaces/filters';
 import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/context';
@@ -21,12 +19,6 @@ import { useTransition, animated } from 'react-spring';
 import PageTransition from '@/components/PageTranstion';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
 import { getProductById, getProducts, getTotalProducts } from '@/services/product';
-
-
-
-interface Props {
-  productsProps: ProductInterface[]
-}
 
 const filterState: FiltersInterface = {
   nombre: null,
@@ -59,7 +51,7 @@ export default function Home() {
   const [isEntering, setIsEntering] = useState(true); // Part of the animation with react-spring.
 
   // Used when filters are selected to change the query. Used in Modal.
-  const handleFiltersToQuery = () => { /* TEST */
+  const handleFiltersToQuery = () => {
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
     setLoadingData(false)
     setOpenModalFilter(false);
@@ -94,7 +86,6 @@ export default function Home() {
   const handleSelectProduct = async (product: ProductInterface) => {
 
     if (!product.Marca || !product.Codigo) return;
-
     try {
       setOpenModalProduct(true)
       const data = await getProductById({ Codigo: product.Codigo, Marca: product?.Marca })
@@ -105,36 +96,13 @@ export default function Home() {
 
   }
 
-  // Animation
-  const transitions = useTransition(showGrid, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: { duration: 500 },
-  });
-
   const loadMoreProducts = useCallback(async () => {
     setButtonIsLoading(true);
-
-    let url = `/api/product?page=${nextPage}&limit=20`;
-
-    const queryParams = {
-      nombre: query.nombre,
-      marca: query.marca,
-      familia: query.familia,
-      folio: query.folio,
-      enStock: query.enStock,
-    };
-
-    const handleQueryParams = QueryParams();
-    let urlNew = handleQueryParams({ queryParams, url });
-
     try {
       setNextPage(nextPage + 1);
       if (nextPage === 1) return;
-
-      const { data: { products } } = await api.get(urlNew);
-      setProducts((prevItems: any) => [...prevItems, ...products]);
+      const data = await getProducts(query, nextPage)
+      setProducts((prevItems: any) => [...prevItems, ...data]);
     } catch (error) {
       console.error('Error loading more items:', error);
     } finally {
@@ -142,16 +110,18 @@ export default function Home() {
     }
   }, [nextPage, query]);
 
+  const handleProduct = async () => {
+    setLoadingData(true);
+    const data = await getProducts(query)
+    const total = await getTotalProducts(query)
+    setTotalProducts(total)
+    setProducts(data)
+    setLoadingData(false);
+  }
+
   useEffect(() => {
-    if (clientChanged) { /* TEST */
-      setLoadingData(false)
-      const productsOfTheClient = async () => {
-        const { data } = await api.get('/api/product?page=1&limit=20');
-        const productsProps: PorductInterface[] = data.products;
-        setProducts(productsProps)
-      }
-      productsOfTheClient();
-      setLoadingData(true);
+    if (clientChanged) {
+      handleProduct();
       return;
     }
 
@@ -180,18 +150,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const handleProduct = async () => {
-      setLoadingData(true);
-      const data = await getProducts(query)
-      const total = await getTotalProducts(query)
-      setTotalProducts(total)
-      setProducts(data)
-      setLoadingData(false);
-    }
-
     handleProduct()
   }, [nombre, enStock, marca, folio, familia])
 
+  // Animation
+  const transitions = useTransition(showGrid, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { duration: 500 },
+  });
 
   return (
     <>

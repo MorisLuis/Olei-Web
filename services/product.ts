@@ -1,9 +1,9 @@
 import { api } from '@/api/api';
 import { ParsedUrlQuery } from 'querystring';
 
-export const getProducts = async (query: ParsedUrlQuery) => {
+export const getProducts = async (query: ParsedUrlQuery, nextPage?: number) => {
     const { nombre, enStock, marca, folio, familia } = query;
-    let url = `api/product?page=1&limit=20`;
+    let url = `api/product?page=${nextPage ? nextPage : 1}&limit=20`;
 
     if (nombre) url += `&nombre=${nombre}`;
     if (enStock) url += `&enStock=${enStock}`;
@@ -13,7 +13,7 @@ export const getProducts = async (query: ParsedUrlQuery) => {
 
     const { data } = await api.get(url);
 
-    return data.products
+    return data.products;
 }
 
 type getProductById = {

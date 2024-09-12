@@ -22,7 +22,7 @@ export const submitOrder = async ({
     setOrderRequested(true)
 
 
-    const order: OrderInterface = {
+    const order: Partial<OrderInterface> = {
         Total: total,
         Piezas: numberOfItems,
         Subtotal: subTotal
