@@ -7,8 +7,8 @@ import { ClientContext, FiltersContext } from '@/context';
 import { useRouter } from 'next/router';
 import FiltersInterface from '@/interfaces/filters';
 import QueryParams from '@/utils/queryParams';
-import { api } from '@/api/api';
 import ResultsContainer from './ResultsContainer';
+import { searchProducts } from '@/services/search';
 
 interface HomeSearchInterface {
     setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>,
@@ -35,23 +35,8 @@ const HomeSearch = ({
     const onSearchProduct = async (event: any) => {
         setInputValue(event.target.value);
         const term = event.target.value === '' ? " " :  event.target.value ;
-
-        const queryParams = {
-            nombre: term,
-            marca: filters.marca,
-            familia: filters.familia,
-            folio: filters.folio,
-            enStock: filters.enStock,
-        };
-
-        let url = `/api/search`
-        const handleQueryParams = QueryParams();
-        let newUrl = handleQueryParams({ queryParams, url });
-
-
         try {
-            const { data: { products } } = await api.get(`${newUrl}`);
-            console.log({products})
+            const products = await searchProducts(term, query)
             setSearchResults(products)
         } catch (error) {
             console.log({ error })

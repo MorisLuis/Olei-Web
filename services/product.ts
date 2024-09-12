@@ -23,9 +23,9 @@ type getProductById = {
 
 export const getProductById = async ({ Codigo, Marca }: getProductById) => {
 
+    console.log({Codigo, Marca})
     try {
         const { data } = await api.get(`/api/product/web/${Codigo}?Marca=${Marca}`);
-
         return data;
     } catch (error) {
         console.log({ error })

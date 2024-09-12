@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './../../styles/Pages/ProductDetails.module.scss';
 
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
 import { Layout } from '@/components/Layouts/Layout';
 import ProductInterface from '@/interfaces/product';
-import { api } from '@/api/api';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getProductById } from '@/services/product';
 
-const ProductDetails = (productProps: ProductInterface) => {
+const ProductDetails = () => {
 
-    const { push } = useRouter();
+    const { push, query: { Marca, id} } = useRouter();
+    const [product, setProduct] = useState<ProductInterface>()
 
     const handleGoBack = () => {
         push('/products');
     }
+
+    useEffect(() => {
+        if(typeof id !== "string") return;
+        if(typeof Marca !== "string") return;
+
+        const handleGetProduct = async () => {
+            const productData = await getProductById({Codigo: id, Marca});
+            setProduct(productData)
+        }
+
+        handleGetProduct()
+    }, [Marca, id])
 
     return (
         <Layout>
@@ -26,7 +38,7 @@ const ProductDetails = (productProps: ProductInterface) => {
                         <FontAwesomeIcon icon={faArrowLeftLong} className={`icon__small`} />
                         <p>Regresar</p>
                     </div>
-                    <ProductDetailsRender product={productProps} />
+                    <ProductDetailsRender product={product as ProductInterface} />
                 </section>
             </div>
         </Layout>
@@ -34,22 +46,3 @@ const ProductDetails = (productProps: ProductInterface) => {
 }
 
 export default ProductDetails;
-
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const { id, Marca } = ctx.query;
-
-    try {
-        const { data } = await api.get(`/api/product/${id}?Marca=${Marca}`);
-        const productProps: ProductInterface[] = data
-
-        return {
-            props: productProps,
-        };
-    } catch (error) {
-        console.log(error);
-        return {
-            props: []
-        }
-    }
-};
