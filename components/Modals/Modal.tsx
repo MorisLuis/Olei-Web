@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 
 
 interface Props {
-    visible: string | any;
-    children: any;
+    visible: boolean;
+    children: React.ReactNode;
     title?: string;
 
     //Conditions
@@ -28,13 +28,13 @@ interface Props {
 const Modal = ({
     visible,
     children,
-    title,
+    title = '',
 
-    small,
-    actionsVisible,
+    small = false,
     receipt = false,
-    modalBlack,
-    decisionVisible,
+    actionsVisible = false,
+    decisionVisible = false,
+    modalBlack = false,
 
     onClose,
     handleOpenModalMessage,
@@ -53,6 +53,49 @@ const Modal = ({
         }, 300);
     };
 
+    const renderActions = () => (
+        <>
+            <button
+                className={`${styles.expand} button-small display-flex align m-right`}
+                onClick={() => push(`/request/${query?.receipt}`)}
+            >
+                Expandir
+                <FontAwesomeIcon icon={faExpand} className="icon__small cursor display-flex align rotat45" />
+            </button>
+            <button
+                className={`${styles.expand} button-small display-flex align`}
+                onClick={handleOpenModalMessage}
+            >
+                Usar en carrito
+                <FontAwesomeIcon icon={faExpand} className="icon__small cursor display-flex align rotat45" />
+            </button>
+        </>
+    );
+
+    const renderFooter = () => (
+        <div className={`${styles.footer} display-flex space-between`}>
+            <button
+                //style={{ width: "30%" }}
+                className="button-small transparent"
+                onClick={() => {
+                    handleClose();
+                    handleCleanAllFilters?.();
+                }}
+            >
+                Quitar filtros
+            </button>
+            <button
+                style={{ width: "30%" }}
+                className="button-small"
+                onClick={() => {
+                    handleClose();
+                    handleFiltersToQuery?.();
+                }}
+            >
+                Filtrar
+            </button>
+        </div>
+    );
 
     return visible ?
         <>
@@ -67,19 +110,7 @@ const Modal = ({
                 <div className={`${styles.header} display-flex space-between align`} >
                     <div className={`${styles.left} display-flex align`}>
                         <h3>{title}</h3>
-                        {
-                            actionsVisible &&
-                            <>
-                                <button className={`${styles.expand} button-small display-flex align m-right`} onClick={() => push(`/request/${query?.receipt}`)}>
-                                    Expandir
-                                    <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align rotat45`} />
-                                </button>
-                                <button className={`${styles.expand} button-small display-flex align`} onClick={handleOpenModalMessage}>
-                                    Usar en carrito
-                                    <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align rotat45`} />
-                                </button>
-                            </>
-                        }
+                        {actionsVisible && renderActions()}
                     </div>
 
                     <div className={`${styles.close} cursor`} onClick={handleClose}>
@@ -91,26 +122,7 @@ const Modal = ({
                     {children}
                 </div>
 
-                {
-                    decisionVisible &&
-                    <div className={`${styles.footer} display-flex space-between`}>
-                        <button
-                            style={{ width: "30%" }}
-                            className='button-small transparent'
-                            onClick={() => {
-                                handleClose()
-                                handleCleanAllFilters?.()
-                            }}>Quitar filtros</button>
-                        <button
-                            style={{ width: "30%" }}
-                            className='button-small'
-                            onClick={() => {
-                                handleClose()
-                                handleFiltersToQuery?.()
-                            }}>Filtrar</button>
-                    </div>
-                }
-
+                {decisionVisible && renderFooter()}
             </div>
         </>
         : null

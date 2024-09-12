@@ -1,36 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Home.module.scss";
 
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
 import { SearchOnboarding } from '@/components/Inputs/searchOnboarding';
-import { useRouter } from 'next/router';
-import { api } from '@/api/api';
 import ClientInterface from '@/interfaces/client';
-import { ClientContext, FiltersContext } from '@/context';
 import PageTransition from '@/components/PageTranstion';
+import { getClients } from '@/services/clients';
 
 const OnboardingSearch = () => {
 
-    const router = useRouter()
     const [searchResults, setSearchResults] = useState<ClientInterface[]>([]);
-    const { selectClient } = useContext(ClientContext);
+    const [isEntering, setIsEntering] = useState(true);
 
     const handleSearchTerm = async (term: string) => {
         try {
-            const { data: { Clients } } = await api.get(`/api/search/client?term=${term}`);
+            const Clients = await getClients(term);
             setSearchResults(Clients)
         } catch (error) {
             console.log({ error })
         }
     };
-
-    const handleContinue = (client: ClientInterface) => {
-        //selectClient(client as ClientInterface)
-        router.push(`/products`)
-    }
-
-
-    const [isEntering, setIsEntering] = useState(true);
 
     useEffect(() => {
         setIsEntering(false);
@@ -49,7 +38,6 @@ const OnboardingSearch = () => {
 
                             <div className={styles.search}>
                                 <SearchOnboarding
-                                    onSubmit={(client) => handleContinue(client as ClientInterface)}
                                     searchResults={searchResults}
                                     setSearchResults={setSearchResults}
                                     handleSearchTerm={handleSearchTerm}

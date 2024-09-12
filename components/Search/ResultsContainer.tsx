@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { Tag } from '../Ui/Tag';
 import QueryParams from '@/utils/queryParams';
+import ProductInterface from '@/interfaces/product';
 
 interface ResultsContainerInterface {
     inputValue: string,
@@ -118,8 +119,14 @@ const ResultsContainer = ({
 
             {/* CONTAINER RESULTS */}
             {
-                (searchResults?.length > 0) ? searchResults.slice(0, 10)?.map((producto: any, index: number) =>
-                    <SearchItemCard key={index} productName={producto?.Nombre ? producto?.Nombre as string : producto as string} onclick={() => onSelectProduct(producto)} highlightSearchTerm={highlightSearchTerm} inputValue={inputValue} />
+                (searchResults?.length > 0) ? searchResults.slice(0, 10)?.map((producto: string, index: number) =>
+                    <SearchItemCard
+                        key={index}
+                        productName={producto ? producto as string : ""}
+                        onclick={() => onSelectProduct(producto)}
+                        highlightSearchTerm={highlightSearchTerm}
+                        inputValue={inputValue}
+                    />
                 )
                     :
                     searchResults?.length === 0 && inputValue !== "" ?

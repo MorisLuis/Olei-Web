@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styles from "./../../../styles/Navigation/Header.module.scss";
 
-import { api } from '@/api/api';
 import { ClientContext } from '@/context';
 import { ModalSearch } from '../../Modals/ModalSearch';
 import ClientInterface from '@/interfaces/client';
@@ -10,6 +9,7 @@ import { RightSection } from './RightSection';
 import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 import { useRouter } from 'next/router';
+import { getClients } from '@/services/clients';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,7 +21,7 @@ const Header = ({
     setOpenModalMenu
 }: Props) => {
 
-    const {pathname, push} = useRouter()
+    const { pathname, push } = useRouter()
     const { selectClient, setClientChanged } = useContext(ClientContext);
 
     const [modalClientsVisible, setModalClientsVisible] = useState(false)
@@ -47,7 +47,7 @@ const Header = ({
 
     const onInputClientChange = async (term: string) => {
         try {
-            const { data: { Clients } } = await api.get(`/api/search/client?term=${term}`);
+            const Clients = await getClients(term);
             return { products: Clients };
         } catch (error) {
             console.log({ error })
@@ -55,9 +55,10 @@ const Header = ({
         }
     }
 
-    const onClientKeyDown = (inputValue: string) => {
+    const handleCloseModal = () => {
+        setOpenModalMessage(false);
+        setSelectedClient(undefined);
     }
-
 
     return (
         <>
@@ -81,15 +82,11 @@ const Header = ({
                 onClose={() => setModalClientsVisible(false)}
                 onSelectItem={onSelectClient}
                 onInputChange={onInputClientChange}
-                onKeyDown={onClientKeyDown}
             />
 
             <ModalMessage
                 visible={openModalMessage}
-                onClose={() => {
-                    setOpenModalMessage(false);
-                    setSelectedClient(undefined);
-                }}
+                onClose={handleCloseModal}
                 onAccept={onAcceptClientSelected}
                 title={`Seleccionar a ${capitalizarTexto(selectedClient?.Nombre as string)} como cliente.`}
             >

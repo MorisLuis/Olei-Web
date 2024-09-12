@@ -14,10 +14,11 @@ interface Props {
     data: ProductInterface[],
     loadMoreProducts: () => Promise<void>,
     buttonIsLoading: boolean,
-    loadingData: boolean
+    loadingData: boolean,
+    totalItems: number
 }
 
-const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData }: Props) => {
+const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData, totalItems }: Props) => {
 
     const { productsWithCartInfo } = useProductsWithCartInfo(data)
     const { user } = useContext(AuthContext);
@@ -72,7 +73,7 @@ const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData }: Props) 
 
                                 {/* LOAD MORE PRODUCTS */}
                                 {
-                                    (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
+                                    (productsWithCartInfo.length < totalItems) &&
                                     <div className={styles.loadMore}>
                                         <ButtonAnimated
                                             onclick={loadMoreProducts}

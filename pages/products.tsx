@@ -2,7 +2,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import styles from "../styles/Pages/Products.module.scss";
 
-import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { api } from '@/api/api';
 
@@ -21,8 +20,7 @@ import QueryParams from '@/utils/queryParams';
 import { useTransition, animated } from 'react-spring';
 import PageTransition from '@/components/PageTranstion';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
-import cookie from 'cookie';
-import axios from 'axios';
+import { getProductById, getProducts, getTotalProducts } from '@/services/product';
 
 
 
@@ -38,16 +36,19 @@ const filterState: FiltersInterface = {
   enStock: false
 }
 
-export default function Home({ productsProps }: Props) {
+export default function Home() {
 
   const { push, query } = useRouter();
+  const { query: { nombre, enStock, marca, folio, familia } } = useRouter();
+
   const { addFilters, removeAllFilters } = useContext(FiltersContext);
   const { productDelete } = useContext(CartContext);
   const { clientChanged } = useContext(ClientContext);
   const { user } = useContext(AuthContext);
 
-  const [products, setProducts] = useState<ProductInterface[]>(productsProps);
-  const [productDetails, setProductDetails] = useState<PorductInterface>();
+  const [products, setProducts] = useState<ProductInterface[]>([]);
+  const [totalProducts, setTotalProducts] = useState(0)
+  const [productDetails, setProductDetails] = useState<ProductInterface>();
   const [temporalFilters, setTemporalFilters] = useState<FiltersInterface>(filterState);
   const [openModalFilter, setOpenModalFilter] = useState<boolean>(false);
   const [openModalProduct, setOpenModalProduct] = useState<boolean>(false);
@@ -58,7 +59,7 @@ export default function Home({ productsProps }: Props) {
   const [isEntering, setIsEntering] = useState(true); // Part of the animation with react-spring.
 
   // Used when filters are selected to change the query. Used in Modal.
-  const handleFiltersToQuery = () => {
+  const handleFiltersToQuery = () => { /* TEST */
     // Update the active filters from temporary filters set in FiltersModalContent and Global Search.
     setLoadingData(false)
     setOpenModalFilter(false);
@@ -75,9 +76,8 @@ export default function Home({ productsProps }: Props) {
     const handleQueryParams = QueryParams();
     let url = handleQueryParams({ queryParams });
 
-    push(url)
+    push(url, undefined, { shallow: true })
     setLoadingData(true)
-
   };
 
   // Used to clean all filters.
@@ -93,15 +93,12 @@ export default function Home({ productsProps }: Props) {
   // Used to fetch product when this is selected.
   const handleSelectProduct = async (product: ProductInterface) => {
 
-    if (!product) return;
+    if (!product.Marca || !product.Codigo) return;
 
     try {
       setOpenModalProduct(true)
-      const { data } = await api.get(`/api/product/web/${product.Codigo}?Marca=${product.Marca}`);
-
-      if (data) {
-        setProductDetails(data);
-      }
+      const data = await getProductById({ Codigo: product.Codigo, Marca: product?.Marca })
+      setProductDetails(data);
     } catch (error) {
       console.log({ error })
     }
@@ -146,7 +143,7 @@ export default function Home({ productsProps }: Props) {
   }, [nextPage, query]);
 
   useEffect(() => {
-    if (clientChanged) {
+    if (clientChanged) { /* TEST */
       setLoadingData(false)
       const productsOfTheClient = async () => {
         const { data } = await api.get('/api/product?page=1&limit=20');
@@ -160,16 +157,16 @@ export default function Home({ productsProps }: Props) {
 
     if (productDelete) {
       setLoadingData(false)
-      setProducts(productsProps)
+      setProducts(products)
       setLoadingData(true)
       return;
     }
 
     setLoadingData(true);
-    setProducts(productsProps);
+    setProducts(products);
     setLoadingData(false);
     setNextPage(2)
-  }, [query, productDelete, productsProps, clientChanged])
+  }, [query, productDelete, products, clientChanged])
 
   // Effect to clean all filter if the query is clean of filters.
   useEffect(() => {
@@ -181,6 +178,19 @@ export default function Home({ productsProps }: Props) {
   useEffect(() => {
     setIsEntering(false);
   }, []);
+
+  useEffect(() => {
+    const handleProduct = async () => {
+      setLoadingData(true);
+      const data = await getProducts(query)
+      const total = await getTotalProducts(query)
+      setTotalProducts(total)
+      setProducts(data)
+      setLoadingData(false);
+    }
+
+    handleProduct()
+  }, [nombre, enStock, marca, folio, familia])
 
 
   return (
@@ -210,6 +220,7 @@ export default function Home({ productsProps }: Props) {
                       buttonIsLoading={buttonIsLoading}
                       loadingData={loadingData}
                       handleSelectProduct={handleSelectProduct}
+                      totalItems={totalProducts}
                     />
                   </animated.div>
                 </main>
@@ -221,6 +232,7 @@ export default function Home({ productsProps }: Props) {
                       loadMoreProducts={loadMoreProducts}
                       buttonIsLoading={buttonIsLoading}
                       loadingData={loadingData}
+                      totalItems={totalProducts}
                     />
                   </animated.div>
                 </main>
@@ -250,7 +262,7 @@ export default function Home({ productsProps }: Props) {
       </Modal>
 
       <Modal
-        visible={query.product && openModalProduct}
+        visible={(query.product && openModalProduct) ? true : false}
         title="Producto"
         modalBlack
 
@@ -266,43 +278,3 @@ export default function Home({ productsProps }: Props) {
     </>
   )
 }
-
-
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { nombre, enStock, marca, folio, familia } = ctx.query;
-  let url = `api/product?page=1&limit=20`;
-
-  if (nombre) url += `&nombre=${nombre}`;
-  if (enStock) url += `&enStock=${enStock}`;
-  if (marca !== undefined) url += `&marca=${marca}`;
-  if (folio) url += `&folio=${folio}`;
-  if (familia) url += `&familia=${familia}`;
-
-  // Read cookies from request headers
-  const cookies = ctx.req.headers.cookie ? cookie.parse(ctx.req.headers.cookie) : {};
-  const token = cookies.token;
-
-  try {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      }
-    });
-    const productsProps: ProductInterface[] = data.products
-
-    return {
-      props: {
-        productsProps
-      },
-    };
-
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        productsProps: [],
-      },
-    };
-  }
-};

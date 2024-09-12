@@ -56,9 +56,10 @@ export const AuthProvider = ({ children }: any) => {
 
 
             if (user.TipoUsuario === 2) {
+                console.log("pass here")
                 push("/onboarding/selectClient");
             } else {
-                push("/products");
+                push("/profile");
             }
 
         } catch (error: any) {
@@ -71,12 +72,11 @@ export const AuthProvider = ({ children }: any) => {
     const logoutUser = async () => {
         try {
             Cookies.remove("token")
-            await api.post('/api/auth/logout');
             dispatch({ type: '[Auth] - Logout' });
-            push("/")
+            await api.get('/api/auth/logout');
             setLoggingIn(false);
+            push("/")
         } catch (error: any) {
-            toast.error(error?.response?.data?.error)
             console.log(error?.response?.data?.error)
         }
     }

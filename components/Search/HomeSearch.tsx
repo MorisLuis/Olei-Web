@@ -24,6 +24,7 @@ const HomeSearch = ({
     const { client } = useContext(ClientContext);
 
     const { push, query } = useRouter();
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [inputValue, setInputValue] = useState('');
@@ -47,8 +48,10 @@ const HomeSearch = ({
         const handleQueryParams = QueryParams();
         let newUrl = handleQueryParams({ queryParams, url });
 
+
         try {
             const { data: { products } } = await api.get(`${newUrl}`);
+            console.log({products})
             setSearchResults(products)
         } catch (error) {
             console.log({ error })

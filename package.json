@@ -50,5 +50,6 @@
     "@types/md5": "^2.3.2",
     "@types/mocha": "^10.0.3",
     "@types/uuid": "^9.0.2"
-  }
+  },
+  "proxy": "http://localhost:5001"
 }

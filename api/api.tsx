@@ -5,8 +5,9 @@ export const api = axios.create(
     {
         baseURL: process.env.NEXT_PUBLIC_API_URL,
         headers: {
-            'Content-Type': 'application/json',
-        }
+            'Content-Type': 'application/json; charset=utf-8',
+        },
+        withCredentials: true,  // Esto permite enviar las cookies con cada solicitud
     }
 )
 

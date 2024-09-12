@@ -6,47 +6,57 @@ import { capitalizarTexto } from '@/utils/textCapitalize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { ClientContext } from '@/context';
+import { SearchItemCard } from '../Cards/SearchItemCard';
+import { useRouter } from 'next/router';
 
 interface Props {
-    searchResults: any;
-    setSearchResults: Dispatch<React.SetStateAction<any>>;
+    searchResults: ClientInterface[];
+    setSearchResults: Dispatch<React.SetStateAction<ClientInterface[]>>;
     label?: string;
 
-    // Methods
-    onSubmit: (arg?: string | ClientInterface) => void;
-    handleSearchTerm: (term: string) => Promise<void>
+    // Métodos
+    handleSearchTerm: (term: string) => Promise<void>;
 }
 
 export const SearchOnboarding = ({
-    onSubmit,
     searchResults,
     setSearchResults,
     label,
     handleSearchTerm,
 }: Props) => {
 
-    const [inputValue, setInputValue] = useState<string | ClientInterface | undefined>("");
+    const [inputValue, setInputValue] = useState<string>("");
     const inputRef = useRef<HTMLInputElement>(null);
     const { selectClient } = useContext(ClientContext);
+    const router = useRouter()
 
+    // Función para resaltar el término de búsqueda
     const highlightSearchTerm = (text: string, term: string) => {
         const regex = new RegExp(`(${term})`, 'gi');
         return text?.replace(regex, '<strong>$1</strong>');
     };
 
-    const handleSelectProduct = (result: any) => {
-        selectClient(result as ClientInterface)
-        setInputValue(result)
-        setSearchResults([])
-    }
+    // Seleccionar un cliente
+    const handleSelectProduct = (result: ClientInterface) => {
+        console.log({result})
+        selectClient(result);
+        setInputValue(result.Nombre);
+        setSearchResults([]); // Limpiar resultados de búsqueda
+    };
 
-    const handleInputChange = (e: any) => {
-        let term = e.target.value;
-        setInputValue(term)
-        handleSearchTerm(term)
-    }
+    // Manejar cambio en el input
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const term = e.target.value;
+        setInputValue(term); // Actualizar el valor del input
+        handleSearchTerm(term); // Realizar búsqueda
+    };
 
-    const searchDefault: boolean = inputValue === "" || inputValue === null
+    const clearInput = () => {
+        setInputValue("");
+        inputRef.current?.focus();
+    };
+
+    const isSearchDisabled = inputValue.trim() === "";
 
     return (
         <>
@@ -55,46 +65,39 @@ export const SearchOnboarding = ({
                     <input
                         ref={inputRef}
                         type="text"
-                        placeholder='Buscar...'
+                        placeholder="Buscar..."
                         onChange={handleInputChange}
-                        value={typeof inputValue === "string" ? inputValue : inputValue?.Nombre}
+                        value={inputValue}
                     />
-                    {
-                        inputValue !== "" &&
+                    {inputValue !== "" && (
                         <div
                             className="iconClean display-flex allCenter cursor"
-                            onClick={() => setInputValue("")}
+                            onClick={clearInput}
                         >
-                            <FontAwesomeIcon icon={faXmark} className={`icon__small`} style={{ zIndex: "99999999" }} />
+                            <FontAwesomeIcon icon={faXmark} className="icon__small" style={{ zIndex: "99999999" }} />
                         </div>
-                    }
+                    )}
                 </div>
                 <button
-                    className={!searchDefault ? "button" : "button disabled"}
-                    disabled={searchDefault}
-                    onClick={() => onSubmit(inputValue)}
+                    className={!isSearchDisabled ? "button" : "button disabled"}
+                    disabled={isSearchDisabled}
+                    onClick={() => router.push(`/products`)}
                 >
-                    {
-                        label ? label :
-                            <FontAwesomeIcon icon={faArrowRightLong} className={`icon`} style={{ zIndex: "99999999" }} />
-                    }
+                    {label ? label : <FontAwesomeIcon icon={faArrowRightLong} className="icon" style={{ zIndex: "99999999" }} />}
                 </button>
             </div>
+
             <div className={styles.results}>
-                {
-                    searchResults.slice(0, 8).map((result: any, index: number) =>
-                        <div key={index} className={styles.item} onClick={() => handleSelectProduct(result)}>
-                            <li
-                                key={index}
-                                dangerouslySetInnerHTML={{
-                                    __html: highlightSearchTerm(capitalizarTexto(result?.Nombre) as string || capitalizarTexto(result) as string, typeof inputValue === "string" ? inputValue : inputValue?.Nombre || ""),
-                                }}
-                            />
-                        </div>
-                    )
-                }
+                {searchResults.slice(0, 8).map((result: ClientInterface) => (
+                    <SearchItemCard
+                        key={result.Nombre} // Usar el ID como key para evitar advertencias
+                        productName={result.Nombre}
+                        onclick={() => handleSelectProduct(result)}
+                        highlightSearchTerm={highlightSearchTerm}
+                        inputValue={inputValue}
+                    />
+                ))}
             </div>
         </>
-    )
-}
-
+    );
+};

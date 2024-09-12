@@ -86,8 +86,6 @@
                     width: 24px;
                     height: 24px;
                     border-radius: 100%;
-                    .content{
-                    }
 
                     p {
                         color: $text-color-secondary;
@@ -197,7 +195,7 @@
     background-color: $background-color;
     width: 75%;
     max-width: 1200px;
-    max-height: 550px;
+    //max-height: 550px;
     position: absolute;
     border-radius: 1em;
     border: 1px solid $color-border;
@@ -252,9 +250,6 @@
 
     &.small {
         width: 30%;
-        height: 60%;
-        top: 37.5%;
-
 
         @include respond(tab-land) {
             width: 45%;
@@ -291,7 +286,7 @@
     .header {
         border-radius: 1em 1em 0em 0em;
         background-color: $background-color;
-        padding: 0.5em 2em;
+        padding: 1em;
         border: 1px solid $color-border;
         border-style: none none solid none;
 

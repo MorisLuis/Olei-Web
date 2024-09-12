@@ -23,15 +23,7 @@ const ModalMenu = ({
     const [closing, setClosing] = useState(false);
     const { user, logoutUser} = useContext(AuthContext);
 
-    const onLogOut = async () => {
-        try {
-            await api.post('/api/auth/logout');
-            logoutUser()
-            replace("/login")
-        } catch (error) {
-            console.log({ error })
-        }
-    }
+
 
 
     return visible ? (
@@ -80,7 +72,7 @@ const ModalMenu = ({
                         </div>
                     </Link>
 
-                    <div className={`${styles.item} display-flex align`} onClick={onLogOut}>
+                    <div className={`${styles.item} display-flex align`} onClick={logoutUser}>
                         <FontAwesomeIcon icon={faRightFromBracket} className={`icon__small cursor display-flex align`} />
                         <p>Cerrar sesión</p>
                     </div>

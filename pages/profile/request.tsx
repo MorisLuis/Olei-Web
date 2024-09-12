@@ -25,7 +25,6 @@ const Pedidos = () => {
     const [orders, setOrders] = useState<OrderInterface[]>();
     const [orderSelect, setOrderSelect] = useState<ProductInterface[]>()
 
-
     const handleSelectOrder = async (folio: string) => {
         setOpenModalRequest(true)
         const { data } = await api.get(`/api/orderDetails?folio=${folio}`);
@@ -86,7 +85,7 @@ const Pedidos = () => {
             </LayoutProfile>
 
             <Modal
-                visible={query.receipt && openModalRequest}
+                visible={(query.receipt && openModalRequest) ? true : false}
                 onClose={() => {
                     setOpenModalRequest(false)
                     back()

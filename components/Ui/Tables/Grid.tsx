@@ -14,12 +14,13 @@ interface Props {
     buttonIsLoading: boolean;
     loadingData: boolean;
     handleSelectProduct: (product: ProductInterface) => Promise<void>;
+    totalItems: number
 }
 
-const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSelectProduct}: Props) => {
+const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSelectProduct, totalItems}: Props) => {
 
     const { productsWithCartInfo } =  useProductsWithCartInfo(data);
-    const NoMoreProductToShow = !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0)
+    const NoMoreProductToShow = !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0);
 
     return (
         <>
@@ -49,7 +50,7 @@ const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSele
                                     }
                                 </div>
                                 {
-                                    (productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0) &&
+                                    (productsWithCartInfo.length < totalItems ) &&
                                     <div className={styles.loadMore}>
                                         <ButtonAnimated
                                             onclick={loadMoreProducts}

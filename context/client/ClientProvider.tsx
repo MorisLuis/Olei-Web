@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useEffect, useReducer, useState } from "react";
 import { ClientContext } from "./ClientContext"
 import { clientReducer } from "./clientReducer";
+import { postClient } from "@/services/clients";
 
 export interface ClientState {
     client: ClientInterface
@@ -50,8 +51,7 @@ export const ClientProvider = ({ children }: any) => {
 
     const selectClient = async (client: ClientInterface) => {
         try {
-            const { data } = await api.post("/api/client", client)
-            const { token } = data;
+            const token = await postClient(client)
             Cookies.set('token', token);
             dispatch({ type: '[Client] - selectClient', payload: client })
         } catch (error) {

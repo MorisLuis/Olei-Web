@@ -46,7 +46,7 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                 product ? (
                     <div className={styles.pageDetails}>
 
-                        <ImageGallery images={imagen} />
+                        <ImageGallery images={[]} />
 
                         <div className={styles.content}>
 

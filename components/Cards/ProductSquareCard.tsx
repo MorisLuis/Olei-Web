@@ -74,7 +74,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         {
                             product?.imagen ?
                                 <Image
-                                    src={product?.imagen?.[0].url}
+                                    src={"https://oleistorage.blob.core.windows.net/mxnl00181/002.jpg"}
                                     alt={product.Descripcion}
                                     width={200}
                                     height={200}
