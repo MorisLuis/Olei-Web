@@ -9,5 +9,5 @@ export default interface OrderInterface {
     Entregado?: boolean,
     Cliente?: string,
     Vendedor?: string,
-    Folio?: string
+    Folio: string
 }

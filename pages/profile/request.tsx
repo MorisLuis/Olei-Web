@@ -14,23 +14,25 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 import { api } from '@/api/api';
 import ProductInterface from '@/interfaces/product';
 import { TableRequestSkeleton } from '@/components/Skeletons/TableRequestSkeleton';
+import { getOrders } from '@/services/order';
 
 const Pedidos = () => {
 
-    const { query, back } = useRouter()
+    const { query, back } = useRouter();
+    const router = useRouter();
     const { addOrderToCart } = useContext(CartContext)
 
     const [openModalMessage, setOpenModalMessage] = useState(false);
-    const [openModalRequest, setOpenModalRequest] = useState(false)
+    const [openModalRequest, setOpenModalRequest] = useState(false);
     const [orders, setOrders] = useState<OrderInterface[]>();
-    const [orderSelect, setOrderSelect] = useState<ProductInterface[]>()
+    const [orderSelect, setOrderSelect] = useState<ProductInterface[]>();
 
-    const handleSelectOrder = async (folio: string) => {
+/*     const handleSelectOrder = async (folio: string) => {
         setOpenModalRequest(true)
         const { data } = await api.get(`/api/orderDetails?folio=${folio}`);
         const order: ProductInterface[] = data;
         setOrderSelect(order)
-    }
+    } */
 
     const onSubmitOrderToCart = async () => {
         if (!orderSelect) return;
@@ -46,16 +48,20 @@ const Pedidos = () => {
         });
     };
 
+    const handleGetOrders = async () => {
+        const data = await getOrders();
+        setOrders(data)
+    };
 
     useEffect(() => {
-        const getOrder = async () => {
-            const { data } = await api.get(`/api/order/all`);
-            const order: OrderInterface[] = data;
-            setOrders(order)
-        }
-
-        getOrder()
+        handleGetOrders()
     }, []);
+
+    useEffect(() => {
+        if(!query.receipt) return;
+        setOpenModalRequest(true)
+        console.log("cambiamos")
+    }, [query])
 
     return (
         <>
@@ -72,7 +78,7 @@ const Pedidos = () => {
                                             <p>Para cambiar la información, habla con tu administrador.</p>
                                         </div>
                                         <div className={styles.item}>
-                                            <TableRequest order={orders} handleSelectOrder={handleSelectOrder} />
+                                            <TableRequest order={orders}/>
                                         </div>
                                     </>
                                     :
@@ -97,14 +103,14 @@ const Pedidos = () => {
                 <ReceiptRender />
             </Modal>
 
-            <ModalMessage
+            {/* <ModalMessage
                 visible={openModalMessage}
                 onClose={() => setOpenModalMessage(false)}
                 onAccept={onSubmitOrderToCart}
                 title="Usar esta lista en carrito"
             >
                 Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.
-            </ModalMessage>
+            </ModalMessage> */}
         </>
 
     )

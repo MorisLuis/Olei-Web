@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from "../../styles/Pages/Receipt.module.scss";
 
 import ProductInterface from '@/interfaces/product';
@@ -6,83 +6,95 @@ import { ProductCardShort } from '../Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 import OrderInterface from '@/interfaces/order';
 import { format } from '@/utils/currency';
-import { api } from '@/api/api';
 import { dateFormat } from '@/utils/dateFormat';
 import { AuthContext } from '@/context';
 import ReceiptRenderSkeleton from '../Skeletons/ReceiptRenderSkeleton';
-
+import { getOrder, getOrderDetails } from '@/services/order';
 
 export const ReceiptRender = () => {
-
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
     const { query: { receipt } } = useRouter();
-    const [orderSelect, setOrderSelect] = useState<OrderInterface | undefined>(undefined);
-    const [orderDetailsSelect, setOrderDetailsSelect] = useState<ProductInterface[] | undefined>(undefined)
+    
+    const [orderSelect, setOrderSelect] = useState<OrderInterface>();
+    const [orderDetailsSelect, setOrderDetailsSelect] = useState<ProductInterface[]>();
+    const [loadingOrder, setLoadingOrder] = useState(false);
 
-    useEffect(() => {
-        if(!receipt) return;
-        const getOrder = async () => {
-            const { data } = await api.get(`/api/order/${receipt}`);
-            const order: OrderInterface = data;
-            setOrderSelect(order)
-        } 
+    // Utilizamos un ref para controlar si ya se ha hecho la solicitud
+    const fetchedData = useRef(false);
 
-        const getOrderDetails = async () => {
-            const { data } = await api.get(`/api/orderDetails?folio=${receipt}`);
-            const orderDetails: ProductInterface[] = data;
-            setOrderDetailsSelect(orderDetails)
-        } 
-
-        getOrderDetails()
-        getOrder()
-
-    }, [receipt]);
-
+    const { Fecha, Piezas, Vendedor, Folio, Cliente, Total } = orderSelect ?? {};
     const isEmployee = user?.TipoUsuario === 2;
 
-    return  orderDetailsSelect ?
+    const handleGetOrderDetails = async () => {
+        if (loadingOrder || orderDetailsSelect) return;
+        setLoadingOrder(true);
+        try {
+            const orderDetails = await getOrderDetails(receipt as string);
+            setOrderDetailsSelect(orderDetails);
+        } catch (error) {
+            console.log('Error al obtener los detalles de la orden:', error);
+        } finally {
+            setLoadingOrder(false);
+        }
+    };
+
+    const handleGetOrder = async () => {
+        try {
+            const order = await getOrder(receipt as string);
+            setOrderSelect(order);
+        } catch (error) {
+            console.log('Error al obtener la orden:', error);
+        }
+    };
+
+    // Evitar llamadas duplicadas usando el ref `fetchedData`
+    useEffect(() => {
+        if (!receipt || fetchedData.current) return;
+        fetchedData.current = true; // Se marca que ya se hizo la solicitud
+        handleGetOrder();
+        handleGetOrderDetails();
+    }, [receipt]);
+
+    return orderDetailsSelect ? (
         <div className={styles.receiptRender}>
             <div className={styles.brief}>
                 <h4>Resumen del pedido</h4>
                 <div className={`${styles.details} display-flex space-between`}>
                     <div className={`${styles.date} display-flex column`}>
                         <div className={styles.item}>
-                            <p><span>Fecha:</span> {dateFormat(orderSelect?.Fecha)}</p>
+                            <p><span>Fecha:</span> {dateFormat(Fecha)}</p>
                         </div>
-                        {
-                            isEmployee &&
+                        {isEmployee && (
                             <div className={styles.item}>
-                                <p><span>Pedido por:</span> {orderSelect?.Vendedor}</p>
+                                <p><span>Pedido por:</span> {Vendedor}</p>
                             </div>
-                        }
+                        )}
                         <div className={styles.item}>
-                            <p><span>Cliente:</span> {orderSelect?.Cliente}</p>
+                            <p><span>Cliente:</span> {Cliente}</p>
                         </div>
                     </div>
 
                     <div className={`${styles.price} display-flex column`}>
                         <div className={styles.item}>
-                            <p><span>Total de productos:</span> {orderSelect?.Piezas}</p>
+                            <p><span>Total de productos:</span> {Piezas}</p>
                         </div>
                         <div className={styles.item}>
-                            <p><span>Folio: </span> {orderSelect?.Folio}</p>
+                            <p><span>Folio:</span> {Folio}</p>
                         </div>
                         <div className={styles.item}>
-                            <p className={styles.totalprice}><span>Total (Subtotal + IVA ):</span> {format(orderSelect?.Total as number)}</p>
+                            <p className={styles.totalprice}><span>Total (Subtotal + IVA):</span> {format(Total as number)}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
             <div className={styles.productsDetails}>
-                {
-                    orderDetailsSelect?.map((product: ProductInterface, Index: number) =>
-                        <ProductCardShort key={Index} product={product} counterVisible={false} />
-                    )
-                }
+                {orderDetailsSelect.map((product: ProductInterface, index: number) => (
+                    <ProductCardShort key={index} product={product} counterVisible={false} />
+                ))}
             </div>
         </div>
-        :
-        <ReceiptRenderSkeleton/>
-}
+    ) : (
+        <ReceiptRenderSkeleton />
+    );
+};

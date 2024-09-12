@@ -21,14 +21,14 @@ export const Tag = ({
     cursor = false
 }: Props) => {
     return (
-        <div className={cursor ? `${styles.tag} ${styles.option} display-flex align allCenter cursor` : `${styles.tag} display-flex align`} onClick={onClose}>
-            <div className={`${styles.content} ${styles[color]} display-flex allCenter cursor`} style={{ fontWeight: "normal" }}>
+        <div className={cursor ? `${styles.tag} ${styles.option} display-flex align allCenter` : `${styles.tag} display-flex align`} onClick={onClose}>
+            <div className={`${styles.content} ${styles[color]} display-flex allCenter`} style={{ fontWeight: "normal" }}>
                 <p>
                     {children}
                 </p>
                 {
                     close &&
-                    <FontAwesomeIcon icon={faClose} className="icon__small cursor" />
+                    <FontAwesomeIcon icon={faClose} className="icon__small" />
                 }
             </div>
         </div>

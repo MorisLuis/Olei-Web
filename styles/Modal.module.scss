@@ -195,7 +195,6 @@
     background-color: $background-color;
     width: 75%;
     max-width: 1200px;
-    //max-height: 550px;
     position: absolute;
     border-radius: 1em;
     border: 1px solid $color-border;
@@ -242,6 +241,7 @@
     &.receipt {
         font-family: "VictorMono";
         width: 60%;
+        max-height: 90%;
 
         @include respond(phone) {
             width: 100%;

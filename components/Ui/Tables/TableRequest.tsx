@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "../../../styles/Tables.module.scss";
 
 import Link from 'next/link';
-import { faFileLines, faFilePen, faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
+import { faFileLines, faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from '@/utils/currency';
 import OrderInterface from '@/interfaces/order';
@@ -12,24 +12,22 @@ import { dateFormat } from '@/utils/dateFormat';
 
 interface Props {
     order: OrderInterface[],
-    handleSelectOrder?: (folio: string) => void,
-    receiptPending?: boolean
 }
-const TableRequest = ({ order, handleSelectOrder, receiptPending }: Props) => {
+const TableRequest = ({ order }: Props) => {
 
     return (
         <>
             <div className={styles.tablesRequest}>
                 {
                     order.map((item: OrderInterface, index: number) => (
-                        <div key={index} className={`${styles.requestCart} display-flex align space-between cursor`} onClick={() => handleSelectOrder?.(item.Folio as string)}>
+                        <div key={index} className={`${styles.requestCart} display-flex align space-between`}>
                             <div className={`${styles.info}`}>
                                 <div className={`${styles.header}`}>
                                     <p><span>Fecha:</span> {dateFormat(item?.Fecha as string)}</p>
                                 </div>
                                 <div className={`${styles.data}`}>
                                     <div className={`display-flex align`}>
-                                        <FontAwesomeIcon icon={faMoneyBill1} className={`icon__small cursor display-flex align m-right`} />
+                                        <FontAwesomeIcon icon={faMoneyBill1} className={`icon__small display-flex align m-right`} />
                                         <p><span>Total:</span> {item?.Total && format(item?.Total)}</p>
                                     </div>
                                     <div className={`display-flex align mb-small`}>
@@ -51,8 +49,8 @@ const TableRequest = ({ order, handleSelectOrder, receiptPending }: Props) => {
                                     <Link
                                         scroll={false}
                                         shallow
-                                        href={receiptPending ? `/profile/pendingrequest/?receipt=${item.Folio}` : `/profile/request/?receipt=${item.Folio}`}
-                                        as={receiptPending ? `/profile/pendingrequest/?receipt=${item.Folio}` : `/profile/request/?receipt=${item.Folio}`}
+                                        href={`/profile/request/?receipt=${item.Folio}`}
+                                        as={`/profile/request/?receipt=${item.Folio}`}
                                     >
                                         <Action textHover='Resumen del pedido'>
                                             <FontAwesomeIcon icon={faFileLines} className={`icon__small cursor display-flex align`} />

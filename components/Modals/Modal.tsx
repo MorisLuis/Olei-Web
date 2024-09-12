@@ -75,7 +75,6 @@ const Modal = ({
     const renderFooter = () => (
         <div className={`${styles.footer} display-flex space-between`}>
             <button
-                //style={{ width: "30%" }}
                 className="button-small transparent"
                 onClick={() => {
                     handleClose();
@@ -109,7 +108,7 @@ const Modal = ({
 
                 <div className={`${styles.header} display-flex space-between align`} >
                     <div className={`${styles.left} display-flex align`}>
-                        <h3>{title}</h3>
+                        {title && <h3>{title}</h3>}
                         {actionsVisible && renderActions()}
                     </div>
 

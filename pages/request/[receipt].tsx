@@ -8,7 +8,7 @@ import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 
 const ReceiptPage = () => {
 
-    const {push} = useRouter();
+    const { push } = useRouter();
 
     return (
         <div className={styles.receipt}>
