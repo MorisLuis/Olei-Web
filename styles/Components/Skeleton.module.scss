@@ -608,6 +608,26 @@
     }
 }
 
+.LabelInputSkeleton{
+    margin-bottom: 1em;
+
+    .label{
+        height: 16px;
+        width: 50%;
+        background-color: $color-border;
+        animation: loading 1s infinite;
+        border-radius: 3px;
+        margin-bottom: 1em;
+    }
+
+    .input{
+        height: 40px;
+        background-color: $color-border;
+        animation: loading 1s infinite;
+        border-radius: 3px;
+    }
+}
+
 @keyframes loading {
     0% {
         opacity: 0.6;

@@ -1,11 +1,10 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { api } from '@/api/api';
 import Input from '@/components/Inputs/inputs';
 import SelectReact from '@/components/Inputs/select';
-import ToggleSwitch from '@/components/Inputs/toggleSwitch';
 import FiltersInterface from '@/interfaces/filters';
 import Cookies from 'js-cookie';
-import { AuthContext } from '@/context';
+import LabelInputSkeleton from '@/components/Skeletons/InputsSkeleton';
 
 interface Props {
     setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>,
@@ -19,46 +18,45 @@ const FiltersModalContent = ({
     visible
 }: Props) => {
 
-    const { user } = useContext(AuthContext);
+    const [familiasFilter, setFamiliasFilter] = useState([]);
+    const [marcasFilter, setMarcasFilter] = useState([]);
+    const [loadFilters, setLoadFilters] = useState(true);
 
-    const [familiasFilter, setFamiliasFilter] = useState([])
-    const [marcasFilter, setMarcasFilter] = useState([])
+    const getDataOfFilters = async () => {
+
+        const { data: { Familias, Marca } } = await api.get("/api/tables")
+        setFamiliasFilter(Familias)
+        setMarcasFilter(Marca)
+        const activeFilters = JSON.parse(Cookies.get("activeFilters")!);
+
+        if (activeFilters && activeFilters.enStock === false) {
+            setLoadFilters(false);
+            return;
+        }
+        if (!JSON.parse(Cookies.get("activeFilters")!)) return;
+
+        const { enStock, familia, folio, marca, nombre } = JSON.parse(Cookies.get("activeFilters")!)
+        setTemporalFilters((prevState: FiltersInterface) => ({
+            ...prevState,
+            nombre: nombre ? nombre : undefined,
+            enStock: enStock ? enStock : false,
+            familia: familia,
+            folio: folio,
+            marca: marca
+        }));
+        setLoadFilters(false);
+    }
 
 
     // Get the different Familias & Marcas from database.
     useEffect(() => {
         if (visible === false) return;
-
-        const fetchTable = async () => {
-            const { data: { Familias, Marca } } = await api.get("/api/tables")
-            setFamiliasFilter(Familias)
-            setMarcasFilter(Marca)
-
-            const activeFilters = JSON.parse(Cookies.get("activeFilters")!);
-            if (activeFilters && activeFilters.enStock === false) return
-            
-            if (!JSON.parse(Cookies.get("activeFilters")!)) return;
-
-            const { enStock, familia, folio, marca, nombre } = JSON.parse(Cookies.get("activeFilters")!)
-
-            setTemporalFilters((prevState: FiltersInterface) => ({
-                ...prevState,
-                nombre: nombre ? nombre : undefined,
-                enStock: enStock ? enStock : false,
-                familia: familia,
-                folio: folio,
-                marca: marca
-            }))
-        }
-        fetchTable()
-
+        getDataOfFilters()
     }, [visible, setTemporalFilters])
 
-
-    return (
+    return !loadFilters ? (
         <div>
-
-            {
+            {/* {
                 user?.SwSinStock &&
                 <>
                     <div className='display-flex space-between mb-small'>
@@ -80,7 +78,7 @@ const FiltersModalContent = ({
 
                     <div className='divider'></div>
                 </>
-            }
+            } */}
 
             <SelectReact
                 options={familiasFilter?.map((familia) => ({
@@ -97,6 +95,7 @@ const FiltersModalContent = ({
                     }))
                 }}
             />
+
             <SelectReact
                 options={marcasFilter?.map((marca) => ({
                     label: marca,
@@ -112,6 +111,7 @@ const FiltersModalContent = ({
                     }))
                 }}
             />
+
             <Input
                 label='Folio'
                 name='folio'
@@ -124,7 +124,12 @@ const FiltersModalContent = ({
                 value={temporalFilters.folio as string}
             />
         </div>
-    )
+    ) :
+        <>
+            <LabelInputSkeleton/>
+            <LabelInputSkeleton/>
+            <LabelInputSkeleton/>
+        </>
 }
 
 export default FiltersModalContent
