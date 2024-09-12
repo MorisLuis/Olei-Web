@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from "../../styles/Modal.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -55,6 +55,13 @@ export const ModalSearch = ({
         setSearchResults(products)
     };
 
+    useEffect(() => {
+        if (visible && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [visible]);
+
+
     return visible ?
         <>
             <div className={styles.modalBackgroundSecondary} onClick={onClose}></div>
@@ -67,7 +74,7 @@ export const ModalSearch = ({
                             ref={inputRef}
                             className={styles.inputt}
                             type="text"
-                            placeholder='Buscar...'
+                            placeholder='Buscar cliente...'
                             onKeyDown={handleKeyDown}
                             onChange={handleInputChange}
                             value={inputValue}

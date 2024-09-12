@@ -88,7 +88,7 @@ export const SearchOnboarding = ({
             </div>
 
             <div className={styles.results}>
-                {searchResults.slice(0, 8).map((result: ClientInterface) => (
+                {searchResults?.slice(0, 8).map((result: ClientInterface) => (
                     <SearchItemCard
                         key={result.Nombre} // Usar el ID como key para evitar advertencias
                         productName={result.Nombre}

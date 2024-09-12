@@ -15,8 +15,7 @@ interface Props {
     setProductDeleteFromCart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-// ProductShoppingCard - IS USED PRINCIPAL IN CART MODAL
-
+// ProductShoppingCard - IS USED PRINCIPAL IN CART MODAL.
 const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
 
     const { addProductToCart, removeCartProduct } = useContext(CartContext)
@@ -64,8 +63,8 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
                 <p className={`${styles.productName}`}>
                     {product?.Descripcion}
                 </p>
-                <div className={`${styles.delete} display-flex allCenter`} onClick={handleRemoveCartProduct}>
-                    <FontAwesomeIcon icon={faTrashCan} className={`icon__small cursor display-flex align`} />
+                <div className={`${styles.delete} display-flex allCenter cursor`} onClick={handleRemoveCartProduct}>
+                    <FontAwesomeIcon icon={faTrashCan} className={`icon__small display-flex align`} />
                 </div>
             </div>
 
@@ -84,19 +83,6 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
                                 <Tag color="blue">No tiene precio</Tag>
                         }
                     </div>
-
-                    <span>·</span>
-
-                    {/* <div className={`display-flex`}>
-                        {
-                            product?.Existencia && product?.Existencia < 1 ?
-                                <Tag color="red">No Stock</Tag> :
-                                <div className='display-flex'>
-                                    <p className={styles.headersMovil}>Existencia: </p>
-                                    <p>{product?.Existencia}</p>
-                                </div>
-                        }
-                    </div> */}
                 </div>
                 <div className={styles.counter}>
                     <div className='display-flex'>
