@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styles from "../../styles/Modal.module.scss";
 
 import { faAnglesRight, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRouter } from 'next/router';
-import { AuthContext } from '@/context';
+import { AuthContext, CartContext, FiltersContext } from '@/context';
 import Link from 'next/link';
 
 interface Props {
@@ -17,18 +16,21 @@ const ModalMenu = ({
     onClose
 }: Props) => {
 
-    const { replace } = useRouter()
-    const [closing, setClosing] = useState(false);
-    const { user, logoutUser} = useContext(AuthContext);
+    const { user, logoutUser } = useContext(AuthContext);
+    const { removeAllFilters } = useContext(FiltersContext);
+    const { removeAllCart } = useContext(CartContext);
 
-
-
+    const handleLogout = () => {
+        logoutUser();
+        removeAllFilters();
+        removeAllCart();
+    }
 
     return visible ? (
         <>
             <div className={styles.modalBackground} onClick={onClose}></div>
 
-            <div className={`${styles.modalSide} ${styles.menu} ${closing ? styles.closing : ''}`}>
+            <div className={`${styles.modalSide} ${styles.menu}`}>
                 <div className={`${styles.header} display-flex space-between align`} >
                     <div className={`${styles.close} align cursor`} onClick={onClose}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon__small cursor display-flex align`} />
@@ -70,7 +72,7 @@ const ModalMenu = ({
                         </div>
                     </Link>
 
-                    <div className={`${styles.item} display-flex align`} onClick={logoutUser}>
+                    <div className={`${styles.item} display-flex align`} onClick={handleLogout}>
                         <FontAwesomeIcon icon={faRightFromBracket} className={`icon__small cursor display-flex align`} />
                         <p>Cerrar sesión</p>
                     </div>

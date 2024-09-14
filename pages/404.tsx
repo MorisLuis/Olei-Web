@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 const Custum404 = () => {
 
-    const { push } = useRouter();
+    const { push, replace } = useRouter();
 
     return (
         <Layout>
@@ -32,7 +32,7 @@ const Custum404 = () => {
                     >
                         Lo sentimos, la página que buscas no existe. 😞
 
-                        <button className='button-small' onClick={() => push('/products')}>
+                        <button className='button-small' onClick={() => replace('/products')}>
                             Volver al inicio
                         </button>
 

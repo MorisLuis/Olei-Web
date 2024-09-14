@@ -34,8 +34,6 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
                 user: undefined,
             }
 
-        
-
         default:
             return state;
     }

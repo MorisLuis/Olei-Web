@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Request.module.scss";
 
 import TableRequest from '@/components/Ui/Tables/TableRequest';
@@ -11,8 +11,6 @@ import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
 import toast from 'react-hot-toast';
 import { MessageCard } from '@/components/Cards/MessageCard';
-import { api } from '@/api/api';
-import ProductInterface from '@/interfaces/product';
 import { TableRequestSkeleton } from '@/components/Skeletons/TableRequestSkeleton';
 import { getOrderDetails, getOrders } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
@@ -28,7 +26,34 @@ const Pedidos = () => {
     const [loadingOrdeInCart, setLoadingOrdeInCart] = useState(false)
     const [orders, setOrders] = useState<OrderInterface[]>();
 
-    const onSubmitOrderToCart = async () => {
+    const handleGetOrderDetails = useCallback(async () => {
+        try {
+            setOpenModalRequest(true)
+            const order = await getOrderDetails(query.receipt as string)
+            if (order.error) {
+                handleError(order.error);
+                return;
+            }
+            return order;
+        } catch (error) {
+            handleError(error)
+        }
+    }, [handleError, query.receipt])
+
+    const handleGetOrders = async () => {
+        try {
+            const data = await getOrders();
+            if (data.error) {
+                handleError(data.error);
+                return;
+            }
+            setOrders(data)
+        } catch (error) {
+            handleError(error)
+        }
+    }
+
+    const onSubmitOrderToCart = useCallback(async () => {
 
         let orderDetails;
         try {
@@ -50,43 +75,16 @@ const Pedidos = () => {
                 error: 'Error when fetching',
             });
         }
+    }, [handleGetOrderDetails, addOrderToCart, back, handleError]);
 
-    };
 
-    const handleGetOrderDetails = async () => {
-        try {
-            setOpenModalRequest(true)
-            const order = await getOrderDetails(query.receipt as string)
-            if (order.error) {
-                handleError(order.error);
-                return;
-            }
-            return order;
-        } catch (error) {
-            handleError(error)
-        }
-    }
-
-    const handleGetOrders = async () => {
-        try {
-            const data = await getOrders();
-            if (data.error) {
-                handleError(data.error);
-                return;
-            }
-            setOrders(data)
-        } catch (error) {
-            handleError(error)
-        }
-    };
-
-    const handleCloseReceiptRender = () => {
+    const handleCloseReceiptRender = useCallback(() => {
         setOpenModalRequest(false)
         back()
-    }
+    }, [back])
 
     useEffect(() => {
-        handleGetOrders()
+        handleGetOrders();
     }, []);
 
     useEffect(() => {

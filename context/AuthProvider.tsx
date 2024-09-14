@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import { api } from '@/api/api';
 import { AuthContext, authReducer } from '.';
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
 import UserInterface from '@/interfaces/user';
 import useErrorHandler from '@/hooks/useErrorHandler';
 
@@ -18,7 +17,6 @@ const AUTH_INITIAL_STATE: AuthState = {
     isLoggedIn: false,
     user: undefined,
 }
-
 
 export const AuthProvider = ({ children }: any) => {
 
@@ -71,10 +69,10 @@ export const AuthProvider = ({ children }: any) => {
     const logoutUser = async () => {
         try {
             Cookies.remove("token")
-            dispatch({ type: '[Auth] - Logout' });
             await api.get('/api/auth/logout');
-            setLoggingIn(false);
             push("/")
+            setLoggingIn(false);
+            dispatch({ type: '[Auth] - Logout' });
         } catch (error: any) {
             handleError(error);
         }

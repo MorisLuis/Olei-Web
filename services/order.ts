@@ -53,6 +53,7 @@ export const postOrder = async ({
 
 export const getOrders = async () => {
 
+    console.log("getOrders")
     try {
         const { data } = await api.get(`/api/order/all`);
         const order = data;

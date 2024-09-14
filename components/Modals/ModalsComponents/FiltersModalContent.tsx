@@ -56,30 +56,6 @@ const FiltersModalContent = ({
 
     return !loadFilters ? (
         <div>
-            {/* {
-                user?.SwSinStock &&
-                <>
-                    <div className='display-flex space-between mb-small'>
-                        <div>
-                            <h3>Producto en stock</h3>
-                            <p>Mostrar solo los productos que tienen stock disponibles hoy.</p>
-                        </div>
-                        <ToggleSwitch
-                            name='enStock'
-                            value={temporalFilters.enStock}
-                            onChange={(value: boolean) => {
-                                setTemporalFilters((prevState: FiltersInterface) => ({
-                                    ...prevState,
-                                    enStock: value || false
-                                }))
-                            }}
-                        />
-                    </div>
-
-                    <div className='divider'></div>
-                </>
-            } */}
-
             <SelectReact
                 options={familiasFilter?.map((familia) => ({
                     label: familia,

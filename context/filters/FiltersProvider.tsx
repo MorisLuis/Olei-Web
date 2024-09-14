@@ -72,7 +72,6 @@ export const FiltersProvider = ({ children }: any) => {
 
     }, [state.filters]);
 
-
     useEffect(() => {
         Cookies.set('activeFilters', JSON.stringify(state.filters));
     }, [state]);
