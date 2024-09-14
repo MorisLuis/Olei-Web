@@ -30,7 +30,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,
-        Piezas: 0,
+        Cantidad: 0,
 
         Id_Familia: product.Id_Familia,
         Id_Marca: product.Id_Marca,
@@ -43,21 +43,21 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
         Impuesto: product.Impuesto
     })
 
-    const onUpdateQuantity = async (Piezas: number) => {
+    const onUpdateQuantity = async (Cantidad: number) => {
 
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
-            Piezas
+            Cantidad
         }));
 
         addProductToCart({
             ...tempCartProduct,
-            Piezas
+            Cantidad
         });
     }
 
     return (
-        <div className={styles.productSquareCard} onClick={() => onClick(product)}>
+        <div className={styles.productSquareCard} >
             <div className={styles.content}>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -70,11 +70,12 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         shallow
                         href={{ pathname, query: { ...query, product: `/products?product=${product.Codigo}&Marca=${product.Marca}` } }}
                         as={`/product/${product.Codigo}?Marca=${product.Marca}`}
+                        onClick={() => onClick(product)}
                     >
                         {
                             product?.imagen ?
                                 <Image
-                                    src={"https://oleistorage.blob.core.windows.net/mxnl00181/002.jpg"}
+                                    src={product.imagen}
                                     alt={product.Descripcion}
                                     width={200}
                                     height={200}
@@ -82,7 +83,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                                 :
                                 <div className={styles.notImage}>
                                     <FontAwesomeIcon icon={faImage} className={`icon`} />
-                                    <h2>{user?.Company}</h2>
+                                    <h2>{user?.Nombre}</h2>
                                 </div>
                         }
                     </Link>
@@ -122,7 +123,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                                 <Tag color="blue">No tiene precio</Tag>
                         }
                         <Counter
-                            currentValue={product?.Piezas > 0 ? product?.Piezas : tempCartProduct.Piezas || 0}
+                            currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
                             maxValue={
                                 product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                             }

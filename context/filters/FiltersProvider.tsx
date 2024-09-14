@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useEffect, useReducer } from "react";
 import { FiltersContext } from "./FiltersContext";
 import { filtersReducer } from "./filtersReducer";
+import useErrorHandler from "@/hooks/useErrorHandler";
 
 export interface FilterState {
     filtersValues: string[],
@@ -24,6 +25,7 @@ const FILTERS_INITIAL_STATE: FilterState = {
 export const FiltersProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(filtersReducer, FILTERS_INITIAL_STATE);
+    const { handleError } = useErrorHandler();
 
     useEffect(() => {
 
@@ -53,6 +55,7 @@ export const FiltersProvider = ({ children }: any) => {
             dispatch({ type: '[Filters] - LoadFilters from cookies | storage', payload: cookieFilters });
         } catch (error) {
             dispatch({ type: '[Filters] - LoadFilters from cookies | storage', payload: FILTERS_INITIAL_STATE.filters });
+            handleError(error);
         }
     }, []);
 

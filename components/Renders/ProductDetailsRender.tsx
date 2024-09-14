@@ -18,18 +18,18 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
     const isEmployee = user?.TipoUsuario === 2;
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface | null>(null);
 
-    const { Precio, Descripcion, Codigo, Existencia, Familia, Marca, imagen, Observaciones, Piezas } = productWithCartInfo || {};
+    const { Precio, Descripcion, Codigo, Existencia, Familia, Marca, imagen, Observaciones, Cantidad } = productWithCartInfo || {};
 
     const onUpdateQuantity = async (newPiezas: number) => {
         if (productWithCartInfo) {
             setTempCartProduct((currentProduct) => ({
                 ...currentProduct!,
-                Piezas: newPiezas,
+                Cantidad: newPiezas,
             }));
 
             addProductToCart({
                 ...productWithCartInfo,
-                Piezas: newPiezas,
+                Cantidad: newPiezas,
             });
         }
     };
@@ -46,7 +46,7 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                 product ? (
                     <div className={styles.pageDetails}>
 
-                        <ImageGallery images={[]} />
+                        <ImageGallery images={product.imagenes} />
 
                         <div className={styles.content}>
 
@@ -102,7 +102,7 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                                 <div className={styles.action}>
                                     <p>Agregar al carrito: </p>
                                     <Counter
-                                        currentValue={Piezas > 0 ? Piezas : (tempCartProduct?.Piezas || 0)}
+                                        currentValue={Cantidad > 0 ? Cantidad : (tempCartProduct?.Cantidad || 0)}
                                         maxValue={Existencia && Existencia < 0 ? null : Existencia}
                                         updatedQuantity={onUpdateQuantity}
                                     />

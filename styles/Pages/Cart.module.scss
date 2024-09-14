@@ -183,9 +183,12 @@
                 width: 20%;
 
                 @include respond(tab-land) {
-                    width: 75%;
+                    width: 35%;
                 }
 
+                @include respond(tab-por) {
+                    width: 75%;
+                }
             }
 
             &::before {
@@ -199,7 +202,7 @@
             }
 
             @include respond(tab-land) {
-                padding: 1em;
+                padding: 1em 10em;
             }
 
             @include respond(phone) {

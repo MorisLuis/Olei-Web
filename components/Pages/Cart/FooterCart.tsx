@@ -5,67 +5,12 @@ import { useSpring, animated } from '@react-spring/web';
 import { format } from '@/utils/currency';
 import { CartContext } from '@/context';
 import useMeasure from 'react-use-measure'
-import OrderInterface from '@/interfaces/order';
-import ProductInterface from '@/interfaces/product';
-import { api } from '@/api/api';
 import { useRouter } from 'next/router';
+import { postOrder } from '@/services/order';
+import useErrorHandler from '@/hooks/useErrorHandler';
 
-export const submitOrder = async ({
-    removeAllCart,
-    subTotal,
-    total,
-    numberOfItems,
-    cart,
-    push,
+export const FooterCart = ({
     setOrderRequested
-}: any) => {
-    setOrderRequested(true)
-
-
-    const order: Partial<OrderInterface> = {
-        Total: total,
-        Piezas: numberOfItems,
-        Subtotal: subTotal
-    }
-
-    const productOrdered: ProductInterface[] = cart.map((product: ProductInterface) => {
-
-        const productDetails: ProductInterface = {
-            Codigo: product.Codigo,
-            Id_Marca: product?.Id_Marca,
-            Piezas: product.Piezas,
-            Precio: product.Precio,
-            Impuesto: product.Impuesto,
-            Descripcion: product.Descripcion,
-            Existencia: product?.Existencia,
-        }
-
-        return productDetails
-    })
-
-    let newOrder;
-
-    try {
-        await api.post('/api/orderDetails', productOrdered);
-    } catch (error) {
-        console.log({ error })
-    }
-
-
-    try {
-        newOrder = await api.post('/api/order', order)
-    } catch (error) {
-        console.log({ error })
-    }
-
-    if (newOrder) {
-        const folio = newOrder.data.Folio;
-        removeAllCart()
-        push(`/cart/success?order=${folio}`)
-    }
-}
-
-export const FooterCart = ({    setOrderRequested
 }: any) => {
 
     const { cart, total, numberOfItems, removeAllCart, subTotal } = useContext(CartContext);
@@ -75,20 +20,33 @@ export const FooterCart = ({    setOrderRequested
     const [text, setText] = useState('Confirmar pedido');
     const [ref, { width }] = useMeasure();
     const [animationComplete, setAnimationComplete] = useState(false);
+    const [blockPostOrder, setBlockPostOrder] = useState(false);
+    const { handleError } = useErrorHandler()
+
+    const submitOrder = async () => {
+        setOrderRequested(true);
+
+        try {
+            const result = await postOrder({ subTotal, total, numberOfItems, cart });
+            if (result.error) {
+                handleError(result.error);
+                return;
+            }
+            removeAllCart();
+            push(`/cart/success?order=${result.folio}`);
+        } catch (error: any) {
+            handleError(error);
+            setBlockPostOrder(true);
+        } finally {
+            setOrderRequested(false);
+        }
+    }
 
     const props = useSpring({
         width: open ? width : 0,
         onRest: () => {
             if (!animationComplete) {
-                submitOrder({
-                    removeAllCart,
-                    subTotal,
-                    total,
-                    numberOfItems,
-                    cart,
-                    push,
-                    setOrderRequested
-                });
+                submitOrder();
                 setAnimationComplete(true);
             }
         },
@@ -98,6 +56,14 @@ export const FooterCart = ({    setOrderRequested
         toggle(!open);
         setText(open ? 'Confirmar pedido' : 'Enviando...');
     };
+
+    if (blockPostOrder) return (
+        <div className={styles.footer}>
+            <div className={`${styles.footer__content} display-flex align`}>
+                <p className={styles.total}>Intentelo mas tarde</p>
+            </div>
+        </div>
+    )
 
     return (
         <div className={styles.footer}>

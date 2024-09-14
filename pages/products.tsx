@@ -19,6 +19,7 @@ import { useTransition, animated } from 'react-spring';
 import PageTransition from '@/components/PageTranstion';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
 import { getProductById, getProducts, getTotalProducts } from '@/services/product';
+import useErrorHandler from '@/hooks/useErrorHandler';
 
 const filterState: FiltersInterface = {
   nombre: null,
@@ -32,6 +33,7 @@ export default function Home() {
 
   const { push, query } = useRouter();
   const { query: { nombre, enStock, marca, folio, familia } } = useRouter();
+  const { handleError } = useErrorHandler()
 
   const { addFilters, removeAllFilters } = useContext(FiltersContext);
   const { productDelete } = useContext(CartContext);
@@ -88,10 +90,14 @@ export default function Home() {
     if (!product.Marca || !product.Codigo) return;
     try {
       setOpenModalProduct(true)
-      const data = await getProductById({ Codigo: product.Codigo, Marca: product?.Marca })
+      const data = await getProductById({ Codigo: product.Codigo, Marca: product?.Marca });
+      if (data.error) {
+        handleError(data.error);
+        return;
+      }
       setProductDetails(data);
     } catch (error) {
-      console.log({ error })
+      handleError(error);
     }
 
   }
@@ -101,10 +107,15 @@ export default function Home() {
     try {
       setNextPage(nextPage + 1);
       if (nextPage === 1) return;
-      const data = await getProducts(query, nextPage)
+      const data = await getProducts(query, nextPage);
+      if (data.error) {
+        handleError(data.error);
+        return;
+      }
       setProducts((prevItems: any) => [...prevItems, ...data]);
     } catch (error) {
-      console.error('Error loading more items:', error);
+      setButtonIsLoading(false);
+      handleError(error);
     } finally {
       setButtonIsLoading(false);
     }

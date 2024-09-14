@@ -38,7 +38,7 @@ const TableRequest = ({ order }: Props) => {
                                             Estatus: En revision
                                         </Tag>
                                         <Tag color='blue'>
-                                            {item?.Piezas} Productos
+                                            {item?.Cantidad} Productos
                                         </Tag>
                                     </div>
                                 </div>

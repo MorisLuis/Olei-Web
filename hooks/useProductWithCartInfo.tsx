@@ -11,12 +11,12 @@ export const useProductWithCartInfo = (data: ProductInterface) => {
         const cartProduct = cart.find((cartItem) => (cartItem.Codigo === data?.Codigo) && (cartItem.Id_Marca === data?.Id_Marca));
         const cartProductPending = cartPending.find((cartItemPending) => (cartItemPending.Codigo === data?.Codigo) && (cartItemPending.Id_Marca === data?.Id_Marca));
 
-        const quantity = cartProduct !== undefined ? cartProduct.Piezas : 0;
-        const quantityPending = cartProductPending !== undefined ? cartProductPending.Piezas : 0;
+        const quantity = cartProduct !== undefined ? cartProduct.Cantidad : 0;
+        const quantityPending = cartProductPending !== undefined ? cartProductPending.Cantidad : 0;
 
         const updatedProductWithCartInfo: ProductInterface = {
             ...data,
-            Piezas: quantity !== 0 ? quantity : quantityPending,
+            Cantidad: quantity !== 0 ? quantity : quantityPending,
         };
 
         setProductWithCartInfo(updatedProductWithCartInfo);

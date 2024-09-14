@@ -38,7 +38,6 @@ export const SearchOnboarding = ({
 
     // Seleccionar un cliente
     const handleSelectProduct = (result: ClientInterface) => {
-        console.log({result})
         selectClient(result);
         setInputValue(result.Nombre);
         setSearchResults([]); // Limpiar resultados de búsqueda

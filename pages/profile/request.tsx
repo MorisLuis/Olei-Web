@@ -14,53 +14,84 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 import { api } from '@/api/api';
 import ProductInterface from '@/interfaces/product';
 import { TableRequestSkeleton } from '@/components/Skeletons/TableRequestSkeleton';
-import { getOrders } from '@/services/order';
+import { getOrderDetails, getOrders } from '@/services/order';
+import useErrorHandler from '@/hooks/useErrorHandler';
 
 const Pedidos = () => {
 
     const { query, back } = useRouter();
-    const router = useRouter();
     const { addOrderToCart } = useContext(CartContext)
+    const { handleError } = useErrorHandler()
 
     const [openModalMessage, setOpenModalMessage] = useState(false);
     const [openModalRequest, setOpenModalRequest] = useState(false);
+    const [loadingOrdeInCart, setLoadingOrdeInCart] = useState(false)
     const [orders, setOrders] = useState<OrderInterface[]>();
-    const [orderSelect, setOrderSelect] = useState<ProductInterface[]>();
-
-/*     const handleSelectOrder = async (folio: string) => {
-        setOpenModalRequest(true)
-        const { data } = await api.get(`/api/orderDetails?folio=${folio}`);
-        const order: ProductInterface[] = data;
-        setOrderSelect(order)
-    } */
 
     const onSubmitOrderToCart = async () => {
-        if (!orderSelect) return;
 
-        setOpenModalMessage(false)
-        back()
+        let orderDetails;
+        try {
+            setLoadingOrdeInCart(true)
+            const data = await handleGetOrderDetails();
+            orderDetails = data;
+        } catch (error) {
+            setLoadingOrdeInCart(false)
+            handleError(error)
+        } finally {
+            back();
+            setOpenModalMessage(false);
+            if (!orderDetails) return;
+            const myPromise = addOrderToCart(orderDetails);
+            setLoadingOrdeInCart(false);
+            toast.promise(myPromise, {
+                loading: 'Cargando carrito...',
+                success: 'Listo! Ya tienes tu carrito lleno',
+                error: 'Error when fetching',
+            });
+        }
 
-        const myPromise = addOrderToCart(orderSelect)
-        toast.promise(myPromise, {
-            loading: 'Cargando carrito...',
-            success: 'Listo! Ya tienes tu carrito lleno',
-            error: 'Error when fetching',
-        });
     };
+
+    const handleGetOrderDetails = async () => {
+        try {
+            setOpenModalRequest(true)
+            const order = await getOrderDetails(query.receipt as string)
+            if (order.error) {
+                handleError(order.error);
+                return;
+            }
+            return order;
+        } catch (error) {
+            handleError(error)
+        }
+    }
 
     const handleGetOrders = async () => {
-        const data = await getOrders();
-        setOrders(data)
+        try {
+            const data = await getOrders();
+            if (data.error) {
+                handleError(data.error);
+                return;
+            }
+            setOrders(data)
+        } catch (error) {
+            handleError(error)
+        }
     };
+
+    const handleCloseReceiptRender = () => {
+        setOpenModalRequest(false)
+        back()
+    }
 
     useEffect(() => {
         handleGetOrders()
     }, []);
 
     useEffect(() => {
-        if(!query.receipt) return;
+        if (!query.receipt) return;
         setOpenModalRequest(true)
-        console.log("cambiamos")
     }, [query])
 
     return (
@@ -78,7 +109,7 @@ const Pedidos = () => {
                                             <p>Para cambiar la información, habla con tu administrador.</p>
                                         </div>
                                         <div className={styles.item}>
-                                            <TableRequest order={orders}/>
+                                            <TableRequest order={orders} />
                                         </div>
                                     </>
                                     :
@@ -92,25 +123,23 @@ const Pedidos = () => {
 
             <Modal
                 visible={(query.receipt && openModalRequest) ? true : false}
-                onClose={() => {
-                    setOpenModalRequest(false)
-                    back()
-                }}
-                handleOpenModalMessage={() => setOpenModalMessage(true)}
+                onClose={handleCloseReceiptRender}
+                handleOpenUseCart={() => setOpenModalMessage(true)}
                 receipt
                 actionsVisible
             >
                 <ReceiptRender />
             </Modal>
 
-            {/* <ModalMessage
+            <ModalMessage
                 visible={openModalMessage}
                 onClose={() => setOpenModalMessage(false)}
                 onAccept={onSubmitOrderToCart}
+                disabled={loadingOrdeInCart}
                 title="Usar esta lista en carrito"
             >
                 Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.
-            </ModalMessage> */}
+            </ModalMessage>
         </>
 
     )

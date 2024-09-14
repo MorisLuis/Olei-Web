@@ -5,6 +5,7 @@ import { AuthContext, authReducer } from '.';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import UserInterface from '@/interfaces/user';
+import useErrorHandler from '@/hooks/useErrorHandler';
 
 
 export interface AuthState {
@@ -23,7 +24,8 @@ export const AuthProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
     const [loggingIn, setLoggingIn] = useState(false)
-    const {pathname} = useRouter()
+    const { pathname } = useRouter()
+    const { handleError } = useErrorHandler()
 
     const { push } = useRouter()
 
@@ -31,18 +33,17 @@ export const AuthProvider = ({ children }: any) => {
         checkToken();
     }, [])
 
-
-
     const checkToken = async () => {
 
-        if(pathname === "/login") return;
+        if (pathname === "/login") return;
 
         try {
-            const { data } = await api.get<any>('/api/auth/renewWeb');
-            Cookies.set('token', data.token as string);
+            const { data } = await api.get('/api/auth/renewWeb');
+            Cookies.set('token', data.token);
             dispatch({ type: '[Auth] - Login', payload: data.user });
         } catch (error) {
             Cookies.remove('token');
+            handleError(error);
         }
     }
 
@@ -56,16 +57,14 @@ export const AuthProvider = ({ children }: any) => {
 
 
             if (user.TipoUsuario === 2) {
-                console.log("pass here")
                 push("/onboarding/selectClient");
             } else {
-                push("/profile");
+                push("/products");
             }
 
         } catch (error: any) {
-            console.log({error})
             setLoggingIn(false)
-            toast.error(error?.response?.data?.error)
+            handleError(error);
         }
     }
 
@@ -77,7 +76,7 @@ export const AuthProvider = ({ children }: any) => {
             setLoggingIn(false);
             push("/")
         } catch (error: any) {
-            console.log(error?.response?.data?.error)
+            handleError(error);
         }
     }
 

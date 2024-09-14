@@ -13,5 +13,4 @@ export default interface UserInterface {
     Company: string,  // The name of the company.
     SwImagenes: number,
     SwSinStock: number
-
 }

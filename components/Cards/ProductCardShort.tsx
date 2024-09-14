@@ -35,19 +35,19 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
 
         Id_Marca: product.Id_Marca,
         Marca: product.Marca,
-        Piezas: product.Piezas,
+        Cantidad: product.Cantidad,
         Existencia: product.Existencia
     })
 
-    const onUpdateQuantity = async (Piezas: number) => {
+    const onUpdateQuantity = async (Cantidad: number) => {
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
-            Piezas
+            Cantidad
         }));
 
         addProductToCart({
             ...tempCartProduct,
-            Piezas
+            Cantidad
         });
     }
 
@@ -90,7 +90,7 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                     </div>
 
                     <div className='display-flex'>
-                        <p className={styles.subtotal}>Subtotal: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
+                        <p className={styles.subtotal}>Subtotal: {product?.Cantidad && format((product?.Precio * product?.Cantidad))}</p>
                     </div>
                     <div className={`divider__small ${styles.divider} `}></div>
                 </div>
@@ -99,18 +99,18 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                     {
                         counterVisible ?
                             <Counter
-                                currentValue={product?.Piezas || 0}
+                                currentValue={product?.Cantidad || 0}
                                 maxValue={product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia}
                                 updatedQuantity={onUpdateQuantity}
                             />
                             :
-                            <p>Piezas: {product.Piezas}</p>
+                            <p>Cantidad: {product.Cantidad}</p>
                     }
                     {
                         user?.PrecioIncIVA === 1 ?
-                            <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas))}</p>
+                            <p className={styles.subtotal}>Total: {product?.Cantidad && format((product?.Precio * product?.Cantidad))}</p>
                             :
-                            <p className={styles.subtotal}>Total: {product?.Piezas && format((product?.Precio * product?.Piezas) + (product?.Precio * product?.Piezas * (parseInt(product.Impuesto ? product.Impuesto : 0) / 100)))}</p>
+                            <p className={styles.subtotal}>Total: {product?.Cantidad && format((product?.Precio * product?.Cantidad) + (product?.Precio * product?.Cantidad * (parseInt(product.Impuesto ? product.Impuesto : 0) / 100)))}</p>
                     }
                 </div>
 

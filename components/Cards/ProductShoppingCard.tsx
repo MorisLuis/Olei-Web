@@ -31,19 +31,19 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
 
         Id_Marca: product.Id_Marca,
         Marca: product.Marca,
-        Piezas: product.Piezas,
+        Cantidad: product.Cantidad,
         Existencia: product.Existencia
     })
 
-    const onUpdateQuantity = async (Piezas: number) => {
+    const onUpdateQuantity = async (Cantidad: number) => {
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
-            Piezas
+            Cantidad
         }));
 
         addProductToCart({
             ...tempCartProduct,
-            Piezas
+            Cantidad
         });
     }
 
@@ -87,7 +87,7 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
                 <div className={styles.counter}>
                     <div className='display-flex'>
                         <Counter
-                            currentValue={product?.Piezas || 0}
+                            currentValue={product?.Cantidad || 0}
                             maxValue={
                                 product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                             }

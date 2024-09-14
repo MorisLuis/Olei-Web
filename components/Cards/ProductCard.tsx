@@ -25,7 +25,7 @@ const ProductCard = ({ product }: Props) => {
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,
-        Piezas: 0,
+        Cantidad: 0,
 
         Id_Familia: product.Id_Familia,
         Id_Marca: product.Id_Marca,
@@ -38,16 +38,16 @@ const ProductCard = ({ product }: Props) => {
         Impuesto: product.Impuesto
     })
 
-    const onUpdateQuantity = async (Piezas: number) => {
+    const onUpdateQuantity = async (Cantidad: number) => {
 
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
-            Piezas
+            Cantidad
         }));
 
         addProductToCart({
             ...tempCartProduct,
-            Piezas
+            Cantidad
         });
     }
 
@@ -97,7 +97,7 @@ const ProductCard = ({ product }: Props) => {
                 </div>
 
                 <Counter
-                    currentValue={product?.Piezas > 0 ? product?.Piezas : tempCartProduct.Piezas || 0}
+                    currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
                     maxValue={
                         product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                     }
@@ -116,7 +116,7 @@ const ProductCardMovil = ({ product }: Props) => {
 
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,
-        Piezas: 0,
+        Cantidad: 0,
 
         Id_Familia: product.Id_Familia,
         Id_Marca: product.Id_Marca,
@@ -129,16 +129,16 @@ const ProductCardMovil = ({ product }: Props) => {
         Impuesto: product.Impuesto
     })
 
-    const onUpdateQuantity = async (Piezas: number) => {
+    const onUpdateQuantity = async (Cantidad: number) => {
 
         setTempCartProduct(currentProduct => ({
             ...currentProduct,
-            Piezas
+            Cantidad
         }));
 
         addProductToCart({
             ...tempCartProduct,
-            Piezas
+            Cantidad
         });
     }
 
@@ -191,7 +191,7 @@ const ProductCardMovil = ({ product }: Props) => {
                 </div>
 
                 <Counter
-                    currentValue={product?.Piezas > 0 ? product?.Piezas : tempCartProduct.Piezas || 0}
+                    currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
                     maxValue={
                         product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
                     }

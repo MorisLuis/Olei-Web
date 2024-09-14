@@ -22,7 +22,7 @@ const ButtonAnimated = ({
     return (
         <div className="loading-button-container display-flex align">
             <button
-                className={`button ${disabled ? 'loading' : ''} `}
+                className={`button ${disabled ? 'loading' : ''} display-flex allCenter`}
                 onClick={handleClick}
                 disabled={disabled}
             >

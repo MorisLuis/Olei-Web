@@ -20,7 +20,7 @@ interface Props {
 
     //Methods
     onClose: () => void;
-    handleOpenModalMessage?: () => void;
+    handleOpenUseCart?: () => void;
     handleFiltersToQuery?: () => void;
     handleCleanAllFilters?: () => void;
 }
@@ -37,7 +37,7 @@ const Modal = ({
     modalBlack = false,
 
     onClose,
-    handleOpenModalMessage,
+    handleOpenUseCart,
     handleFiltersToQuery,
     handleCleanAllFilters
 }: Props) => {
@@ -64,7 +64,7 @@ const Modal = ({
             </button>
             <button
                 className={`${styles.expand} button-small display-flex align`}
-                onClick={handleOpenModalMessage}
+                onClick={handleOpenUseCart}
             >
                 Usar en carrito
                 <FontAwesomeIcon icon={faExpand} className="icon__small cursor display-flex align rotat45" />

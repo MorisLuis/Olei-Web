@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
 import Image from 'next/image';
 import PageTransition from '@/components/PageTranstion';
+import useErrorHandler from '@/hooks/useErrorHandler';
 
 
 type FormData = {
@@ -21,12 +22,13 @@ const Login = () => {
     const { loginUser, loggingIn } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [isEntering, setIsEntering] = useState(true);
+    const { handleError } = useErrorHandler()
 
     const onLoginUser = async ({ email, password }: FormData) => {
         try {
             await loginUser(email, password);
-        } catch (error: any) {
-            toast.error(error?.response?.data?.message)
+        } catch (error) {
+            handleError(error)
         }
     }
 

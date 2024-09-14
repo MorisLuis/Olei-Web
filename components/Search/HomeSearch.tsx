@@ -9,6 +9,7 @@ import FiltersInterface from '@/interfaces/filters';
 import QueryParams from '@/utils/queryParams';
 import ResultsContainer from './ResultsContainer';
 import { searchProducts } from '@/services/search';
+import useErrorHandler from '@/hooks/useErrorHandler';
 
 interface HomeSearchInterface {
     setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>,
@@ -21,8 +22,7 @@ const HomeSearch = ({
 }: HomeSearchInterface) => {
 
     const { addFilters, filters } = useContext(FiltersContext);
-    const { client } = useContext(ClientContext);
-
+    const { handleError } = useErrorHandler()
     const { push, query } = useRouter();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -36,17 +36,19 @@ const HomeSearch = ({
         setInputValue(event.target.value);
         const term = event.target.value === '' ? " " :  event.target.value ;
         try {
-            const products = await searchProducts(term, query)
+            const products = await searchProducts(term, query);
+            if (products.error) {
+                handleError(products.error);
+                return;
+            }
             setSearchResults(products)
         } catch (error) {
-            console.log({ error })
+            handleError(error);
         }
     }
 
     const onProductKeyDown = (event: any) => {
         if (event.key === 'Enter') {
-
-            console.log("onProductKeyDown")
 
             const newFilters: Partial<FiltersInterface> = {
                 ...filters,

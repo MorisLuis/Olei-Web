@@ -10,6 +10,7 @@ import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 import { useRouter } from 'next/router';
 import { getClients } from '@/services/clients';
+import useErrorHandler from '@/hooks/useErrorHandler';
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,6 +24,7 @@ const Header = ({
 
     const { pathname, push } = useRouter()
     const { selectClient, setClientChanged } = useContext(ClientContext);
+    const { handleError } = useErrorHandler()
 
     const [modalClientsVisible, setModalClientsVisible] = useState(false)
     const [openModalMessage, setOpenModalMessage] = useState(false)
@@ -48,9 +50,13 @@ const Header = ({
     const onInputClientChange = async (term: string) => {
         try {
             const Clients = await getClients(term);
+            if (Clients.error) {
+                handleError(Clients.error);
+                return { products: [] };
+            }
             return { products: Clients };
         } catch (error) {
-            console.log({ error })
+            handleError(error);
             return { products: [] };
         }
     }

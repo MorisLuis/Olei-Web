@@ -77,7 +77,7 @@ export const ImageGallery = ({ images }: { images: any[] | undefined }) => {
                         :
                         <div className={styles.notImage}>
                             <FontAwesomeIcon icon={faImage} className={`icon`} />
-                            <h2>{user?.Company}</h2>
+                            <h2>{user?.Nombre}</h2>
                         </div>
                     }
                 </AnimatePresence>

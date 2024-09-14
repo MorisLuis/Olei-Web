@@ -10,11 +10,13 @@ import { dateFormat } from '@/utils/dateFormat';
 import { AuthContext } from '@/context';
 import ReceiptRenderSkeleton from '../Skeletons/ReceiptRenderSkeleton';
 import { getOrder, getOrderDetails } from '@/services/order';
+import useErrorHandler from '@/hooks/useErrorHandler';
 
 export const ReceiptRender = () => {
     const { user } = useContext(AuthContext);
     const { query: { receipt } } = useRouter();
-    
+    const { handleError } = useErrorHandler()
+
     const [orderSelect, setOrderSelect] = useState<OrderInterface>();
     const [orderDetailsSelect, setOrderDetailsSelect] = useState<ProductInterface[]>();
     const [loadingOrder, setLoadingOrder] = useState(false);
@@ -22,7 +24,7 @@ export const ReceiptRender = () => {
     // Utilizamos un ref para controlar si ya se ha hecho la solicitud
     const fetchedData = useRef(false);
 
-    const { Fecha, Piezas, Vendedor, Folio, Cliente, Total } = orderSelect ?? {};
+    const { Fecha, Cantidad, Vendedor, Folio, Cliente, Total } = orderSelect ?? {};
     const isEmployee = user?.TipoUsuario === 2;
 
     const handleGetOrderDetails = async () => {
@@ -30,9 +32,13 @@ export const ReceiptRender = () => {
         setLoadingOrder(true);
         try {
             const orderDetails = await getOrderDetails(receipt as string);
+            if (orderDetails.error) {
+                handleError(orderDetails.error);
+                return;
+            }
             setOrderDetailsSelect(orderDetails);
         } catch (error) {
-            console.log('Error al obtener los detalles de la orden:', error);
+            handleError(error);
         } finally {
             setLoadingOrder(false);
         }
@@ -41,9 +47,13 @@ export const ReceiptRender = () => {
     const handleGetOrder = async () => {
         try {
             const order = await getOrder(receipt as string);
+            if (order.error) {
+                handleError(order.error);
+                return;
+            }
             setOrderSelect(order);
         } catch (error) {
-            console.log('Error al obtener la orden:', error);
+            handleError(error);
         }
     };
 
@@ -76,7 +86,7 @@ export const ReceiptRender = () => {
 
                     <div className={`${styles.price} display-flex column`}>
                         <div className={styles.item}>
-                            <p><span>Total de productos:</span> {Piezas}</p>
+                            <p><span>Total de productos:</span> {Cantidad}</p>
                         </div>
                         <div className={styles.item}>
                             <p><span>Folio:</span> {Folio}</p>

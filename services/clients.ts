@@ -7,7 +7,7 @@ export const getClients = async (term: string) => {
         const { data: { Clients } } = await api.get(`/api/search/client?term=${term}`);
         return Clients;
     } catch (error) {
-        console.log({error})
+        return { error: error };
     }
 
 }
@@ -20,7 +20,7 @@ export const postClient = async (client: ClientInterface) => {
         const { data } = await api.post("/api/client", client)
         return data.token;
     } catch (error) {
-        console.log({error})
+        return { error: error };
     }
 
 }

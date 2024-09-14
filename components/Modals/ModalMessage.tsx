@@ -6,6 +6,7 @@ interface Props {
     receipt?: boolean;
     children: any;
     title: string,
+    disabled?: boolean;
 
     //Methods
     onClose: () => void;
@@ -16,6 +17,7 @@ export const ModalMessage = ({
     visible,
     children,
     title,
+    disabled,
 
     onClose,
     onAccept,
@@ -27,13 +29,24 @@ export const ModalMessage = ({
             <div className={styles.modalMessage}>
                 <div className={styles.content}>
                     <h2>{title}</h2>
-                    <p>
-                        {children}
-                    </p>
+                    <p>{children}</p>
                 </div>
                 <div className={`${styles.footer} display-flex space-between`}>
-                    <button className='button-small white' onClick={onClose}>Cerrar</button><br/>
-                    <button className='button-small black' onClick={onAccept}>Aceptar</button>
+                    <button
+                        className={disabled ? 'button-small white opacity' : 'button-small white'}
+                        onClick={onClose}
+                        disabled={disabled}
+                    >
+                        Cerrar
+                    </button><br />
+
+                    <button
+                        className={disabled ? 'button-small black opacity' : 'button-small black'}
+                        onClick={onAccept}
+                        disabled={disabled}
+                    >
+                        Aceptar
+                    </button>
                 </div>
             </div>
         </>

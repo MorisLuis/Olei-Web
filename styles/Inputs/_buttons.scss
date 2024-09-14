@@ -55,6 +55,14 @@
     width: fit-content;
     color: $color-tertiary;
 
+    &.opacity{
+        opacity: 40%;
+        
+        &:hover {
+            opacity: 40%;
+        }
+    }
+
     &.black {
         background-color: $color-tertiary;
         color: $text-color-secondary;

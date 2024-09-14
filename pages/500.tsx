@@ -22,7 +22,7 @@ const Custum404 = () => {
                         transition={{ duration: 0.6 }}
                         className={styles.title}
                     >
-                        404
+                        500
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0 }}
@@ -30,7 +30,7 @@ const Custum404 = () => {
                         transition={{ delay: 0.3, duration: 0.6 }}
                         className={styles.message}
                     >
-                        Lo sentimos, la página que buscas no existe. 😞
+                        Lo sentimos, hubo un error en el servidor intentatlo más tarde. 😞
 
                         <button className='button-small' onClick={() => push('/products')}>
                             Volver al inicio
