@@ -41,7 +41,7 @@ export const getTotalProducts = async (query: ParsedUrlQuery) => {
 
     try {
         const { nombre, enStock, marca, folio, familia } = query;
-        let url = `api/product/count`;
+        let url = `/api/product/count`;
 
         // Crea un array para almacenar los parámetros
         const params: string[] = [];
