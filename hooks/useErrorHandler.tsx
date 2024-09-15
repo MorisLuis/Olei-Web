@@ -10,7 +10,7 @@ export const useErrorHandler = () => {
 
         if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'local') return;
 
-        if (status) {
+        /* if (status) {
             switch (status) {
                 case 404:
                     router.push('/404');
@@ -28,7 +28,7 @@ export const useErrorHandler = () => {
             }
         } else {
             toast.error("Algo salió mal!");
-        }
+        } */
     };
 
     return { handleError };
