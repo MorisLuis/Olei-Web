@@ -1,10 +1,11 @@
 import { useReducer, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { api } from '@/api/api';
 import { AuthContext, authReducer } from '.';
 import { useRouter } from 'next/router';
 import UserInterface from '@/interfaces/user';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import handler from '@/pages/api/session';
+import { api } from '@/api/api';
 
 
 export interface AuthState {
@@ -35,41 +36,58 @@ export const AuthProvider = ({ children }: any) => {
 
         if (pathname === "/login") return;
 
-        try {
+        /* try {
             const { data } = await api.get('/api/auth/renewWeb');
             Cookies.set('token', data.token);
             dispatch({ type: '[Auth] - Login', payload: data.user });
         } catch (error) {
             Cookies.remove('token');
             handleError(error);
-        }
+        } */
     }
 
     const loginUser = async (email: string, password: string) => {
-        setLoggingIn(true)
+        setLoggingIn(true); // Indicador de inicio de sesión en curso
+    
         try {
-            const data = await api.post('/api/auth/loginWeb', { email, password });
-            const { token, user } = data.data;
+            const body = { email, password };
+    
+            // Usamos nuestra función api para hacer la solicitud
+            const data = await api('/api/auth/loginWeb', {
+                method: 'POST',
+                body: JSON.stringify(body),
+            });
+    
+            console.log({data})
+            // Extraemos el token y el usuario de la respuesta
+            const { token, user } = data;
+    
+            // Guardamos el token en cookies
             Cookies.set('token', token);
+    
+            // Actualizamos el estado de autenticación en el contexto
             dispatch({ type: '[Auth] - Login', payload: user });
-
-
+    
+            // Redireccionamos según el tipo de usuario
             if (user.TipoUsuario === 2) {
                 push("/onboarding/selectClient");
             } else {
                 push("/products");
             }
-
+    
         } catch (error: any) {
-            setLoggingIn(false)
+            console.error('Error al iniciar sesión:', error);
             handleError(error);
+        } finally {
+            setLoggingIn(false);
         }
-    }
+    };
+    
 
     const logoutUser = async () => {
         try {
             Cookies.remove("token")
-            await api.get('/api/auth/logout');
+            //await api.get('/api/auth/logout');
             push("/")
             setLoggingIn(false);
             dispatch({ type: '[Auth] - Logout' });
