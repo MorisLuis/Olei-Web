@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import UserInterface from '@/interfaces/user';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import handler from '@/pages/api/session';
-import { api } from '@/api/api';
+import { api, api2 } from '@/api/api';
 
 
 export interface AuthState {
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: any) => {
             const body = { email, password };
     
             // Usamos nuestra función api para hacer la solicitud
-            const data = await api('/api/auth/loginWeb', {
+            const data = await api2('/api/auth/loginWeb', {
                 method: 'POST',
                 body: JSON.stringify(body),
             });

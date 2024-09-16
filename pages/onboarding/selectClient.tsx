@@ -6,7 +6,7 @@ import { SearchOnboarding } from '@/components/Inputs/searchOnboarding';
 import ClientInterface from '@/interfaces/client';
 import PageTransition from '@/components/PageTranstion';
 import useErrorHandler from '@/hooks/useErrorHandler';
-import { api } from '@/api/api';
+import { api, api2 } from '@/api/api';
 
 const OnboardingSearch = () => {
 
@@ -17,7 +17,7 @@ const OnboardingSearch = () => {
     const handleSearchTerm = async (term: string) => {
         try {
 
-            const data = await api(`/api/search/client?term=${term}`, {
+            const data = await api2(`/api/search/client?term=${term}`, {
                 method: 'GET'
             });
             

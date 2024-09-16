@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-/* export const api = axios.create(
+export const api = axios.create(
     {
         baseURL: process.env.NEXT_PUBLIC_API_URL,
         headers: {
@@ -10,12 +10,12 @@ import Cookies from 'js-cookie';
         withCredentials: true,  // Esto permite enviar las cookies con cada solicitud
     }
 )
- */
+
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL || ''; // Asegúrate de configurar esto en tu archivo .env
 
 // Función personalizada para hacer solicitudes con fetch
-export const api = async (path: string, options: RequestInit = {}) => {
+export const api2 = async (path: string, options: RequestInit = {}) => {
     const url = `${baseURL}${path}`;
 
     const defaultOptions: RequestInit = {
