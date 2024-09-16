@@ -18,6 +18,7 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL || ''; // Asegúrate de configur
 export const api2 = async (path: string, options: RequestInit = {}) => {
     const url = `${baseURL}${path}`;
 
+    console.log({options})
     const defaultOptions: RequestInit = {
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
