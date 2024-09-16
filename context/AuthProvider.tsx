@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: any) => {
             const body = { email, password };
     
             // Usamos nuestra función api para hacer la solicitud
-            const data = await api2('/api/auth/loginWeb', {
+            const data = await api2('api/auth/loginWeb', {
                 method: 'POST',
                 body: JSON.stringify(body),
             });

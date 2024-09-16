@@ -17,7 +17,7 @@ const OnboardingSearch = () => {
     const handleSearchTerm = async (term: string) => {
         try {
 
-            const data = await api2(`/api/search/client?term=${term}`, {
+            const data = await api2(`api/search/client?term=${term}`, {
                 method: 'GET'
             });
             
