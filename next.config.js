@@ -10,7 +10,7 @@ module.exports = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://www.oleionline.com/', // Cambia por tu dominio de producción
+            value: 'https://www.oleionline.com', // Cambia por tu dominio de producción
           },
           {
             key: 'Access-Control-Allow-Credentials',
