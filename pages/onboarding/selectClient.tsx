@@ -5,8 +5,8 @@ import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
 import { SearchOnboarding } from '@/components/Inputs/searchOnboarding';
 import ClientInterface from '@/interfaces/client';
 import PageTransition from '@/components/PageTranstion';
+import { getClients } from '@/services/clients';
 import useErrorHandler from '@/hooks/useErrorHandler';
-import { api, api2 } from '@/api/api';
 
 const OnboardingSearch = () => {
 
@@ -16,20 +16,14 @@ const OnboardingSearch = () => {
 
     const handleSearchTerm = async (term: string) => {
         try {
-
-            const data = await api2(`api/search/client?term=${term}`, {
-                method: 'GET'
-            });
-            
-            setSearchResults(data.Clients)
-
-            /* if (Clients.error) {
+            const Clients = await getClients(term);
+            if (Clients.error) {
                 handleError(Clients.error);
                 return;
             }
-            setSearchResults(Clients) */
+            setSearchResults(Clients)
         } catch (error) {
-            handleError(error);
+            console.log({ error })
         }
     };
 
