@@ -1,11 +1,11 @@
 import UserInterface from '@/interfaces/user';
-import { AuthState } from './AuthProvider';
+import { AUTH_INITIAL_STATE, AuthState } from './AuthProvider';
 
 
 type AuthActionType =
     | { type: '[Auth] - Login', payload: any }
     | { type: '[Auth] - Update User', payload: Partial<UserInterface> }
-    | { type: '[Auth] - Logout' }
+    | { type: '[Auth] - Logout', user: UserInterface }
 
 
 export const authReducer = (state: AuthState, action: AuthActionType): AuthState => {
@@ -31,7 +31,7 @@ export const authReducer = (state: AuthState, action: AuthActionType): AuthState
             return {
                 ...state,
                 isLoggedIn: false,
-                user: undefined,
+                user: action.user
             }
 
         default:

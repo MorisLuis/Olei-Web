@@ -9,7 +9,7 @@ export default interface UserInterface {
     BaseSQL: string; // The name of the SQL database.
     TipoUsuario: number; // Represents whether the user is an employee or a direct client. (1) Represent client and (2) represent employee
     PrecioIncIVA: number;
-    
+
     Company: string,  // The name of the company.
     SwImagenes: number,
     SwSinStock: number

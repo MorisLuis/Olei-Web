@@ -5,18 +5,28 @@ import { AuthContext, authReducer } from '.';
 import { useRouter } from 'next/router';
 import UserInterface from '@/interfaces/user';
 import useErrorHandler from '@/hooks/useErrorHandler';
-import handler from '@/pages/api/session';
-
 
 export interface AuthState {
     isLoggedIn: boolean;
-    user?: UserInterface;
+    user: UserInterface;
 }
 
 
-const AUTH_INITIAL_STATE: AuthState = {
+export const AUTH_INITIAL_STATE: AuthState = {
     isLoggedIn: false,
-    user: undefined,
+    user: {
+        Id_Almacen: 0,
+        Nombre: '',
+        Id_ListPre: 0,
+        Id_Cliente: 0,
+        Id_UsuarioOOL: '',
+        BaseSQL: '',
+        TipoUsuario: 1,
+        PrecioIncIVA: 0,
+        Company: '',
+        SwImagenes: 0,
+        SwSinStock: 0
+    }
 }
 
 export const AuthProvider = ({ children }: any) => {
@@ -43,6 +53,7 @@ export const AuthProvider = ({ children }: any) => {
         } catch (error) {
             Cookies.remove('token');
             handleError(error);
+            setLoggingIn(false)
         }
     }
 
@@ -63,18 +74,19 @@ export const AuthProvider = ({ children }: any) => {
         } catch (error: any) {
             setLoggingIn(false)
             handleError(error);
-        }
+        } 
     }
 
     const logoutUser = async () => {
         try {
-            Cookies.remove("token")
             await api.get('/api/auth/logout');
+            Cookies.remove("token")
             push("/")
-            setLoggingIn(false);
-            dispatch({ type: '[Auth] - Logout' });
+            dispatch({ type: '[Auth] - Logout', user: AUTH_INITIAL_STATE.user });
         } catch (error: any) {
             handleError(error);
+        } finally{
+            setLoggingIn(false)
         }
     }
 

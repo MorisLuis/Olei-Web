@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 const Custum404 = () => {
 
-    const { push, replace } = useRouter();
+    const { push, replace, back } = useRouter();
 
     return (
         <Layout>
@@ -30,10 +30,10 @@ const Custum404 = () => {
                         transition={{ delay: 0.3, duration: 0.6 }}
                         className={styles.message}
                     >
-                        Lo sentimos, la página que buscas no existe. 😞
+                        Lo sentimos, la página que buscas no existe o hubo un problema con el servidor. 😞
 
-                        <button className='button-small' onClick={() => replace('/products')}>
-                            Volver al inicio
+                        <button className='button-small' onClick={() => back()}>
+                            Volver
                         </button>
 
                     </motion.p>

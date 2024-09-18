@@ -3,7 +3,7 @@ import { createContext } from 'react';
 
 interface ContextProps {
     isLoggedIn: boolean;
-    user?: UserInterface;
+    user: UserInterface;
     loggingIn: boolean,
 
     loginUser: (email: string, password: string) => Promise<void>;

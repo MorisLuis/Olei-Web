@@ -2,7 +2,6 @@ import React, { Dispatch, useContext, useRef, useState } from 'react';
 import styles from "../../styles/Components/SearchGlobal.module.scss";
 
 import ClientInterface from '@/interfaces/client';
-import { capitalizarTexto } from '@/utils/textCapitalize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { ClientContext } from '@/context';

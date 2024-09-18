@@ -9,10 +9,7 @@ export const getClients = async (term: string) => {
     } catch (error) {
         return { error: error };
     }
-
 }
-
-
 
 export const postClient = async (client: ClientInterface) => {
 

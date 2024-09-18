@@ -1,16 +1,36 @@
+import { AuthContext } from '@/context';
+import { sendError } from '@/services/errors';
 import { useRouter } from 'next/router';
+import { useContext } from 'react';
 import toast from 'react-hot-toast';
 
 export const useErrorHandler = () => {
     const router = useRouter();
+    const { user } = useContext(AuthContext);
 
-    const handleError = (error: any) => {
+    const handleError = async (error: any) => {
         // Verifica que error y error.response existan antes de acceder a error.response.status
         const status = error?.response?.status;
+        const methotd = error?.response?.config?.method;
 
-        if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'local') return;
+        const message = error.response.data.error ? error.response.data.error :
+            error.response.data.message ? error.response.data.message :
+                error.message ? error.message : error;
 
-        /* if (status) {
+        console.log({error})
+        console.log({ message })
+
+        //if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'local') return;
+
+        await sendError({
+            From: `web/${user?.Id_UsuarioOOL?.trim()}`,
+            Message: message,
+            Id_Usuario: user?.Id_UsuarioOOL?.trim(),
+            Metodo: methotd || '',
+            code: status.toString()
+        })
+
+        if (status) {
             switch (status) {
                 case 404:
                     router.push('/404');
@@ -28,7 +48,7 @@ export const useErrorHandler = () => {
             }
         } else {
             toast.error("Algo salió mal!");
-        } */
+        }
     };
 
     return { handleError };

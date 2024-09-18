@@ -194,19 +194,20 @@
 .modalPrincipal {
     background-color: $background-color;
     width: 75%;
-    height: 80%;
+    max-height: 80%;
     max-width: 1200px;
     position: absolute;
     border-radius: 1em;
     border: 1px solid $color-border;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    overflow: hidden;
+    //overflow: hidden;
     z-index: 999999;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     animation: modal-open 0.1s ease-in-out forwards;
     opacity: 0;
+    overflow: scroll;
 
     &.closing {
         animation: modal-close 0.2s ease-in-out forwards;

@@ -23,7 +23,7 @@ const OnboardingSearch = () => {
             }
             setSearchResults(Clients)
         } catch (error) {
-            console.log({ error })
+            handleError(error)
         }
     };
 
