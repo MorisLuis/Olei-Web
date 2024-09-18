@@ -30,7 +30,7 @@ const Custum404 = () => {
                         transition={{ delay: 0.3, duration: 0.6 }}
                         className={styles.message}
                     >
-                        Lo sentimos, hubo un error en el servidor intentatlo más tarde. 😞
+                        Lo sentimos, hubo un error en el servidor intentalo más tarde. 😞
 
                         <button className='button-small' onClick={() => push('/products')}>
                             Volver al inicio

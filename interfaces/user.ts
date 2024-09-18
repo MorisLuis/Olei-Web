@@ -6,7 +6,7 @@ export default interface UserInterface {
     Id_ListPre: number; // The ID of the price list that defines the prices of the products.
     Id_Cliente: number; // The identifier of the client.
     Id_UsuarioOOL: string; // The unique identifier for database access.
-    BaseSQL: string; // The name of the SQL database.
+    Baseweb: string; // The name of the SQL database.
     TipoUsuario: number; // Represents whether the user is an employee or a direct client. (1) Represent client and (2) represent employee
     PrecioIncIVA: number;
 

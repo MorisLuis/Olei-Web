@@ -5,7 +5,6 @@ import axios from 'axios';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // Aquí obtienes las cookies de la solicitud
     const cookies = req.cookies;
-    const headers = req.headers;
 
     if (!cookies) {
         return res.status(401).json({ message: 'No session found' });

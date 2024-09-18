@@ -20,7 +20,7 @@ export const AUTH_INITIAL_STATE: AuthState = {
         Id_ListPre: 0,
         Id_Cliente: 0,
         Id_UsuarioOOL: '',
-        BaseSQL: '',
+        Baseweb: '',
         TipoUsuario: 1,
         PrecioIncIVA: 0,
         Company: '',
