@@ -172,6 +172,8 @@ export default function Home() {
     config: { duration: 500 },
   });
 
+  console.log({clientChanged})
+
   return (
     <>
       <PageTransition key="login-transition" isEntering={isEntering === false}>

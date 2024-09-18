@@ -18,5 +18,4 @@ export const clientReducer = (state: ClientState, action: ClientActionType): Cli
             return state;
     }
 
-
 }

@@ -28,7 +28,7 @@ const Header = ({
 
     const [modalClientsVisible, setModalClientsVisible] = useState(false)
     const [openModalMessage, setOpenModalMessage] = useState(false)
-    const [selectedClient, setSelectedClient] = useState<ClientInterface | undefined>()
+    const [selectedClient, setSelectedClient] = useState<ClientInterface>()
 
 
     // Clients
@@ -37,14 +37,17 @@ const Header = ({
         setOpenModalMessage(true);
     }
 
-    const onAcceptClientSelected = () => {
-        setClientChanged(true)
-        selectClient(selectedClient as ClientInterface)
+    const onAcceptClientSelected = async () => {
+        if(!selectedClient) return;
+        await selectClient(selectedClient)
         setTimeout(() => {
-            setClientChanged(false)
-        }, 300)
-        setOpenModalMessage(false);
-        push(`/products`)
+            setClientChanged(true);
+            setOpenModalMessage(false);
+            push(`/products`);
+            setTimeout(() => {
+                setClientChanged(false);
+            }, 300)
+        }, 300);
     }
 
     const onInputClientChange = async (term: string) => {

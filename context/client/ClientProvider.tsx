@@ -23,8 +23,7 @@ export const ClientProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(clientReducer, CLIENT_INITIAL_STATE);
     const [clientChanged, setClientChanged] = useState(false)
-    const { handleError } = useErrorHandler()
-
+    const { handleError } = useErrorHandler();
     useEffect(() => {
         const cookieValue = Cookies.get('client');
         let parsedCookie;
@@ -48,14 +47,19 @@ export const ClientProvider = ({ children }: any) => {
         }
     }, [])
 
+
     useEffect(() => {
         Cookies.set('client', JSON.stringify(state.client));
     }, [state]);
 
+
     const selectClient = async (client: ClientInterface) => {
         try {
             const token = await postClient(client)
-            Cookies.set('token', token);
+            if(token){
+                Cookies.remove("token");
+                Cookies.set('token', token);
+            }
             dispatch({ type: '[Client] - selectClient', payload: client })
         } catch (error) {
             handleError(error);
