@@ -26,9 +26,10 @@ const Header = ({
     const { selectClient, setClientChanged } = useContext(ClientContext);
     const { handleError } = useErrorHandler()
 
-    const [modalClientsVisible, setModalClientsVisible] = useState(false)
-    const [openModalMessage, setOpenModalMessage] = useState(false)
-    const [selectedClient, setSelectedClient] = useState<ClientInterface>()
+    const [modalClientsVisible, setModalClientsVisible] = useState(false);
+    const [openModalMessage, setOpenModalMessage] = useState(false);
+    const [selectedClient, setSelectedClient] = useState<ClientInterface>();
+    const [changingClient, setChangingClient] = useState(false)
 
 
     // Clients
@@ -39,11 +40,13 @@ const Header = ({
 
     const onAcceptClientSelected = async () => {
         if(!selectedClient) return;
+        setChangingClient(true)
         await selectClient(selectedClient)
         setTimeout(() => {
             setClientChanged(true);
             setOpenModalMessage(false);
             push(`/products`);
+            setChangingClient(false);
             setTimeout(() => {
                 setClientChanged(false);
             }, 300)
@@ -97,6 +100,7 @@ const Header = ({
                 visible={openModalMessage}
                 onClose={handleCloseModal}
                 onAccept={onAcceptClientSelected}
+                disabled={changingClient}
                 title={`Seleccionar a ${capitalizarTexto(selectedClient?.Nombre as string)} como cliente.`}
             >
                 Podras volver a seleccionar después.

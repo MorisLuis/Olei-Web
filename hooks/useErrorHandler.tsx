@@ -17,9 +17,6 @@ export const useErrorHandler = () => {
             error.response.data.message ? error.response.data.message :
                 error.message ? error.message : error;
 
-        console.log({error})
-        console.log({ message })
-
         //if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'local') return;
 
         await sendError({
