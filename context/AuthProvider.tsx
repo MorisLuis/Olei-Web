@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }: any) => {
         } catch (error: any) {
             handleError(error);
         } finally{
-            setLoggingIn(false)
+            setLoggingIn(false);
         }
     }
 

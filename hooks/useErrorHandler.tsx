@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 export const useErrorHandler = () => {
     const router = useRouter();
-    const { user } = useContext(AuthContext);
+    const { user, logoutUser } = useContext(AuthContext);
 
     const handleError = async (error: any) => {
         // Verifica que error y error.response existan antes de acceder a error.response.status
@@ -17,7 +17,10 @@ export const useErrorHandler = () => {
             error.response.data.message ? error.response.data.message :
                 error.message ? error.message : error;
 
-        //if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'local') return;
+        if (status === 401 || status === '401') {
+            console.log("session ended");
+            return logoutUser?.();
+        }
 
         await sendError({
             From: `web/${user?.Id_UsuarioOOL?.trim()}`,
