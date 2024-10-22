@@ -9,13 +9,14 @@ export const useErrorHandler = () => {
     const { user, logoutUser } = useContext(AuthContext);
 
     const handleError = async (error: any) => {
+
         // Verifica que error y error.response existan antes de acceder a error.response.status
         const status = error?.response?.status;
-        const methotd = error?.response?.config?.method;
+        const method = error?.response?.config?.method;
 
-        const message = error.response.data.error ? error.response.data.error :
-            error.response.data.message ? error.response.data.message :
-                error.message ? error.message : error;
+        const message = error?.response?.data?.error ? error?.response?.data?.error :
+            error?.response?.data?.message ? error?.response?.data?.message :
+                error?.message ? error?.message : error;
 
         if (status === 401 || status === '401') {
             console.log("session ended");
@@ -26,8 +27,8 @@ export const useErrorHandler = () => {
             From: `web/${user?.Id_UsuarioOOL?.trim()}`,
             Message: message,
             Id_Usuario: user?.Id_UsuarioOOL?.trim(),
-            Metodo: methotd || '',
-            code: status.toString()
+            Metodo: method || '',
+            code: status?.toString()
         })
 
         if (status) {
@@ -35,7 +36,6 @@ export const useErrorHandler = () => {
                 case 404:
                     router.push('/404');
                     break;
-                case 401:
                 case 403:
                     router.push('/login');
                     break;

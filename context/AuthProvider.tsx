@@ -5,6 +5,7 @@ import { AuthContext, authReducer } from '.';
 import { useRouter } from 'next/router';
 import UserInterface from '@/interfaces/user';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import toast from 'react-hot-toast';
 
 export interface AuthState {
     isLoggedIn: boolean;
@@ -61,7 +62,6 @@ export const AuthProvider = ({ children }: any) => {
         setLoggingIn(true)
         try {
             const data = await api.post('/api/auth/loginWeb', { email, password });
-
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
@@ -72,6 +72,10 @@ export const AuthProvider = ({ children }: any) => {
             }
 
         } catch (error: any) {
+            toast(error.response.data.errors[0].message, {
+                position: "top-center",
+                icon: <span style={{ fontSize: '20px', color: "red"}}>⚠️</span>,
+            });
             setLoggingIn(false)
             handleError(error);
         } 
