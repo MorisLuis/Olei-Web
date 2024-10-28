@@ -35,7 +35,7 @@ const HomeFilter = ({
     const { push } = useRouter();
     const [visible, setVisible] = useState(false);
 
-    const handleCloseTag = (filter: string[]) => {
+    const handleCloseTag = (filter: string) => {
         setLoadingData(false)
         removeFilters({
             [filter[0]]: filter[1]
@@ -68,7 +68,7 @@ const HomeFilter = ({
 
     const tagsRender = () => {
         return (
-            filtersValues.map((filter: any, Index) => (
+            filtersValues.map((filter: string, Index) => (
                 <Tag color='yellow' key={Index} onClose={() => handleCloseTag(filter)} close cursor>
                     {filter[1] === "true" ? "En Stock" : filter[1]}
                 </Tag>

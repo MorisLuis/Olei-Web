@@ -12,6 +12,7 @@ const Filter = ({
     filterActive,
     setFilterActive
 }: Props) => {
+
     const filters = [
         {
             filter: "Existencia",

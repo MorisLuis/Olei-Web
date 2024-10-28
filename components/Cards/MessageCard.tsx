@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styles from "../../styles/Components/Cards.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +20,7 @@ const getFontAwesomeIcon = (iconName: string): IconProp => {
 };
 
 interface Props {
-    children: any,
+    children: ReactNode,
     title: string,
     icon?: string
 }

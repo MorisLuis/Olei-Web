@@ -1,9 +1,9 @@
 import UserInterface from '@/interfaces/user';
-import { AUTH_INITIAL_STATE, AuthState } from './AuthProvider';
+import { AuthState } from './AuthProvider';
 
 
 type AuthActionType =
-    | { type: '[Auth] - Login', payload: any }
+    | { type: '[Auth] - Login', payload: UserInterface }
     | { type: '[Auth] - Update User', payload: Partial<UserInterface> }
     | { type: '[Auth] - Logout', user: UserInterface }
 

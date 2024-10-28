@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 
 interface Props {
     product: ProductInterface,
-    onClick?: any
+    onClick?: (arg: ProductInterface) => void;
 }
 
 
@@ -70,7 +70,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         shallow
                         href={{ pathname, query: { ...query, product: `/products?product=${product.Codigo}&Marca=${product.Marca}` } }}
                         as={`/product/${product.Codigo}?Marca=${product.Marca}`}
-                        onClick={() => onClick(product)}
+                        onClick={() => onClick?.(product)}
                     >
                         {
                             product?.imagen ?

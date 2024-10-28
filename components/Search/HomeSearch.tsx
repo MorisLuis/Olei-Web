@@ -3,7 +3,7 @@ import styles from "../../styles/Pages/Products.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { ClientContext, FiltersContext } from '@/context';
+import { FiltersContext } from '@/context';
 import { useRouter } from 'next/router';
 import FiltersInterface from '@/interfaces/filters';
 import QueryParams from '@/utils/queryParams';
@@ -32,7 +32,7 @@ const HomeSearch = ({
     const [searchResults, setSearchResults] = useState<string[]>([]);
     const [searchActive, setSearchActive] = useState(false);
 
-    const onSearchProduct = async (event: any) => {
+    const onSearchProduct = async (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
         const term = event.target.value === '' ? " " :  event.target.value ;
         try {
@@ -47,7 +47,7 @@ const HomeSearch = ({
         }
     }
 
-    const onProductKeyDown = (event: any) => {
+    const onProductKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
 
             const newFilters: Partial<FiltersInterface> = {
@@ -94,13 +94,12 @@ const HomeSearch = ({
                 type="text"
                 className={`${styles.inputSearch} display-flex align cursor`}
                 placeholder='Buscar producto...'
-                onChange={onSearchProduct}
                 value={inputValue}
+                onChange={onSearchProduct}
                 onKeyDown={onProductKeyDown}
-
-                onClick={(e: any) => {
+                onClick={() => {
                     setModalSearchVisible(true)
-                    onSearchProduct(e)
+                    //onSearchProduct(e as React.ChangeEvent<HTMLInputElement>);
                     setSearchActive(true)
                 }}
             />

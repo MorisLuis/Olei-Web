@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import NavigationProfile from '../Navigation/NavigationProfile'
 import { Layout } from './Layout'
 import styles from "./../../styles/Layouts.module.scss";
 
 interface Props {
-    children: any
+    children: ReactNode
 }
 
 const LayoutProfile = ({ children }: Props) => {

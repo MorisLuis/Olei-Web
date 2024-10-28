@@ -9,9 +9,13 @@ import { useRouter } from 'next/router';
 import { postOrder } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
 
+interface FooterCartInterface {
+    setOrderRequested: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 export const FooterCart = ({
     setOrderRequested
-}: any) => {
+}: FooterCartInterface) => {
 
     const { cart, total, numberOfItems, removeAllCart, subTotal } = useContext(CartContext);
     const { push } = useRouter();
@@ -34,7 +38,7 @@ export const FooterCart = ({
             }
             removeAllCart();
             push(`/cart/success?order=${result.folio}`);
-        } catch (error: any) {
+        } catch (error) {
             handleError(error);
             setBlockPostOrder(true);
         } finally {

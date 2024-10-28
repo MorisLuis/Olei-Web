@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import styles from "../../styles/UI.module.scss";
 
 import TagHover from './TagHover'
 
 interface Props {
-    children: any,
+    children: ReactNode,
     textHover: string
 }
 

@@ -13,7 +13,7 @@ interface imageInterface {
 
 interface ProductImage {
     img: imageInterface,
-    onExpand: any,
+    onExpand: (arg: imageInterface) => void,
     primaryProduct: imageInterface | undefined
 }
 
@@ -35,7 +35,7 @@ function ProductImage({ img, onExpand, primaryProduct }: ProductImage) {
     );
 }
 
-export const ImageGallery = ({ images }: { images: any[] | undefined }) => {
+export const ImageGallery = ({ images }: { images: imageInterface[] | undefined }) => {
 
     const [productIds, setProductIds] = useState<imageInterface[]>();
     const [primaryProduct, setPrimaryProduct] = useState<imageInterface>();

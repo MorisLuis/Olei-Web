@@ -26,9 +26,7 @@ const Login = () => {
     const onLoginUser = async ({ email, password }: FormData) => {
         try {
             const resp = await loginUser(email, password);
-            console.log({resp})
         } catch (error) {
-            console.log({errorLogin: error})
             handleError(error)
         }
     }

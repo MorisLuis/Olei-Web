@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { api } from '@/api/api';
 import Input from '@/components/Inputs/inputs';
-import SelectReact from '@/components/Inputs/select';
+import SelectReact, { OptionType } from '@/components/Inputs/select';
 import FiltersInterface from '@/interfaces/filters';
 import Cookies from 'js-cookie';
 import LabelInputSkeleton from '@/components/Skeletons/InputsSkeleton';
@@ -63,10 +63,14 @@ const FiltersModalContent = ({
                 }))}
                 label='Familia'
                 name='familia'
-                value={temporalFilters.familia && { value: temporalFilters.familia, label: temporalFilters.familia }}
-                onChange={(value: string) => {
+                value={
+                    temporalFilters.familia
+                        ? { value: temporalFilters.familia, label: temporalFilters.familia }
+                        : null
+                }
+                onChange={(value: OptionType) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
-                        ...prevState, //@ts-ignore
+                        ...prevState,
                         familia: value?.value
                     }))
                 }}
@@ -79,10 +83,14 @@ const FiltersModalContent = ({
                 }))}
                 label='Marca'
                 name='marca'
-                value={temporalFilters.marca && { value: temporalFilters.marca, label: temporalFilters.marca }}
-                onChange={(value: string) => {
+                value={
+                    temporalFilters.marca
+                        ? { value: temporalFilters.marca, label: temporalFilters.marca }
+                        : null
+                }
+                onChange={(value: OptionType) => {
                     setTemporalFilters((prevState: FiltersInterface) => ({
-                        ...prevState, //@ts-ignore
+                        ...prevState,
                         marca: value?.value
                     }))
                 }}
@@ -102,9 +110,9 @@ const FiltersModalContent = ({
         </div>
     ) :
         <>
-            <LabelInputSkeleton/>
-            <LabelInputSkeleton/>
-            <LabelInputSkeleton/>
+            <LabelInputSkeleton />
+            <LabelInputSkeleton />
+            <LabelInputSkeleton />
         </>
 }
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 interface ToggleSwitchProps {
     label?: string;
     name?: string;
-    onChange: any;
+    onChange: (arg: boolean) => void;
     value: boolean
 }
 

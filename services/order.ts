@@ -1,6 +1,7 @@
 import { api } from "@/api/api";
 import OrderInterface from "@/interfaces/order";
 import ProductInterface from "@/interfaces/product";
+import { AxiosError } from "axios";
 
 interface postOrderInterface {
     subTotal: number,
@@ -45,8 +46,8 @@ export const postOrder = async ({
         const folio = folioData.data.folio;
         return folio;
 
-    } catch (error: any) {
-        return { error: error };
+    } catch (error) {
+        return { error: { ...error as AxiosError } };
     }
 
 }
@@ -56,8 +57,8 @@ export const getOrders = async () => {
         const { data } = await api.get(`/api/order/all`);
         const order = data;
         return order
-    } catch (error: any) {
-        return { error: error };
+    } catch (error) {
+        return { error: { ...error as AxiosError } };
     }
 
 }
@@ -67,8 +68,8 @@ export const getOrder = async (receipt: string) => {
         const { data } = await api.get(`/api/order/${receipt}`);
         const order = data;
         return order;
-    } catch (error: any) {
-        return { error: error };
+    } catch (error) {
+        return { error: { ...error as AxiosError } };
     }
 }
 
@@ -77,7 +78,7 @@ export const getOrderDetails = async (receipt: string) => {
         const { data } = await api.get(`/api/order/details?folio=${receipt}`);
         const orderDetails = data;
         return orderDetails;
-    } catch (error: any) {
-        return { error: error };
+    } catch (error) {
+        return { error: { ...error as AxiosError } };
     }
 } 

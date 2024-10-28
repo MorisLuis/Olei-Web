@@ -2,7 +2,7 @@ import React from 'react'
 
 interface Props {
     label?: string,
-    onChange?: any,
+    onChange?: (arg: string) => void,
     value: string,
     name: string
 }

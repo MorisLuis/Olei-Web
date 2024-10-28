@@ -38,7 +38,7 @@ export const ContentCart = ({
         setCartShowed(productFiltered)
     }
 
-    const handleOnChangeInput = (e: any) => {
+    const handleOnChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         searchProductInCart(e.target.value)
         setInputValue(e.target.value)
     }
@@ -79,7 +79,7 @@ export const ContentCart = ({
                                     className='input'
                                     value={inputValue}
                                     placeholder='Buscar producto...'
-                                    onChange={(e: any) => handleOnChangeInput(e)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChangeInput(e)}
                                 />
                                 {
                                     inputValue !== "" &&

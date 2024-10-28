@@ -1,12 +1,17 @@
 import React from 'react'
 import Select, { StylesConfig } from 'react-select'
 
+export type OptionType = {
+    label: string
+    value: string
+}
+
 interface Props {
-    options: any,
+    options: OptionType[],
     placeholder?: string,
     label?: string,
-    onChange: any,
-    value: any,
+    onChange: (arg: OptionType) => void,
+    value: OptionType | null
     name: string
 }
 
@@ -34,7 +39,7 @@ const SelectReact = ({
                 styles={customStyles}
                 onChange={(value) => {
                     if (typeof onChange === 'function') {
-                        onChange(value);
+                        onChange(value as OptionType);
                     }
                 }}
                 value={value}
@@ -46,7 +51,7 @@ const SelectReact = ({
 export default SelectReact
 
 const customStyles: StylesConfig = {
-    control: ({ isDisabled, isFocused }) => ({
+    control: ({ isFocused }) => ({
         backgroundColor: "white",
         width: "100%",
         height: "40px",

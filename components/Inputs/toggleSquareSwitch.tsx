@@ -5,7 +5,7 @@ import { faGripLines, faGrip} from '@fortawesome/free-solid-svg-icons';
 interface ToggleSwitchProps {
     label?: string;
     name?: string;
-    onChange: any;
+    onChange: (arg: boolean) => void;
     value: boolean
 }
 

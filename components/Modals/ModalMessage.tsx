@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styles from "../../styles/Modal.module.scss";
 
 interface Props {
     visible: boolean;
     receipt?: boolean;
-    children: any;
+    children: ReactNode;
     title: string,
     disabled?: boolean;
 

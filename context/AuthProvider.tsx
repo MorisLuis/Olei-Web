@@ -12,7 +12,6 @@ export interface AuthState {
     user: UserInterface;
 }
 
-
 export const AUTH_INITIAL_STATE: AuthState = {
     isLoggedIn: false,
     user: {
@@ -30,7 +29,7 @@ export const AUTH_INITIAL_STATE: AuthState = {
     }
 }
 
-export const AuthProvider = ({ children }: any) => {
+export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
     const [loggingIn, setLoggingIn] = useState(false)
@@ -87,7 +86,7 @@ export const AuthProvider = ({ children }: any) => {
             Cookies.remove("token")
             push("/")
             dispatch({ type: '[Auth] - Logout', user: AUTH_INITIAL_STATE.user });
-        } catch (error: any) {
+        } catch (error) {
             handleError(error);
         } finally{
             setLoggingIn(false);

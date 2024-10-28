@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styles from "../../styles/UI.module.scss";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,10 +6,10 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 
 interface Props {
-    children: any;
+    children: ReactNode;
     color?: string;
     close?: boolean;
-    onClose?: any;
+    onClose?: () => void;
     cursor?: boolean
 }
 

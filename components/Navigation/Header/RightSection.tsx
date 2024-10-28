@@ -4,7 +4,12 @@ import styles from "./../../../styles/Navigation/Header.module.scss";
 import { AuthContext, CartContext } from '@/context';
 import { useRouter } from 'next/router';
 
-export const RightSection = ({ setOpenModalMenu, setOpenModalCart }: any) => {
+interface RightSectionInterface {
+    setOpenModalMenu: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const RightSection = ({ setOpenModalMenu, setOpenModalCart }: RightSectionInterface) => {
 
     const { pathname } = useRouter()
     const { user } = useContext(AuthContext);

@@ -22,7 +22,7 @@ const FILTERS_INITIAL_STATE: FilterState = {
     filtersValues: []
 }
 
-export const FiltersProvider = ({ children }: any) => {
+export const FiltersProvider = ({ children }: { children: JSX.Element }) => {
 
     const [state, dispatch] = useReducer(filtersReducer, FILTERS_INITIAL_STATE);
     const { handleError } = useErrorHandler();
@@ -81,8 +81,9 @@ export const FiltersProvider = ({ children }: any) => {
         dispatch({ type: '[Filters] - Update filters', payload: Filters });
     }
 
-    const removeFilters = (partialFilter: Partial<FiltersInterface>) => {
-        dispatch({ type: '[Filters] - Remove filter', payload: partialFilter })
+    const removeFilters = (partialFilter: any) => {
+        console.log({partialFilter})
+        //dispatch({ type: '[Filters] - Remove filter', payload: partialFilter })
     }
 
     const removeAllFilters = () => {

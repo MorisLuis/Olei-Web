@@ -19,7 +19,7 @@ const CLIENT_INITIAL_STATE: ClientState = {
     }
 }
 
-export const ClientProvider = ({ children }: any) => {
+export const ClientProvider = ({ children }: { children: JSX.Element }) => {
 
     const [state, dispatch] = useReducer(clientReducer, CLIENT_INITIAL_STATE);
     const [clientChanged, setClientChanged] = useState(false)

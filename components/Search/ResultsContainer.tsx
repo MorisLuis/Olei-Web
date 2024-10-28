@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { Tag } from '../Ui/Tag';
 import QueryParams from '@/utils/queryParams';
-import ProductInterface from '@/interfaces/product';
 
 interface ResultsContainerInterface {
     inputValue: string,
@@ -67,9 +66,7 @@ const ResultsContainer = ({
 
     const handleCloseTag = (filter: string[]) => {
 
-        removeFilters({
-            [filter[0]]: filter[1]
-        })
+        removeFilters({ [filter[0]]: filter[1] })
 
         setTemporalFilters((prevState: FiltersInterface) => ({
             ...prevState,

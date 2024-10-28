@@ -112,7 +112,7 @@ export default function Home() {
         handleError(data.error);
         return;
       }
-      setProducts((prevItems: any) => [...prevItems, ...data]);
+      setProducts((prevItems: ProductInterface[]) => [...prevItems, ...data]);
     } catch (error) {
       setButtonIsLoading(false);
       handleError(error);
@@ -177,7 +177,6 @@ export default function Home() {
       <PageTransition key="login-transition" isEntering={isEntering === false}>
         <Layout>
           <div className={styles.products}>
-
             <HomeFilter
               setOpenModalFilter={setOpenModalFilter}
               setShowGrid={setShowGrid}
