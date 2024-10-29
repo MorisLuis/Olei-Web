@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import styles from "./../../../styles/Navigation/Header.module.scss";
 
 import { ClientContext } from '@/context';
 import { ModalSearch } from '../../Modals/ModalSearch';
@@ -11,6 +10,8 @@ import { capitalizarTexto } from '@/utils/textCapitalize';
 import { useRouter } from 'next/router';
 import { getClients } from '@/services/clients';
 import useErrorHandler from '@/hooks/useErrorHandler';
+
+import styles from "./../../../styles/Navigation/Header.module.scss";
 
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;

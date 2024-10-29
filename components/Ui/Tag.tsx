@@ -23,9 +23,7 @@ export const Tag = ({
     return (
         <div className={cursor ? `${styles.tag} ${styles.option} display-flex align allCenter` : `${styles.tag} display-flex align`} onClick={onClose}>
             <div className={`${styles.content} ${styles[color]} display-flex allCenter`} style={{ fontWeight: "normal" }}>
-                <p>
-                    {children}
-                </p>
+                <p> {children} </p>
                 {
                     close &&
                     <FontAwesomeIcon icon={faClose} className="icon__small" />
