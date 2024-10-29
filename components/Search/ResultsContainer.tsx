@@ -2,11 +2,10 @@ import React, { useContext } from 'react';
 import styles from "../../styles/Pages/Products.module.scss";
 
 import { FiltersContext } from '@/context';
-import FiltersInterface from '@/interfaces/filters';
 import { useRouter } from 'next/router';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { Tag } from '../Ui/Tag';
-import QueryParams from '@/utils/queryParams';
+import { useCreateQuery } from '@/hooks/useCreateQuery';
 
 interface ResultsContainerInterface {
     inputValue: string,
@@ -16,7 +15,6 @@ interface ResultsContainerInterface {
     setInputValue: React.Dispatch<React.SetStateAction<string>>,
     setModalSearchVisible: React.Dispatch<React.SetStateAction<boolean>>,
     setSearchActive: React.Dispatch<React.SetStateAction<boolean>>,
-    setTemporalFilters: React.Dispatch<React.SetStateAction<FiltersInterface>>,
     setLoadingData: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -24,7 +22,6 @@ const ResultsContainer = ({
     setInputValue,
     setModalSearchVisible,
     setSearchActive,
-    setTemporalFilters,
     inputValue,
     searchResults,
     modalSearchVisible,
@@ -32,58 +29,21 @@ const ResultsContainer = ({
 }: ResultsContainerInterface) => {
 
     const { push } = useRouter();
-    const { addFilters, removeFilters, filters, removeAllFilters, filtersValues } = useContext(FiltersContext);
+    const { removeFilter, removeAllFilters, filtersValues } = useContext(FiltersContext);
+    const { executeQuery } = useCreateQuery()
 
     const highlightSearchTerm = (text: string, term: string) => {
         const regex = new RegExp(`(${term})`, 'gi');
         return text?.replace(regex, '<strong>$1</strong>');
     };
 
-    const onSelectProduct = (producto: any) => {
+    const onSelectProduct = () => {
         setLoadingData(false)
-        const newFilters: Partial<FiltersInterface> = {
-            ...filters,
-            nombre: producto,
-        };
-        addFilters(newFilters)
-
-        const queryParams = {
-            nombre: producto,
-            marca: filters.marca,
-            familia: filters.familia,
-            folio: filters.folio,
-            enStock: filters.enStock,
-        };
-
-        setInputValue(producto)
-        const handleQueryParams = QueryParams();
-        let url = handleQueryParams({ queryParams });
+        const url = executeQuery()
         push(url)
         setModalSearchVisible(false)
         setSearchActive(false)
         setLoadingData(true)
-    }
-
-    const handleCloseTag = (filter: string[]) => {
-
-        removeFilters({ [filter[0]]: filter[1] })
-
-        setTemporalFilters((prevState: FiltersInterface) => ({
-            ...prevState,
-            [filter[0]]: filter[1] === "true" ? false : undefined
-        }))
-
-        const queryParams = {
-            nombre: filter[0] === "nombre" ? undefined : filters.nombre,
-            marca: filter[0] === "marca" ? null : filters.marca,
-            familia: filter[0] === "familia" ? null : filters.familia,
-            folio: filter[0] === "folio" ? null : filters.folio,
-            enStock: filter[0] === "enStock" ? false : filters.enStock,
-        }
-
-        const handleQueryParams = QueryParams();
-        let url = handleQueryParams({ queryParams });
-        push(url)
     }
 
     const handleRemoveAllFilters = () => {
@@ -98,9 +58,9 @@ const ResultsContainer = ({
             {
                 filtersValues && filtersValues?.length > 0 && !(filtersValues.length === 1 && filtersValues[0][0] === 'nombre') && (
                     <div className={`${styles.filtersSearch} display-flex`}>
-                        {filtersValues.map((filter: any, index) => (
+                        {filtersValues.map((filter: string[], index) => (
                             filter[0] === 'nombre' ? null : (
-                                <Tag key={index} onClose={() => handleCloseTag?.(filter)} close cursor>
+                                <Tag key={index} onClose={() => removeFilter(filter[0])} close cursor>
                                     {filter[1] === 'true' ? 'En Stock' : filter[1]}
                                 </Tag>
                             )
@@ -120,7 +80,7 @@ const ResultsContainer = ({
                     <SearchItemCard
                         key={index}
                         productName={producto ? producto as string : ""}
-                        onclick={() => onSelectProduct(producto)}
+                        onclick={onSelectProduct}
                         highlightSearchTerm={highlightSearchTerm}
                         inputValue={inputValue}
                     />
@@ -143,7 +103,6 @@ const ResultsContainer = ({
                             </div>
                         </div>
             }
-
         </div>
         :
         null

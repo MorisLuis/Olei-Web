@@ -1,26 +1,24 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { api } from '@/api/api';
 import Input from '@/components/Inputs/inputs';
 import SelectReact, { OptionType } from '@/components/Inputs/select';
 import FiltersInterface from '@/interfaces/filters';
 import Cookies from 'js-cookie';
 import LabelInputSkeleton from '@/components/Skeletons/InputsSkeleton';
+import { FiltersContext } from '@/context';
 
 interface Props {
-    setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>,
-    temporalFilters: FiltersInterface,
     visible: boolean
 }
 
 const FiltersModalContent = ({
-    setTemporalFilters,
-    temporalFilters,
     visible
 }: Props) => {
 
     const [familiasFilter, setFamiliasFilter] = useState([]);
     const [marcasFilter, setMarcasFilter] = useState([]);
     const [loadFilters, setLoadFilters] = useState(true);
+    const { addFilters, filters } = useContext(FiltersContext);
 
     const getDataOfFilters = async () => {
 
@@ -35,26 +33,26 @@ const FiltersModalContent = ({
         }
         if (!JSON.parse(Cookies.get("activeFilters")!)) return;
 
-        const { enStock, familia, folio, marca, nombre } = JSON.parse(Cookies.get("activeFilters")!)
-        setTemporalFilters((prevState: FiltersInterface) => ({
-            ...prevState,
-            nombre: nombre ? nombre : undefined,
-            enStock: enStock ? enStock : false,
-            familia: familia,
-            folio: folio,
-            marca: marca
-        }));
         setLoadFilters(false);
     }
-
 
     // Get the different Familias & Marcas from database.
     useEffect(() => {
         if (visible === false) return;
         getDataOfFilters()
-    }, [visible, setTemporalFilters])
+    }, [visible]);
 
-    return !loadFilters ? (
+    if (loadFilters) {
+        return (
+            <>
+                <LabelInputSkeleton />
+                <LabelInputSkeleton />
+                <LabelInputSkeleton />
+            </>
+        )
+    };
+
+    return (
         <div>
             <SelectReact
                 options={familiasFilter?.map((familia) => ({
@@ -64,16 +62,11 @@ const FiltersModalContent = ({
                 label='Familia'
                 name='familia'
                 value={
-                    temporalFilters.familia
-                        ? { value: temporalFilters.familia, label: temporalFilters.familia }
+                    filters.familia
+                        ? { value: filters.familia, label: filters.familia }
                         : null
                 }
-                onChange={(value: OptionType) => {
-                    setTemporalFilters((prevState: FiltersInterface) => ({
-                        ...prevState,
-                        familia: value?.value
-                    }))
-                }}
+                onChange={(value: OptionType) => addFilters({ familia: value?.value })}
             />
 
             <SelectReact
@@ -84,36 +77,22 @@ const FiltersModalContent = ({
                 label='Marca'
                 name='marca'
                 value={
-                    temporalFilters.marca
-                        ? { value: temporalFilters.marca, label: temporalFilters.marca }
+                    filters.marca
+                        ? { value: filters.marca, label: filters.marca }
                         : null
                 }
-                onChange={(value: OptionType) => {
-                    setTemporalFilters((prevState: FiltersInterface) => ({
-                        ...prevState,
-                        marca: value?.value
-                    }))
-                }}
+                onChange={(value: OptionType) => addFilters({ marca: value?.value })}
+
             />
 
             <Input
                 label='Folio'
                 name='folio'
-                onChange={(value: string) => {
-                    setTemporalFilters((prevState: FiltersInterface) => ({
-                        ...prevState,
-                        folio: value !== "" ? value : ""
-                    }))
-                }}
-                value={temporalFilters.folio as string}
+                onChange={(value: string) => addFilters({ folio: value })}
+                value={filters.folio as string}
             />
         </div>
-    ) :
-        <>
-            <LabelInputSkeleton />
-            <LabelInputSkeleton />
-            <LabelInputSkeleton />
-        </>
+    )
 }
 
 export default FiltersModalContent

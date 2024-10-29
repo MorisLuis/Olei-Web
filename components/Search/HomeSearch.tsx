@@ -5,24 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FiltersContext } from '@/context';
 import { useRouter } from 'next/router';
-import FiltersInterface from '@/interfaces/filters';
-import QueryParams from '@/utils/queryParams';
 import ResultsContainer from './ResultsContainer';
 import { searchProducts } from '@/services/search';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import { useCreateQuery } from '@/hooks/useCreateQuery';
 
 interface HomeSearchInterface {
-    setTemporalFilters: Dispatch<SetStateAction<FiltersInterface>>,
     setLoadingData: Dispatch<SetStateAction<boolean>>
 }
 
 const HomeSearch = ({
-    setTemporalFilters,
     setLoadingData
 }: HomeSearchInterface) => {
 
     const { addFilters, filters } = useContext(FiltersContext);
-    const { handleError } = useErrorHandler()
+    const { handleError } = useErrorHandler();
+    const { executeQuery } = useCreateQuery()
     const { push, query } = useRouter();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +32,7 @@ const HomeSearch = ({
 
     const onSearchProduct = async (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
-        const term = event.target.value === '' ? " " :  event.target.value ;
+        const term = event.target.value === '' ? " " : event.target.value;
         try {
             const products = await searchProducts(term, query);
             if (products.error) {
@@ -49,29 +47,8 @@ const HomeSearch = ({
 
     const onProductKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-
-            const newFilters: Partial<FiltersInterface> = {
-                ...filters,
-                nombre: inputValue,
-            };
-            addFilters(newFilters)
-
-            const queryParams = {
-                nombre: inputValue,
-                marca: filters.marca,
-                familia: filters.familia,
-                folio: filters.folio,
-                enStock: filters.enStock,
-            };
-
-            const handleQueryParams = QueryParams();
-            let url = handleQueryParams({ queryParams });
-            push(url)
-
-            setInputValue('');
-            if (inputRef.current) {
-                inputRef.current.blur();
-            }
+            const url = executeQuery()
+            push(url);
         }
     }
 
@@ -99,7 +76,6 @@ const HomeSearch = ({
                 onKeyDown={onProductKeyDown}
                 onClick={() => {
                     setModalSearchVisible(true)
-                    //onSearchProduct(e as React.ChangeEvent<HTMLInputElement>);
                     setSearchActive(true)
                 }}
             />
@@ -108,9 +84,7 @@ const HomeSearch = ({
 
             {
                 inputValue !== "" &&
-                <div className="iconClean display-flex allCenter cursor"
-                    onClick={() => setInputValue("")}
-                >
+                <div className="iconClean display-flex allCenter cursor" onClick={() => setInputValue("")}>
                     <FontAwesomeIcon icon={faXmark} className={`icon__small`} style={{ zIndex: "99999999" }} />
                 </div>
             }
@@ -120,11 +94,10 @@ const HomeSearch = ({
                 inputValue={inputValue}
                 searchResults={searchResults}
                 modalSearchVisible={modalSearchVisible}
-                
+
                 setInputValue={setInputValue}
                 setModalSearchVisible={setModalSearchVisible}
                 setSearchActive={setSearchActive}
-                setTemporalFilters={setTemporalFilters}
                 setLoadingData={setLoadingData}
             />
 
