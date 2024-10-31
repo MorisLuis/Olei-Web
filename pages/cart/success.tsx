@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { ClientContext } from '@/context';
 import PageTransition from '@/components/PageTranstion';
+import ButtonSmall from '@/components/Buttons/ButtonSmall';
 
 
 const Success = () => {
@@ -29,14 +30,20 @@ const Success = () => {
                         <p className={styles.text}>Tu pedido con el folio {query.order} ha sido realizado y {client.Nombre} lo ha recibido.</p>
                     </div>
                     <div className={`${styles.actions} display-flex`}>
-                        <button className="button-small black display-flex allCenter" onClick={() => push(`/request/${query.order}`)}>
-                            Ver recibo
-                            <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align`} />
-                        </button>
-                        <button className="button-small display-flex allCenter" onClick={() => push("/products")}>
-                            Regresar a Inicio
-                            <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
-                        </button>
+                        <ButtonSmall
+                            text='Ver recibo'
+                            onClick={() => push(`/request/${query.order}`)}
+                            icon={faExpand}
+                            color='black'
+                        />
+
+                        <ButtonSmall
+                            text='Regresar a Inicio'
+                            onClick={() => push("/products")}
+                            icon={faExpand}
+                            color='black'
+                        />
+
                     </div>
                 </div>
             </Layout>

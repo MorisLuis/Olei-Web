@@ -7,6 +7,7 @@ import { faXmark, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { ClientContext } from '@/context';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { useRouter } from 'next/router';
+import Button from '../Buttons/Button';
 
 interface Props {
     searchResults: ClientInterface[];
@@ -76,13 +77,12 @@ export const SearchOnboarding = ({
                         </div>
                     )}
                 </div>
-                <button
-                    className={!isSearchDisabled ? "button" : "button disabled"}
-                    disabled={isSearchDisabled}
+                <Button
+                    text={label ?? ""}
                     onClick={() => router.push(`/products`)}
-                >
-                    {label ? label : <FontAwesomeIcon icon={faArrowRightLong} className="icon" style={{ zIndex: "99999999" }} />}
-                </button>
+                    disabled={isSearchDisabled}
+                    icon={faArrowRightLong}
+                />
             </div>
 
             <div className={styles.results}>

@@ -8,6 +8,7 @@ import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 import { AuthContext, FiltersContext } from '@/context';
 import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
 import HomeSearch from './Search/HomeSearch';
+import ButtonSmall from './Buttons/ButtonSmall';
 
 interface Props {
     showGrid: boolean;
@@ -75,17 +76,19 @@ const HomeFilter = ({
                         {
                             filtersValues.length <= 0 ?
                                 <div className={styles.buttonFilter}>
-                                    <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                                        <p>Filtros</p>
-                                        <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                                    </button>
+                                    <ButtonSmall
+                                        text='Filtros'
+                                        onClick={() => setOpenModalFilter(true)}
+                                        icon={faSliders}
+                                    />
                                 </div>
                                 :
                                 <div className={`${styles.buttonFilter} ${styles.active}`}>
-                                    <button className={`button-small white display-flex align`} onClick={() => setOpenModalFilter(true)}>
-                                        <p>Filtros</p>
-                                        <FontAwesomeIcon icon={faSliders} className={`icon__small`} />
-                                    </button>
+                                    <ButtonSmall
+                                        text='Filtros'
+                                        onClick={() => setOpenModalFilter(true)}
+                                        icon={faSliders}
+                                    />
                                     <div className={`${styles.filtersCount}`}>
                                         <p className={`display-flex allCenter`}>{filtersValues.length}</p>
                                     </div>

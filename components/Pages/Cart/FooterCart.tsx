@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
 import styles from "../../../styles/Pages/Cart.module.scss";
 
-import { useSpring, animated } from '@react-spring/web';
 import { format } from '@/utils/currency';
 import { CartContext } from '@/context';
-import useMeasure from 'react-use-measure'
 import { useRouter } from 'next/router';
 import { postOrder } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
 
 interface FooterCartInterface {
     setOrderRequested: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,11 +18,6 @@ export const FooterCart = ({
 
     const { cart, total, numberOfItems, removeAllCart, subTotal } = useContext(CartContext);
     const { push } = useRouter();
-
-    const [open, toggle] = useState(false);
-    const [text, setText] = useState('Confirmar pedido');
-    const [ref, { width }] = useMeasure();
-    const [animationComplete, setAnimationComplete] = useState(false);
     const [blockPostOrder, setBlockPostOrder] = useState(false);
     const { handleError } = useErrorHandler()
 
@@ -32,10 +26,7 @@ export const FooterCart = ({
 
         try {
             const result = await postOrder({ subTotal, total, numberOfItems, cart });
-            if (result.error) {
-                handleError(result.error);
-                return;
-            }
+            if (result.error) return handleError(result.error);
             removeAllCart();
             push(`/cart/success?order=${result.folio}`);
         } catch (error) {
@@ -45,21 +36,6 @@ export const FooterCart = ({
             setOrderRequested(false);
         }
     }
-
-    const props = useSpring({
-        width: open ? width : 0,
-        onRest: () => {
-            if (!animationComplete) {
-                submitOrder();
-                setAnimationComplete(true);
-            }
-        },
-    });
-
-    const handleClick = () => {
-        toggle(!open);
-        setText(open ? 'Confirmar pedido' : 'Enviando...');
-    };
 
     if (blockPostOrder) return (
         <div className={styles.footer}>
@@ -77,10 +53,10 @@ export const FooterCart = ({
                     <>
                         <p className={styles.total}>Total (Incluye IVA) : {format(total)} </p>
                         <div className={`${styles.buttonConfirm} containerbutton`}>
-                            <div ref={ref} className={"mainbutton"} onClick={handleClick}>
-                                <animated.div className={"fillbutton"} style={props} />
-                                <animated.div className={"contentbutton"}>{text}</animated.div>
-                            </div>
+                            <ButtonAnimated
+                                onSubmit={submitOrder}
+                                textDefault="Confirmar pedido"
+                            />
                         </div>
                     </>
                 }

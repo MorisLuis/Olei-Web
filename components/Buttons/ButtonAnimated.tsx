@@ -1,36 +1,35 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react'
+import { useSpring, animated } from '@react-spring/web';
+import useMeasure from 'react-use-measure'
 
-interface Props {
-    onclick?: () => void,
-    disabled: boolean
+interface ButtonAnimatedInterface {
+    onSubmit: () => void;
+    textDefault: string;
 }
 
-const ButtonAnimated = ({
-    onclick,
-    disabled
-}: Props) => {
+export default function ButtonAnimated({
+    onSubmit,
+    textDefault
+}: ButtonAnimatedInterface) {
 
-
-    const buttonText = disabled ? 'Cargando...' : 'Ver más';
+    const [ref, { width }] = useMeasure();
+    const [open, toggle] = useState(false);
+    const [text, setText] = useState(textDefault);
 
     const handleClick = () => {
-        onclick?.()
+        toggle(!open);
+        setText(open ? textDefault : 'Enviando...');
     };
 
-    return (
-        <div className="loading-button-container display-flex align">
-            <button
-                className={`button ${disabled ? 'loading' : ''} display-flex allCenter`}
-                onClick={handleClick}
-                disabled={disabled}
-            >
-                {buttonText}
-                <FontAwesomeIcon icon={faPlus} className={`icon__small m-left`} />
-            </button>
-        </div>
-    );
-}
+    const props = useSpring({
+        width: open ? width : 0,
+        onRest: () => onSubmit(),
+    });
 
-export default ButtonAnimated
+    return (
+        <div ref={ref} className={"mainbutton"} onClick={handleClick}>
+            <animated.div className={"fillbutton"} style={props} />
+            <animated.div className={"contentbutton"}>{text}</animated.div>
+        </div>
+    )
+}

@@ -4,6 +4,7 @@ import styles from "../../styles/Modal.module.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faClose } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
+import ButtonSmall from '../Buttons/ButtonSmall';
 
 
 interface Props {
@@ -53,46 +54,45 @@ const Modal = ({
         }, 300);
     };
 
+    const handelFilter = () => {
+        handleClose();
+        handleFiltersToQuery?.();
+    };
+
+    const handleCleanFilters = () => {
+        handleClose();
+        handleCleanAllFilters?.();
+    }
+
     const renderActions = () => (
-        <>
-            <button
-                className={`${styles.expand} button-small display-flex align m-right`}
+        <div className='display-flex gap__10'>
+            <ButtonSmall
+                text='Expandir'
                 onClick={() => push(`/request/${query?.receipt}`)}
-            >
-                Expandir
-                <FontAwesomeIcon icon={faExpand} className="icon__small cursor display-flex align rotat45" />
-            </button>
-            <button
-                className={`${styles.expand} button-small display-flex align`}
-                onClick={handleOpenUseCart}
-            >
-                Usar en carrito
-                <FontAwesomeIcon icon={faExpand} className="icon__small cursor display-flex align rotat45" />
-            </button>
-        </>
+                icon={faExpand}
+            />
+
+            <ButtonSmall
+                text='Usar en carrito'
+                onClick={() => handleOpenUseCart?.()}
+                icon={faExpand}
+            />
+        </div>
     );
 
     const renderFooter = () => (
         <div className={`${styles.footer} display-flex space-between`}>
-            <button
-                className="button-small transparent"
-                onClick={() => {
-                    handleClose();
-                    handleCleanAllFilters?.();
-                }}
-            >
-                Quitar filtros
-            </button>
-            <button
-                style={{ width: "30%" }}
-                className="button-small"
-                onClick={() => {
-                    handleClose();
-                    handleFiltersToQuery?.();
-                }}
-            >
-                Filtrar
-            </button>
+            <ButtonSmall
+                text='Quitar filtros'
+                onClick={handleCleanFilters}
+                transparent
+            />
+
+            <ButtonSmall
+                text='Filtrar'
+                onClick={handelFilter}
+                extraStyles={{ width: "30%" }}
+            />
         </div>
     );
 

@@ -9,6 +9,7 @@ import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '../Cards/MessageCard';
+import Button from '../Buttons/Button';
 
 
 interface Props {
@@ -92,10 +93,12 @@ const ModalCart = ({
                                     numberOfItems === 1 ? `${numberOfItems} producto` : `${numberOfItems} productos`
                                 } ): {format(subTotal)}</h4>
                         }
-                        <button className={`${styles.seeCart} button display-flex allCenter`} onClick={() => push("/cart")}>
-                            Ver carrito
-                            <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
-                        </button>
+
+                        <Button
+                            text='Ver carrito'
+                            onClick={() => push("/cart")}
+                            icon={faArrowUp}
+                        />
                     </div>
                 </div>
             </div>

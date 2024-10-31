@@ -10,6 +10,7 @@ import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import ToggleSwitch from '@/components/Inputs/toggleSwitch';
+import ButtonSmall from '@/components/Buttons/ButtonSmall';
 
 interface ContentCartInterface {
     setOpenModalMessage: React.Dispatch<React.SetStateAction<boolean>>
@@ -173,11 +174,12 @@ export const ContentCart = ({
                             <p>Vaciar Carrito</p>
                             <p>Si eliminas este carrito ya no podras recuperarlo.</p>
                         </div>
-                        <button
-                            className='button-small red'
-                            onClick={() => setOpenModalMessage(true)}>
-                            Vaciar
-                        </button>
+
+                        <ButtonSmall
+                            text='Vaciar'
+                            onClick={() => setOpenModalMessage(true)}
+                            color='red'
+                        />
                     </div>
                 </>
             }

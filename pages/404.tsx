@@ -3,6 +3,7 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import styles from './../styles/Pages/NotFound.module.scss';
 import { useRouter } from 'next/router';
+import ButtonSmall from '@/components/Buttons/ButtonSmall';
 
 const Custum404 = () => {
 
@@ -31,11 +32,10 @@ const Custum404 = () => {
                         className={styles.message}
                     >
                         Lo sentimos, la página que buscas no existe o hubo un problema con el servidor. 😞
-
-                        <button className='button-small' onClick={() => back()}>
-                            Volver
-                        </button>
-
+                        <ButtonSmall
+                            text='Volver'
+                            onClick={() => back()}
+                        />
                     </motion.p>
                 </motion.div>
             </div>

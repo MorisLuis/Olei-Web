@@ -44,13 +44,9 @@ const Cart = () => {
                     orderSubmitedAndCartExisting ?
                         <Layout>
                             <div className={styles.cart}>
-
                                 <HeaderCart />
-
                                 <ContentCart setOpenModalMessage={setOpenModalMessage} />
-
                                 <FooterCart setOrderRequested={setOrderRequested} />
-
                             </div>
                         </Layout>
                         :

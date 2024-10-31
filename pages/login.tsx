@@ -9,6 +9,7 @@ import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
 import Image from 'next/image';
 import PageTransition from '@/components/PageTranstion';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import Button from '@/components/Buttons/Button';
 
 
 type FormData = {
@@ -83,7 +84,14 @@ const Login = () => {
                                     placeholder='Escribe la contraseña...'
                                 />
                                 {errors.password && <span className='warning'>La contraseña es requerida</span>}
-                                <button disabled={loggingIn} className='button' type="submit">{loggingIn ? "Cargando..." : "Iniciar sesión"}</button>
+
+                                <Button
+                                    text='Iniciar sesión'
+                                    textDisabled='Cargando...'
+                                    disabled={loggingIn}
+                                    typeSubmit
+                                />
+
                             </form>
 
                             <div className={styles.blur}></div>

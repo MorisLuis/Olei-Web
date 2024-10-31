@@ -6,7 +6,7 @@ import { AuthContext } from '@/context';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '../../Cards/MessageCard';
 import TableSkeleton from '../../Skeletons/TableSkeleton';
-import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
+import ButtonLoad from '@/components/Buttons/ButtonLoad';
 import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
 import { useWindowWith } from '@/hooks/useWindowWith';
 
@@ -51,7 +51,7 @@ const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData, totalItem
                                             <div>Codigo</div>
                                             <div>Marca</div>
                                             <div>Familia</div>
-                                            {isEmployee  && <div>Existencias</div>}
+                                            {isEmployee && <div>Existencias</div>}
                                             <div>Precio (MXN)</div>
                                             <div></div>
                                         </div>
@@ -75,9 +75,10 @@ const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData, totalItem
                                 {
                                     (productsWithCartInfo.length < totalItems) &&
                                     <div className={styles.loadMore}>
-                                        <ButtonAnimated
-                                            onclick={loadMoreProducts}
-                                            disabled={buttonIsLoading}
+                                        <ButtonLoad
+                                            buttonText='Ver más'
+                                            onClick={loadMoreProducts}
+                                            loading={buttonIsLoading}
                                         />
                                     </div>
                                 }

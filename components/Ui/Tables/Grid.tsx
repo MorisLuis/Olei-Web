@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "../../../styles/Tables.module.scss";
 
 import ProductInterface from '@/interfaces/product';
-import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
+import ButtonLoad from '@/components/Buttons/ButtonLoad';
 import GridSkeleton from '@/components/Skeletons/GridSkeleton';
 import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
 import { MessageCard } from '@/components/Cards/MessageCard';
@@ -17,9 +17,9 @@ interface Props {
     totalItems: number
 }
 
-const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSelectProduct, totalItems}: Props) => {
+const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSelectProduct, totalItems }: Props) => {
 
-    const { productsWithCartInfo } =  useProductsWithCartInfo(data);
+    const { productsWithCartInfo } = useProductsWithCartInfo(data);
     const NoMoreProductToShow = !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0);
 
     return (
@@ -50,11 +50,12 @@ const Grid = ({ data, loadMoreProducts, buttonIsLoading, loadingData, handleSele
                                     }
                                 </div>
                                 {
-                                    (productsWithCartInfo.length < totalItems ) &&
+                                    (productsWithCartInfo.length < totalItems) &&
                                     <div className={styles.loadMore}>
-                                        <ButtonAnimated
-                                            onclick={loadMoreProducts}
-                                            disabled={buttonIsLoading}
+                                        <ButtonLoad
+                                            buttonText='Ver más'
+                                            onClick={loadMoreProducts}
+                                            loading={buttonIsLoading}
                                         />
                                     </div>
                                 }
