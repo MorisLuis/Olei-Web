@@ -81,7 +81,7 @@
 
             .profile {
                 .icon {
-                    
+
                     background-color: $color-tertiary;
                     width: 24px;
                     height: 24px;
@@ -165,7 +165,7 @@
 
             .seeCart {
                 width: 100%;
-                margin-top: 1em;
+                margin-right: $margin-horizontal;
             }
 
             h4 {
@@ -196,18 +196,15 @@
     width: 75%;
     max-height: 80%;
     max-width: 1200px;
-    position: absolute;
-    border-radius: 1em;
+    position: fixed;
+    border-radius: $border-radius;
     border: 1px solid $color-border;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    //overflow: hidden;
     z-index: 999999;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) scale(0.8);
-    animation: modal-open 0.1s ease-in-out forwards;
-    opacity: 0;
-    overflow: scroll;
+    animation: modal-open 0.3s ease-in-out forwards;
 
     &.closing {
         animation: modal-close 0.2s ease-in-out forwards;
@@ -228,7 +225,6 @@
         left: 0%;
         top: 0%;
         max-height: none;
-
         animation: modal-open-mobil 0.1s ease-in-out forwards;
         border-radius: 1em 1em 0em 0em;
 
@@ -240,14 +236,92 @@
         }
     }
 
-    &.receipt {
-        font-family: "VictorMono";
-        width: 60%;
-        max-height: 90%;
+    .header {
+        border-radius: $border-radius;
+        background-color: $background-color;
+        padding: $padding;
+        border: 1px solid $color-border;
+        border-style: none none solid none;
+        position: absolute;
+        width: 100%;
+        z-index: 999;
+        max-height: 70px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
         @include respond(phone) {
-            width: 100%;
+            border-radius: 0.5em 0.5em 0em 0em;
+            padding: 0.5em 1em;
         }
+
+        .left {
+            
+            .topactions{
+                display: flex;
+                gap: $gap
+            }
+
+            h3 {
+                margin-right: $margin-horizontal;
+            }
+
+            @include respond(phone) {
+                .expand {
+                    display: none;
+                }
+            }
+        }
+
+        .close {
+            width: fit-content;
+            padding: $padding;
+            border-radius: $border-radius;
+            height: fit-content;
+            border: 1px solid transparent;
+
+            &:hover {
+                background-color: $color-secondary;
+                border: 1px solid $color-border;
+            }
+        }
+    }
+
+    .content {
+        padding: $padding;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 100%;
+        margin-top: 70px;
+
+        @include respond(phone) {
+            height: -webkit-fill-available;
+            margin-bottom: 70px;
+        }
+
+        &::-webkit-scrollbar {
+            width: 0.6em;
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba($text-color-light, 0.75);
+            border-radius: $border-radius;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+    }
+
+    .footer {
+        height: 10%;
+        width: 100%;
+        padding: $padding;
+        border-top: 1px solid $color-border;
+        display: flex;
+        justify-content: space-between;
     }
 
     &.small {
@@ -284,79 +358,13 @@
             }
         }
     }
-
-    .header {
-        border-radius: 1em 1em 0em 0em;
-        background-color: $background-color;
-        padding: 1em;
-        border: 1px solid $color-border;
-        border-style: none none solid none;
-
-        @include respond(phone) {
-            border-radius: 0.5em 0.5em 0em 0em;
-            padding: 0.5em 1em;
-        }
-
-        .left {
-            h3 {
-                margin-right: 1em;
-            }
-
-            @include respond(phone) {
-                .expand {
-                    display: none;
-                }
-            }
-        }
-
-        .close {
-            width: fit-content;
-            padding: 0.5em;
-            border-radius: 3px;
-            height: fit-content;
-            border: 1px solid transparent;
-
-            &:hover {
-                background-color: $color-secondary;
-                border: 1px solid $color-border;
-            }
-        }
-    }
-
-    .content {
-        padding: 1em 1em 6em 1em;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        height: 90%;
-
-        &::-webkit-scrollbar {
-            width: 0.6em;
-            background-color: transparent;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: rgba($text-color-light, 0.75);
-            border-radius: 1em;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
-    }
-
-    .footer {
-        height: 10%;
-        width: 100%;
-        padding: 1em;
-        border-top: 1px solid $color-border;
-    }
 }
 
 .modalSearch {
     height: auto;
     width: 500px;
     position: absolute;
-    border-radius: 0.5em;
+    border-radius: $border-radius;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     z-index: 999999;
     top: 10%;
@@ -365,9 +373,9 @@
 
     .headerSearch {
         background-color: $color-primary;
-        padding: 1em 1em 0em 1em;
-        margin-bottom: 1em;
-        border-radius: 0.5em 0.5em 0em 0em;
+        padding: $padding;
+        margin-bottom: $margin-bottom;
+        border-radius: $border-radius;
         background-color: $background-color;
         height: fit-content;
 
@@ -384,7 +392,7 @@
                 font-size: $font-normal-phone;
 
                 &:valid {
-                    padding: 0em 2.5em;
+                    padding: 0em $padding-horizontal;
                     border: transparent;
                 }
             }
@@ -399,21 +407,21 @@
         }
 
         .filtersSearch {
-            padding: 0.75em 0.5em;
+            padding: $padding;
 
             >div :first-child {
-                margin-right: 1em;
+                margin-right: $margin-horizontal;
             }
         }
     }
 
     .resultsSearch {
-        padding: 1em;
+        padding: $padding;
         background-color: $background-color;
-        border-radius: 0em 0em 0.5em 0.5em;
+        border-radius: $border-radius;
 
         .messageEmpty {
-            padding: 1em 0em;
+            padding: $padding 0em;
         }
     }
 
@@ -421,7 +429,6 @@
         top: 5%;
         left: 50%;
         transform: translateX(-50%);
-
         border-radius: 0px;
         width: 95%;
         max-width: none;
@@ -435,7 +442,7 @@
     width: 425px;
     height: 215px;
     position: absolute;
-    border-radius: 1em;
+    border-radius: $border-radius;
     border: 1px solid $color-border;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     z-index: 999999;
@@ -452,18 +459,18 @@
 
     .content {
         height: 70%;
-        padding: 2em;
+        padding: $padding;
 
 
-        h2{
-            margin-bottom: 1em;
+        h2 {
+            margin-bottom: $margin-bottom;
         }
     }
 
     .footer {
         border-top: 1px solid $color-border;
         height: 30%;
-        padding: 2em;
+        padding: $padding;
     }
 }
 
@@ -472,7 +479,7 @@
 .modalBackground {
     width: 100%;
     height: 100svh;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     animation: appear 0.6s ease-in-out;
@@ -484,8 +491,8 @@
 
 .modalBackgroundSecondary {
     width: 100%;
-    height: 100svh;
-    position: absolute;
+    height: 100vh;
+    position: fixed;
     top: 0px;
     left: 0px;
     animation: appear 0.6s ease-in-out;

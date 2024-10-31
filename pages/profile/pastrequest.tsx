@@ -29,7 +29,6 @@ const PedidosAnteriores = () => {
                 title="Recibo"
 
                 //Conditions
-                receipt
                 actionsVisible
 
                 //Methods

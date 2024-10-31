@@ -17,7 +17,7 @@ import useErrorHandler from '@/hooks/useErrorHandler';
 
 const Pedidos = () => {
 
-    const { query, back } = useRouter();
+    const { query, back, push } = useRouter();
     const { addOrderToCart } = useContext(CartContext)
     const { handleError } = useErrorHandler()
 
@@ -120,11 +120,13 @@ const Pedidos = () => {
             </LayoutProfile>
 
             <Modal
+                title=""
                 visible={(query.receipt && openModalRequest) ? true : false}
-                onClose={handleCloseReceiptRender}
-                handleOpenUseCart={() => setOpenModalMessage(true)}
-                receipt
                 actionsVisible
+
+                onClose={handleCloseReceiptRender}
+                handleActionTopOne={() => push(`/request/${query?.receipt}`)}
+                handleActionTopTwo={() => setOpenModalMessage(true)}
             >
                 <ReceiptRender />
             </Modal>
