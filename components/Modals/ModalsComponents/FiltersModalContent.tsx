@@ -53,7 +53,7 @@ const FiltersModalContent = ({
     };
 
     return (
-        <div>
+        <div className='display-flex column gap__20'>
             <SelectReact
                 options={familiasFilter?.map((familia) => ({
                     label: familia,

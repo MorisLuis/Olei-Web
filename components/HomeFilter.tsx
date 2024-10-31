@@ -2,7 +2,6 @@ import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from
 import styles from "../styles/Pages/Products.module.scss";
 
 import { Tag } from './Ui/Tag';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 import { AuthContext, FiltersContext } from '@/context';
@@ -97,19 +96,12 @@ const HomeFilter = ({
                     </div>
 
                     {
-                        user?.SwImagenes ?
-                            <div className={styles.view}>
-                                <ToggleSquareSwitch
-                                    label=''
-                                    name="view"
-                                    value={showGrid}
-                                    onChange={(value: boolean) => {
-                                        setShowGrid(value)
-                                    }}
-                                />
-                            </div>
-                            :
-                            null
+                        user?.SwImagenes &&
+                        <ToggleSquareSwitch
+                            name="view"
+                            value={showGrid}
+                            onChange={(value: boolean) => setShowGrid(value)}
+                        />
                     }
                 </div>
             </div>

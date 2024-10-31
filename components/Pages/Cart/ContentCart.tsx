@@ -31,8 +31,7 @@ export const ContentCart = ({
 
     const searchProductInCart = (term: string) => {
         if (term === "") {
-            setCartShowed(cart);
-            return;
+            return setCartShowed(cart);
         }
         const productFiltered = cart.filter((product) => product.Descripcion?.toLowerCase().includes(term.toLowerCase()))
 
@@ -59,14 +58,13 @@ export const ContentCart = ({
     const productsWithIVA = user?.PrecioIncIVA === 1;
     const searchEmpty = cartShowed.length > 0;
 
-
     return (
         <div className={styles.content}>
             <div className={`${styles.orderConfig} display-flex align space-between`}>
                 <p><span>Solicitar productos inexistentes.</span> En la orden enviar solicitud de los productos actualmente inexistentes.</p>
                 <ToggleSwitch
-                    value={requestCartPending}
-                    onChange={() => setRequestCartPending(false)}
+                    initialState={requestCartPending}
+                    onToggle={(value: boolean) => setRequestCartPending(value)}
                 />
             </div>
 
@@ -96,9 +94,7 @@ export const ContentCart = ({
                         <div className={styles.table}>
                             {
                                 searchEmpty ?
-                                    cartShowed.map((product: ProductInterface, Index) =>
-                                        <ProductCardShort product={product} key={Index} />
-                                    )
+                                    cartShowed.map((product: ProductInterface, Index) => <ProductCardShort product={product} key={Index} />)
                                     :
                                     <MessageCard title='No hay productos.'>
                                         <p>En tu orden no hay productos con ese nombre.</p>
@@ -119,26 +115,23 @@ export const ContentCart = ({
 
             {
                 cartPendingWithProducts &&
-                <>
-                    <div className={styles.request}>
-                        <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
-                            <div className={`${styles.content} display-flex space-between align`}>
-                                <p className={styles.text}>
-                                    Ver peticiones de productos actualmente inexistentes
-                                </p>
-                                <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
-                            </div>
+                <div className={styles.request}>
+                    <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
+                        <div className={`${styles.content} display-flex space-between align`}>
+                            <p className={styles.text}>
+                                Ver peticiones de productos actualmente inexistentes
+                            </p>
+                            <FontAwesomeIcon icon={faAngleDoubleDown} className={requestOpen ? `icon__small rotate180` : `icon__small`} />
                         </div>
-
-                        {
-                            requestOpen &&
-                            cartPending.map((product: ProductInterface, Index) =>
-                                <ProductCardShort product={product} key={Index} productPending />
-                            )
-                        }
                     </div>
 
-                </>
+                    {
+                        requestOpen &&
+                        cartPending.map((product: ProductInterface, Index) =>
+                            <ProductCardShort product={product} key={Index} productPending />
+                        )
+                    }
+                </div>
             }
 
             <div className={`${styles.cost} display-flex column`}>

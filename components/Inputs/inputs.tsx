@@ -13,6 +13,13 @@ const Input = ({
     value,
     name
 }: Props) => {
+    
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        if (typeof onChange === 'function') {
+            onChange(event.target.value);
+        }
+    }
+
     return (
         <div className='display-flex column'>
             <label htmlFor={name}>{label}</label>
@@ -20,11 +27,7 @@ const Input = ({
                 className="input"
                 type="text"
                 placeholder='Buscar...'
-                onChange={(event) => {
-                    if (typeof onChange === 'function') {
-                        onChange(event.target.value);
-                    }
-                }}
+                onChange={(event) => handleOnChange(event)}
                 value={value || ""}
             />
         </div>

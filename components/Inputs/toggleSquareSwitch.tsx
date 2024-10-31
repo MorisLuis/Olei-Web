@@ -1,25 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { faGripLines, faGrip} from '@fortawesome/free-solid-svg-icons';
+import { faGripLines, faGrip } from '@fortawesome/free-solid-svg-icons';
 
 interface ToggleSwitchProps {
-    label?: string;
-    name?: string;
+    name: string;
     onChange: (arg: boolean) => void;
     value: boolean
 }
 
 const ToggleSquareSwitch: React.FC<ToggleSwitchProps> = ({
-    label,
     name,
     onChange,
     value
 }) => {
     const [checked, setChecked] = useState(value);
-
-    useEffect(() => {
-        setChecked(value)
-    }, [value])
 
     const handleToggle = () => {
         const newChecked = !checked;
@@ -27,29 +21,27 @@ const ToggleSquareSwitch: React.FC<ToggleSwitchProps> = ({
         onChange(newChecked);
     };
 
-    return (
-        <>
-            <label htmlFor={name || "view"} className="toggleSquareSwitch">
-                {
-                    label && <p style={{ marginRight: "1em" }}>{label}</p>
-                }
+    useEffect(() => {
+        setChecked(value)
+    }, [value])
 
-                <div className="toggleSquare">
-                    <input
-                        type="checkbox"
-                        name={name}
-                        id={name}
-                        checked={checked || value}
-                        onChange={handleToggle}
-                        className="checkbox"
-                    />
-                    <div className="sliderSquare">
-                        <FontAwesomeIcon icon={faGripLines} className={"iconSquare"} />
-                        <FontAwesomeIcon icon={faGrip} className={"iconSquareSecond"} />
-                    </div>
+    return (
+        <label htmlFor={name || "view"} className="toggleSquareSwitch">
+            <div className="toggleSquare">
+                <input
+                    type="checkbox"
+                    name={name}
+                    id={name}
+                    checked={checked || value}
+                    onChange={handleToggle}
+                    className="checkbox"
+                />
+                <div className="sliderSquare">
+                    <FontAwesomeIcon icon={faGripLines} className={"iconSquare"} />
+                    <FontAwesomeIcon icon={faGrip} className={"iconSquareSecond"} />
                 </div>
-            </label>
-        </>
+            </div>
+        </label>
     );
 };
 
