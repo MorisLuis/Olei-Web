@@ -1,4 +1,5 @@
 import { AuthContext } from '@/context';
+import { ApiError } from '@/interfaces/error';
 import { sendError } from '@/services/errors';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
@@ -9,28 +10,28 @@ export const useErrorHandler = () => {
     const { user, logoutUser } = useContext(AuthContext);
 
     const handleError = async (error: any) => {
-
-        // Verifica que error y error.response existan antes de acceder a error.response.status
-        const status = error?.response?.status;
-        const method = error?.response?.config?.method;
-
-        const message = error?.response?.data?.error ? error?.response?.data?.error :
-            error?.response?.data?.message ? error?.response?.data?.message :
-                error?.message ? error?.message : error;
-
-        if (status === 401 || status === '401') {
+        // Accede de forma segura a las propiedades de error
+        const status = error.response?.status;
+        const method = error.response?.config?.method;
+        
+        const message = error.response?.data?.error 
+            ?? error.response?.data?.message 
+            ?? error.message 
+            ?? "Unknown error";
+    
+        if (status === 401) {
             console.log("session ended");
             return logoutUser?.();
         }
-
+    
         await sendError({
             From: `web/${user?.Id_UsuarioOOL?.trim()}`,
             Message: message,
             Id_Usuario: user?.Id_UsuarioOOL?.trim(),
             Metodo: method || '',
-            code: status?.toString()
-        })
-
+            code: (status as string)?.toString()
+        });
+    
         if (status) {
             switch (status) {
                 case 404:
@@ -50,7 +51,7 @@ export const useErrorHandler = () => {
             toast.error("Algo salió mal!");
         }
     };
-
+    
     return { handleError };
 }
 
