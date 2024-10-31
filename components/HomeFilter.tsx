@@ -23,12 +23,12 @@ const HomeFilter = ({
     setLoadingData,
 }: Props) => {
 
-    const { removeFilter, filtersValues } = useContext(FiltersContext);
+    const { removeFilter, filtersValues, removeAllFilters } = useContext(FiltersContext);
     const { user } = useContext(AuthContext);
     const [visible, setVisible] = useState(false);
 
     const cleanFiltersRender = () => {
-        return filtersValues.length > 0 && <Tag close color='gray' onClose={() => console.log()}>Limpiar filtros</Tag>
+        return filtersValues.length > 0 && <Tag close cursor color='gray' onClose={removeAllFilters}>Limpiar filtros</Tag>
     }
 
     const tagsRender = () => {

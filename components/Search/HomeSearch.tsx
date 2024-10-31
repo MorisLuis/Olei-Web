@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import ResultsContainer from './ResultsContainer';
 import { searchProducts } from '@/services/search';
 import useErrorHandler from '@/hooks/useErrorHandler';
-import { useCreateQuery } from '@/hooks/useCreateQuery';
 
 interface HomeSearchInterface {
     setLoadingData: Dispatch<SetStateAction<boolean>>
@@ -18,9 +17,8 @@ const HomeSearch = ({
     setLoadingData
 }: HomeSearchInterface) => {
 
-    const { addFilters, filters } = useContext(FiltersContext);
+    const { filters } = useContext(FiltersContext);
     const { handleError } = useErrorHandler();
-    const { executeQuery } = useCreateQuery()
     const { push, query } = useRouter();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -35,10 +33,7 @@ const HomeSearch = ({
         const term = event.target.value === '' ? " " : event.target.value;
         try {
             const products = await searchProducts(term, query);
-            if (products.error) {
-                handleError(products.error);
-                return;
-            }
+            if (products.error) return handleError(products.error);
             setSearchResults(products)
         } catch (error) {
             handleError(error);
@@ -47,8 +42,7 @@ const HomeSearch = ({
 
     const onProductKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            const url = executeQuery()
-            push(url);
+            
         }
     }
 
@@ -95,7 +89,6 @@ const HomeSearch = ({
                 searchResults={searchResults}
                 modalSearchVisible={modalSearchVisible}
 
-                setInputValue={setInputValue}
                 setModalSearchVisible={setModalSearchVisible}
                 setSearchActive={setSearchActive}
                 setLoadingData={setLoadingData}

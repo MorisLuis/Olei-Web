@@ -17,15 +17,13 @@ import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/conte
 import { useTransition, animated } from 'react-spring';
 import { getProductById, getProducts, getTotalProducts } from '@/services/product';
 import useErrorHandler from '@/hooks/useErrorHandler';
-import { useCreateQuery } from '@/hooks/useCreateQuery';
 
 export default function Home() {
    const { push, query } = useRouter();
-   const { query: { nombre, enStock, marca, folio, familia } } = useRouter();
    const { handleError } = useErrorHandler();
-   const { executeQuery } = useCreateQuery()
 
-   const { filtersValues } = useContext(FiltersContext);
+   const { filters } = useContext(FiltersContext);
+   const { nombre, enStock, marca, folio, familia } = filters;
    const { productDelete } = useContext(CartContext);
    const { clientChanged } = useContext(ClientContext);
    const { user } = useContext(AuthContext);
@@ -77,8 +75,8 @@ export default function Home() {
 
    const handleProduct = async () => {
       setLoadingData(true);
-      const data = await getProducts(query)
-      const total = await getTotalProducts(query)
+      const data = await getProducts(filters)
+      const total = await getTotalProducts(filters)
       setTotalProducts(total)
       setProducts(data)
       setLoadingData(false);
@@ -179,8 +177,8 @@ export default function Home() {
             //Methods
             onClose={() => setOpenModalFilter(false)}
             handleFiltersToQuery={() => {
-               const query = executeQuery();
-               push(query)
+               //const query = executeQuery();
+               //push(query)
             }}
          >
             <FiltersModalContent

@@ -5,21 +5,18 @@ import { FiltersContext } from '@/context';
 import { useRouter } from 'next/router';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { Tag } from '../Ui/Tag';
-import { useCreateQuery } from '@/hooks/useCreateQuery';
 
 interface ResultsContainerInterface {
     inputValue: string,
     searchResults: string[],
     modalSearchVisible: boolean,
 
-    setInputValue: React.Dispatch<React.SetStateAction<string>>,
     setModalSearchVisible: React.Dispatch<React.SetStateAction<boolean>>,
     setSearchActive: React.Dispatch<React.SetStateAction<boolean>>,
     setLoadingData: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ResultsContainer = ({
-    setInputValue,
     setModalSearchVisible,
     setSearchActive,
     inputValue,
@@ -29,18 +26,16 @@ const ResultsContainer = ({
 }: ResultsContainerInterface) => {
 
     const { push } = useRouter();
-    const { removeFilter, removeAllFilters, filtersValues } = useContext(FiltersContext);
-    const { executeQuery } = useCreateQuery()
+    const { removeFilter, removeAllFilters, filtersValues, addFilters } = useContext(FiltersContext);
 
     const highlightSearchTerm = (text: string, term: string) => {
         const regex = new RegExp(`(${term})`, 'gi');
         return text?.replace(regex, '<strong>$1</strong>');
     };
 
-    const onSelectProduct = () => {
+    const onSelectProduct = (value: string) => {
         setLoadingData(false)
-        const url = executeQuery()
-        push(url)
+        addFilters({ nombre: value })
         setModalSearchVisible(false)
         setSearchActive(false)
         setLoadingData(true)

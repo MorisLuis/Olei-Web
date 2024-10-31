@@ -32,8 +32,6 @@ export const useCreateQuery = () => {
             query += `?${queryParts.join('&')}`;
         }
 
-        console.log({ query })
-
         return query;
     }
 
