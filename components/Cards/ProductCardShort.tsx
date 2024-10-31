@@ -110,10 +110,10 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                         user?.PrecioIncIVA === 1 ?
                             <p className={styles.subtotal}>Total: {product?.Cantidad && format((product?.Precio * product?.Cantidad))}</p>
                             :
-                            <p className={styles.subtotal}>Total: {product?.Cantidad && format((product?.Precio * product?.Cantidad) + (product?.Precio * product?.Cantidad * (parseInt(product.Impuesto ? product.Impuesto : 0) / 100)))}</p>
+                            <p className={styles.subtotal}>Total: {product?.Cantidad && format((product?.Precio * product?.Cantidad) + (product?.Precio * product?.Cantidad * (product.Impuesto ? product.Impuesto : 0 / 100)))}</p>
                     }
                 </div>
-
+ 
                 {
                     (pathname !== "/profile/request" && pathname !== "/profile/pendingrequest" && pathname !== "/request/[receipt]") &&
                     <>
