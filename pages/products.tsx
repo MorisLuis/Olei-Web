@@ -17,7 +17,6 @@ import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/conte
 import { useTransition, animated } from 'react-spring';
 import { getProductById, getProducts, getTotalProducts } from '@/services/product';
 import useErrorHandler from '@/hooks/useErrorHandler';
-import ModalTest from '@/components/Modals/ModalTest';
 
 export default function Home() {
    const { push, query } = useRouter();
