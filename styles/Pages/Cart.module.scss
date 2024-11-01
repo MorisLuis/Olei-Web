@@ -8,21 +8,21 @@
     align-items: center;
 
     @include respond(tab-land) {
-        margin-bottom: $margin-bottom;
+        margin-bottom: $margin-vertical;
     }
 
     @include respond(phone) {
-        margin-bottom: $margin-bottom;
+        margin-bottom: $margin-vertical;
     }
 
 
     .header {
         position: relative;
-        margin-bottom: $margin-bottom;
+        margin-bottom: $margin-vertical;
         width: 100%;
 
         .back {
-            margin-bottom: $margin-bottom;
+            margin-bottom: $margin-vertical;
 
             p {
                 text-decoration: underline;

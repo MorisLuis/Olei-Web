@@ -68,7 +68,7 @@
                     z-index: 9999;
 
                     @include respond(phone) {
-                        font-size: $font-normal-phone;
+                        font-size: $font-normal;
                     }
                     
 

@@ -5,7 +5,6 @@ import styles from "../styles/Pages/Products.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
 import HomeFilter from '@/components/HomeFilter';
-import Table from '@/components/Ui/Tables/Table';
 import Modal from '@/components/Modals/Modal';
 import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersModalContent';
 import Grid from '@/components/Ui/Tables/Grid';
@@ -17,6 +16,12 @@ import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/conte
 import { useTransition, animated } from 'react-spring';
 import { getProductById, getProducts, getTotalProducts } from '@/services/product';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import CustomTable, { ColumnConfig } from '@/components/TableTest';
+import Counter from '@/components/Ui/Counter';
+import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
+import { capitalizarTexto } from '@/utils/textCapitalize';
+
+
 
 export default function Home() {
    const { push, query } = useRouter();
@@ -38,6 +43,43 @@ export default function Home() {
    const [buttonIsLoading, setButtonIsLoading] = useState(false);
    const [loadingData, setLoadingData] = useState(true); // Is used to handle the skeleton state in grid and table.
    const [isEntering, setIsEntering] = useState(true); // Part of the animation with react-spring.
+
+   const { addProductToCart } = useContext(CartContext);
+   const [counterState, setCounterState] = useState<{ [key: string]: number }>({});
+
+
+   const columns: ColumnConfig<ProductInterface>[] = [
+      {
+         key: 'Descripcion',
+         label: 'Descripción',
+         render: (Descripción: string) => <span style={{ color: "black" }}>{capitalizarTexto(Descripción)}</span>,
+      },
+      {
+         key: 'Codigo',
+         label: 'Código',
+         className: 'text-blue-500 font-bold',
+      },
+      {
+         key: 'Precio',
+         label: 'Precio (USD)',
+         render: (value: number) => <span>${value.toFixed(2)}</span>,
+      },
+      {
+         key: 'Existencia',
+         label: 'Existencia',
+      },
+      {
+         key: 'Cantidad',
+         label: 'Cantidad',
+         render: (value: number, item: ProductInterface) => (
+            <Counter
+               counter={counterState[item.Codigo] ?? 0} // Aquí usamos el `Codigo` como identificador único
+               setCounter={(newValue: number) => console.log(newValue, item.Codigo)}
+            />
+         ),width: "20%"
+      },
+   ];
+
 
    // Used to fetch product when this is selected.
    const handleSelectProduct = async (product: ProductInterface) => {
@@ -123,6 +165,9 @@ export default function Home() {
       config: { duration: 500 },
    });
 
+   const { productsWithCartInfo } = useProductsWithCartInfo(products)
+
+
    return (
       <>
          <PageTransition key="login-transition" isEntering={isEntering === false}>
@@ -152,12 +197,9 @@ export default function Home() {
                      ) : (
                         <main className={styles.content}>
                            <animated.div style={{ ...style, width: "100%" }}>
-                              <Table
-                                 data={products}
-                                 loadMoreProducts={loadMoreProducts}
-                                 buttonIsLoading={buttonIsLoading}
-                                 loadingData={loadingData}
-                                 totalItems={totalProducts}
+                              <CustomTable
+                                 columns={columns}
+                                 data={productsWithCartInfo}
                               />
                            </animated.div>
                         </main>

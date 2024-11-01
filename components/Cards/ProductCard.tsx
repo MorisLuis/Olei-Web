@@ -22,7 +22,6 @@ const ProductCard = ({ product }: Props) => {
     const { user } = useContext(AuthContext);
     const isEmployee = user?.TipoUsuario === 2
 
-
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
         Precio: product.Precio,
         Cantidad: 0,

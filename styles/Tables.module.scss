@@ -1,5 +1,107 @@
 @import "./main.scss";
 
+.tableTest {
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    border: 1px solid $color-border;
+    border-bottom: 0px;
+    border-radius: $border-radius;
+    font-size: $font-medium;
+
+    table {
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        thead {
+            background-color: $background-color;
+
+            th {
+                padding: $padding;
+                text-align: left;
+                font-size: $font-small;
+                color: $text-color-secondary;
+                border-bottom: 1px solid $color-border;
+                font-weight: lighter;
+
+                @include respond(phone) {
+                    padding: $padding;
+                }
+            }
+        }
+
+        tbody {
+            color: $text-color-secondary;
+
+            tr {
+
+                &:nth-child(even) {
+                    background-color: $background-color;
+                }
+
+                &:hover {
+                    background-color: $background-color-secondary;
+                }
+
+                td {
+                    padding: $padding / 2 $padding;
+                    border-bottom: 1px solid $color-border;
+                    cursor: pointer;
+
+                    @include respond(phone) {
+                        padding: $padding;
+                    }
+
+                    &.text-blue-500 {
+                        color: $color-blue;
+                    }
+
+                    &.font-bold {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+
+    // Responsive adjustments for smaller screens
+    @include respond(phone) {
+
+        table {
+            thead {
+                display: none;
+            }
+
+            tbody {
+                tr {
+                    display: block;
+                    margin-bottom: $margin-horizontal;
+                    border-bottom: 1px solid $color-border;
+                    padding: $padding;
+
+                    td {
+                        display: flex;
+                        justify-content: space-between;
+                        border: none;
+                        min-width: 100%;
+                        padding: 0px;
+                        padding-bottom: $padding;
+                        align-items: center;
+
+                        &:before {
+                            content: attr(data-label);
+                            color: $color-gray;
+                            flex-basis: 50%;
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 .table {
     padding: 0px 0.5em;
 
@@ -86,7 +188,7 @@
                 flex-direction: column;
                 padding: 0.75em;
                 color: $text-color;
-                font-size: $font-medium-phone;
+                font-size: $font-medium;
                 border: 1px solid $color-border;
                 border-top: 1px solid transparent;
 
@@ -95,7 +197,7 @@
                 }
 
 
-                &:first-child{
+                &:first-child {
                     border: 1px solid $color-border;
                     border-radius: 1em 1em 0em 0em;
                 }
@@ -121,7 +223,7 @@
                     flex-direction: column;
                     margin-bottom: 10px;
 
-                    strong{
+                    strong {
                         margin-left: 10px;
                     }
 
@@ -129,22 +231,26 @@
                         width: 100%;
                         margin-bottom: 5px;
 
-                        .stock{
-                            div{margin-left: 10px;}
+                        .stock {
+                            div {
+                                margin-left: 10px;
+                            }
                         }
                     }
                 }
 
-                .tertiaryData{
+                .tertiaryData {
                     display: flex;
                     flex-direction: column;
                     align-items: flex-end;
-                    .price{
+
+                    .price {
                         font-weight: bold;
-                        font-size: $font-normal-phone;
+                        font-size: $font-normal;
                         margin-bottom: 10px;
                     }
-                    :nth-child(2){
+
+                    :nth-child(2) {
                         width: 50%;
                     }
                 }
@@ -166,8 +272,8 @@
 }
 
 .grid {
-    
-    .contentGrid{
+
+    .contentGrid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 2em;
@@ -178,7 +284,7 @@
             grid-template-columns: repeat(3, 1fr);
             padding: 0em 20px;
         }
-    
+
         @include respond(phone) {
             grid-template-columns: repeat(1, 1fr);
             padding: 0em;
@@ -188,10 +294,10 @@
 
 
 
-    .loadMore{
+    .loadMore {
         width: 100%;
 
-        button{
+        button {
             width: 20%;
 
             @include respond(phone) {
@@ -204,7 +310,7 @@
 
 .tablesRequest {
     width: 100%;
-    font-size: $font-medium-phone;
+    font-size: $font-medium;
     margin-bottom: 1em;
     border: 1px solid $color-border;
     background-color: $background-color;
@@ -252,7 +358,7 @@
 
 }
 
-.message{
+.message {
     padding: 6em 0em;
     text-align: center;
     color: $color-gray;

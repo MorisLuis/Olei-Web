@@ -376,7 +376,7 @@
     .headerSearch {
         background-color: $color-primary;
         padding: $padding;
-        margin-bottom: $margin-bottom;
+        margin-bottom: $margin-vertical;
         border-radius: $border-radius;
         background-color: $background-color;
         height: fit-content;
@@ -391,7 +391,7 @@
                 height: 40px;
                 position: relative;
                 background-color: transparent;
-                font-size: $font-normal-phone;
+                font-size: $font-normal;
 
                 &:valid {
                     padding: 0em $padding-horizontal;
@@ -465,7 +465,7 @@
 
 
         h2 {
-            margin-bottom: $margin-bottom;
+            margin-bottom: $margin-vertical;
         }
     }
 
