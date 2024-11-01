@@ -8,14 +8,12 @@ import { Tag } from '../Ui/Tag';
 import ProductInterface from '@/interfaces/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import toast from 'react-hot-toast';
-import { format } from '@/utils/currency';
 
 interface Props {
     product: ProductInterface,
     setProductDeleteFromCart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-// ProductShoppingCard - IS USED PRINCIPAL IN CART MODAL.
 const ProductShoppingCard = ({ product, setProductDeleteFromCart }: Props) => {
 
     const { addProductToCart, removeCartProduct } = useContext(CartContext)
@@ -56,41 +54,36 @@ const ProductShoppingCard = ({ product, setProductDeleteFromCart }: Props) => {
         })
     }
 
-
     return (
-        <div className={`${styles.productCartCard} displar-flex align`}>
-            <div className={`${styles.productHeader} display-flex text-ellipsis space-between`}>
+        <div className={styles.ProductShoppingCard}>
+            <div className={styles.productHeader}>
                 <p className={`${styles.productName}`}>
                     {product?.Descripcion}
                 </p>
-                <div className={`${styles.delete} display-flex allCenter cursor`} onClick={handleRemoveCartProduct}>
+                <div className={styles.delete} onClick={handleRemoveCartProduct}>
                     <FontAwesomeIcon icon={faTrashCan} className={`icon__small display-flex align`} />
                 </div>
             </div>
 
-            <div className={`${styles.productInfo} display-flex space-between`}>
-                <div className={`${styles.data} display-flex align`}>
-                    <div className={`${styles.code}`}>
+            <div className={styles.productInfo}>
+                <div className={styles.data}>
+                    <div className={styles.item}>
                         <p> <span>Codigo: </span> {product?.Codigo}</p>
                     </div>
 
-                    <span>·</span>
-
-                    <div className={styles.price}>
+                    <div className={styles.item}>
                         {
                             product?.Precio ?
-                                <p>{format(product?.Precio)}</p> :
+                                <p> <span>Precio: </span> {product?.Precio}</p> :
                                 <Tag color="blue">No tiene precio</Tag>
                         }
                     </div>
                 </div>
                 <div className={styles.counter}>
-                    <div className='display-flex'>
-                        <Counter
-                            counter={product?.Cantidad || 0}
-                            setCounter={(value: number) => onUpdateQuantity(value)}
-                        />
-                    </div>
+                    <Counter
+                        counter={product?.Cantidad || 0}
+                        setCounter={(value: number) => onUpdateQuantity(value)}
+                    />
                 </div>
             </div>
         </div>

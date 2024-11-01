@@ -47,22 +47,22 @@ export const FooterCart = ({
 
     return (
         <div className={styles.cart}>
-        <div className={styles.footer}>
-            <div className={`${styles.footer__content} display-flex align`}>
-                {
-                    cart.length > 0 &&
-                    <>
-                        <p className={styles.total}>Total (Incluye IVA) : {format(total)} </p>
-                        <div className={`${styles.buttonConfirm} containerbutton`}>
-                            <ButtonAnimated
-                                onSubmit={submitOrder}
-                                textDefault="Confirmar pedido"
-                            />
-                        </div>
-                    </>
-                }
+            <div className={styles.footer}>
+                <div className={`${styles.footer__content} display-flex align`}>
+                    {
+                        cart.length > 0 &&
+                        <>
+                            <p className={styles.total}>Total (Incluye IVA) : {format(total)} </p>
+                            <div className={`${styles.buttonConfirm} containerbutton`}>
+                                <ButtonAnimated
+                                    onSubmit={submitOrder}
+                                    textDefault="Confirmar pedido"
+                                />
+                            </div>
+                        </>
+                    }
+                </div>
             </div>
-        </div>
         </div>
     )
 }

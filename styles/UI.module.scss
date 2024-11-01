@@ -114,11 +114,17 @@
 
     .action {
         background-color: $color-secondary;
-        border-radius: 5px;
+        border-radius: $border-radius;
         border: 1px solid $color-border-secondary;
-        padding: 0.5em 0.75em;
+        padding: $padding;
         cursor: pointer;
         display: flex;
+
+        height: 30px;
+
+        @include respond(phone) {
+            height: 40px;
+        }
 
         &.active {
             border: 1px solid $color-tertiary;
@@ -132,6 +138,11 @@
         text-align: center;
         border: 1px solid $color-border-secondary;
         border-radius: $border-radius;
+        height: 30px;
+
+        @include respond(phone) {
+            height: 40px;
+        }
     }
 
     &:hover {
@@ -141,20 +152,6 @@
             &:hover {
                 border: 1px solid $text-color;
             }
-        }
-    }
-
-    @include respond(phone) {
-        justify-content: flex-end;
-        width: 100%;
-
-        .action {
-            height: 30px;
-        }
-
-        .number {
-            height: 30px;
-            padding: 0em 1em;
         }
     }
 }

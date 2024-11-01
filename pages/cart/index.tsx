@@ -72,14 +72,4 @@ const Cart = () => {
     )
 }
 
-export default Cart
-
-/* 
-<Layout>
-                            <div className={styles.cart}>
-                                <HeaderCart />
-                                <ContentCart setOpenModalMessage={setOpenModalMessage} />
-                                <FooterCart setOrderRequested={setOrderRequested} />
-                            </div>
-                        </Layout>
-*/
+export default Cart;
