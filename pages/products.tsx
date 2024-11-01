@@ -22,7 +22,6 @@ import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 
 
-
 export default function Home() {
    const { push, query } = useRouter();
    const { handleError } = useErrorHandler();
@@ -45,8 +44,13 @@ export default function Home() {
    const [isEntering, setIsEntering] = useState(true); // Part of the animation with react-spring.
 
    const { addProductToCart } = useContext(CartContext);
-   const [counterState, setCounterState] = useState<{ [key: string]: number }>({});
 
+   const test = (item: any, newValue: number) => {
+      addProductToCart({
+         ...item,
+         Cantidad: newValue
+      })
+   }
 
    const columns: ColumnConfig<ProductInterface>[] = [
       {
@@ -73,13 +77,12 @@ export default function Home() {
          label: 'Cantidad',
          render: (value: number, item: ProductInterface) => (
             <Counter
-               counter={counterState[item.Codigo] ?? 0} // Aquí usamos el `Codigo` como identificador único
-               setCounter={(newValue: number) => console.log(newValue, item.Codigo)}
+               counter={value ?? 0} // Aquí usamos el `Codigo` como identificador único
+               setCounter={(newValue: number) => test(item, newValue)}
             />
-         ),width: "20%"
+         ), width: "20%"
       },
    ];
-
 
    // Used to fetch product when this is selected.
    const handleSelectProduct = async (product: ProductInterface) => {

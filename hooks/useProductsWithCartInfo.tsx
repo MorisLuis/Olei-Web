@@ -1,6 +1,6 @@
 import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product'
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import useErrorHandler from './useErrorHandler';
 
 export const useProductsWithCartInfo = (data: ProductInterface[]) => {
