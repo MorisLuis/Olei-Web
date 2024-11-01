@@ -7,7 +7,7 @@
 
 
     .info{
-        padding: 0em 10em;
+        padding: 0em $padding*2;
 
         @include respond(tab-land) {
             padding: 0em 4em;

@@ -1,7 +1,7 @@
-import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import { AuthContext } from '@/context';
 import React, { useContext } from 'react'
 import styles from "../../styles/Pages/Profile.module.scss";
+import LayoutProfile from '@/components/Layouts/LayoutProfile';
 
 const Profile = () => {
 

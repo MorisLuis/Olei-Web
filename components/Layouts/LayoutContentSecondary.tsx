@@ -8,14 +8,16 @@ interface LayoutContentSecondaryInterface {
     children: ReactNode;
     onBack: () => void;
     backText: string;
-    footer?: ReactNode
+    footer?: ReactNode;
+    topbar?: ReactNode
 }
 
 export default function LayoutContentSecondary({
     children,
     onBack,
     backText,
-    footer
+    footer,
+    topbar
 }: LayoutContentSecondaryInterface) {
     return (
         <Layout>
@@ -30,6 +32,12 @@ export default function LayoutContentSecondary({
                             extraStyles={{ marginBottom: 10 }}
                         />
                     </div>
+
+                    {topbar && <div className={styles.topbar}>
+                        <div className={styles.topbar__contetn}>
+                            {topbar}
+                        </div>
+                    </div>}
 
                     {children}
 

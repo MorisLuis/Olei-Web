@@ -95,28 +95,23 @@ const Pedidos = () => {
     return (
         <>
             <LayoutProfile>
-                <div className={styles.request}>
-                    <section className={styles.info}>
-                        {
-                            !orders ?
-                                <TableRequestSkeleton /> :
-                                orders.length > 0 ?
-                                    <>
-                                        <div className={styles.header}>
-                                            <h2>Pedidos actuales</h2>
-                                            <p>Para cambiar la información, habla con tu administrador.</p>
-                                        </div>
-                                        <div className={styles.item}>
-                                            <TableRequest order={orders} />
-                                        </div>
-                                    </>
-                                    :
-                                    <MessageCard title="No hay pedidos actuales">
-                                        No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
-                                    </MessageCard>
-                        }
-                    </section>
-                </div>
+                {
+                    !orders ?
+                        <TableRequestSkeleton /> :
+                        orders.length > 0 ?
+                            <>
+                                <div>
+                                    <h2>Pedidos actuales</h2>
+                                    <p>Para cambiar la información, habla con tu administrador.</p>
+                                </div>
+                                <TableRequest order={orders} />
+
+                            </>
+                            :
+                            <MessageCard title="No hay pedidos actuales">
+                                No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
+                            </MessageCard>
+                }
             </LayoutProfile>
 
             <Modal

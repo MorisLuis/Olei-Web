@@ -4,14 +4,14 @@ import styles from "../../styles/Navigation/Footer.module.scss";
 
 const Footer = () => {
     return (
-        <div className={`${styles.footer} display-flex align`}>
+        <div className={styles.footer}>
             <div className={styles.image}>
                 <Image
                     src={'/logo02.png'}
                     alt="photo"
                     width={200}
                     height={200}
-                    priority={true}
+                    priority
                 />
             </div>
         </div>

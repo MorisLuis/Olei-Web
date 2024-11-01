@@ -326,7 +326,6 @@
 .searchItemCard {
     width: 100%;
     padding: 0.5em 1em;
-    //font-size: 12px;
     border-radius: 5px;
     border: 1px solid transparent;
 
@@ -339,7 +338,7 @@
 
 .messageCard {
     width: 100%;
-    padding: 4em 6em;
+    padding: $padding * 4;
     background-color: $background-color;
     border-radius: 0.75em;
     border: 1px solid $color-border;
@@ -355,6 +354,10 @@
         border: 1px solid $color-border;
         border-radius: 2em;
         margin-bottom: 1em;
+    }
+    
+    .paragraph{
+        font-size: $font-sm;
     }
 
     h2 {

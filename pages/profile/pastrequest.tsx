@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from "../../styles/Pages/Request.module.scss";
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import ModalRequest from '@/components/Modals/Modal';
 import { useRouter } from 'next/router';
@@ -13,15 +12,11 @@ const PedidosAnteriores = () => {
     return (
         <>
             <LayoutProfile>
-                <div className={styles.request}>
-                    <section className={styles.info}>
-                        <MessageCard
-                            title="No hay pedidos anteriores"
-                        >
-                            No hay pedidos anteriores en este momento, apareceran una vez que hagas pedidos.
-                        </MessageCard>
-                    </section>
-                </div>
+                <MessageCard
+                    title="No hay pedidos anteriores"
+                >
+                    No hay pedidos anteriores en este momento, apareceran una vez que hagas pedidos.
+                </MessageCard>
             </LayoutProfile>
 
             <ModalRequest

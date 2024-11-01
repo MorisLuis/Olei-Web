@@ -11,6 +11,7 @@
         width: 60%;
         padding: $padding 0px;
         margin-bottom: 70px;
+        min-height: 100vh;
 
         @include respond(tab-land) {
             width: 70%;
@@ -46,13 +47,9 @@
 }
 
 .layoutProfile{
-    padding: 2em 16em;
-
-    @include respond(tab-land) {
-        padding: 2em 8em 0em 8em;
-    }
+    padding: $padding $padding*2;
 
     @include respond(phone) {
-        padding: 2em 1em 0em 1em;
+        padding: $padding 0px
     }
 }

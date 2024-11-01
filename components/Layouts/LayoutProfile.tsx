@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react'
 import NavigationProfile from '../Navigation/NavigationProfile'
-import { Layout } from './Layout'
-import styles from "./../../styles/Layouts.module.scss";
+import LayoutContentSecondary from './LayoutContentSecondary';
+import { useRouter } from 'next/router';
+import styles  from '../../styles/Layouts.module.scss'
 
 interface Props {
     children: ReactNode
@@ -9,14 +10,19 @@ interface Props {
 
 const LayoutProfile = ({ children }: Props) => {
 
-    return (
-        <Layout>
+    const { push } = useRouter()
 
+    return (
+        <LayoutContentSecondary
+            onBack={() => push('/products')}
+            backText='Regresar'
+        >
             <NavigationProfile />
+
             <div className={styles.layoutProfile}>
                 {children}
             </div>
-        </Layout>
+        </LayoutContentSecondary>
     )
 }
 
