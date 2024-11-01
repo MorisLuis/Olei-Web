@@ -75,8 +75,8 @@ const Header = ({
 
     return (
         <>
-            <div className={`${styles.header}  blur`}>
-                <div className={`${styles.content} display-flex space-between`}>
+            <div className={styles.header}>
+                <div className={styles.content}>
                     <LeftSection
                         setModalClientsVisible={setModalClientsVisible}
                     />

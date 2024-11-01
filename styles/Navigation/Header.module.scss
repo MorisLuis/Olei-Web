@@ -2,73 +2,52 @@
 
 .header {
     height: 60px;
-    padding: 1em 10em;
+    padding: $padding $padding*10;
     position: sticky;
     top: 0;
     z-index: 999;
     color: $text-color-secondary;
     background-color: $color-tertiary;
 
-    &.secondary {
-        background-color: $color-tertiary;
-        color: $background-color;
-
-        &.left {
-
-            &.client {
-                &.description {
-                    background-color: $color-tertiary;
-                }
-            }
-        }
-
-        .right {
-            .orders {
-                svg {
-                    fill: $background-color;
-                }
-            }
-
-            .profile {
-                background-color: $color-tertiary;
-
-                .profileBox {
-                    background-color: $color-tertiary;
-                }
-            }
-        }
-
-        &::before {
-            display: none;
-        }
+    @include respond(tab-land) {
+        padding: $padding $padding*5;
     }
 
+
     @include respond(tab-port) {
-        padding: 0.75em 2em;
+        padding: $padding $padding*3;
     }
 
     @include respond(phone) {
-        padding: 1em;
-        //position: relative;
+        padding: $padding;
     }
 
     .content {
         margin: 0px;
         height: 100%;
+        font-size: $font-medium;
+        display: flex;
+        justify-content: space-between;
 
         .left {
             width: 100%;
+            display: flex;
+            align-items: center;
 
             >div {
                 &:not(:last-child) {
-                    margin-right: 0em;
+                    margin-right: 0px;
                 }
             }
 
             .client {
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+                align-items: center;
 
                 span {
-                    padding: 0em 0.5em;
+                    padding: 0em $padding-horizontal;
 
                     @include respond(phone) {
                         display: none;
@@ -78,13 +57,13 @@
                 .circular {
                     background-color: $color-yellow;
                     padding: 0.1em;
-                    border-radius: 100%;
+                    border-radius: $border-radius;
                     margin-right: 0.5em;
 
                     .content {
                         background-color: $color-tertiary;
                         padding: 0.05em;
-                        border-radius: 100%;
+                        border-radius: $border-radius;
 
                         p {
                             color: $text-color;
@@ -93,13 +72,12 @@
                             background-color: $color-yellow;
                             min-width: 18px;
                             height: 18px;
-                            border-radius: 100%;
+                            border-radius: $border-radius;
                             display: flex;
                             justify-content: center;
                             align-items: center;
                         }
                     }
-
                 }
 
                 .name {
@@ -110,15 +88,15 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: normal;
-                    margin-right: 0.5em;
+                    margin-right: $margin-horizontal;
                     width: max-content;
                 }
 
                 .description {
                     background-color: $color-cuaternary;
-                    padding: 0.25em 0.5em;
+                    padding: $padding / 2;
                     font-size: $font-medium;
-                    border-radius: 10em;
+                    border-radius: $border-radius;
                     color: $text-color;
 
                     @include respond(phone) {
@@ -135,11 +113,11 @@
                 bottom: 0px;
                 left: 0px;
                 height: 40px;
-                width:220px;
+                width: 220px;
                 position: relative;
+                cursor: pointer;
 
                 img {
-                    width: 100%;
                     object-fit: contain;
                     object-position: center;
                 }
@@ -149,7 +127,7 @@
                 }
 
                 &:hover {
-                    opacity: 100%;
+                    opacity: 80%;
                 }
             }
 
@@ -168,11 +146,11 @@
             .orders {
                 height: 100%;
                 opacity: 100%;
-                padding: 0.5em 1em;
+                padding: $padding;
 
                 p {
-                    margin-left: 0.5em;
-                    font-size: 12px;
+                    margin-right: $margin-horizontal;
+                    font-size: $font-medium;
                 }
 
                 svg {
@@ -189,15 +167,19 @@
                 padding: 0em;
                 position: relative;
                 background-color: transparent;
-                border-radius: 5px;
+                border-radius: $border-radius;
                 cursor: pointer;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
                 @include respond(phone) {
                     position: static;
                 }
 
                 .info {
-                    padding-right: 1em;
+                    padding-right: $padding-horizontal;
 
                     p {
                         display: -webkit-box;
@@ -217,12 +199,15 @@
                 .circle {
                     background-color: $color-primary;
                     padding: 0.1em;
-                    border-radius: 100%;
+                    border-radius: $border-radius;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     .content {
                         background-color: $color-tertiary;
                         padding: 0.05em;
-                        border-radius: 100%;
+                        border-radius: $border-radius;
 
                         p {
                             color: $text-color;
@@ -230,7 +215,7 @@
                             background-color: $color-primary;
                             min-width: 18px;
                             height: 18px;
-                            border-radius: 100%;
+                            border-radius: $border-radius;
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -246,8 +231,7 @@
                     top: 120%;
                     right: 0px;
                     width: 225px;
-                    padding: 0.25em;
-                    border-radius: 0.5em;
+                    border-radius: $border-radius;
                     z-index: 999;
 
                     @include respond(phone) {
@@ -260,8 +244,8 @@
                     }
 
                     .link {
-                        padding: 0.5em 1em;
-                        border-radius: 0.5em;
+                        padding: $padding;
+                        border-radius: $border-radius;
                         cursor: pointer;
 
                         &:hover {
@@ -280,12 +264,12 @@
                 height: 100%;
 
                 button {
-                    padding: 0.5em 1em;
+                    padding: $padding;
                     background-color: transparent;
                     border: 0px;
                     opacity: 100%;
                     height: 100%;
-                    font-size: 12px;
+                    font-size: $font-medium;
 
                     p {
                         color: $text-color;
@@ -293,10 +277,9 @@
                     }
 
                     svg {
-                        margin-right: 0.5em;
                         width: 18px;
                         height: 18px;
-                        padding: 2px;
+                        padding: $padding;
                     }
 
                     &:hover {
@@ -313,8 +296,11 @@
                     width: 18px;
                     height: 18px;
                     background-color: $color-red;
-                    border-radius: 100%;
+                    border-radius: $border-radius;
                     position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     top: 0px;
                     right: 0px;
@@ -341,7 +327,7 @@
         .item {
             height: 100%;
             width: 40px;
-            border-radius: 0.25em;
+            border-radius: $border-radius;
             cursor: pointer;
 
             &:not(:last-child) {
