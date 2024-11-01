@@ -1,77 +1,90 @@
-import React from 'react';
+import React, { forwardRef, useRef } from 'react';
 import styles from "../../styles/UI.module.scss";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import toast from 'react-hot-toast';
 
-interface Props {
-    currentValue: number;
-    maxValue?: number | null;
-
-    // Methods
-    updatedQuantity: (newValue: number) => void;
+interface CounterInterface {
+    counter: number;
+    setCounter: React.Dispatch<React.SetStateAction<number>> | ((value: number) => void);
+    unit?: string
 }
 
-const Counter = ({
-    currentValue,
-    maxValue,
-    updatedQuantity
-}: Props) => {
+const Counter = forwardRef<HTMLInputElement, CounterInterface>(({
+    counter,
+    setCounter,
+    unit
+}, ref) => {
 
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    const addOrRemove = (value: number) => {
+    const addProduct = () => {
+        setCounter(Number(counter) + 1);
+    };
 
-        const sume = currentValue + value
-        if(sume < 0) return;
+    const handleInputChange = (value: string) => {
+        let numericValue;
+        const normalizedValue = value.replace(',', '.');
+        const decimalCount = (normalizedValue.match(/\./g) || []).length;
 
-        if (value === -1) {
-            if (currentValue < 0) return;
-            return updatedQuantity(currentValue - 1);
+        if (decimalCount > 1) return;
+
+        if (value.endsWith('.')) {
+            numericValue = Number(value.concat("1"));
+        } else {
+            numericValue = Number(value);
         }
 
-        if (maxValue) {
-            if (currentValue >= maxValue) {
-                toast('Ya no hay mas existencias, de este producto!', {
-                    position: "bottom-center",
-                    style:{
-                        backgroundColor:"#f9f9f9",
-                        border:"1px solid #cacaca",
-                        fontSize:"14px",
-                        textAlign: "center"
-                    },
-                    icon: <span style={{ fontSize: '20px'}}>⚠️</span>,
-                });
-                return
-            };
+        setCounter(numericValue);
+    };
+
+    const subtractProduct = () => {
+        if (counter <= 0) return;
+        setCounter(Number(counter) - 1);
+    };
+
+    const modifyUnit = () => {
+        let unitModified = unit?.trim();
+        if (unitModified === "PIEZA") {
+            unitModified = "PZA";
         }
-        updatedQuantity(currentValue + 1);
-    }
+        return unitModified;
+    };
 
     return (
-        <div className={`${styles.counter} display-flex space-between `}>
+        <div className={styles.counter}>
             <div
                 className={
-                    currentValue < 1 ? `${styles.action} cursor display-flex allCenter disabled` :
-                        currentValue >= 1 ? `${styles.action} ${styles.active} cursor display-flex allCenter` :
-                            `${styles.action} cursor display-flex allCenter`
+                    counter < 1 ? `${styles.action} disabled` :
+                        counter >= 1 ? `${styles.action} ${styles.active}` :
+                            `${styles.action} cursor`
                 }
-                onClick={() => addOrRemove(-1)}>
+                onClick={subtractProduct}>
                 <FontAwesomeIcon icon={faMinus} className={`icon__small`} />
             </div>
-            <div className={`${styles.number} display-flex allCenter`}>
-                {currentValue}
+
+            <div onClick={() => inputRef.current?.focus()}>
+                <input
+                    ref={ref}
+                    value={counter.toString()}
+                    onChange={(e) => handleInputChange(e.target.value)}
+                    type="text"
+                    className={styles.number}
+                />
+                {unit && <span>{modifyUnit()}</span>}
             </div>
+
+
             <div
                 className={
-                    currentValue >= 1 ? `${styles.action} ${styles.active} cursor display-flex allCenter` :
+                    counter >= 1 ? `${styles.action} ${styles.active} cursor display-flex allCenter` :
                         `${styles.action} cursor display-flex allCenter`
-                } 
-                onClick={() => addOrRemove(+1)}>
+                }
+                onClick={addProduct}>
                 <FontAwesomeIcon icon={faPlus} className={`icon__small`} />
             </div>
         </div>
-    )
-}
+    );
+});
 
-export default Counter
+Counter.displayName = 'Counter'
+export default Counter;

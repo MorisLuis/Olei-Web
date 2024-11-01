@@ -16,7 +16,7 @@ interface Props {
 }
 
 // ProductShoppingCard - IS USED PRINCIPAL IN CART MODAL.
-const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
+const ProductShoppingCard = ({ product, setProductDeleteFromCart }: Props) => {
 
     const { addProductToCart, removeCartProduct } = useContext(CartContext)
 
@@ -87,11 +87,8 @@ const ProductShoppingCard = ({ product,setProductDeleteFromCart }: Props) => {
                 <div className={styles.counter}>
                     <div className='display-flex'>
                         <Counter
-                            currentValue={product?.Cantidad || 0}
-                            maxValue={
-                                product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
-                            }
-                            updatedQuantity={onUpdateQuantity}
+                            counter={product?.Cantidad || 0}
+                            setCounter={(value: number) => onUpdateQuantity(value)}
                         />
                     </div>
                 </div>

@@ -99,9 +99,8 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                     {
                         counterVisible ?
                             <Counter
-                                currentValue={product?.Cantidad || 0}
-                                maxValue={product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia}
-                                updatedQuantity={onUpdateQuantity}
+                                counter={product?.Cantidad || 0}
+                                setCounter={(value: number) => onUpdateQuantity(value)}
                             />
                             :
                             <p>Cantidad: {product.Cantidad}</p>
@@ -113,7 +112,7 @@ export const ProductCardShort = ({ product, counterVisible = true, productPendin
                             <p className={styles.subtotal}>Total: {product?.Cantidad && format((product?.Precio * product?.Cantidad) + (product?.Precio * product?.Cantidad * (product.Impuesto ? product.Impuesto : 0 / 100)))}</p>
                     }
                 </div>
- 
+
                 {
                     (pathname !== "/profile/request" && pathname !== "/profile/pendingrequest" && pathname !== "/request/[receipt]") &&
                     <>

@@ -3,7 +3,6 @@ import styles from "../../styles/Components/Cards.module.scss";
 
 import ProductInterface from '@/interfaces/product';
 import { Tag } from '../Ui/Tag';
-import Counter from '../Ui/Counter';
 import { AuthContext, CartContext } from '@/context';
 import { format } from '../../utils/currency';
 import { capitalizarTexto } from '@/utils/textCapitalize';
@@ -13,6 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from "framer-motion";
 import { useRouter } from 'next/router';
+import Counter from '../Ui/Counter';
 
 interface Props {
     product: ProductInterface,
@@ -89,7 +89,6 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                     </Link>
                 </motion.div>
 
-
                 <div className={styles.info}>
                     <div className={styles.description}>
                         <h4>{capitalizarTexto(product.Descripcion)}</h4>
@@ -122,12 +121,10 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                                 <h3>{format(product?.Precio)}</h3> :
                                 <Tag color="blue">No tiene precio</Tag>
                         }
+
                         <Counter
-                            currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
-                            maxValue={
-                                product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
-                            }
-                            updatedQuantity={onUpdateQuantity}
+                            counter={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
+                            setCounter={(value: number) => onUpdateQuantity(value)}
                         />
                     </div>
                 </div>

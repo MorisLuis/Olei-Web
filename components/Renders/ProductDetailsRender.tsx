@@ -102,10 +102,9 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                                 <div className={styles.action}>
                                     <p>Agregar al carrito: </p>
                                     <Counter
-                                        currentValue={Cantidad > 0 ? Cantidad : (tempCartProduct?.Cantidad || 0)}
-                                        maxValue={Existencia && Existencia < 0 ? null : Existencia}
-                                        updatedQuantity={onUpdateQuantity}
-                                    />
+                                        counter={Cantidad > 0 ? Cantidad : (tempCartProduct?.Cantidad || 0)}
+                                        setCounter={(value: number) => onUpdateQuantity(value)}
+                                        />
                                 </div>
                             </section>
                         </div>
