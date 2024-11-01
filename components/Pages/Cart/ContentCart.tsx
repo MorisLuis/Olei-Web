@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../../styles/Pages/Cart.module.scss";
 
-import { faAngleDoubleDown, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleDown, faFileInvoice, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { AuthContext, CartContext } from '@/context';
@@ -104,7 +104,7 @@ export const ContentCart = ({
                         <div style={{ marginBottom: "1em" }}>
                             <MessageCard
                                 title="No has agregado productos aún."
-                                icon="faFileInvoice"
+                                icon={faFileInvoice}
                             >
                                 No hay productos en tu orden, apareceran una vez que agregues productos.
                             </MessageCard>

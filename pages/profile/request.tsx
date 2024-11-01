@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import styles from "../../styles/Pages/Request.module.scss";
 
 import TableRequest from '@/components/Ui/Tables/TableRequest';
 import LayoutProfile from '@/components/Layouts/LayoutProfile';

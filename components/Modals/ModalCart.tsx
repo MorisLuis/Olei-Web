@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import styles from "../../styles/Modal.module.scss";
 
-import { faAnglesRight, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesRight, faArrowUp, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductShoppingCard from '../Cards/ProductShoppingCard';
 import { useRouter } from 'next/router';
@@ -67,7 +67,7 @@ const ModalCart = ({
                             :
                             <MessageCard
                                 title="No has agregado productos aún"
-                                icon="faCartShopping"
+                                icon={faCartShopping}
                             >
                                 No hay productos en tu orden, apareceran una vez que agregues productos.
                             </MessageCard>
