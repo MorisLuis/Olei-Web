@@ -12,10 +12,10 @@
         display: flex;
         padding: 1em;
         position: relative;
-        font-size: $font-sm;
+        font-size: $font-medium;
 
         @include respond(phone) {
-            font-size: $font-sm-phone;
+            font-size: $font-medium-phone;
         }
 
         .divider{
@@ -144,7 +144,6 @@
     padding: 0.5em 0.5em;
     margin-bottom: 1.5em;
     border-radius: 0.5em;
-    //font-size: 12px;
     border: 1px solid rgba($color: $color-border, $alpha: 0.75);
     position: relative;
 
@@ -217,12 +216,13 @@
 
 .productSquareCard {
     min-width: 180px;
+    font-size: $font-medium;
 
     .content {
         .image {
             background-color: $background-color-tertiary;
             height: 240px;
-            margin-bottom: 1em;
+            margin-bottom: $margin-bottom;
 
             display: flex;
             justify-content: center;
@@ -241,7 +241,6 @@
             }
 
             img {
-                //height: fit-content;
                 height: auto;
                 width: auto;
                 max-height: 180px;
@@ -264,6 +263,9 @@
                 margin-bottom: 0.5em;
                 gap: 0.5em;
 
+                h4{
+                    font-size: $font-normal;
+                }
             }
 
             .data {
@@ -357,7 +359,7 @@
     }
     
     .paragraph{
-        font-size: $font-sm;
+        font-size: $font-medium;
     }
 
     h2 {

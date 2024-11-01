@@ -1,9 +1,7 @@
 import React, { ReactNode } from 'react';
-import styles from "../../styles/UI.module.scss";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-
+import styles from "../../styles/UI.module.scss";
 
 interface Props {
     children: ReactNode;
@@ -20,14 +18,13 @@ export const Tag = ({
     onClose,
     cursor = false
 }: Props) => {
+
+
     return (
-        <div className={cursor ? `${styles.tag} ${styles.option} display-flex align allCenter` : `${styles.tag} display-flex align`} onClick={onClose}>
-            <div className={`${styles.content} ${styles[color]} display-flex allCenter`} style={{ fontWeight: "normal" }}>
+        <div className={cursor ? `${styles.tag} ${styles.option}` : `${styles.tag}`} onClick={onClose}>
+            <div className={`${styles.content} ${styles[color]}`}>
                 <p> {children} </p>
-                {
-                    close &&
-                    <FontAwesomeIcon icon={faClose} className="icon__small" />
-                }
+                {close && <FontAwesomeIcon icon={faClose} className="icon__small" />}
             </div>
         </div>
     );
