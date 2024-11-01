@@ -9,9 +9,7 @@ const TagHover = ({
     text
 }: Props) => {
     return (
-        <div
-            className={styles.tagHover}
-        >
+        <div className={styles.tagHover}>
             <p>{text}</p>
         </div>
     )

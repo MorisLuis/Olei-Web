@@ -5,8 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from "@/context";
+import Image from "next/image";
 
-interface imageInterface {
+export interface imageInterface {
     url: string,
     id: number
 }
@@ -18,22 +19,29 @@ interface ProductImage {
 }
 
 function ProductImage({ img, onExpand, primaryProduct }: ProductImage) {
-
     return (
-        <motion.img
-            src={img.url}
-            alt={img.url}
+        <motion.div
             onClick={() => onExpand(img)}
             className={
-                primaryProduct?.id === img.id ?
-                    `${styles.related_product_image} ${styles.active}`
-                    :
-                    styles.related_product_image
+                primaryProduct?.id === img.id
+                    ? `${styles.related_product_image} ${styles.active}`
+                    : styles.related_product_image
             }
             layoutId={`product-${img.url}`}
-        />
+        >
+            <Image
+                src={img.url}
+                alt={`Imagen de producto ${img.id}`}
+                quality={80}
+                placeholder="blur"
+                blurDataURL="data:image/svg+xml;base64,..."
+                width={100}
+                height={100}
+            />
+        </motion.div>
     );
 }
+
 
 export const ImageGallery = ({ images }: { images: imageInterface[] | undefined }) => {
 
@@ -64,21 +72,30 @@ export const ImageGallery = ({ images }: { images: imageInterface[] | undefined 
 
                     {
                         primaryProduct ?
-                        <motion.img
-                            key={primaryProduct?.id}
-                            className={styles.primary_product_image}
-                            src={primaryProduct?.url}
-                            alt={primaryProduct?.url}
-                            layoutId={`product-${primaryProduct?.id}`}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                        />
-                        :
-                        <div className={styles.notImage}>
-                            <FontAwesomeIcon icon={faImage} className={`icon`} />
-                            <h2>{user?.Nombre}</h2>
-                        </div>
+                            <motion.div
+                                key={primaryProduct.id}
+                                className={styles.primary_product_image}
+                                layoutId={`product-${primaryProduct.id}`}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                            >
+                                <Image
+                                    src={primaryProduct.url}
+                                    alt={`Imagen principal ${primaryProduct.id}`}
+                                    quality={100}
+                                    placeholder="blur"
+                                    blurDataURL="data:image/svg+xml;base64,..."
+                                    priority
+                                    width={100}
+                                    height={100}
+                                />
+                            </motion.div>
+                            :
+                            <div className={styles.notImage}>
+                                <FontAwesomeIcon icon={faImage} className={`icon`} />
+                                <h2>{user?.Nombre}</h2>
+                            </div>
                     }
                 </AnimatePresence>
             </main>
@@ -86,7 +103,12 @@ export const ImageGallery = ({ images }: { images: imageInterface[] | undefined 
             <aside className={styles.product_gallery}>
                 <AnimatePresence>
                     {productIds?.map((img: imageInterface) => (
-                        <ProductImage img={img} key={img.id} onExpand={setAsPrimary} primaryProduct={primaryProduct} />
+                        <ProductImage
+                            img={img}
+                            key={img.id}
+                            onExpand={setAsPrimary}
+                            primaryProduct={primaryProduct}
+                        />
                     ))}
                 </AnimatePresence>
             </aside>
