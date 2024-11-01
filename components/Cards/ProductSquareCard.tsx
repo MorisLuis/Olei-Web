@@ -102,7 +102,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         <p>Marca: {product.Marca}</p>
                         {isEmployee &&
                             <div>
-                                <p className={`${styles.stock} display-flex text-ellipsis align`}>
+                                <p className={styles.stock}>
                                     Existencia:
                                     {
                                         product?.Existencia < 0 ?

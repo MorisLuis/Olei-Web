@@ -227,6 +227,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                width: 80%;
 
                 h2 {
                     display: flex;
@@ -264,6 +265,11 @@
 
             .data {
                 margin-bottom: 0.5em;
+
+                .stock{
+                    display: flex;
+                    gap: $gap;
+                }
             }
 
             .counter {
