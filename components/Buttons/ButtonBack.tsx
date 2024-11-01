@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
-interface ButtonSmallInterface {
+interface ButtonBackInterface {
     icon?: IconDefinition;
     text: string;
     onClick: () => void;
@@ -12,7 +12,7 @@ interface ButtonSmallInterface {
     disabled?: boolean
 };
 
-export default function ButtonSmall({
+export default function ButtonBack({
     icon,
     text,
     onClick,
@@ -20,12 +20,12 @@ export default function ButtonSmall({
     transparent = false,
     color,
     disabled
-}: ButtonSmallInterface) {
+}: ButtonBackInterface) {
 
     return (
         <button
             className={
-                `button-small` +
+                `button-small` + " " + "back" +
                 (transparent ? " " + 'transparent' : '') +
                 (color ? " " + color : '') +
                 (disabled ? " " + "opacity" : "")
@@ -36,8 +36,8 @@ export default function ButtonSmall({
             disabled={disabled}
             aria-label={text}
         >
-            <p>{text}</p>
             {icon && <FontAwesomeIcon icon={icon} className={`icon__small`} />}
+            <p>{text}</p>
         </button>
     )
 }

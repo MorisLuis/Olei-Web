@@ -45,7 +45,7 @@
 
 .button-small {
     height: 30px;
-    background-color: #c6d1f6;
+    background-color: $color-primary;
     border: 1px solid transparent;
     border-radius: 0.5em;
     cursor: pointer;
@@ -54,6 +54,11 @@
     width: 100%;
     width: fit-content;
     color: $color-tertiary;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $gap;
 
     &.opacity{
         opacity: 40%;
@@ -87,12 +92,23 @@
         text-decoration: underline;
     }
 
-    svg {
-        margin-left: 0.5em;
-    }
-
     &:hover {
         opacity: 70%;
+    }
+
+    &.back{
+        border: 1px solid transparent;
+        background-color: $background-color;
+        padding: 0px;
+
+        &:hover {
+            border: 1px solid transparent;
+            opacity: 100%;
+
+            p{
+                text-decoration: underline;
+            }
+        }
     }
 }
 

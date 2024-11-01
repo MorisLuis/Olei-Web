@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Cart.module.scss";
 
-import { Layout } from '@/components/Layouts/Layout';
 import { CartContext } from '@/context';
 
 import { HeaderCart } from '@/components/Pages/Cart/HeaderCart';
@@ -11,12 +10,15 @@ import { MoonLoader } from 'react-spinners';
 import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { ContentCart } from '@/components/Pages/Cart/ContentCart';
 import { FooterCart } from '@/components/Pages/Cart/FooterCart';
+import LayoutContentSecondary from '@/components/Layouts/LayoutContentSecondary';
+import { useRouter } from 'next/router';
 
 const Cart = () => {
 
     const { cart, removeAllCart } = useContext(CartContext);
     const [orderRequested, setOrderRequested] = useState(false);
-    const [openModalMessage, setOpenModalMessage] = useState(false)
+    const [openModalMessage, setOpenModalMessage] = useState(false);
+    const { back } = useRouter()
 
     const handleRemoveCart = () => {
         removeAllCart()
@@ -42,13 +44,14 @@ const Cart = () => {
             <PageTransition key="login-transition" isEntering={isEntering === false}>
                 {
                     orderSubmitedAndCartExisting ?
-                        <Layout>
-                            <div className={styles.cart}>
-                                <HeaderCart />
-                                <ContentCart setOpenModalMessage={setOpenModalMessage} />
-                                <FooterCart setOrderRequested={setOrderRequested} />
-                            </div>
-                        </Layout>
+                        <LayoutContentSecondary
+                            onBack={back}
+                            backText="Regresar"
+                            footer={<FooterCart setOrderRequested={setOrderRequested} />}
+                        >
+                            <HeaderCart />
+                            <ContentCart setOpenModalMessage={setOpenModalMessage} />
+                        </LayoutContentSecondary>
                         :
                         <animated.div style={fadeIn} className={styles.proccesingCart}>
                             <MoonLoader color="#EDBD42" loading={true} size={30} />
@@ -70,3 +73,13 @@ const Cart = () => {
 }
 
 export default Cart
+
+/* 
+<Layout>
+                            <div className={styles.cart}>
+                                <HeaderCart />
+                                <ContentCart setOpenModalMessage={setOpenModalMessage} />
+                                <FooterCart setOrderRequested={setOrderRequested} />
+                            </div>
+                        </Layout>
+*/

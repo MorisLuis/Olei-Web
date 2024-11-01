@@ -46,6 +46,7 @@ export const FooterCart = ({
     )
 
     return (
+        <div className={styles.cart}>
         <div className={styles.footer}>
             <div className={`${styles.footer__content} display-flex align`}>
                 {
@@ -61,6 +62,7 @@ export const FooterCart = ({
                     </>
                 }
             </div>
+        </div>
         </div>
     )
 }

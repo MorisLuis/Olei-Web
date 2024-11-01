@@ -12,8 +12,8 @@
     }
 
     .page {
-        width: 60%;
-        padding: 3em 0em 10em 0em;
+        width: 100%;
+        min-height: 100vh;
 
         @include respond(tab-port) {
             width: 90%;
@@ -43,7 +43,7 @@
         justify-content: space-between;
         width: 100%;
         padding-left: 2em;
-        //background-color: red;
+        //background-color: aqua;
 
         @include respond(phone) {
             padding: 0em 1em;
