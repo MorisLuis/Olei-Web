@@ -5,7 +5,7 @@ export const getProducts = async (query: FiltersInterface, nextPage?: number) =>
 
     try {
         const { nombre, enStock, marca, folio, familia } = query;
-        let url = `api/product?page=${nextPage ? nextPage : 1}&limit=20`;
+        let url = `api/product?page=${nextPage ? nextPage : 1}&limit=10`;
 
         if (nombre) url += `&nombre=${nombre}`;
         if (enStock) url += `&enStock=${enStock}`;

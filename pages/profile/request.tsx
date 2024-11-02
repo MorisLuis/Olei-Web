@@ -76,7 +76,6 @@ const Pedidos = () => {
         }
     }, [handleGetOrderDetails, addOrderToCart, back, handleError]);
 
-
     const handleCloseReceiptRender = useCallback(() => {
         setOpenModalRequest(false)
         back()
