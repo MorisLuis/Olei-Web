@@ -6,7 +6,7 @@
     position: sticky;
     top: 0;
     z-index: 999;
-    color: $text-color-secondary;
+    color: $text-color-light;
     background-color: $color-tertiary;
 
     @include respond(tab-land) {
@@ -72,7 +72,7 @@
                             background-color: $color-yellow;
                             min-width: 18px;
                             height: 18px;
-                            border-radius: $border-radius;
+                            border-radius: $border-radius / 1.25;
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -95,7 +95,7 @@
                 .description {
                     background-color: $color-cuaternary;
                     padding: $padding / 2;
-                    font-size: $font-medium;
+                    font-size: $font-small;
                     border-radius: $border-radius;
                     color: $text-color;
 
@@ -205,15 +205,16 @@
 
                     .content {
                         background-color: $color-tertiary;
-                        padding: 0.05em;
+                        padding: 1px;
                         border-radius: $border-radius;
 
                         p {
                             font-size: $font-medium;
+                            color: $text-color;
                             background-color: $color-primary;
                             min-width: 18px;
                             height: 18px;
-                            border-radius: $border-radius;
+                            border-radius: $border-radius / 1.25;
                             display: flex;
                             justify-content: center;
                             align-items: center;
