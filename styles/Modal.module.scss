@@ -14,7 +14,7 @@
     z-index: 99999;
     padding-bottom: 7em;
     overflow: hidden;
-    font-size: $font-normal;
+    font-size: $font-medium;
 
     @include respond(tab-land) {
         width: 50%;
