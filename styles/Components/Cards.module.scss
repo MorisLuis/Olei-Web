@@ -334,9 +334,10 @@
 
 .searchItemCard {
     width: 100%;
-    padding: 0.5em 1em;
-    border-radius: 5px;
+    padding: $padding/2 $padding;
+    border-radius: $border-radius;
     border: 1px solid transparent;
+    font-size: $font-medium;
 
     &:hover {
         background-color: rgba($color: $color-cuaternary, $alpha: 1);
@@ -349,7 +350,7 @@
     width: 100%;
     padding: $padding * 4;
     background-color: $background-color;
-    border-radius: 0.75em;
+    border-radius: $border-radius;
     border: 1px solid $color-border;
 
     @include respond(phone) {
@@ -361,8 +362,8 @@
         width: 40px;
         height: 40px;
         border: 1px solid $color-border;
-        border-radius: 2em;
-        margin-bottom: 1em;
+        border-radius: $border-radius;
+        margin-bottom: $margin-horizontal;
     }
 
     .paragraph {
@@ -370,6 +371,6 @@
     }
 
     h2 {
-        margin-bottom: 0.5em;
+        margin-bottom: $margin-vertical;
     }
 }

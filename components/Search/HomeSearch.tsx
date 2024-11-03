@@ -1,13 +1,11 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
-import styles from "../../styles/Pages/Products.module.scss";
-
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FiltersContext } from '@/context';
 import { useRouter } from 'next/router';
 import ResultsContainer from './ResultsContainer';
 import { searchProducts } from '@/services/search';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import styles from "../../styles/Pages/Products.module.scss";
 
 interface HomeSearchInterface {
     setLoadingData: Dispatch<SetStateAction<boolean>>
@@ -17,9 +15,8 @@ const HomeSearch = ({
     setLoadingData
 }: HomeSearchInterface) => {
 
-    const { filters } = useContext(FiltersContext);
     const { handleError } = useErrorHandler();
-    const { push, query } = useRouter();
+    const { query } = useRouter();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -58,12 +55,12 @@ const HomeSearch = ({
     }, [query]);
 
     return (
-        <div className={`${styles.search} ${searchActive ? `${styles.active}` : ''} display-flex cursor`}>
+        <div className={`${styles.search} ${searchActive ? `${styles.active}` : ''}`}>
 
             <input
                 ref={inputRef}
                 type="text"
-                className={`${styles.inputSearch} display-flex align cursor`}
+                className={styles.inputSearch}
                 placeholder='Buscar producto...'
                 value={inputValue}
                 onChange={onSearchProduct}
