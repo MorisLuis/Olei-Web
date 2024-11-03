@@ -1,5 +1,5 @@
 import { MessageCard } from '@/components/Cards/MessageCard';
-import GridTest from '@/components/Ui/Tables/Grid';
+import Grid from '@/components/Ui/Tables/Grid';
 import GridSkeleton from '@/components/Skeletons/GridSkeleton';
 import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
 import ProductInterface from '@/interfaces/product';
@@ -7,6 +7,7 @@ import React from 'react';
 
 interface GridProductsInterface {
     products: ProductInterface[];
+    totalProducts: number;
     loadMoreProducts: () => Promise<void>;
     handleSelectData: (product: ProductInterface) => Promise<void>;
     loadingData: boolean;
@@ -15,6 +16,7 @@ interface GridProductsInterface {
 
 export default function GridProducts({
     products,
+    totalProducts,
     loadMoreProducts,
     buttonIsLoading,
     handleSelectData,
@@ -22,7 +24,7 @@ export default function GridProducts({
 }: GridProductsInterface) {
 
     const { productsWithCartInfo } = useProductsWithCartInfo(products);
-    const NoMoreProductToShow = productsWithCartInfo.length === 20;
+    const NoMoreProductToShow = productsWithCartInfo.length === totalProducts;
 
     if (loadingData) return <GridSkeleton />
 
@@ -35,7 +37,7 @@ export default function GridProducts({
     }
 
     return (
-        <GridTest
+        <Grid
             data={productsWithCartInfo}
             handleLoadMore={loadMoreProducts}
             handleSelectData={handleSelectData}

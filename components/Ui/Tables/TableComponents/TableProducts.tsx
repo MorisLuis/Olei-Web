@@ -10,6 +10,7 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 
 interface TableProductsInterface {
     products: ProductInterface[];
+    totalProducts: number;
     loadMoreProducts: () => Promise<void>;
     buttonIsLoading: boolean;
     loadingData: boolean;
@@ -17,6 +18,7 @@ interface TableProductsInterface {
 
 export default function TableProducts({
     products,
+    totalProducts,
     loadingData,
     buttonIsLoading,
     loadMoreProducts
@@ -24,7 +26,7 @@ export default function TableProducts({
 
     const { addProductToCart } = useContext(CartContext);
     const { productsWithCartInfo } = useProductsWithCartInfo(products);
-    const NoMoreProductToShow = productsWithCartInfo.length === 20;
+    const NoMoreProductToShow = productsWithCartInfo.length === totalProducts;
 
     const handleAddProduct = (item: ProductInterface, newValue: number) => {
         addProductToCart({

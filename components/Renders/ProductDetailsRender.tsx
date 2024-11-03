@@ -87,7 +87,7 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                                 {
                                     isEmployee &&
                                     <div className={styles.stock}>
-                                        <p className={`display-flex text-ellipsis align`}>
+                                        <p className={`display-flex  align`}>
                                             Existencia:
                                         </p>
                                         <div>

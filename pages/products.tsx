@@ -11,7 +11,7 @@ import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender'
 
 import ProductInterface from '@/interfaces/product';
 import { AuthContext, CartContext, ClientContext, FiltersContext } from '@/context';
-import { getProductById, getProducts } from '@/services/product';
+import { getProductById, getProducts, getTotalProducts } from '@/services/product';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import TableProducts from '@/components/Ui/Tables/TableComponents/TableProducts';
 import { useLoadMoreData } from '@/hooks/useLoadMoreData';
@@ -20,28 +20,26 @@ import GridProducts from '@/components/Ui/Tables/TableComponents/GridProducts';
 
 
 export default function Home() {
-   const { push, query } = useRouter();
-   const { handleError } = useErrorHandler();
-
    const { filters } = useContext(FiltersContext);
-   const { nombre, enStock, marca, folio, familia } = filters;
    const { productDelete } = useContext(CartContext);
    const { clientChanged } = useContext(ClientContext);
    const { user } = useContext(AuthContext);
-
-   const [products, setProducts] = useState<ProductInterface[]>([]);
+   const { push, query } = useRouter();
+   const { handleError } = useErrorHandler();
+   const { nombre, enStock, marca, folio, familia } = filters;
    const [productDetails, setProductDetails] = useState<ProductInterface>();
    const [openModalFilter, setOpenModalFilter] = useState<boolean>(false);
    const [openModalProduct, setOpenModalProduct] = useState<boolean>(false);
    const [showGrid, setShowGrid] = useState(true);
-   const [loadingData, setLoadingData] = useState(true); // Is used to handle the skeleton state in grid and table.
+   const [loadingData, setLoadingData] = useState(true);
 
    // Handle data showed
    const { data, isLoading, isButtonLoading, total, handleResetData, handleLoadMore } = useLoadMoreData(
       {
          fetchInitialData: (filtersdata) => getProducts(filtersdata as FiltersInterface),
          fetchPaginatedData: (filtersdata, nextPage) => getProducts(filtersdata as FiltersInterface, nextPage),
-         filters: filters
+         fetchTotalCount: (filters) => getTotalProducts(filters as FiltersInterface),
+         filters: filters,
       }
    );
 
@@ -67,26 +65,12 @@ export default function Home() {
    };
 
    useEffect(() => {
-      if (clientChanged) {
-         handleResetData();
-         return;
-      }
-
-      if (productDelete) {
-         setLoadingData(false)
-         setProducts(products)
-         setLoadingData(true)
-         return;
-      }
-
-      setLoadingData(true);
-      setProducts(products);
-      setLoadingData(false);
-   }, [productDelete, products, clientChanged])
+      handleResetData()
+   }, [nombre, enStock, marca, folio, familia, productDelete, clientChanged]);
 
    useEffect(() => {
       handleResetData()
-   }, [nombre, enStock, marca, folio, familia])
+   }, [])
 
    return (
       <>
@@ -103,16 +87,18 @@ export default function Home() {
                      <GridProducts
                         products={data}
                         loadMoreProducts={handleLoadMore}
-                        loadingData={loadingData}
+                        loadingData={isLoading}
                         buttonIsLoading={isButtonLoading}
+                        totalProducts={total ?? 0}
 
                         handleSelectData={handleSelectProduct}
                      />
                   ) : (
                      <TableProducts
                         products={data}
+                        totalProducts={total ?? 0}
                         loadMoreProducts={handleLoadMore}
-                        loadingData={loadingData}
+                        loadingData={isLoading}
                         buttonIsLoading={isButtonLoading}
                      />
                   )

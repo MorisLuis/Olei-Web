@@ -6,7 +6,7 @@ interface useLoadMoreDataInterface {
     fetchInitialData: (filters?: FiltersInterface) => Promise<any[]>;
     fetchPaginatedData: (filters?: FiltersInterface, page?: number) => Promise<any[]>;
     filters?: FiltersInterface;
-    fetchTotalCount?: any;
+    fetchTotalCount?: (filters?: FiltersInterface) => Promise<number>;
 }
 
 export const useLoadMoreData = ({

@@ -64,7 +64,7 @@ const ProductCard = ({ product }: Props) => {
 
             <div className={`${styles.secondaryData} display-flex space-between`}>
                 <div>
-                    <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product.Codigo}</p>
+                    <p className=' display-flex align'><strong>Codigo: </strong>{product.Codigo}</p>
                 </div>
 
                 <div>
@@ -72,12 +72,12 @@ const ProductCard = ({ product }: Props) => {
                 </div>
 
                 <div>
-                    <p className='text-ellipsis align'><strong>Familia: </strong>{product?.Familia}</p>
+                    <p className=' align'><strong>Familia: </strong>{product?.Familia}</p>
                 </div>
 
                 {isEmployee &&
                     <div>
-                        <p className='text-ellipsis align'>
+                        <p className=' align'>
                             {
                                 product?.Existencia < 0 ?
                                     <Tag>No Stock</Tag> :
@@ -152,7 +152,7 @@ const ProductCardMovil = ({ product }: Props) => {
 
             <div className={`${styles.secondaryData} display-flex space-between`}>
                 <div>
-                    <p className='text-ellipsis display-flex align'>Codigo: <strong>{product.Codigo}</strong></p>
+                    <p className=' display-flex align'>Codigo: <strong>{product.Codigo}</strong></p>
                 </div>
 
                 <div>
@@ -160,12 +160,12 @@ const ProductCardMovil = ({ product }: Props) => {
                 </div>
 
                 <div>
-                    <p className='text-ellipsis align'>Familia: <strong>{product?.Familia}</strong></p>
+                    <p className=' align'>Familia: <strong>{product?.Familia}</strong></p>
                 </div>
 
                 {isEmployee &&
                     <div>
-                        <p className={`${styles.stock} display-flex text-ellipsis align`}>
+                        <p className={`${styles.stock} display-flex  align`}>
                             Existencia:
                             {
                                 product?.Existencia < 0 ?

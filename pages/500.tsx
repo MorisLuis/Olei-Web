@@ -7,7 +7,7 @@ import ButtonSmall from '@/components/Buttons/ButtonSmall';
 
 const Custum404 = () => {
 
-    const { push } = useRouter();
+    const { replace } = useRouter();
 
     return (
         <Layout>
@@ -35,7 +35,7 @@ const Custum404 = () => {
 
                         <ButtonSmall
                             text='Volver al inicio'
-                            onClick={() => push('/products')}
+                            onClick={() => replace('/products')}
                         />
                     </motion.p>
                 </motion.div>

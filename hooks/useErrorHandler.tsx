@@ -1,5 +1,4 @@
 import { AuthContext } from '@/context';
-import { ApiError } from '@/interfaces/error';
 import { sendError } from '@/services/errors';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
@@ -20,7 +19,6 @@ export const useErrorHandler = () => {
             ?? "Unknown error";
     
         if (status === 401) {
-            console.log("session ended");
             return logoutUser?.();
         }
     
