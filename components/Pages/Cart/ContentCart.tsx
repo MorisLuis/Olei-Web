@@ -3,14 +3,13 @@ import styles from "../../../styles/Pages/Cart.module.scss";
 
 import { faAngleDoubleDown, faFileInvoice, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ProductCardShort } from '@/components/Cards/ProductCardShort';
 import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 
-import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import ToggleSwitch from '@/components/Inputs/toggleSwitch';
 import ButtonSmall from '@/components/Buttons/ButtonSmall';
+import TableOrders from '@/components/Ui/Tables/TableComponents/TableSecondaryOrder';
 
 interface ContentCartInterface {
     setOpenModalMessage: React.Dispatch<React.SetStateAction<boolean>>
@@ -90,14 +89,12 @@ export const ContentCart = ({
                             </div>
 
                             <div className={styles.table}>
-                                {
-                                    searchEmpty ?
-                                        cartShowed.map((product: ProductInterface, Index) => <ProductCardShort product={product} key={Index} />)
-                                        :
-                                        <MessageCard title='No hay productos.'>
-                                            <p>En tu orden no hay productos con ese nombre.</p>
-                                        </MessageCard>
-                                }
+                                <TableOrders
+                                    products={cartShowed}
+                                    totalProducts={cartShowed.length}
+                                    loadingData={false}
+                                    buttonIsLoading={false}
+                                />
                             </div>
                         </>
                         :
@@ -125,9 +122,12 @@ export const ContentCart = ({
 
                         {
                             requestOpen &&
-                            cartPending.map((product: ProductInterface, Index) =>
-                                <ProductCardShort product={product} key={Index} productPending />
-                            )
+                            <TableOrders
+                                products={cartPending}
+                                totalProducts={cartPending.length}
+                                loadingData={false}
+                                buttonIsLoading={false}
+                            />
                         }
                     </div>
                 }

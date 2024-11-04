@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import TableRequest from '@/components/Ui/Tables/TableRequest';
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import Modal from '@/components/Modals/Modal';
 import { useRouter } from 'next/router';
@@ -13,6 +12,7 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 import { TableRequestSkeleton } from '@/components/Skeletons/TableRequestSkeleton';
 import { getOrderDetails, getOrders } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import TableRequest from '@/components/Ui/Tables/TableComponents/TableSecondaryRequest';
 
 const Pedidos = () => {
 
@@ -90,26 +90,32 @@ const Pedidos = () => {
         setOpenModalRequest(true)
     }, [query])
 
+    if (!orders) return <TableRequestSkeleton />
+
+    if (orders.length < 0) {
+        return (
+            <MessageCard title="No hay pedidos actuales">
+                No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
+            </MessageCard>
+        )
+    }
+
     return (
         <>
             <LayoutProfile>
-                {
-                    !orders ?
-                        <TableRequestSkeleton /> :
-                        orders.length > 0 ?
-                            <>
-                                <div>
-                                    <h2>Pedidos actuales</h2>
-                                    <p>Para cambiar la información, habla con tu administrador.</p>
-                                </div>
-                                <TableRequest order={orders} />
+                <>
+                    <div className='mb-medium'>
+                        <h2>Pedidos actuales</h2>
+                        <p>Para cambiar la información, habla con tu administrador.</p>
+                    </div>
 
-                            </>
-                            :
-                            <MessageCard title="No hay pedidos actuales">
-                                No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
-                            </MessageCard>
-                }
+                    <TableRequest
+                        products={orders}
+                        totalProducts={orders.length}
+                        buttonIsLoading={false}
+                        loadingData={false}
+                    />
+                </>
             </LayoutProfile>
 
             <Modal
@@ -131,7 +137,7 @@ const Pedidos = () => {
                 disabled={loadingOrdeInCart}
                 title="Usar esta lista en carrito"
             >
-                Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.
+                <p>Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.</p>
             </ModalMessage>
         </>
 

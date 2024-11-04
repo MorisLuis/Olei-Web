@@ -23,7 +23,7 @@ const ButtonLoad = ({
             disabled={loading}
         >
             {loading ? buttonTextLoading : buttonText}
-            <FontAwesomeIcon icon={faPlus} className={`icon__small m-left`} />
+            <FontAwesomeIcon icon={faPlus} className={`icon__small`} />
         </button>
     );
 }

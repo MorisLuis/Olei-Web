@@ -154,19 +154,9 @@
 
         @include respond(phone) {
             height: 40px;
+            min-width: 40px;
         }
     }
-
-    /* 
-    &:hover {
-        .action {
-            background-color: $background-color;
-
-            &:hover {
-                border: 1px solid $text-color;
-            }
-        }
-    } */
 }
 
 .filter {

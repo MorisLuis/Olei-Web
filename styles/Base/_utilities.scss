@@ -1,8 +1,4 @@
 
-.u-center-text {
-    text-align: center !important;
-}
-
 .skeleton {
     width: 100%;
     height: 20px;
@@ -60,46 +56,17 @@
     }
 }
 
-
 //Margin
 .mb-small {
-    margin-bottom: 1em !important;
+    margin-bottom: $margin-horizontal !important;
 }
 
 .mb-medium {
-    margin-bottom: 2rem !important;
+    margin-bottom: $margin-horizontal*2 !important;
 
     @include respond(tab-port) {
         margin-bottom: 3rem !important;
     }
-}
-
-.mb-big {
-    margin-bottom: 8rem !important;
-
-    @include respond(tab-port) {
-        margin-bottom: 5rem !important;
-    }
-}
-
-.m-right{
-    margin-right: 1em;
-}
-
-.m-left{
-    margin-left: 0.75em;
-}
-
-.u-margin-top-big {
-    margin-top: 8rem !important;
-}
-
-.u-margin-top-huge {
-    margin-top: 10rem !important;
-}
-
-.disabled{
-    opacity: 50%;
 }
 
 //Icons

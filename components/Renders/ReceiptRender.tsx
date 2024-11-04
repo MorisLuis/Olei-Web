@@ -21,6 +21,8 @@ export const ReceiptRender = () => {
     const [orderDetailsSelect, setOrderDetailsSelect] = useState<ProductInterface[]>();
     const [loadingOrder, setLoadingOrder] = useState(false);
 
+    console.log({orderDetailsSelect})
+
     // Utilizamos un ref para controlar si ya se ha hecho la solicitud
     const fetchedData = useRef(false);
 
@@ -99,9 +101,9 @@ export const ReceiptRender = () => {
             </div>
 
             <div className={styles.productsDetails}>
-                {orderDetailsSelect.map((product: ProductInterface, index: number) => (
+                {/* {orderDetailsSelect.map((product: ProductInterface, index: number) => (
                     <ProductCardShort key={index} product={product} counterVisible={false} />
-                ))}
+                ))} */}
             </div>
         </div>
     ) : (
