@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
 
 import ProductInterface from '@/interfaces/product';
 import { Tag } from '../Ui/Tag';
-import { AuthContext, CartContext } from '@/context';
+import { AuthContext } from '@/context';
 import { format } from '../../utils/currency';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,44 +17,15 @@ import Counter from '../Ui/Counter';
 interface Props {
     product: ProductInterface,
     onClick?: (arg: ProductInterface) => void;
+    handleAddProduct?: (item: ProductInterface, newValue: number) => void
 }
 
 
-export const ProductSquareCard = ({ product, onClick }: Props) => {
+export const ProductSquareCard = ({ product, onClick, handleAddProduct }: Props) => {
 
-    const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
-    const isEmployee = user?.TipoUsuario === 2;
     const { pathname, query } = useRouter();
-
-
-    const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
-        Precio: product.Precio,
-        Cantidad: 0,
-
-        Id_Familia: product.Id_Familia,
-        Id_Marca: product.Id_Marca,
-
-        Descripcion: product.Descripcion,
-        Codigo: product.Codigo,
-        Existencia: product.Existencia,
-        Familia: product.Familia,
-        Marca: product.Marca,
-        Impuesto: product.Impuesto
-    })
-
-    const onUpdateQuantity = async (Cantidad: number) => {
-
-        setTempCartProduct(currentProduct => ({
-            ...currentProduct,
-            Cantidad
-        }));
-
-        addProductToCart({
-            ...tempCartProduct,
-            Cantidad
-        });
-    }
+    const isEmployee = user?.TipoUsuario === 2;
 
     return (
         <div className={styles.productSquareCard} >
@@ -123,8 +94,8 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         }
 
                         <Counter
-                            counter={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
-                            setCounter={(value: number) => onUpdateQuantity(value)}
+                            counter={product?.Cantidad}
+                            setCounter={(value: number) => handleAddProduct?.(product, value)}
                         />
                     </div>
                 </div>

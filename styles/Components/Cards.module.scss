@@ -154,8 +154,8 @@
         }
 
         .delete {
-            background-color: $color-secondary;
-            border: 1px solid $color-border;
+            background-color: $background-color-tertiary;
+            border: 1px solid $color-border-secondary;
             border-radius: $border-radius;
             width: 26px;
             height: 26px;
@@ -172,6 +172,7 @@
 
             &:hover {
                 opacity: 100%;
+                border: 1px solid $color-border-tertiary;
             }
         }
     }
@@ -191,7 +192,6 @@
             display: flex;
             flex-direction: column;
             width: 60%;
-            margin-bottom: $margin-vertical;
 
             .price {
                 font-weight: bold;

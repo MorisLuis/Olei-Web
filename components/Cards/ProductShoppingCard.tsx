@@ -1,93 +1,77 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
-
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Counter from '../Ui/Counter';
-import { CartContext } from '@/context';
-import { Tag } from '../Ui/Tag';
 import ProductInterface from '@/interfaces/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import toast from 'react-hot-toast';
 
-interface Props {
-    product: ProductInterface,
-    setProductDeleteFromCart: React.Dispatch<React.SetStateAction<boolean>>
+type RenderableValue = string | number | { url: string; id: number; } | [{ url: string; id: number; }] | any;
+
+export interface DataCardConfig<T> {
+    key: keyof T;
+    label: string;
+    render?: (value: RenderableValue) => React.ReactNode;
+    className?: string;
+    width?: string;
 }
 
-const ProductShoppingCard = ({ product, setProductDeleteFromCart }: Props) => {
+interface Props {
+    product: ProductInterface;
+    onRemove?: (product: ProductInterface) => void;
+    onAdd?: (item: ProductInterface, newValue: number) => void;
+    data: DataCardConfig<ProductInterface>[];
+}
 
-    const { addProductToCart, removeCartProduct } = useContext(CartContext)
-
-    const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
-        Descripcion: product.Descripcion,
-        Codigo: product.Codigo,
-
-        Precio: product.Precio,
-
-        Id_Familia: product.Id_Familia,
-        Familia: product.Familia,
-
-        Id_Marca: product.Id_Marca,
-        Marca: product.Marca,
-        Cantidad: product.Cantidad,
-        Existencia: product.Existencia
-    })
-
-    const onUpdateQuantity = async (Cantidad: number) => {
-        setTempCartProduct(currentProduct => ({
-            ...currentProduct,
-            Cantidad
-        }));
-
-        addProductToCart({
-            ...tempCartProduct,
-            Cantidad
-        });
-    }
-
-    const handleRemoveCartProduct = () => {
-        setProductDeleteFromCart(true)
-        removeCartProduct(product)
-        toast.success(`Se elimino del carrito ${product.Descripcion}`, {
-            duration: 4000,
-            position: "bottom-left"
-        })
-    }
+const ProductShoppingCard = ({
+    product,
+    onRemove,
+    onAdd,
+    data
+}: Props) => {
 
     return (
         <div className={styles.ProductShoppingCard}>
             <div className={styles.productHeader}>
-                <p className={`${styles.productName}`}>
-                    {product?.Descripcion}
-                </p>
-                <div className={styles.delete} onClick={handleRemoveCartProduct}>
-                    <FontAwesomeIcon icon={faTrashCan} className={`icon__small display-flex align`} />
+                <div className={styles.delete} onClick={() => onRemove?.(product)}>
+                    <FontAwesomeIcon icon={faTrashCan} className={'icon__small'} />
                 </div>
             </div>
 
             <div className={styles.productInfo}>
                 <div className={styles.data}>
-                    <div className={styles.item}>
-                        <p> <span>Codigo: </span> {product?.Codigo}</p>
-                    </div>
-
-                    <div className={styles.item}>
-                        {
-                            product?.Precio ?
-                                <p> <span>Precio: </span> {product?.Precio}</p> :
-                                <Tag color="blue">No tiene precio</Tag>
-                        }
-                    </div>
+                    {data.map((col, index) => (
+                        <div className={styles.item}
+                            key={index}
+                            style={{ width: col.width }}
+                        >
+                            <p className={col.className}>
+                                <span>{col.label ? `${col.label}: ` : ``}</span>
+                                {Array.isArray(product[col.key])
+                                    ? (product[col.key] as RenderableValue[]).map((item, idx) => (
+                                        <div key={idx}>
+                                            {col.render
+                                                ? col.render(item)
+                                                : <span>{JSON.stringify(item)}</span>}
+                                        </div>
+                                    ))
+                                    : col.render
+                                        ? col.render(product[col.key] as RenderableValue)
+                                        : <span>{String(product[col.key])}</span>
+                                }
+                            </p>
+                        </div>
+                    ))}
                 </div>
+
                 <div className={styles.counter}>
                     <Counter
                         counter={product?.Cantidad || 0}
-                        setCounter={(value: number) => onUpdateQuantity(value)}
+                        setCounter={(value: number) => onAdd?.(product, value)}
                     />
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default ProductShoppingCard
+export default ProductShoppingCard;

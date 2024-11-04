@@ -3,7 +3,8 @@ import Grid from '@/components/Ui/Tables/Grid';
 import GridSkeleton from '@/components/Skeletons/GridSkeleton';
 import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
 import ProductInterface from '@/interfaces/product';
-import React from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from '@/context';
 
 interface GridProductsInterface {
     products: ProductInterface[];
@@ -26,6 +27,15 @@ export default function GridProducts({
     const { productsWithCartInfo } = useProductsWithCartInfo(products);
     const NoMoreProductToShow = productsWithCartInfo.length === totalProducts;
 
+    const { addProductToCart } = useContext(CartContext);
+
+    const handleAddProduct = (item: ProductInterface, newValue: number) => {
+        addProductToCart({
+            ...item,
+            Cantidad: newValue
+        })
+    };
+
     if (loadingData) return <GridSkeleton />
 
     if (products.length === 0) {
@@ -43,6 +53,7 @@ export default function GridProducts({
             handleSelectData={handleSelectData}
             loadingMoreData={loadingData}
             noMoreData={NoMoreProductToShow}
+            handleAddProduct={handleAddProduct}
         />
     )
 }

@@ -100,11 +100,11 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                                     </div>
                                 }
                                 <div className={styles.action}>
-                                    <p>Agregar al carrito: </p>
+                                    <p>Agregar al carrito:</p>
                                     <Counter
                                         counter={Cantidad > 0 ? Cantidad : (tempCartProduct?.Cantidad || 0)}
                                         setCounter={(value: number) => onUpdateQuantity(value)}
-                                        />
+                                    />
                                 </div>
                             </section>
                         </div>

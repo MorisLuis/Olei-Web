@@ -55,17 +55,15 @@
 
         .close {
             width: fit-content;
-            padding: $padding;
+            padding: $padding / 2;
             border-radius: $border-radius;
             border: 1px solid transparent;
             font-size: $font-medium;
-
-            p {
-                padding-left: $padding-horizontal;
-            }
+            cursor: pointer;
+            gap: $gap;
 
             &:hover {
-                background-color: $color-secondary;
+                background-color: $background-color-secondary;
                 border: 1px solid $color-border;
             }
         }
@@ -116,7 +114,7 @@
                 }
 
                 &:hover {
-                    background-color: $color-secondary;
+                    background-color: $background-color-tertiary;
                 }
             }
         }

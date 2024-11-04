@@ -3,13 +3,15 @@ import styles from "../../styles/Modal.module.scss";
 
 import { faAnglesRight, faArrowUp, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProductShoppingCard from '../Cards/ProductShoppingCard';
+import ProductShoppingCard, { DataCardConfig } from '../Cards/ProductShoppingCard';
 import { useRouter } from 'next/router';
 import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
 import { MessageCard } from '../Cards/MessageCard';
 import Button from '../Buttons/Button';
+import toast from 'react-hot-toast';
+import { capitalizarTexto } from '@/utils/textCapitalize';
 
 
 interface Props {
@@ -27,6 +29,7 @@ const ModalCart = ({
     const [productDeleteFromCart, setProductDeleteFromCart] = useState(false)
     const { cart, cartPending, numberOfItems, subTotal, total, setProductDelete } = useContext(CartContext);
     const { user } = useContext(AuthContext);
+    const { removeCartProduct, addProductToCart } = useContext(CartContext)
 
     const handleCloseModal = () => {
         if (productDeleteFromCart) {
@@ -47,6 +50,44 @@ const ModalCart = ({
         }
     };
 
+    const handleRemoveCartProduct = (product: ProductInterface) => {
+        setProductDeleteFromCart(true)
+        removeCartProduct(product)
+        toast.success(`Se elimino del carrito ${product.Descripcion}`, {
+            duration: 4000,
+            position: "bottom-left"
+        })
+    }
+
+    const handleAddProduct = (item: ProductInterface, newValue: number) => {
+        addProductToCart({
+            ...item,
+            Cantidad: newValue
+        })
+    };
+
+    const dataCard: DataCardConfig<ProductInterface>[] = [
+        {
+            key: 'Descripcion',
+            label: '',
+            render: (Descripción: string) => (
+                <span style={{ color: "black", fontWeight: "bold" }}>{capitalizarTexto(Descripción)}</span>
+            ),
+        },
+        {
+            key: 'Codigo',
+            label: 'Código',
+            className: 'text-blue-500 font-bold',
+        },
+        {
+            key: 'Precio',
+            label: 'Precio (USD)',
+            render: (value: number) => <span>${value.toFixed(2)}</span>,
+        },
+    ];
+    
+    
+
     return visible ? (
         <>
             <div className={styles.modalBackground} onClick={onClose}></div>
@@ -62,7 +103,13 @@ const ModalCart = ({
                 <div className={styles.content}>
                     {
                         cart.length > 0 ? cart.slice().reverse().map((product: ProductInterface, Index) =>
-                            <ProductShoppingCard product={product} key={Index} setProductDeleteFromCart={setProductDeleteFromCart} />
+                            <ProductShoppingCard
+                                key={Index}
+                                product={product}
+                                onRemove={handleRemoveCartProduct}
+                                onAdd={handleAddProduct}
+                                data={dataCard}
+                            />
                         )
                             :
                             <MessageCard

@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import ClientInterface from '@/interfaces/client';
-import { EmptyMessageCard } from '../Cards/EmptyMessageCard';
+import { MessageCard } from '../Cards/MessageCard';
 
 interface Props {
     visible: boolean;
     onClose: () => void;
-    
+
     // Methods
     onSelectItem: (item: ClientInterface) => void;
     onInputChange: (term: string) => Promise<{ clients: ClientInterface[] }>;
@@ -96,10 +96,9 @@ export const ModalSearch = ({
                             />
                         ))
                     ) : searchResults?.length === 0 && inputValue !== "" ? (
-                        <EmptyMessageCard
-                            title="No hay resultados."
-                            subtitle="Verifica haberlo escrito bien."
-                        />
+                        <MessageCard title='No hay resultados.'>
+                            <p>Verifica haberlo escrito bien.</p>
+                        </MessageCard>
                     ) : (
                         <div className={`${styles.messageEmpty} display-flex column allCenter`}>
                             <div className="display-flex column allCenter">

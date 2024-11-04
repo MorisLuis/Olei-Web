@@ -10,6 +10,7 @@ interface GridInterface {
     handleSelectData: (arg: ProductInterface) => void;
     loadingMoreData: boolean;
     noMoreData: boolean;
+    handleAddProduct?: (item: ProductInterface, newValue: number) => void
 }
 
 export default function Grid({
@@ -17,7 +18,8 @@ export default function Grid({
     handleLoadMore,
     handleSelectData,
     loadingMoreData,
-    noMoreData
+    noMoreData,
+    handleAddProduct
 }: GridInterface) {
 
     return (
@@ -29,7 +31,8 @@ export default function Grid({
                             <ProductSquareCard
                                 product={item}
                                 key={item.Codigo && (item.Codigo + item.Id_Marca)}
-                                onClick={(itemData: ProductInterface) => handleSelectData(itemData)}
+                                onClick={handleSelectData}
+                                handleAddProduct={handleAddProduct}
                             />
                         )
                     })
