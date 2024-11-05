@@ -1,13 +1,12 @@
 import React, { Dispatch, useContext, useRef, useState } from 'react';
-import styles from "../../styles/Components/SearchGlobal.module.scss";
-
 import ClientInterface from '@/interfaces/client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { ClientContext } from '@/context';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { useRouter } from 'next/router';
 import Button from '../Buttons/Button';
+import Input from './inputs';
+import styles from "../../styles/Components/SearchGlobal.module.scss";
 
 interface Props {
     searchResults: ClientInterface[];
@@ -29,6 +28,7 @@ export const SearchOnboarding = ({
     const inputRef = useRef<HTMLInputElement>(null);
     const { selectClient } = useContext(ClientContext);
     const router = useRouter()
+    const isSearchDisabled = inputValue.trim() === "";
 
     // Función para resaltar el término de búsqueda
     const highlightSearchTerm = (text: string, term: string) => {
@@ -40,34 +40,60 @@ export const SearchOnboarding = ({
     const handleSelectProduct = (result: ClientInterface) => {
         selectClient(result);
         setInputValue(result.Nombre);
-        setSearchResults([]); // Limpiar resultados de búsqueda
+        setSearchResults([]);
     };
 
     // Manejar cambio en el input
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const term = e.target.value;
-        setInputValue(term); // Actualizar el valor del input
-        handleSearchTerm(term); // Realizar búsqueda
+    const handleInputChange = (e: string) => {
+        const term = e;
+        setInputValue(term);
+        handleSearchTerm(term);
     };
 
     const clearInput = () => {
         setInputValue("");
+        setSearchResults([])
         inputRef.current?.focus();
     };
 
-    const isSearchDisabled = inputValue.trim() === "";
-
     return (
-        <>
-            <div className={`${styles.searchHome} display-flex`}>
-                <div className={`${styles.inputHome} display-flex`}>
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        placeholder="Buscar..."
-                        onChange={handleInputChange}
-                        value={inputValue}
+        <div className={styles.SearchOnboarding}>
+            <div className={styles.searchHome}>
+                <Input
+                    label=""
+                    onChange={(value: string) => handleInputChange(value)}
+                    value={inputValue}
+                    name='Buscar'
+                    extraStyles={{ width: "80%" }}
+                    clearInput={clearInput}
+                />
+                <Button
+                    text={label ?? ""}
+                    onClick={() => router.push(`/products`)}
+                    disabled={isSearchDisabled}
+                    icon={faArrowRightLong}
+                    extraStyles={{ width: "20%" }}
+                />
+            </div>
+
+            <div className={styles.results}>
+                {searchResults?.slice(0, 8).map((result: ClientInterface) => (
+                    <SearchItemCard
+                        key={result.Nombre}
+                        productName={result.Nombre}
+                        onclick={() => handleSelectProduct(result)}
+                        highlightSearchTerm={highlightSearchTerm}
+                        inputValue={inputValue}
                     />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+
+                {/*  <div className={styles.inputHome}>
+
                     {inputValue !== "" && (
                         <div
                             className="iconClean display-flex allCenter cursor"
@@ -76,26 +102,4 @@ export const SearchOnboarding = ({
                             <FontAwesomeIcon icon={faXmark} className="icon__small" style={{ zIndex: "99999999" }} />
                         </div>
                     )}
-                </div>
-                <Button
-                    text={label ?? ""}
-                    onClick={() => router.push(`/products`)}
-                    disabled={isSearchDisabled}
-                    icon={faArrowRightLong}
-                />
-            </div>
-
-            <div className={styles.results}>
-                {searchResults?.slice(0, 8).map((result: ClientInterface) => (
-                    <SearchItemCard
-                        key={result.Nombre} // Usar el ID como key para evitar advertencias
-                        productName={result.Nombre}
-                        onclick={() => handleSelectProduct(result)}
-                        highlightSearchTerm={highlightSearchTerm}
-                        inputValue={inputValue}
-                    />
-                ))}
-            </div>
-        </>
-    );
-};
+                </div> */}

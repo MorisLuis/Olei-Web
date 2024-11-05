@@ -3,7 +3,7 @@ import styles from "../../styles/Modal.module.scss";
 
 import { faAnglesRight, faArrowUp, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ProductShoppingCard, { DataCardConfig } from '../Cards/ProductShoppingCard';
+import ProductCard, { DataCardConfig } from '../Cards/ProductCard';
 import { useRouter } from 'next/router';
 import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
@@ -103,7 +103,7 @@ const ModalCart = ({
                 <div className={styles.content}>
                     {
                         cart.length > 0 ? cart.slice().reverse().map((product: ProductInterface, Index) =>
-                            <ProductShoppingCard
+                            <ProductCard
                                 key={Index}
                                 product={product}
                                 onRemove={handleRemoveCartProduct}

@@ -28,7 +28,7 @@ export const ProductSquareCard = ({ product, onClick, handleAddProduct }: Props)
     const isEmployee = user?.TipoUsuario === 2;
 
     return (
-        <div className={styles.productSquareCard} >
+        <div className={styles.ProductSquareCard} >
             <div className={styles.content}>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}

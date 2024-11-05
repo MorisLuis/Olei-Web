@@ -1,35 +1,49 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     label?: string,
     onChange?: (arg: string) => void,
     value: string,
     name: string
+    extraStyles?: CSSProperties
+    clearInput?: () => void
 }
 
 const Input = ({
     label,
     onChange,
     value,
-    name
+    name,
+    extraStyles,
+    clearInput
 }: Props) => {
-    
-    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
+
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (typeof onChange === 'function') {
             onChange(event.target.value);
         }
-    }
+    };
 
     return (
-        <div className='display-flex column'>
+        <div className='inputComponent' style={extraStyles}>
             <label htmlFor={name}>{label}</label>
             <input
-                className="input"
                 type="text"
                 placeholder='Buscar...'
                 onChange={(event) => handleOnChange(event)}
                 value={value || ""}
             />
+
+            {(value !== "" && clearInput) && (
+                <div
+                    className="clearinput"
+                    onClick={clearInput}
+                >
+                    <FontAwesomeIcon icon={faXmark} className="icon__small" style={{ zIndex: "99999999" }} />
+                </div>
+            )}
         </div>
     )
 }

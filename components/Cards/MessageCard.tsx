@@ -17,7 +17,7 @@ export const MessageCard = ({
 }: Props) => {
 
     return (
-        <div className={styles.messageCard}>
+        <div className={styles.MessageCard}>
             {
                 icon &&
                 <div className={`${styles.icon} display-flex allCenter`}>

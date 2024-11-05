@@ -1,137 +1,6 @@
 @import "../main.scss";
 
-.productCard {
-    width: 100%;
-    background-color: $background-color;
-    border: 1px solid transparent;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-
-    background-color: aqua;
-    .content {
-        display: flex;
-        padding: 1em;
-        position: relative;
-        font-size: $font-medium;
-
-        @include respond(phone) {
-            font-size: $font-medium;
-        }
-
-        .divider {
-            display: none;
-
-            @include respond(phone) {
-                display: flex;
-                margin: 1em 0em;
-            }
-        }
-
-        @include respond(phone) {
-            display: grid;
-            grid-template-rows: auto auto;
-            grid-template-areas:
-                "first first"
-                "second second"
-                "third third";
-            grid-gap: 5px;
-        }
-
-        .productDescription {
-            width: 45%;
-            margin-right: $margin-horizontal;
-
-            @include respond(phone) {
-                width: 100%;
-                grid-area: first;
-            }
-
-            .title {
-                font-weight: bold;
-                margin-bottom: $margin-vertical;
-                min-height: 20px;
-            }
-        }
-
-        .productData {
-            width: 25%;
-
-            @include respond(phone) {
-                width: 100%;
-                grid-area: second;
-            }
-
-            .price {
-                font-weight: bold;
-            }
-
-            .existent {
-                margin-right: $margin-horizontal;
-            }
-        }
-
-        .productCounter {
-            width: 20%;
-
-            @include respond(phone) {
-                width: 100%;
-                grid-area: third;
-            }
-
-            .delete {
-                padding: $padding;
-                text-decoration: underline;
-                font-weight: bold;
-
-                &:hover {
-                    opacity: 50%;
-                }
-            }
-        }
-
-        .subtotal {
-            margin-top: $margin-vertical;
-        }
-
-        .delete {
-            width: 5%;
-            justify-content: flex-end;
-
-            .container {
-                width: 24px;
-                height: 24px;
-                border-radius: $border-radius;
-
-                &:hover {
-                    background-color: $color-primary;
-                }
-            }
-
-        }
-
-        .deleteText {
-            display: none;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-    }
-
-    @include respond(tab-port) {
-        .description {
-            width: 100%;
-        }
-    }
-
-    &:first-child {
-        border-radius: 1em 1em 0em 0em;
-    }
-
-    &:last-child {
-        border-radius: 0em 0em 1em 1em;
-    }
-
-}
-
-.ProductShoppingCard {
+.ProductCard {
     width: 100%;
     padding: $padding;
     margin-bottom: $margin-vertical;
@@ -199,7 +68,7 @@
             }
         }
 
-        .counter{
+        .counter {
             width: 40%;
 
             @include respond(phone) {
@@ -209,7 +78,7 @@
     }
 }
 
-.productSquareCard {
+.ProductSquareCard {
     min-width: 180px;
     font-size: $font-medium;
 
@@ -275,7 +144,7 @@
             .data {
                 margin-bottom: $margin-horizontal / 2;
 
-                .stock{
+                .stock {
                     display: flex;
                     gap: $gap;
                 }
@@ -292,6 +161,55 @@
             }
         }
 
+    }
+}
+
+.SearchItemCard {
+    width: 100%;
+    padding: $padding/2 $padding;
+    border-radius: $border-radius;
+    border: 1px solid $color-border-secondary;
+    font-size: $font-medium;
+    background-color: $background-color-secondary;
+    margin-bottom: $margin-horizontal / 2;
+
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: $gap;
+
+    &:hover {
+        background-color: $background-color-tertiary;
+        border: 1px solid $color-border;
+    }
+}
+
+.MessageCard {
+    width: 100%;
+    padding: $padding * 4;
+    background-color: $background-color;
+    border-radius: $border-radius;
+    border: 1px solid $color-border;
+
+    @include respond(phone) {
+        padding: 4em 3em;
+    }
+
+    .icon {
+        background-color: $color-secondary;
+        width: 40px;
+        height: 40px;
+        border: 1px solid $color-border;
+        border-radius: $border-radius;
+        margin-bottom: $margin-horizontal;
+    }
+
+    .paragraph {
+        font-size: $font-medium;
+    }
+
+    h2 {
+        margin-bottom: $margin-vertical;
     }
 }
 
@@ -330,48 +248,5 @@
                 margin-left: 1em;
             }
         }
-    }
-}
-
-.searchItemCard {
-    width: 100%;
-    padding: $padding/2 $padding;
-    border-radius: $border-radius;
-    border: 1px solid transparent;
-    font-size: $font-medium;
-
-    &:hover {
-        background-color: rgba($color: $color-cuaternary, $alpha: 1);
-        border: 1px solid $color-border;
-
-    }
-}
-
-.messageCard {
-    width: 100%;
-    padding: $padding * 4;
-    background-color: $background-color;
-    border-radius: $border-radius;
-    border: 1px solid $color-border;
-
-    @include respond(phone) {
-        padding: 4em 3em;
-    }
-
-    .icon {
-        background-color: $color-secondary;
-        width: 40px;
-        height: 40px;
-        border: 1px solid $color-border;
-        border-radius: $border-radius;
-        margin-bottom: $margin-horizontal;
-    }
-
-    .paragraph {
-        font-size: $font-medium;
-    }
-
-    h2 {
-        margin-bottom: $margin-vertical;
     }
 }

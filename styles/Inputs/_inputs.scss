@@ -1,5 +1,7 @@
 .input {
     height: 48px;
+    width: 100%;
+
     position: relative;
     border-radius: $border-radius;
     border: 1px solid $color-border;
@@ -25,6 +27,65 @@
 
     &:valid {
         padding: 0em $padding-horizontal;
+    }
+}
+
+.inputComponent {
+    width: 100%;
+    position: relative;
+
+    input {
+        height: 48px;
+        width: 100%;
+
+        position: relative;
+        border-radius: $border-radius;
+        border: 1px solid $color-border;
+        background-color: $background-color;
+        transition-property: all;
+        transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+        transition-duration: .15s;
+        padding: $padding-horizontal;
+
+        -webkit-box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
+        -moz-box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
+        box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
+
+        &::placeholder {
+            color: $color-gray;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: $color-tertiary 0px 1px 4px, $color-tertiary 0px 0px 0px 3px;
+            background-color: $background-color;
+        }
+
+        &:valid {
+            padding: 0em $padding-horizontal;
+        }
+
+    }
+
+    .clearinput{
+        width: 36px;
+        height: 36px;
+        background-color: $background-color-secondary;
+        border: 1px solid $color-border;
+        position: absolute;
+        border-radius: $border-radius;
+        right: 2%;
+        top: 0%;
+        transform: translateY(15%);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    
+        &:hover {
+            background-color: $background-color;
+        }
     }
 }
 

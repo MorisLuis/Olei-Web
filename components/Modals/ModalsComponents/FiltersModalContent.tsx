@@ -85,12 +85,12 @@ const FiltersModalContent = ({
 
             />
 
-            <Input
+           {/*  <Input
                 label='Folio'
                 name='folio'
                 onChange={(value: string) => addFilters({ folio: value })}
                 value={filters.folio as string}
-            />
+            /> */}
         </div>
     )
 }

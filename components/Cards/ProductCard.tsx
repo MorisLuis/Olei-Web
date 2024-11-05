@@ -22,7 +22,7 @@ interface Props {
     data: DataCardConfig<ProductInterface>[];
 }
 
-const ProductShoppingCard = ({
+const ProductCard = ({
     product,
     onRemove,
     onAdd,
@@ -30,7 +30,7 @@ const ProductShoppingCard = ({
 }: Props) => {
 
     return (
-        <div className={styles.ProductShoppingCard}>
+        <div className={styles.ProductCard}>
             <div className={styles.productHeader}>
                 <div className={styles.delete} onClick={() => onRemove?.(product)}>
                     <FontAwesomeIcon icon={faTrashCan} className={'icon__small'} />
@@ -74,4 +74,4 @@ const ProductShoppingCard = ({
     );
 }
 
-export default ProductShoppingCard;
+export default ProductCard;

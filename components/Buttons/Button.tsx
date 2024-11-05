@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 interface ButtonInterface {
     text: string;
@@ -11,6 +11,7 @@ interface ButtonInterface {
 
     typeSubmit?: boolean;
     className?: string;
+    extraStyles?: CSSProperties
 }
 
 export default function Button({
@@ -20,15 +21,17 @@ export default function Button({
     icon,
     textDisabled,
     typeSubmit,
-    className
+    className,
+    extraStyles
 }: ButtonInterface) {
     return (
         <button
             disabled={disabled}
-            className={`button display-flex allCenter ${className}`}
+            className={`button ${className}`}
             type={typeSubmit ? "submit" : 'button'}
             onClick={() => onClick?.()}
             aria-label={text}
+            style={extraStyles}
         >
             {disabled && textDisabled ? textDisabled : text}
             {icon && <FontAwesomeIcon icon={icon} className={`icon__small`} />}
