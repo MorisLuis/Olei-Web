@@ -52,12 +52,11 @@ export const ContentCart = ({
     const cartPendingWithProducts = cartPending.length > 0;
     const showDeleteCart = cartWithProducts || cartPendingWithProducts;
     const productsWithIVA = user?.PrecioIncIVA === 1;
-    const searchEmpty = cartShowed.length > 0;
 
     return (
         <div className={styles.cart}>
             <div className={styles.content}>
-                <div className={`${styles.orderConfig} display-flex align space-between`}>
+                <div className={styles.orderConfig}>
                     <p><span>Solicitar productos inexistentes.</span> En la orden enviar solicitud de los productos actualmente inexistentes.</p>
                     <ToggleSwitch
                         initialState={requestCartPending}
@@ -88,24 +87,20 @@ export const ContentCart = ({
                                 </div>
                             </div>
 
-                            <div className={styles.table}>
-                                <TableOrders
-                                    products={cartShowed}
-                                    totalProducts={cartShowed.length}
-                                    loadingData={false}
-                                    buttonIsLoading={false}
-                                />
-                            </div>
+                            <TableOrders
+                                products={cartShowed}
+                                totalProducts={cartShowed.length}
+                                loadingData={false}
+                                buttonIsLoading={false}
+                            />
                         </>
                         :
-                        <div style={{ marginBottom: "1em" }}>
-                            <MessageCard
-                                title="No has agregado productos aún."
-                                icon={faFileInvoice}
-                            >
-                                No hay productos en tu orden, apareceran una vez que agregues productos.
-                            </MessageCard>
-                        </div>
+                        <MessageCard
+                            title="No has agregado productos aún."
+                            icon={faFileInvoice}
+                        >
+                            No hay productos en tu orden, apareceran una vez que agregues productos.
+                        </MessageCard>
                 }
 
                 {

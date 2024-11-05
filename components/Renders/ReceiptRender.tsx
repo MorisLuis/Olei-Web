@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import styles from "../../styles/Pages/Receipt.module.scss";
 
 import ProductInterface from '@/interfaces/product';
-import { ProductCardShort } from '../Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 import OrderInterface from '@/interfaces/order';
 import { format } from '@/utils/currency';
@@ -101,9 +100,6 @@ export const ReceiptRender = () => {
             </div>
 
             <div className={styles.productsDetails}>
-                {/* {orderDetailsSelect.map((product: ProductInterface, index: number) => (
-                    <ProductCardShort key={index} product={product} counterVisible={false} />
-                ))} */}
             </div>
         </div>
     ) : (
