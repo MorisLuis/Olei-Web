@@ -50,6 +50,7 @@ export const ProductSquareCard = ({ product, onClick, handleAddProduct }: Props)
                                     alt={product.Descripcion}
                                     width={200}
                                     height={200}
+                                    priority
                                 />
                                 :
                                 <div className={styles.notImage}>

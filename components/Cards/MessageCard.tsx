@@ -20,7 +20,7 @@ export const MessageCard = ({
         <div className={styles.MessageCard}>
             {
                 icon &&
-                <div className={`${styles.icon} display-flex allCenter`}>
+                <div className={styles.icon}>
                     <FontAwesomeIcon icon={icon} className={`icon`} />
                 </div>
             }

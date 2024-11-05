@@ -58,7 +58,7 @@
             padding: $padding / 2;
             border-radius: $border-radius;
             border: 1px solid transparent;
-            font-size: $font-medium;
+            font-size: $font-small;
             cursor: pointer;
             gap: $gap;
 
@@ -150,7 +150,7 @@
         justify-content: flex-end;
         position: absolute;
         bottom: 0px;
-        background-color: $color-primary;
+        background-color: $background-color-secondary;
         box-shadow: rgba(0, 0, 0, 0.025) 0px -3px 3px 0px;
 
         .productsPendingMessage {
@@ -177,6 +177,7 @@
                         $color-yellow 50%,
                         rgba($color-yellow, 0.2) 100%);
                 border: 1px solid $color-yellow;
+                font-size: $font-medium;
 
                 @include respond(phone) {
                     font-size: $font-small;

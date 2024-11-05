@@ -1,6 +1,4 @@
 import React, { useContext, useState } from 'react';
-import styles from "../../styles/Modal.module.scss";
-
 import { faAnglesRight, faArrowUp, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductCard, { DataCardConfig } from '../Cards/ProductCard';
@@ -12,6 +10,7 @@ import { MessageCard } from '../Cards/MessageCard';
 import Button from '../Buttons/Button';
 import toast from 'react-hot-toast';
 import { capitalizarTexto } from '@/utils/textCapitalize';
+import styles from "../../styles/Modal.module.scss";
 
 
 interface Props {

@@ -19,7 +19,6 @@ export const ContentCart = ({
     setOpenModalMessage
 }: ContentCartInterface) => {
 
-
     const { cart, cartPending, total, subTotal } = useContext(CartContext);
     const { user } = useContext(AuthContext);
 
@@ -56,13 +55,17 @@ export const ContentCart = ({
     return (
         <div className={styles.cart}>
             <div className={styles.content}>
-                <div className={styles.orderConfig}>
-                    <p><span>Solicitar productos inexistentes.</span> En la orden enviar solicitud de los productos actualmente inexistentes.</p>
-                    <ToggleSwitch
-                        initialState={requestCartPending}
-                        onToggle={(value: boolean) => setRequestCartPending(value)}
-                    />
-                </div>
+                {
+                    cartWithProducts &&
+                    <div className={styles.orderConfig}>
+                        <p><span>Solicitar productos inexistentes.</span> En la orden enviar solicitud de los productos actualmente inexistentes.</p>
+                        
+                        <ToggleSwitch
+                            initialState={requestCartPending}
+                            onToggle={(value: boolean) => setRequestCartPending(value)}
+                        />
+                    </div>
+                }
 
                 {
                     cartWithProducts ?
@@ -127,28 +130,31 @@ export const ContentCart = ({
                     </div>
                 }
 
-                <div className={`${styles.cost} display-flex column`}>
-                    {
-                        productsWithIVA ?
-                            <>
-                                <div className={styles.cost__data}>
-                                    <p> <span>Total:</span> {format(total)}</p>
-                                </div>
-                                <div className={styles.cost__data}>
-                                    <p>Los productos ya incluyen el IVA</p>
-                                </div>
-                            </>
-                            :
-                            <>
-                                <div className={styles.cost__data}>
-                                    <p> <span>Subtotal:</span> {format(subTotal)}</p>
-                                </div>
-                                <div className={styles.cost__data}>
-                                    <p> <span>Total:</span> {format(total)}</p>
-                                </div>
-                            </>
-                    }
-                </div>
+                {
+                    cartWithProducts &&
+                    <div className={`${styles.cost} display-flex column`}>
+                        {
+                            productsWithIVA ?
+                                <>
+                                    <div className={styles.cost__data}>
+                                        <p> <span>Total:</span> {format(total)}</p>
+                                    </div>
+                                    <div className={styles.cost__data}>
+                                        <p>Los productos ya incluyen el IVA</p>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div className={styles.cost__data}>
+                                        <p> <span>Subtotal:</span> {format(subTotal)}</p>
+                                    </div>
+                                    <div className={styles.cost__data}>
+                                        <p> <span>Total:</span> {format(total)}</p>
+                                    </div>
+                                </>
+                        }
+                    </div>
+                }
 
                 {
                     showDeleteCart &&
