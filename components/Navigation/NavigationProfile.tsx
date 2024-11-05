@@ -28,8 +28,7 @@ const NavigationProfile = () => {
 
     return (
         <div className={styles.navigationProfile}>
-            <h1>Perfil</h1>
-            <div className={`${styles.menu} display-flex`}>
+            <div className={styles.menu}>
                 {
                     Menu.map((item) =>
                         <div key={item.key} className={item.pathname === pathname ? `${styles.link} ${styles.active}` : `${styles.link}`}>

@@ -5,40 +5,29 @@
     position: relative;
     padding-bottom: $padding-bottom;
 
-    /* @include respond(tab-land) {
-        padding: 2em 8em 0em 8em;
-    }
-
-    @include respond(phone) {
-        padding: 2em 1em 0em 1em;
-    } */
-
-
-    h1{
-        padding-bottom: $padding-bottom;
-    }
-
     .menu{
-        //padding-bottom: 1em;
+        display: flex;
+        gap: $gap;
+        background-color: $background-color-secondary;
+        width: fit-content;
+        border: 1px solid $color-border;
+        border-radius: $border-radius;
 
         .link{
-            padding: 0.25em 1em;
-            border-radius: 0.5em;
-            font-size: 14px;
-            color: $text-color-light;
+            padding: $padding / 2;
+            border-radius: $border-radius;
+            font-size: $font-medium;
+            border: 1px solid transparent;
             cursor: pointer;
 
-
-            &:not(:last-child){
-                padding-right: 1em;
-            }
-
             &:hover{
-                color: $text-color;
+                background-color: $background-color-tertiary;
+                border: 1px solid $color-border;
             }
         }
+
         .active{
-            background-color: $text-color-secondary;
+            background-color: $background-color;
             border: 1px solid $color-border;
             color: $text-color;
         }

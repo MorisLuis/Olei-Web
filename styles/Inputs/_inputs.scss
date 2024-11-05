@@ -1,13 +1,25 @@
-
 .input {
     height: 48px;
-    border: 1px solid $color-border;
+    position: relative;
     border-radius: $border-radius;
+    border: 1px solid $color-border;
+    background-color: $background-color;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+    padding: $padding-horizontal;
+
+    -webkit-box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
+    -moz-box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
+    box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
+
+    &::placeholder {
+        color: $color-gray;
+    }
 
     &:focus {
-        border: 1px solid transparent;
         outline: none;
-        box-shadow: $color-primary 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+        box-shadow: $color-tertiary 0px 1px 4px, $color-tertiary 0px 0px 0px 3px;
         background-color: $background-color;
     }
 
@@ -73,7 +85,7 @@
                 height: 16px;
                 width: 16px;
                 left: 4px;
-                bottom:3px;
+                bottom: 3px;
                 background-color: $background-color;
                 transition: 0.4s;
                 border-radius: 50%;
@@ -135,7 +147,7 @@
                 border: 1px solid $color-border;
             }
 
-            .iconSquare{
+            .iconSquare {
                 width: 10px;
                 position: absolute;
                 z-index: 9;
@@ -144,7 +156,7 @@
                 transform: translate(-50%, 50%);
             }
 
-            .iconSquareSecond{
+            .iconSquareSecond {
                 width: 10px;
                 position: absolute;
                 z-index: 9;
@@ -163,7 +175,7 @@
     }
 }
 
-.iconClean{
+.iconClean {
     width: 24px;
     height: 24px;
     background-color: $background-color-secondary;
@@ -175,8 +187,7 @@
     transform: translateY(25%);
     z-index: 9999;
 
-    &:hover{
+    &:hover {
         opacity: 50%;
     }
 }
-
