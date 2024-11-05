@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
-import styles from "../../styles/Modal.module.scss";
 import ButtonSmall from '../Buttons/ButtonSmall';
+import styles from "../../styles/Modal.module.scss";
 
 interface Props {
     visible: boolean;
@@ -27,12 +27,12 @@ export const ModalMessage = ({
         <>
             <div className={styles.modalBackgroundSecondary}></div>
 
-            <div className={styles.modalMessage}>
+            <div className={styles.ModalMessage}>
                 <div className={styles.content}>
                     <h2>{title}</h2>
                     <p>{children}</p>
                 </div>
-                <div className={`${styles.footer} display-flex space-between`}>
+                <div className={styles.footer}>
                     <ButtonSmall
                         text='Cerrar'
                         onClick={onClose}
@@ -46,7 +46,7 @@ export const ModalMessage = ({
                         text='Aceptar'
                         onClick={onAccept}
                         disabled={disabled}
-                        color='black'
+                        color='red'
                     />
 
                 </div>

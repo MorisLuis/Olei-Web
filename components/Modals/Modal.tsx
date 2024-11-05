@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import styles from "../../styles/Modal.module.scss";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faClose } from '@fortawesome/free-solid-svg-icons';
 import ButtonSmall from '../Buttons/ButtonSmall';
+import styles from "../../styles/Modal.module.scss";
 
 
 interface Props {
@@ -61,12 +60,14 @@ const Modal = ({
                 text='Expandir'
                 onClick={() => handleActionTopOne?.()}
                 icon={faExpand}
+                color='blue'
             />
 
             <ButtonSmall
                 text='Usar en carrito'
                 onClick={() => handleActionTopTwo?.()}
                 icon={faExpand}
+                color='blue'
             />
         </div>
     );
@@ -95,7 +96,7 @@ const Modal = ({
                     <div className={styles.modalBackgroundSecondary} onClick={handleClose}></div>
             }
 
-            <div className={`${styles.modalPrincipal} ${small ? styles.small : ''} ${isClosing ? styles.closing : ''}`}>
+            <div className={`${styles.Modal} ${small ? styles.small : ''} ${isClosing ? styles.closing : ''}`}>
 
                 <div className={styles.header} >
                     <div className={styles.left}>

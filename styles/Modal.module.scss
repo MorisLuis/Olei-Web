@@ -1,5 +1,190 @@
 @import "./main.scss";
 
+.Modal {
+    background-color: $background-color;
+    width: 75%;
+    max-height: 80%;
+    max-width: 1200px;
+    position: fixed;
+    border-radius: $border-radius;
+    border: 1px solid $color-border;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    z-index: 999999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    //transform: scale(0.8);
+    //animation: modal-open 0.3s ease-in-out forwards;
+
+    &.closing {
+        animation: modal-close 0.2s ease-in-out forwards;
+    }
+
+    @include respond(phone) {
+        width: 100%;
+        height: 100svh;
+        transform: translate(0, 0) scale(0.8);
+        left: 0;
+        top: 0;
+        max-height: none;
+        animation: modal-open-mobil 0.1s ease-in-out forwards;
+        border-radius: $border-radius $border-radius 0 0;
+
+        &.closing {
+            animation: modal-close-mobil 0.2s ease-in-out forwards;
+        }
+    }
+
+    .header {
+        background-color: $background-color;
+        padding: $padding;
+        border-bottom: 1px solid $color-border;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        max-height: 70px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: $border-radius;
+        
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            gap: $gap;
+
+            .topactions{
+                display: flex;
+                flex-direction: row;
+                gap: $gap;
+            }
+
+            h3 {
+                margin-right: $margin-horizontal;
+            }
+        }
+
+        .close {
+            width: fit-content;
+            padding: $padding / 2;
+            border-radius: $border-radius;
+            height: fit-content;
+            cursor: pointer;
+            border: 1px solid transparent;
+
+            display: flex;
+            justify-content: center;
+
+            &:hover {
+                background-color: $background-color-secondary;
+                border: 1px solid $color-border;
+            }
+        }
+    }
+
+    .content {
+        padding: $padding;
+        overflow-y: auto;
+        height: calc(100% - 70px); // Ajuste de altura para evitar margen de scroll innecesario
+
+        &::-webkit-scrollbar {
+            width: 0.6em;
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba($text-color-light, 0.75);
+            border-radius: $border-radius;
+        }
+    }
+
+    .footer {
+        padding: $padding;
+        border-top: 1px solid $color-border;
+        display: flex;
+        justify-content: space-between;
+        height: 10%;
+    }
+
+    &.small {
+        width: 30%;
+
+        @include respond(phone) {
+            width: 100%;
+            height: 85%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            animation: modal-open 0.1s ease-in-out forwards;
+        }
+
+        .content {
+            height: 75%;
+
+            @include respond(phone) {
+                height: 80%;
+            }
+        }
+
+        .footer {
+            height: 25%;
+
+            @include respond(phone) {
+                height: 20%;
+            }
+        }
+    }
+}
+
+.ModalMessage {
+    background-color: $background-color;
+    width: 425px;
+    height: 215px;
+    position: absolute;
+    border-radius: $border-radius;
+    border: 1px solid $color-border;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    z-index: 999999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    @include respond(phone) {
+        width: 100%;
+        top: 100%;
+        left: 0%;
+        transform: translate(0%, -100%);
+        height: fit-content;
+    }
+
+    .content {
+        height: 70%;
+        padding: $padding;
+        margin-bottom: $margin-vertical;
+
+        p {
+            font-size: $font-medium;
+        }
+
+        h2 {
+            margin-bottom: $margin-vertical;
+        }
+    }
+
+    .footer {
+        border-top: 1px solid $color-border;
+        height: 30%;
+        padding: $padding;
+        display: flex;
+        justify-content: space-between;
+        border-radius: $border-radius;
+
+    }
+}
+
+
 .modalSide {
     background-color: $background-color;
     width: 32.5%;
@@ -191,175 +376,6 @@
     }
 }
 
-.modalPrincipal {
-    background-color: $background-color;
-    width: 75%;
-    max-height: 80%;
-    max-width: 1200px;
-    position: fixed;
-    border-radius: $border-radius;
-    border: 1px solid $color-border;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    z-index: 999999;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    animation: modal-open 0.3s ease-in-out forwards;
-
-    &.closing {
-        animation: modal-close 0.2s ease-in-out forwards;
-    }
-
-    @include respond(tab-land) {
-        width: 75%;
-    }
-
-    @include respond(tab-port) {
-        width: 75%;
-    }
-
-    @include respond(phone) {
-        width: 100%;
-        height: 100svh;
-        transform: translate(0%, 0%) scale(0.8);
-        left: 0%;
-        top: 0%;
-        max-height: none;
-        animation: modal-open-mobil 0.1s ease-in-out forwards;
-        border-radius: 1em 1em 0em 0em;
-
-        &.closing {
-            transform: translate(0%, 0%) scale(0.8);
-            left: 0%;
-            top: 0%;
-            animation: modal-close-mobil 0.2s ease-in-out forwards;
-        }
-    }
-
-    .header {
-        border-radius: $border-radius;
-        background-color: $background-color;
-        padding: $padding;
-        border: 1px solid $color-border;
-        border-style: none none solid none;
-        position: absolute;
-        width: 100%;
-        z-index: 999;
-        max-height: 70px;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        @include respond(phone) {
-            border-radius: $border-radius $border-radius 0em 0em;
-            padding: $padding;
-        }
-
-        .left {
-            
-            .topactions{
-                display: flex;
-                gap: $gap
-            }
-
-            h3 {
-                margin-right: $margin-horizontal;
-            }
-
-            @include respond(phone) {
-                .expand {
-                    display: none;
-                }
-            }
-        }
-
-        .close {
-            width: fit-content;
-            padding: $padding;
-            border-radius: $border-radius;
-            height: fit-content;
-            border: 1px solid transparent;
-
-            &:hover {
-                background-color: $color-secondary;
-                border: 1px solid $color-border;
-            }
-        }
-    }
-
-    .content {
-        padding: $padding;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        height: 100%;
-        margin-top: 70px;
-
-        @include respond(phone) {
-            height: -webkit-fill-available;
-            margin-bottom: 70px;
-        }
-
-        &::-webkit-scrollbar {
-            width: 0.6em;
-            background-color: transparent;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: rgba($text-color-light, 0.75);
-            border-radius: $border-radius;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
-    }
-
-    .footer {
-        height: 10%;
-        width: 100%;
-        padding: $padding;
-        border-top: 1px solid $color-border;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    &.small {
-        width: 30%;
-
-        @include respond(tab-land) {
-            width: 45%;
-        }
-
-        @include respond(phone) {
-            background-color: $background-color;
-            width: 100%;
-            height: 85%;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            animation: modal-open 0.1s ease-in-out forwards;
-            opacity: 0;
-        }
-
-        .content {
-            height: 75%;
-
-            @include respond(phone) {
-                height: 80%;
-            }
-        }
-
-        .footer {
-            height: 25%;
-
-            @include respond(phone) {
-                height: 20%;
-            }
-        }
-    }
-}
-
 .modalSearch {
     height: auto;
     width: 500px;
@@ -434,43 +450,6 @@
         max-width: none;
         border: none;
         border-bottom: 1px solid $color-border;
-    }
-}
-
-.modalMessage {
-    background-color: $background-color;
-    width: 425px;
-    height: 215px;
-    position: absolute;
-    border-radius: $border-radius;
-    border: 1px solid $color-border;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    z-index: 999999;
-
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    animation: modal-open 0.1s ease-in-out forwards;
-    opacity: 0;
-
-    @include respond(phone) {
-        width: 100%;
-    }
-
-    .content {
-        height: 70%;
-        padding: $padding;
-
-
-        h2 {
-            margin-bottom: $margin-vertical;
-        }
-    }
-
-    .footer {
-        border-top: 1px solid $color-border;
-        height: 30%;
-        padding: $padding;
     }
 }
 

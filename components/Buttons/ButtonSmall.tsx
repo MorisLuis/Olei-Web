@@ -8,7 +8,7 @@ interface ButtonSmallInterface {
     onClick: () => void;
     extraStyles?: React.CSSProperties;
     transparent?: boolean;
-    color?: "red" | "black" | "white";
+    color?: "red" | "black" | "white" | "blue";
     disabled?: boolean
 };
 

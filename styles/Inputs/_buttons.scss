@@ -1,7 +1,7 @@
 
 .button {
     height: 48px;
-    background-color: $color-secondary;
+    background-color: $color-primary;
     border: 1px solid transparent;
     border-radius: 0.5em;
     cursor: pointer;
@@ -14,7 +14,7 @@
     }
 
     &.white {
-        background-color: $color-primary;
+        background-color: $background-color;
         color: $text-color;
         border: 1px solid $color-border-secondary;
 
@@ -70,12 +70,18 @@
     }
 
     &.black {
-        background-color: $color-tertiary;
-        color: $text-color-secondary;
+        background-color: $color-secondary;
+        color: $text-color-light;
+    }
+
+    &.blue {
+        background-color: rgba($color: $color-tertiary, $alpha: 0.3);
+        border: 1px solid rgba($color: $color-tertiary, $alpha: 0.5);
+        color: $text-color;
     }
 
     &.white {
-        background-color: $color-secondary;
+        background-color: $background-color;
         border: 1px solid $color-border;
 
         &:hover {
