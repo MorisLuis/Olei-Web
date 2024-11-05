@@ -32,7 +32,7 @@ const NavigationProfile = () => {
                 {
                     Menu.map((item) =>
                         <div key={item.key} className={item.pathname === pathname ? `${styles.link} ${styles.active}` : `${styles.link}`}>
-                            <Link href={item.pathname}>
+                            <Link href={item.pathname} shallow>
                                 {item.name}
                             </Link>
                         </div>

@@ -43,7 +43,7 @@ export default function TableOrders({
             render: (_: string, item: ProductInterface) => (
                 <>
                     <h3 style={{ color: "black", fontWeight: 'bold' }}>{capitalizarTexto(item.Descripcion)}</h3>
-                    <span style={{ color: "black" }}>Codigo: {item.Codigo}</span>
+                    <p style={{ color: "black" }}>Codigo: {item.Codigo}</p>
                 </>
             )
         },
@@ -55,7 +55,7 @@ export default function TableOrders({
         {
             key: 'Precio',
             label: 'Precio (USD)',
-            render: (value: number) => <span>${value.toFixed(2)}</span>,
+            render: (value: number) => <p>${value.toFixed(2)}</p>,
         },
         {
             key: 'Cantidad',
@@ -65,7 +65,8 @@ export default function TableOrders({
                     counter={value ?? 0}
                     setCounter={(newValue: number) => handleAddProduct(item, newValue)}
                 />
-            ), width: "20%"
+            ),
+            width: "20%"
         },
     ];
 

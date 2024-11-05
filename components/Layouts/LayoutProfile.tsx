@@ -22,6 +22,7 @@ const LayoutProfile = ({ children }: Props) => {
             <div className={styles.layoutProfile}>
                 {children}
             </div>
+
         </LayoutContentSecondary>
     )
 }

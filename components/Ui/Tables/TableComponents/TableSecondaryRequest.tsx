@@ -22,7 +22,8 @@ export default function TableRequest({
 }: TableRequestInterface) {
 
     const NoMoreProductToShow = products.length === totalProducts;
-    const { push } = useRouter()
+    const { push } = useRouter();
+
     const columns: ColumnSecondaryConfig<OrderInterface>[] = [
         {
             key: 'Folio',
@@ -30,22 +31,22 @@ export default function TableRequest({
             render: (_: string, item: OrderInterface) => (
                 <>
                     <h3 style={{ color: "black", fontWeight: 'bold' }}>Folio: {item.Folio}</h3>
-                    <span style={{ color: "black" }}>Codigo: {item.Fecha}</span>
+                    <p style={{ color: "black" }}><span>Codigo:</span> {item.Fecha}</p>
                 </>
             )
         },
         {
             key: 'Cliente',
             label: 'Cliente',
-            render: (_: string, item: OrderInterface) => <span style={{ color: "black" }}>Cliente: {item.Cliente}</span>
+            render: (_: string, item: OrderInterface) => <p style={{ color: "black" }}><span>Cliente:</span> {item.Cliente}</p>
         },
         {
             key: 'Total',
             label: 'Total',
             render: (_: string, item: OrderInterface) => (
                 <>
-                    <h4 style={{ color: "black", fontWeight: 'bold' }}>Total: {item.Total}</h4>
-                    <span style={{ color: "black" }}>Subtotal: {item.Subtotal}</span>
+                    <h4 style={{ color: "black", fontWeight: 'bold' }}><span>Total:</span> {item.Total}</h4>
+                    <p style={{ color: "black" }}><span>Subtotal:</span> {item.Subtotal}</p>
                 </>
             )
         },

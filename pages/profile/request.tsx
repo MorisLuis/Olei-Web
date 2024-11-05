@@ -90,7 +90,13 @@ const Pedidos = () => {
         setOpenModalRequest(true)
     }, [query])
 
-    if (!orders) return <TableRequestSkeleton />
+    if (!orders) {
+        return (
+            <LayoutProfile>
+                <TableRequestSkeleton />
+            </LayoutProfile>
+        )
+    }
 
     if (orders.length < 0) {
         return (

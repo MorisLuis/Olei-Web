@@ -149,14 +149,22 @@
                     flex-direction: column;
                     gap: $gap / 2;
 
+                
+
                     @include respond(phone) {
                         text-align: end;
 
-                        &:nth-child(2){
+                        span{
                             display: none;
                         }
+
+                        p:nth-child(2) {
+                            display: none;
+                        }
+
                     }
                 }
+
 
                 &:nth-child(even) {
                     background-color: $background-color;
@@ -170,13 +178,14 @@
                     padding: $padding;
                     border-bottom: 1px solid $color-border;
                     cursor: pointer;
-                    
-                    &:first-child{
+
+
+                    &:first-child {
                         border-radius: 0px $border-radius;
                         overflow: hidden;
                     }
 
-                    &:last-child{
+                    &:last-child {
                         border-radius: $border-radius 0px;
                         overflow: hidden;
                     }
