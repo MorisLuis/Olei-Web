@@ -4,6 +4,7 @@ import { MessageCard } from '@/components/Cards/MessageCard';
 import TableSecondary, { ColumnSecondaryConfig } from '../TableSecondary';
 import OrderInterface from '@/interfaces/order';
 import { useRouter } from 'next/router';
+import { Tag } from '../../Tag';
 
 interface TableRequestInterface {
     products: OrderInterface[];
@@ -30,15 +31,23 @@ export default function TableRequest({
             label: 'Folio',
             render: (_: string, item: OrderInterface) => (
                 <>
-                    <h3 style={{ color: "black", fontWeight: 'bold' }}>Folio: {item.Folio}</h3>
-                    <p style={{ color: "black" }}><span>Codigo:</span> {item.Fecha}</p>
+                    <h4 style={{ color: "black", fontWeight: 'bold' }}>Fecha: {item.Fecha}</h4>
+                    <Tag>
+                        <p>{item.Entregado ? "Entregado" : "En revisión"}</p>
+                    </Tag>
+
                 </>
             )
         },
         {
             key: 'Cliente',
             label: 'Cliente',
-            render: (_: string, item: OrderInterface) => <p style={{ color: "black" }}><span>Cliente:</span> {item.Cliente}</p>
+            render: (_: string, item: OrderInterface) => (
+                <>
+                    <p style={{ color: "black" }}>Folio: {item.Folio}</p>
+                    <p style={{ color: "black" }}><span>Cliente:</span> {item.Cliente}</p>
+                </>
+            )
         },
         {
             key: 'Total',

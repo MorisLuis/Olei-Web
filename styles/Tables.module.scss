@@ -149,8 +149,6 @@
                     flex-direction: column;
                     gap: $gap / 2;
 
-                
-
                     @include respond(phone) {
                         text-align: end;
 
@@ -175,7 +173,7 @@
                 }
 
                 td {
-                    padding: $padding;
+                    padding: $padding*1.5;
                     border-bottom: 1px solid $color-border;
                     cursor: pointer;
 
