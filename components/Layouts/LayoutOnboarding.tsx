@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header/Header';
-import ModalMenu from '../Modals/ModalMenu';
 
 interface Props {
     children: ReactNode
@@ -37,10 +36,10 @@ export const LayoutOnboarding = ({ children }: Props) => {
 
             <Footer />
 
-            <ModalMenu
+            {/* <ModalMenu
                 visible={openModalMenu}
                 onClose={() => setOpenModalMenu(false)}
-            />
+            /> */}
 {/* 
             <ModalCart
                 visible={openModalCart}

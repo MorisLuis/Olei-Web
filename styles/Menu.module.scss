@@ -1,0 +1,46 @@
+@import "./main.scss";
+
+.Menu {
+
+    .profile {
+        display: flex;
+        gap: $gap;
+        align-items: center;
+        border: 1px solid transparent;
+
+        .icon {
+            background-color: $color-tertiary;
+            padding: $padding;
+            border-radius: $border-radius;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            p {
+                color: $text-color-light;
+            }
+        }
+
+        .text {
+            p:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .item {
+        display: flex;
+        padding: $padding/2;
+        align-items: center;
+        gap: $gap;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-size: $font-medium;
+        border-radius: $border-radius;
+
+        &:hover {
+            background-color: $background-color-secondary;
+            border: 1px solid $color-border;
+        }
+    }
+}

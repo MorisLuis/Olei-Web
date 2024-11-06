@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { CSSProperties, ReactNode, useState } from 'react';
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from "../../styles/Modal.module.scss";
@@ -9,13 +9,15 @@ interface Props {
     onClose: () => void;
     children: ReactNode;
     renderFooter?: ReactNode;
+    extraStyles?: CSSProperties
 }
 
 const ModalSideways = ({
     visible,
     onClose,
     children,
-    renderFooter
+    renderFooter,
+    extraStyles
 }: Props) => {
 
     const [closing, setClosing] = useState(false);
@@ -31,12 +33,14 @@ const ModalSideways = ({
 
     return visible ? (
         <>
-            <div
-                className={`${styles.modalBackground} ${closing ? styles.closing : ''}`}
+            <div className={`${styles.modalBackground} ${closing ? styles.closing : ''}`}
                 onClick={onClose}
             ></div>
 
-            <div className={`${styles.ModalSideways} ${closing ? styles.closing : ''}`}>
+            <div
+                className={`${styles.ModalSideways} ${closing ? styles.closing : ''}`}
+                style={extraStyles}
+            >
                 <div className={styles.header} >
                     <div className={styles.close} onClick={handleCloseModal}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon`} />

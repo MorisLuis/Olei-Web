@@ -5,11 +5,10 @@ import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header/Header';
-import ModalMenu from '../Modals/ModalMenu';
 import Image from 'next/image';
 import { AuthContext } from '@/context';
-import ModalSideways from '../Modals/ModalSideways';
 import ModalCart from '../Modals/ModalsComponents/ModalCart';
+import ModalMenu from '../Modals/ModalsComponents/ModalMenu';
 
 interface Props {
     children: ReactNode
