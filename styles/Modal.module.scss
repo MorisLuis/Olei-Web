@@ -184,12 +184,11 @@
     }
 }
 
-
-.modalSide {
+.ModalSideways {
     background-color: $background-color;
     width: 32.5%;
     height: 98%;
-    position: absolute;
+    position: fixed;
     right: 0.5%;
     top: 1%;
     border-radius: $border-radius;
@@ -197,7 +196,6 @@
     border: 1px solid $color-border;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     z-index: 99999;
-    padding-bottom: 7em;
     overflow: hidden;
     font-size: $font-medium;
 
@@ -216,23 +214,14 @@
         height: calc(100svh - 3%);
     }
 
-    &.menu {
-        width: 20%;
-
-        @include respond(tab-land) {
-            width: 40%;
-        }
-
-        @include respond(phone) {
-            width: 100%;
-        }
-    }
 
     .header {
         border-radius: $border-radius $border-radius 0em 0em;
         padding: $padding;
         border: 1px solid $color-border;
         border-style: none none solid none;
+        background-color: $background-color-secondary;
+        border-radius: $border-radius;
 
         @include respond(phone) {
             border-radius: $border-radius $border-radius 0em 0em;
@@ -247,6 +236,8 @@
             cursor: pointer;
             gap: $gap;
 
+            display: flex;
+
             &:hover {
                 background-color: $background-color-secondary;
                 border: 1px solid $color-border;
@@ -259,50 +250,6 @@
         height: 80%;
         overflow: scroll;
         overflow-x: hidden;
-
-        &.menu {
-            padding: $padding;
-
-            .profile {
-                .icon {
-                    background-color: $color-tertiary;
-                    width: 24px;
-                    height: 24px;
-                    border-radius: $border-radius;
-
-                    p {
-                        color: $text-color-light;
-                        font-size: $font-normal;
-                    }
-                }
-
-                .text {
-                    padding-left: $padding-horizontal;
-
-                    p {
-                        margin: 0px;
-                    }
-
-                    .user {
-                        opacity: 50%;
-                    }
-                }
-            }
-
-            .item {
-                padding: $padding / 2;
-                border-radius: $border-radius;
-                cursor: pointer;
-
-                p {
-                    padding-left: $padding-horizontal;
-                }
-
-                &:hover {
-                    background-color: $background-color-tertiary;
-                }
-            }
-        }
 
         @include respond(phone) {
             padding: $padding;
@@ -336,43 +283,11 @@
         position: absolute;
         bottom: 0px;
         background-color: $background-color-secondary;
-        box-shadow: rgba(0, 0, 0, 0.025) 0px -3px 3px 0px;
-
-        .productsPendingMessage {
-            padding: $padding 0em;
-        }
-
-        .pricing {
-            display: flex;
-            flex-direction: column;
-            gap: $gap;
-
-            .seeCart {
-                width: 100%;
-                margin-right: $margin-horizontal;
-            }
-
-            h4 {
-                width: 100%;
-                height: fit-content;
-                border-radius: $border-radius;
-                padding: $padding;
-                background: linear-gradient(90deg,
-                        rgba($color-yellow, 0.2) 0%,
-                        $color-yellow 50%,
-                        rgba($color-yellow, 0.2) 100%);
-                border: 1px solid $color-yellow;
-                font-size: $font-medium;
-
-                @include respond(phone) {
-                    font-size: $font-small;
-                }
-            }
-        }
+        border-radius: $border-radius;
     }
 
     &.closing {
-        animation: disappear-Left-to-Right 0.3s ease-in-out;
+        animation: disappear-Left-to-Right 0.3s ease-in-out forwards;
     }
 }
 
@@ -466,6 +381,10 @@
     backdrop-filter: blur(1px);
     background-color: rgba(255, 255, 255, 0.2);
     z-index: 99999;
+
+    &.closing {
+        animation: fadeOut 0.3s ease-in-out forwards;
+    }
 }
 
 .modalBackgroundSecondary {
@@ -479,4 +398,8 @@
     backdrop-filter: blur(1px);
     background-color: rgba(0, 0, 0, 0.1);
     z-index: 999999;
+
+    &.closing {
+        animation: fadeOut 0.3s ease-in-out forwards;
+    }
 }

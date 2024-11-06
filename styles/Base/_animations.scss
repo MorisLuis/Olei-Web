@@ -32,11 +32,11 @@
     0% {
         transform: translateX(0);
     }
-
     100% {
         transform: translateX(100%);
     }
 }
+
 
 @keyframes modal-open {
     0% {
@@ -83,5 +83,15 @@
     100% {
         opacity: 0;
         transform: translate(0%, 0%) scale(0.8);
+    }
+}
+
+// Modal Background
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
     }
 }

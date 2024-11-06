@@ -11,6 +11,7 @@ interface ButtonInterface {
 
     typeSubmit?: boolean;
     className?: string;
+    iconClassName?: string;
     extraStyles?: CSSProperties
 }
 
@@ -22,6 +23,7 @@ export default function Button({
     textDisabled,
     typeSubmit,
     className,
+    iconClassName,
     extraStyles
 }: ButtonInterface) {
     return (
@@ -33,8 +35,8 @@ export default function Button({
             aria-label={text}
             style={extraStyles}
         >
-            {disabled && textDisabled ? textDisabled : text}
-            {icon && <FontAwesomeIcon icon={icon} className={`icon__small`} />}
+            <p>{disabled && textDisabled ? textDisabled : text}</p>
+            {icon && <FontAwesomeIcon icon={icon} className={`icon__small ${iconClassName}`} />}
         </button>
     )
 }

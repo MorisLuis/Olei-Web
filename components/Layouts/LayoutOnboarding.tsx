@@ -3,7 +3,6 @@ import React, { ReactNode, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
-import ModalCart from '../Modals/ModalCart';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header/Header';
 import ModalMenu from '../Modals/ModalMenu';
@@ -42,11 +41,11 @@ export const LayoutOnboarding = ({ children }: Props) => {
                 visible={openModalMenu}
                 onClose={() => setOpenModalMenu(false)}
             />
-
+{/* 
             <ModalCart
                 visible={openModalCart}
                 onClose={() => setOpenModalCart(false)}
-            />
+            /> */}
 
             <Toaster />
         </>

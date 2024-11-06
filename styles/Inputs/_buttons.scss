@@ -1,17 +1,18 @@
 
 .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: 48px;
     background-color: $color-secondary;
     border: 1px solid transparent;
-    border-radius: 0.5em;
+    border-radius: $border-radius;
     cursor: pointer;
-    padding: 0em 1em;
+    padding: 0em $padding;
     width: 100%;
     color: $text-color-light;
-
-    svg {
-        margin-right: 0.5em;
-    }
+    gap: $gap;
 
     &.white {
         background-color: $background-color;
@@ -28,9 +29,7 @@
         border: 1px solid rgba($color: $color-border-tertiary, $alpha: 1);
         color: $text-color;
 
-        p{
-            padding: 0px;
-        }
+        p{ padding: 0px; }
     
         :hover {
             border: 1px solid rgba($color: $color-border-tertiary, $alpha: 0.25);;
@@ -47,9 +46,9 @@
     height: 30px;
     background-color: $color-primary;
     border: 1px solid transparent;
-    border-radius: 0.5em;
+    border-radius: $border-radius;
     cursor: pointer;
-    padding: 0em 1em;
+    padding: 0em $padding;
     font-size: $font-medium;
     width: 100%;
     width: fit-content;
