@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from '../../../styles/Tables.module.scss'
 import ButtonLoad from '@/components/Buttons/ButtonLoad';
+import styles from '../../../styles/Tables.module.scss'
 
 export interface ColumnSecondaryConfig<T> {
     key: keyof T;

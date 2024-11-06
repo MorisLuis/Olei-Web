@@ -5,6 +5,9 @@ import TableSecondary, { ColumnSecondaryConfig } from '../TableSecondary';
 import OrderInterface from '@/interfaces/order';
 import { useRouter } from 'next/router';
 import { Tag } from '../../Tag';
+import { capitalizarTexto } from '@/utils/textCapitalize';
+import { dateFormat } from '@/utils/dateFormat';
+import { format } from '@/utils/currency';
 
 interface TableRequestInterface {
     products: OrderInterface[];
@@ -27,11 +30,11 @@ export default function TableRequest({
 
     const columns: ColumnSecondaryConfig<OrderInterface>[] = [
         {
-            key: 'Folio',
-            label: 'Folio',
+            key: 'Fecha',
+            label: 'Fecha',
             render: (_: string, item: OrderInterface) => (
                 <>
-                    <h4 style={{ color: "black", fontWeight: 'bold' }}>Fecha: {item.Fecha}</h4>
+                    <h4 style={{ color: "black", fontWeight: 'bold' }}>Fecha: {dateFormat(item.Fecha)}</h4>
                     <Tag>
                         <p>{item.Entregado ? "Entregado" : "En revisión"}</p>
                     </Tag>
@@ -40,12 +43,12 @@ export default function TableRequest({
             )
         },
         {
-            key: 'Cliente',
-            label: 'Cliente',
+            key: 'Folio',
+            label: 'Folio',
             render: (_: string, item: OrderInterface) => (
                 <>
-                    <p style={{ color: "black" }}>Folio: {item.Folio}</p>
-                    <p style={{ color: "black" }}><span>Cliente:</span> {item.Cliente}</p>
+                    <p style={{ color: "black" }}><span>Folio:</span> {item.Folio}</p>
+                    <p style={{ color: "black" }}><span>Cliente:</span> {capitalizarTexto(item.Cliente as string)}</p>
                 </>
             )
         },
@@ -54,8 +57,8 @@ export default function TableRequest({
             label: 'Total',
             render: (_: string, item: OrderInterface) => (
                 <>
-                    <h4 style={{ color: "black", fontWeight: 'bold' }}><span>Total:</span> {item.Total}</h4>
-                    <p style={{ color: "black" }}><span>Subtotal:</span> {item.Subtotal}</p>
+                    <h4 style={{ color: "black", fontWeight: 'bold' }}><span>Total:</span> {format(item.Total)}</h4>
+                    <p style={{ color: "black" }}><span>Subtotal:</span> {format(item.Subtotal)}</p>
                 </>
             )
         },

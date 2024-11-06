@@ -2,10 +2,7 @@
 
 .table {
     width: 100%;
-    overflow-x: auto;
-    border-collapse: collapse;
     font-size: $font-medium;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,13 +10,18 @@
     table {
         width: 100%;
         border-spacing: 0;
-        border-collapse: collapse;
         border: 1px solid $color-border;
         border-bottom: 0px;
         margin-bottom: $margin-horizontal;
+        border-radius: $border-radius;
+
+        -webkit-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+        -moz-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+        box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
 
         thead {
             background-color: $background-color;
+            border-radius: $border-radius;
 
             th {
                 padding: $padding;
@@ -28,6 +30,16 @@
                 color: $text-color-secondary;
                 border-bottom: 1px solid $color-border;
                 font-weight: lighter;
+
+                &:first-child {
+                    border-radius: $border-radius 0px;
+                    overflow: hidden;
+                }
+
+                &:last-child {
+                    border-radius: 0px $border-radius;
+                    overflow: hidden;
+                }
 
                 @include respond(phone) {
                     padding: $padding;
@@ -39,6 +51,7 @@
             color: $text-color-secondary;
 
             tr {
+                border-radius: $border-radius;
 
                 &:nth-child(even) {
                     background-color: $background-color;
@@ -52,6 +65,18 @@
                     padding: $padding / 2 $padding;
                     border-bottom: 1px solid $color-border;
                     cursor: pointer;
+
+
+                    &:first-child {
+                        border-radius: 0px $border-radius;
+                        overflow: hidden;
+                    }
+
+                    &:last-child {
+                        border-radius: $border-radius 0px;
+                        overflow: hidden;
+                    }
+
 
                     @include respond(phone) {
                         padding: $padding;
@@ -123,12 +148,10 @@
 
 .tableSecondary {
     width: 100%;
-    overflow-x: auto;
     font-size: $font-medium;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
 
     table {
         width: 100%;
@@ -137,12 +160,14 @@
         border-bottom: 0px;
         margin-bottom: $margin-horizontal;
         border-radius: $border-radius;
-        overflow: hidden;
+
+        -webkit-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+        -moz-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+        box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
 
         tbody {
             tr {
                 border-radius: $border-radius;
-                overflow: hidden;
 
                 .column {
                     display: flex;
@@ -157,6 +182,10 @@
                         }
 
                         p:nth-child(2) {
+                            display: none;
+                        }
+
+                        div:nth-child(2) {
                             display: none;
                         }
 

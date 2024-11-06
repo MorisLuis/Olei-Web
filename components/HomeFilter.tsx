@@ -1,6 +1,4 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
-import styles from "../styles/Pages/Products.module.scss";
-
 import { Tag } from './Ui/Tag';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
@@ -8,6 +6,7 @@ import { AuthContext, FiltersContext } from '@/context';
 import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
 import HomeSearch from './Search/HomeSearch';
 import ButtonSmall from './Buttons/ButtonSmall';
+import styles from "../styles/Pages/Products.module.scss";
 
 interface Props {
     showGrid: boolean;
