@@ -11,8 +11,8 @@
     cursor: pointer;
     padding: 0em $padding;
     width: 100%;
-    color: $text-color-light;
     gap: $gap;
+    color: $text-color-light;
 
     &.white {
         background-color: $background-color;
@@ -52,7 +52,6 @@
     font-size: $font-medium;
     width: 100%;
     width: fit-content;
-    color: $color-tertiary;
 
     display: flex;
     justify-content: center;

@@ -35,7 +35,7 @@ export default function Button({
             aria-label={text}
             style={extraStyles}
         >
-            <p>{disabled && textDisabled ? textDisabled : text}</p>
+            <p className='text'>{disabled && textDisabled ? textDisabled : text}</p>
             {icon && <FontAwesomeIcon icon={icon} className={`icon__small ${iconClassName}`} />}
         </button>
     )
