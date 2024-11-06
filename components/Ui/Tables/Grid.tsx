@@ -3,6 +3,7 @@ import styles from "../../../styles/Tables.module.scss";
 import { ProductSquareCard } from '../../Cards/ProductSquareCard';
 import ProductInterface from '@/interfaces/product';
 import ButtonLoad from '../../Buttons/ButtonLoad';
+import GridSkeleton from '@/components/Skeletons/GridSkeleton';
 
 interface GridInterface {
     data: ProductInterface[];

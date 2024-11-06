@@ -87,7 +87,7 @@
         .image {
             background-color: $background-color-tertiary;
             height: 240px;
-            margin-bottom: $margin-vertical;
+            margin-bottom: $margin-vertical*2;
 
             display: flex;
             justify-content: center;
