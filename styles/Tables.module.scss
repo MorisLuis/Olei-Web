@@ -293,14 +293,13 @@
     .contentGrid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 2em;
+        gap: $gap*3;
         background-color: $background-color;
-        border-radius: 5px;
         margin-bottom: $margin-horizontal;
 
         @include respond(tab-port) {
             grid-template-columns: repeat(3, 1fr);
-            padding: 0em 20px;
+            padding: 0em $padding;
         }
 
         @include respond(phone) {

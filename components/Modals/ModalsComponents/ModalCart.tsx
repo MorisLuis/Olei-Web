@@ -11,6 +11,7 @@ import ProductCard, { DataCardConfig } from '@/components/Cards/ProductCard';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import Button from '@/components/Buttons/Button';
 import ModalSideways from '../ModalSideways';
+import ProductCardSkeleton from '@/components/Skeletons/Cards/ProductCardSkeleton';
 
 interface Props {
     visible: boolean;
@@ -124,6 +125,9 @@ const ModalCart = ({
             <div className={styles.Cart}>
                 <div className={styles.content}>
                     {
+                        !cart ?
+                        <ProductCardSkeleton/>
+                        :
                         cart.length > 0 ? cart.slice().reverse().map((product: ProductInterface, Index) =>
                             <ProductCard
                                 key={Index}
