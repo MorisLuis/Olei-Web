@@ -60,14 +60,14 @@ export default function TableProducts({
             label: 'Cantidad',
             render: (value: number, item: ProductInterface) => (
                 <Counter
-                    counter={value ?? 0} // Aquí usamos el `Codigo` como identificador único
+                    counter={value ?? 0}
                     setCounter={(newValue: number) => handleAddProduct(item, newValue)}
                 />
             ), width: "20%"
         },
     ];
 
-    if (loadingData) return <TableSkeleton />;
+    if (!loadingData) return <TableSkeleton />;
 
     if (productsWithCartInfo.length === 0) {
         return (

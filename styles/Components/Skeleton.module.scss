@@ -790,6 +790,173 @@
     }
 }
 
+.TableSkeleton {
+    width: 100%;
+    font-size: $font-medium;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    table {
+        width: 100%;
+        border-spacing: 0;
+        border: 1px solid $color-border;
+        border-bottom: 0px;
+        margin-bottom: $margin-horizontal;
+        border-radius: $border-radius;
+
+        -webkit-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+        -moz-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+        box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+
+        thead {
+            background-color: $background-color;
+            border-radius: $border-radius;
+
+            th {
+                padding: $padding;
+                text-align: left;
+                font-size: $font-small;
+                color: $text-color-secondary;
+                border-bottom: 1px solid $color-border;
+                font-weight: lighter;
+                height: $font-medium;
+
+                &:first-child {
+                    border-radius: $border-radius 0px;
+                    overflow: hidden;
+                }
+
+                &:last-child {
+                    border-radius: 0px $border-radius;
+                    overflow: hidden;
+                }
+            }
+        }
+
+        tbody {
+
+            tr {
+                border-radius: $border-radius;
+
+                &:nth-child(even) {
+                    background-color: $background-color;
+                }
+
+                &:hover {
+                    background-color: $background-color-secondary;
+                }
+
+                td {
+                    padding: $padding / 2 $padding;
+                    border-bottom: 1px solid $color-border;
+                    height: $font-medium;
+
+                    @include respond(phone) {
+                        padding: $padding;
+                    }
+
+                }
+            }
+        }
+    }
+
+    .laodMore {
+        width: 30%;
+
+        @include respond(phone) {
+            width: 100%;
+        }
+    }
+
+    .message {
+        padding: $padding 0em;
+        text-align: center;
+        color: $color-gray;
+        font-size: $font-medium;
+    }
+
+    // Responsive adjustments for smaller screens
+    @include respond(phone) {
+
+        table {
+            thead {
+                display: none;
+            }
+
+            tbody {
+                tr {
+                    display: block;
+                    margin-bottom: $margin-horizontal;
+                    border-bottom: 1px solid $color-border;
+                    padding: $padding;
+
+                    :nth-child(1) {
+                        p{
+                            width: 60%;
+                        }
+
+                        &:before{
+                            width: 30%;
+                        }
+                    }
+
+                    :nth-child(2) {
+                        p{
+                            width: 50%;
+                        }
+
+                        &:before{
+                            width: 40%;
+                        }
+                    }
+
+                    :last-child{
+                        p{
+                            width: 50%;
+                            height: $font-normal*2;
+                        }
+
+                        &:before{
+                            width: 50%;
+                            height: $font-normal*1.5;
+                        }
+                    }
+
+                    td {
+                        display: flex;
+                        justify-content: space-between;
+                        border: none;
+                        min-width: 100%;
+                        padding: 0px;
+                        padding-bottom: $padding;
+                        align-items: center;
+                        
+                        margin-bottom: $padding*1.5;
+                        gap: $gap;
+                        width: 100%;
+
+                        p{
+                            width: 60%;
+                        }
+
+                        &:before {
+                            content: attr(data-label);
+                            color: $color-gray;
+                            text-align: left;
+                            height: $font-normal;
+                            width: 40%;
+                            animation: loading 1s infinite;
+                            background-color: $color-border;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 @keyframes loading {
     0% {
         opacity: 0.6;
