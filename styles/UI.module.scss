@@ -2,11 +2,10 @@
 
 .tag {
     .content {
-        padding: $padding / 2;
+        padding: $padding/3 $padding/2;
         width: fit-content;
         border-radius: $border-radius;
         max-width: 120px;
-        height: 30px;
         overflow: hidden;
         text-overflow: ellipsis;
 
@@ -47,8 +46,8 @@
         }
 
         &.gray {
-            background-color: rgba($color-primary, 1);
-            color: $color-gray;
+            background-color: rgba($color-gray, 0.2);
+            color: $text-color-secondary;
             border: 1px solid rgba($color: $color-gray, $alpha: 0.2);
         }
 

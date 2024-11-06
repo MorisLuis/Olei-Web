@@ -83,6 +83,7 @@
     font-size: $font-medium;
 
     .content {
+
         .image {
             background-color: $background-color-tertiary;
             height: 240px;
@@ -91,6 +92,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            border-radius: $border-radius;
 
             .notImage {
                 display: flex;
@@ -110,6 +112,7 @@
                 width: auto;
                 max-height: 180px;
                 box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+                border-radius: $border-radius;
             }
 
             &:hover {
@@ -135,14 +138,15 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                     font-size: $font-normal;
-                    max-height: 3em;
-                    min-height: 3em;
-                    line-height: 1.5em;
+                    max-height: $font-normal*2;
+                    min-height: $font-normal*2;
+                    line-height: $font-normal;
                 }
             }
 
             .data {
                 margin-bottom: $margin-horizontal / 2;
+                font-size: $font-medium;
 
                 .stock {
                     display: flex;
