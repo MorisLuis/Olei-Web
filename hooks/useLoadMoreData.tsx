@@ -3,8 +3,8 @@ import useErrorHandler from "./useErrorHandler";
 import { useCallback, useState } from "react";
 
 interface useLoadMoreDataInterface {
-    fetchInitialData: (filters?: FiltersInterface) => Promise<any[]>;
-    fetchPaginatedData: (filters?: FiltersInterface, page?: number) => Promise<any[]>;
+    fetchInitialData: (filters?: FiltersInterface) => Promise<[]>;
+    fetchPaginatedData: (filters?: FiltersInterface, page?: number) => Promise<[]>;
     filters?: FiltersInterface;
     fetchTotalCount?: (filters?: FiltersInterface) => Promise<number>;
 }
@@ -17,7 +17,7 @@ export const useLoadMoreData = ({
 }: useLoadMoreDataInterface) => {
 
     const { handleError } = useErrorHandler();
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [isButtonLoading, setButtonIsLoading] = useState(false);

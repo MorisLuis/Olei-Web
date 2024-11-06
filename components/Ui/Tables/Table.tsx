@@ -5,7 +5,7 @@ import ButtonLoad from '@/components/Buttons/ButtonLoad';
 export interface ColumnConfig<T> {
     key: keyof T;
     label: string;
-    render?: any;
+    render?: (value: any, item: T) => React.ReactNode;
     className?: string;
     width?: string;
 }
