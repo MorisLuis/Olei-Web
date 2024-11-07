@@ -1,15 +1,16 @@
-import React, { CSSProperties, ReactNode, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from "../../styles/Modal.module.scss";
 import useLockBodyScroll from '@/hooks/useLockBodyScroll';
+import styles from "../../styles/Modal.module.scss";
 
 interface Props {
     visible: boolean;
     onClose: () => void;
     children: ReactNode;
     renderFooter?: ReactNode;
-    extraStyles?: CSSProperties
+    extraClassName?: string;
+    modalSize?: "primary" | "secondary"
 }
 
 const ModalSideways = ({
@@ -17,7 +18,7 @@ const ModalSideways = ({
     onClose,
     children,
     renderFooter,
-    extraStyles
+    modalSize = "primary"
 }: Props) => {
 
     const [closing, setClosing] = useState(false);
@@ -37,10 +38,7 @@ const ModalSideways = ({
                 onClick={onClose}
             ></div>
 
-            <div
-                className={`${styles.ModalSideways} ${closing ? styles.closing : ''}`}
-                style={extraStyles}
-            >
+            <div className={`${styles.ModalSideways} ${styles[modalSize]} ${closing ? styles.closing : ''}`}>
                 <div className={styles.header} >
                     <div className={styles.close} onClick={handleCloseModal}>
                         <FontAwesomeIcon icon={faAnglesRight} className={`icon`} />

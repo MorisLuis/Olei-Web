@@ -67,7 +67,7 @@ export default function TableProducts({
         },
     ];
 
-    if (!loadingData) return <TableSkeleton />;
+    if (loadingData) return <TableSkeleton />;
 
     if (productsWithCartInfo.length === 0) {
         return (

@@ -31,7 +31,7 @@ const ModalMenu = ({
         <ModalSideways
             visible={visible}
             onClose={onClose}
-            extraStyles={{ width: "20%" }}
+            modalSize='secondary'
         >
             <div className={styles.Menu}>
                 <div className={styles.content}>

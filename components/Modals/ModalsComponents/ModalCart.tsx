@@ -6,12 +6,12 @@ import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
 import toast from 'react-hot-toast';
 import { capitalizarTexto } from '@/utils/textCapitalize';
-import styles from "../../../styles/Cart.module.scss";
 import ProductCard, { DataCardConfig } from '@/components/Cards/ProductCard';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import Button from '@/components/Buttons/Button';
 import ModalSideways from '../ModalSideways';
 import ProductCardSkeleton from '@/components/Skeletons/Cards/ProductCardSkeleton';
+import styles from "../../../styles/Cart.module.scss";
 
 interface Props {
     visible: boolean;
