@@ -9,7 +9,7 @@ import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
 import toast from 'react-hot-toast';
 import { MessageCard } from '@/components/Cards/MessageCard';
-import { TableRequestSkeleton } from '@/components/Skeletons/TableRequestSkeleton';
+import { TableSecondarySkeleton } from '@/components/Skeletons/TableSecondarySkeleton';
 import { getOrderDetails, getOrders } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import TableRequest from '@/components/Ui/Tables/TableComponents/TableSecondaryRequest';
@@ -93,7 +93,7 @@ const Pedidos = () => {
     if (!orders) {
         return (
             <LayoutProfile>
-                <TableRequestSkeleton />
+                <TableSecondarySkeleton body={[2, 2, 2]}/>
             </LayoutProfile>
         )
     }

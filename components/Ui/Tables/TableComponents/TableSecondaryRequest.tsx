@@ -68,8 +68,6 @@ export default function TableRequest({
         push(`/profile/request/?receipt=${item.Folio}`);
     }
 
-    if (loadingData) return <TableSkeleton />;
-
     if (products.length === 0) {
         return (
             <MessageCard title='No hay coincidencias exactas'>
