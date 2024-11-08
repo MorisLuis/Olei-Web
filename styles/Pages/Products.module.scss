@@ -1,12 +1,11 @@
 @import "../main.scss";
 
 .products {
-    padding: 2em 10em;
+    padding: $padding*2 $padding*10;
     display: flex;
     flex-direction: column;
     width: 100%;
     position: relative;
-    z-index: 1;
     min-height: 85svh;
 
     .header {
@@ -23,18 +22,18 @@
             color: $color-gray;
         }
 
-        .container{
-            justify-content: space-between;
-            width: 100%;
+        .header__container{
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            width: 100%;
 
             @include respond(phone) {
-                gap: 5px;
+                gap: $gap;
             }
 
             span {
-                margin-left: 1em;
+                margin-left: $margin-horizontal;
             }
 
             .search {
@@ -43,7 +42,6 @@
                 width: fit-content;
                 position: relative;
                 transition: width 0.6s ease-in-out;
-                z-index: 9999;
 
                 @include respond(tab-port) {
                     min-width: 60%;
@@ -130,93 +128,13 @@
             }
 
             .rightContent{
+                display: flex;
 
                 @include respond(phone) {
                     width: 40%;
                     margin-right: 0em;
                     display: flex;
                     justify-content: flex-end;
-                }
-
-                .filters {
-                    display: flex;
-                    height: 100%;
-                    margin-right: $margin-horizontal;
-
-                    .buttonFilter {
-                        display: flex;
-                        position: relative;
-                        border-radius: $border-radius;
-        
-                        @include respond(phone) {
-                            width: 30px;
-                            height: 30px;
-                        }
-        
-                        button {
-                            background-color: $color-primary;
-                            border: 1px solid $color-border;
-                            height: 100%;
-    
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-    
-                            @include respond(phone) {
-                                border-radius: $border-radius;
-                                width: 100%;
-                                height: 100%;
-                            }
-                        }
-    
-                        &.active {
-                            button {
-                                border: 1px solid black;
-                            }
-                        }
-    
-                        p {
-                            @include respond(phone) {
-                                display: none;
-                            }
-                        }
-    
-                        svg {
-                            @include respond(phone) {
-                                margin: 0px;
-                            }
-                        }
-        
-                        .filtersCount {
-                            background-color: black;
-                            color: $text-color-secondary;
-                            position: absolute;
-                            top: 0px;
-                            right: 0px;
-                            border-radius: $border-radius;
-                            transform: translate(50%, -50%);
-                            border: 1px solid $color-border;
-        
-                            p {
-                                width: 16px;
-                                height: 16px;
-                                font-size: $font-small;
-                            }
-                        }
-                    }
-
-                    .filtersTag {
-                        display: flex;
-        
-                        div {
-                            height: 100%;
-                            margin-right: $margin-horizontal;
-                        }
-        
-                        @include respond(phone) {
-                            display: none;
-                        }
-                    }
                 }
             }
         }

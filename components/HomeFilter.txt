@@ -7,10 +7,6 @@ import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
 import HomeSearch from './Search/HomeSearch';
 import ButtonSmall from './Buttons/ButtonSmall';
 import styles from "../styles/Pages/Products.module.scss";
-import FiltersComponent from './Ui/Filter/FiltersComponent';
-import { api } from '@/api/api';
-import { FilterType } from '@/interfaces/filters';
-import FilterHome from './Ui/Filter/FilterHome';
 
 interface Props {
     showGrid: boolean;
@@ -29,7 +25,6 @@ const HomeFilter = ({
     const { removeFilter, filtersValues, removeAllFilters } = useContext(FiltersContext);
     const { user } = useContext(AuthContext);
     const [visible, setVisible] = useState(false);
-    const setGrid = () => setShowGrid(showGrid)
 
     const cleanFiltersRender = () => {
         return filtersValues.length > 0 && <Tag close cursor color='gray' onClose={removeAllFilters}>Limpiar filtros</Tag>
@@ -45,6 +40,7 @@ const HomeFilter = ({
         )
     };
 
+    const setGrid = () => setShowGrid(showGrid)
 
     useEffect(() => {
         setTimeout(() => {
@@ -56,19 +52,47 @@ const HomeFilter = ({
         setGrid()
     }, [showGrid, setShowGrid])
 
-
-    
     if (!visible) return <HomeFiltersSkeleton />
 
     return (
-        <div className={styles.header}>
+        <div className={`${styles.header}`}>
 
-            <div className={styles.header__container}>
+            <div className={`${styles.container} display-flex`}>
                 <HomeSearch setLoadingData={setLoadingData} />
 
-                <div className={styles.rightContent}>
+                <div className={`${styles.rightContent} display-flex`}>
 
-                    <FilterHome/>
+                    <div className={styles.filters}>
+                        <div className={styles.filtersTag}>
+                            {cleanFiltersRender()}
+                        </div>
+
+                        <div className={styles.filtersTag}>
+                            {tagsRender()}
+                        </div>
+
+                        {
+                            filtersValues.length <= 0 ?
+                                <div className={styles.buttonFilter}>
+                                    <ButtonSmall
+                                        text='Filtros'
+                                        onClick={() => setOpenModalFilter(true)}
+                                        icon={faSliders}
+                                    />
+                                </div>
+                                :
+                                <div className={`${styles.buttonFilter} ${styles.active}`}>
+                                    <ButtonSmall
+                                        text='Filtros'
+                                        onClick={() => setOpenModalFilter(true)}
+                                        icon={faSliders}
+                                    />
+                                    <div className={`${styles.filtersCount}`}>
+                                        <p className={`display-flex allCenter`}>{filtersValues.length}</p>
+                                    </div>
+                                </div>
+                        }
+                    </div>
 
                     {
                         user?.SwImagenes &&

@@ -5,3 +5,5 @@ export default interface FiltersInterface {
     folio?: string,
     enStock?: boolean
 }
+
+export type FilterType = "Nombre" | "Marca" | "Familia" | "Folio" | "EnStock"

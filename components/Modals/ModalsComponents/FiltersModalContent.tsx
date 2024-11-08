@@ -1,8 +1,6 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { api } from '@/api/api';
-import Input from '@/components/Inputs/inputs';
 import SelectReact, { OptionType } from '@/components/Inputs/select';
-import FiltersInterface from '@/interfaces/filters';
 import Cookies from 'js-cookie';
 import LabelInputSkeleton from '@/components/Skeletons/InputsSkeleton';
 import { FiltersContext } from '@/context';
