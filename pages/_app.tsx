@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <>
@@ -15,15 +15,17 @@ export default function App({ Component, pageProps }: AppProps) {
         router.route !== '/products' &&
         <NextNProgress color="#EDBD42" height={4} />
       }
-        <AuthProvider>
-          <CartProvider>
-            <ClientProvider>
-              <FiltersProvider>
-                <Component {...pageProps} />
-              </FiltersProvider>
-            </ClientProvider>
-          </CartProvider>
-        </AuthProvider>
+
+      <AuthProvider>
+        <CartProvider>
+          <ClientProvider>
+            <FiltersProvider>
+              
+              <Component {...pageProps} />
+            </FiltersProvider>
+          </ClientProvider>
+        </CartProvider>
+      </AuthProvider>
     </>
   )
 }

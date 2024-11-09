@@ -23,7 +23,7 @@ export default function Home() {
    const { filters } = useContext(FiltersContext);
    const { productDelete } = useContext(CartContext);
    const { clientChanged } = useContext(ClientContext);
-   const { user } = useContext(AuthContext);
+   const { user, modalBackgroundOpen } = useContext(AuthContext);
    const { push, query } = useRouter();
    const { handleError } = useErrorHandler();
    const { nombre, enStock, marca, folio, familia } = filters;
@@ -74,6 +74,8 @@ export default function Home() {
 
    return (
       <>
+
+
          <Layout>
             <div className={styles.products}>
                <HomeFilter

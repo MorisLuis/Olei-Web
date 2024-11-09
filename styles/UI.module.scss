@@ -13,6 +13,9 @@
         justify-content: center;
         align-items: center;
         font-size: $font-small;
+        cursor: pointer;
+        gap: $gap;
+        box-shadow: $box-shadow-button / 1;
 
         p {
             max-width: 140px;
@@ -23,11 +26,6 @@
             text-overflow: ellipsis;
             white-space: normal;
         }
-
-        svg {
-            margin-left: $margin-horizontal;
-        }
-
         &.green {
             background-color: rgba($color-green, 0.2);
             color: $color-green;
@@ -74,6 +72,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: normal;
+            display: flex;
         }
     }
 

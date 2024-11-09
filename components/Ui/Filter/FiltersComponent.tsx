@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import ButtonSmall from '../../Buttons/ButtonSmall';
-import styles from '../../../styles/Filters.module.scss';
 import { FilterType } from '@/interfaces/filters';
+import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from '../../../styles/Filters.module.scss';
+import { AuthContext } from '@/context';
 
 export type FilterData = {
     type: FilterType;
@@ -38,7 +41,13 @@ export default function FiltersComponent({
     const [filterOptionLocal, setFilterOptionLocal] = useState<string | undefined>()
     const filterOptionSelected = filterOptions.find(filterOption => filterOption.type === selectedFilterCategory);
     const filterOptionLabel = filterOptionSelected?.type as string;
+    const { openModalBackground } = useContext(AuthContext);
 
+
+    const openModalFilters = ( ) => {
+        openModalBackground()
+        onOpenFilters()
+    }
 
     const handleSelectFilterCategory = (filter: string) => {
         setSelectedFilterCategory(filter);
@@ -78,7 +87,6 @@ export default function FiltersComponent({
     const renderMenuFilters = () => {
         return (
             <div className={styles.filterList}>
-                <h4>Filtros Disponibles</h4>
                 {filters.map((option, index) => (
                     <div
                         key={index}
@@ -95,18 +103,22 @@ export default function FiltersComponent({
     const renderFilterSelectedOptions = () => {
         if (!selectedFilterCategory) return;
         return (
-            <div className={styles.filterDetails}>
-                <button onClick={handleBackToFiltersCategories} className={styles.backButton}>
-                    Volver a filtros
-                </button>
-                <h3>{selectedFilterCategory}</h3>
+            <div className={styles.filterOptions}>
+
+                <div className={styles.filterOptions__Header} onClick={handleBackToFiltersCategories}>
+                    <button className={styles.backButton}>
+                        <FontAwesomeIcon icon={faAnglesLeft} className={`icon display-flex align`} />
+
+                    </button>
+                    <p>{selectedFilterCategory}</p>
+                </div>
 
                 {
                     customFilters?.includes(selectedFilterCategory) ? (
                         renderCustomFilters(selectedFilterCategory)
                     ) : (
                         filterOptionSelected?.data.map((item, index) => (
-                            <div key={index}>
+                            <div key={index} className={styles.inputCheck}>
                                 <label>
                                     <input
                                         type="checkbox"
@@ -116,7 +128,9 @@ export default function FiltersComponent({
                                         className={styles.filterItemDetail}
                                         onChange={handleCheckboxChange}
                                     />
-                                    {item}
+                                    <p>
+                                        {item}
+                                    </p>
                                 </label>
                             </div>
                         ))
@@ -138,7 +152,7 @@ export default function FiltersComponent({
 
             <ButtonSmall
                 text='Filtros'
-                onClick={onOpenFilters}
+                onClick={openModalFilters}
                 icon={faSliders}
                 color='white'
             />

@@ -1,16 +1,11 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { Tag } from './Ui/Tag';
-import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 import { AuthContext, FiltersContext } from '@/context';
 import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
 import HomeSearch from './Search/HomeSearch';
-import ButtonSmall from './Buttons/ButtonSmall';
-import styles from "../styles/Pages/Products.module.scss";
-import FiltersComponent from './Ui/Filter/FiltersComponent';
-import { api } from '@/api/api';
-import { FilterType } from '@/interfaces/filters';
 import FilterHome from './Ui/Filter/FilterHome';
+import styles from "../styles/Pages/Products.module.scss";
 
 interface Props {
     showGrid: boolean;
@@ -57,7 +52,7 @@ const HomeFilter = ({
     }, [showGrid, setShowGrid])
 
 
-    
+
     if (!visible) return <HomeFiltersSkeleton />
 
     return (
@@ -68,7 +63,11 @@ const HomeFilter = ({
 
                 <div className={styles.rightContent}>
 
-                    <FilterHome/>
+                    <div className={styles.filtersTag}>
+                        {tagsRender()}
+                        <FilterHome />
+                    </div>
+
 
                     {
                         user?.SwImagenes &&

@@ -16,13 +16,13 @@
         background-color: $background-color;
         z-index: 999;
 
-        .company{
+        .company {
             margin-bottom: 5px;
             font-size: $font-medium;
             color: $color-gray;
         }
 
-        .header__container{
+        .header__container {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -43,19 +43,24 @@
                 position: relative;
                 transition: width 0.6s ease-in-out;
 
+                @include respond(phone) {
+                    display: none;
+                }
+
+
                 @include respond(tab-port) {
                     min-width: 60%;
                 }
-        
+
                 @include respond(phone) {
                     width: 60%;
                 }
-        
+
                 &.active {
                     width: 50%;
                     animation: appear-Left-to-Right 0.1s ease-in-out;
                 }
-        
+
                 .inputSearch {
                     border: none;
                     width: 100%;
@@ -65,11 +70,6 @@
                     z-index: 9999;
                     height: 40px;
                     display: flex;
-
-                    @include respond(phone) {
-                        font-size: $font-normal;
-                    }
-                    
 
                     &:valid {
                         padding: 0em $padding*2.5;
@@ -112,14 +112,14 @@
                         position: absolute;
                         left: 0px;
                     }
-        
+
                     .filtersSearch {
                         background-color: $background-color-secondary;
                         border: 1px solid $color-border;
                         border-radius: $border-radius;
                         padding: $padding;
                         margin-bottom: $margin-vertical;
-        
+
                         div:not(:first-child) {
                             margin-left: $margin-horizontal;
                         }
@@ -127,14 +127,23 @@
                 }
             }
 
-            .rightContent{
+            .rightContent {
                 display: flex;
 
-                @include respond(phone) {
-                    width: 40%;
-                    margin-right: 0em;
+                .filtersTag {
                     display: flex;
-                    justify-content: flex-end;
+                    align-items: center;
+                    height: auto;
+                    gap: $gap;
+
+                    @include respond(phone) {
+                        width: 100%;
+                        flex-wrap: wrap-reverse;
+                    }
+                }
+
+                @include respond(phone) {
+                    align-items: center;
                 }
             }
         }

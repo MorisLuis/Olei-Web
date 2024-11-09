@@ -33,8 +33,9 @@ export const AUTH_INITIAL_STATE: AuthState = {
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
-    const [loggingIn, setLoggingIn] = useState(false)
-    const { pathname } = useRouter()
+    const [loggingIn, setLoggingIn] = useState(false);
+    const [modalBackgroundOpen, setModalBackgroundOpen] = useState(false)
+    const { pathname } = useRouter();
     const { handleError } = useErrorHandler()
 
     const { push } = useRouter()
@@ -101,14 +102,20 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         }
     }
 
+    const openModalBackground = () => {
+        setModalBackgroundOpen(!modalBackgroundOpen)
+    };
+
     return (
         <AuthContext.Provider value={{
             ...state,
             loggingIn,
+            modalBackgroundOpen,
 
             // Methods
             loginUser,
-            logoutUser
+            logoutUser,
+            openModalBackground
         }}>
             {children}
         </AuthContext.Provider>

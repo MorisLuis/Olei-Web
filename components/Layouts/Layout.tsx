@@ -19,7 +19,7 @@ export const Layout = ({ children }: Props) => {
     const [openModalCart, setOpenModalCart] = useState(false)
     const [openModalMenu, setOpenModalMenu] = useState(false)
     const { pathname } = useRouter()
-    const { user } = useContext(AuthContext);
+    const { user, openModalBackground, modalBackgroundOpen } = useContext(AuthContext);
 
 
     const getBanner = () => {
@@ -41,6 +41,23 @@ export const Layout = ({ children }: Props) => {
 
             <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu} />
 
+{/*             {
+                modalBackgroundOpen &&
+                <div
+                    onClick={openModalBackground}
+                    style={{
+                        backgroundColor: "black",
+                        width: "100vw",
+                        height: "100vh",
+                        position: "absolute",
+                        left: "0px",
+                        right: "0px",
+                        zIndex: "999",
+                        opacity: "50%"
+                    }}
+                ></div>
+            }
+ */}
             {
                 pathname === '/products' &&
                 <div className='banner'>
