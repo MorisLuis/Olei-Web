@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
-import FiltersComponent from './FiltersComponent'
+import FiltersComponent, { FilterData } from './FiltersComponent'
 import { FilterType } from '@/interfaces/filters';
 import { api } from '@/api/api';
 import { FiltersContext } from '@/context';
 import Input from '@/components/Inputs/inputs';
+
 
 export default function FilterHome() {
 
@@ -11,13 +12,18 @@ export default function FilterHome() {
     const { addFilters, filters } = useContext(FiltersContext);
 
     // Call API ( optional ).
-    const getDataOfFilters = async (): Promise<Partial<Record<FilterType, string[]>>> => {
+    const getDataOfFilters = async (): Promise<FilterData[]> => {
         const { data: { Familias, Marca } } = await api.get("/api/tables");
-        return { Familia: Familias, Marca };
+        const filtersData: FilterData[] = [
+            { type: 'Familia', data: Familias, value: filters.familia },
+            { type: 'Marca', data: Marca, value: filters.marca },
+        ];
+        return filtersData;
     };
 
     // Submit filter.
-    const onSelectFilterValue = (value: string, value2: string) => {
+    const onSelectFilterValue = (value: string, value2: string | undefined) => {
+        if (!value) return;
         addFilters({ [value.toLowerCase()]: value2 })
     };
 
@@ -50,12 +56,13 @@ export default function FilterHome() {
     return (
         <FiltersComponent
             open={openModal}
-            onClick={() => setOpenModal(!openModal)}
-            apiCall={getDataOfFilters}
             filters={Filters}
-            customFilters={CustumFilters}
-            custumRenders={CustumRenders}
+            onOpenFilters={() => setOpenModal(!openModal)}
             onSelectFilter={onSelectFilterValue}
+
+            apiCall={getDataOfFilters}
+            customFilters={CustumFilters}
+            customRenders={CustumRenders}
         />
     )
 }

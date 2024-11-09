@@ -13,6 +13,7 @@
     width: 100%;
     gap: $gap;
     color: $text-color-light;
+    box-shadow: $box-shadow-button;
 
     &.white {
         background-color: $background-color;
@@ -58,6 +59,8 @@
     align-items: center;
     gap: $gap;
     min-height: 30px;
+    border: 1px solid $color-border-secondary;
+    box-shadow: $box-shadow-button;
 
     &.opacity{
         opacity: 40%;
@@ -80,10 +83,11 @@
 
     &.white {
         background-color: $background-color;
-        border: 1px solid $color-border;
-
+        border: 1px solid $color-border-secondary;
+    
         &:hover {
-            border: 1px solid $color-border-tertiary;
+            background-color: $background-color-secondary;
+            border: 1px solid $color-border;
         }
     }
 

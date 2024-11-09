@@ -46,10 +46,7 @@
         transition-timing-function: cubic-bezier(.4, 0, .2, 1);
         transition-duration: .15s;
         padding: $padding-horizontal;
-
-        -webkit-box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
-        -moz-box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
-        box-shadow: 0px 10px 10px -15px rgba(101, 116, 130, 1);
+        box-shadow: $box-shadow-input;
 
         &::placeholder {
             color: $color-gray;
@@ -172,6 +169,8 @@
         width: 70px;
         min-height: 30px;
         display: flex;
+        box-shadow: rgba(0, 0, 0, 0.12) 1.5px 1.5px 1px;
+        border-radius: $border-radius;
 
         .checkbox {
             opacity: 0;
