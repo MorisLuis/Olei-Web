@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import styles from "../../../styles/Menu.module.scss";
-
 import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AuthContext, CartContext, FiltersContext } from '@/context';
 import Link from 'next/link';
 import ModalSideways from '../ModalSideways';
+import styles from "../../../styles/Menu.module.scss";
 
 interface Props {
     visible: boolean;
@@ -45,7 +44,7 @@ const ModalMenu = ({
                         </div>
                     </Link>
 
-                    <div className='divider__small'></div>
+                    <div className='divider small'></div>
 
                     <Link href={"/profile"} className={styles.item}>
                         <FontAwesomeIcon icon={faUser} className={`icon__small cursor display-flex align`} />
