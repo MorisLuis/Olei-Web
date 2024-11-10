@@ -53,7 +53,7 @@ export const FooterCart = ({
                         cart.length > 0 &&
                         <>
                             <p className={styles.total}>Total (Incluye IVA) : {format(total)} </p>
-                            <div className={`${styles.buttonConfirm} containerbutton`}>
+                            <div className={styles.buttonConfirm}>
                                 <ButtonAnimated
                                     onSubmit={submitOrder}
                                     textDefault="Confirmar pedido"

@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { AuthContext } from '@/context';
 import ModalCart from '../Modals/ModalsComponents/ModalCart';
 import ModalMenu from '../Modals/ModalsComponents/ModalMenu';
+import styles from '../../styles/Layouts.module.scss'
 
 interface Props {
     children: ReactNode
@@ -19,7 +20,7 @@ export const Layout = ({ children }: Props) => {
     const [openModalCart, setOpenModalCart] = useState(false)
     const [openModalMenu, setOpenModalMenu] = useState(false)
     const { pathname } = useRouter()
-    const { user, openModalBackground, modalBackgroundOpen } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
 
     const getBanner = () => {
@@ -41,39 +42,25 @@ export const Layout = ({ children }: Props) => {
 
             <Header setOpenModalCart={setOpenModalCart} setOpenModalMenu={setOpenModalMenu} />
 
-{/*             {
-                modalBackgroundOpen &&
-                <div
-                    onClick={openModalBackground}
-                    style={{
-                        backgroundColor: "black",
-                        width: "100vw",
-                        height: "100vh",
-                        position: "absolute",
-                        left: "0px",
-                        right: "0px",
-                        zIndex: "999",
-                        opacity: "50%"
-                    }}
-                ></div>
-            } */}
+            <div className={styles.Layout}>
+                {
+                    pathname === '/products' &&
+                    <div className={styles.banner}>
+                        <Image
+                            fill
+                            alt="Banner"
+                            src={getBanner()}
+                            priority
+                            quality={100}
+                        />
+                    </div>
+                }
 
-            {
-                pathname === '/products' &&
-                <div className='banner'>
-                    <Image
-                        fill
-                        alt="Banner"
-                        src={getBanner()}
-                        priority
-                        quality={100}
-                    />
+                <div>
+                    {children}
                 </div>
-            }
-
-            <div>
-                {children}
             </div>
+
 
             {
                 pathname !== "/cart" &&

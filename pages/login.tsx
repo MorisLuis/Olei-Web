@@ -70,7 +70,7 @@ const Login = () => {
                                     className='input mb-small'
                                     placeholder='Escribe tu e-mail...'
                                 />
-                                {errors.email && <span className='warning'>La cuenta es requerida</span>}
+                                {errors.email && <span className='warning-message'>La cuenta es requerida</span>}
 
                                 <input
                                     {...register("password", {
@@ -83,7 +83,7 @@ const Login = () => {
                                     className='input mb-small'
                                     placeholder='Escribe la contraseña...'
                                 />
-                                {errors.password && <span className='warning'>La contraseña es requerida</span>}
+                                {errors.password && <span className='warning-message'>La contraseña es requerida</span>}
 
                                 <Button
                                     text='Iniciar sesión'

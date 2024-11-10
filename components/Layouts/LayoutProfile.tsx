@@ -19,7 +19,7 @@ const LayoutProfile = ({ children }: Props) => {
         >
             <NavigationProfile />
 
-            <div className={styles.layoutProfile}>
+            <div className={styles.LayoutProfile}>
                 {children}
             </div>
 
