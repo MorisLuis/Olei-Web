@@ -13,8 +13,6 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    //transform: scale(0.8);
-    //animation: modal-open 0.3s ease-in-out forwards;
 
     &.closing {
         animation: modal-close 0.2s ease-in-out forwards;
@@ -194,7 +192,7 @@
     animation: appear-Right-to-Left 0.3s ease-in-out;
     border: 1px solid $color-border;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    z-index: 99999;
+    z-index: 999999;
     overflow: hidden;
     font-size: $font-medium;
 
