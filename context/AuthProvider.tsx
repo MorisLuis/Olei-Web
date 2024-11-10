@@ -92,8 +92,8 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const logoutUser = async () => {
         try {
             await api.get('/api/auth/logout');
-            Cookies.remove("token")
             push("/")
+            Cookies.remove("token")
             dispatch({ type: '[Auth] - Logout', user: AUTH_INITIAL_STATE.user });
         } catch (error) {
             handleError(error);
