@@ -2,7 +2,7 @@
 
 .header {
     height: 60px;
-    padding: $padding $padding*10;
+    padding: 0px $padding*10;
     position: sticky;
     top: 0;
     z-index: 999;
@@ -10,16 +10,16 @@
     background-color: $color-secondary;
 
     @include respond(tab-land) {
-        padding: $padding $padding*5;
+        padding: 0px $padding*5;
     }
 
 
     @include respond(tab-port) {
-        padding: $padding $padding*3;
+        padding: 0px $padding*3;
     }
 
     @include respond(phone) {
-        padding: $padding;
+        padding: $padding  $padding*2;
     }
 
     .content {
@@ -28,6 +28,7 @@
         font-size: $font-medium;
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
         .left {
             width: 100%;
@@ -142,6 +143,7 @@
             width: 100%;
             display: flex;
             justify-content: flex-end;
+            align-items: center;
 
             .orders {
                 height: 100%;
@@ -173,6 +175,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                font-size: $font-medium;
 
                 @include respond(phone) {
                     position: static;
@@ -197,11 +200,12 @@
 
                 .circle {
                     background-color: $color-primary;
-                    padding: 0.1em;
+                    padding: $padding/5;
                     border-radius: $border-radius;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    box-shadow: $box-shadow-button;
 
                     .content {
                         background-color: $color-tertiary;
@@ -289,7 +293,8 @@
 
             .cart {
                 position: relative;
-                margin-left: 0.5em;
+                margin-left: $margin-horizontal;
+                width: fit-content;
 
                 .circle {
                     width: 18px;
@@ -301,8 +306,8 @@
                     justify-content: center;
                     align-items: center;
 
-                    top: 0px;
-                    right: 0px;
+                    top: -50%;
+                    right: -75%;
 
                     p {
                         font-size: $font-small;
