@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faClose } from '@fortawesome/free-solid-svg-icons';
 import ButtonSmall from '../Buttons/ButtonSmall';
 import styles from "../../styles/Modal.module.scss";
+import useLockBodyScroll from '@/hooks/useLockBodyScroll';
 
 
 interface Props {
@@ -40,6 +41,7 @@ const Modal = ({
 }: Props) => {
 
     const [isClosing, setIsClosing] = useState(false);
+    useLockBodyScroll(visible);
 
     const handleClose = () => {
         setIsClosing(true);

@@ -4,6 +4,7 @@ import { FilterType } from '@/interfaces/filters';
 import { api } from '@/api/api';
 import { AuthContext, FiltersContext } from '@/context';
 import Input from '@/components/Inputs/inputs';
+import useLockBodyScroll from '@/hooks/useLockBodyScroll';
 
 
 export default function FilterHome() {
@@ -58,6 +59,8 @@ export default function FilterHome() {
     const CustumRenders: CustomRenderType[] = [
         { Folio: renderFolio() },
     ];
+
+    useLockBodyScroll(openModalBackground);
 
     return (
         <>

@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import styles from '../../styles/UI.module.scss';
-
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from "@/context";
 import Image from "next/image";
+import styles from '../../styles/UI.module.scss';
 
 export interface imageInterface {
     url: string,
