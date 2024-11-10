@@ -12,6 +12,7 @@ import { ContentCart } from '@/components/Pages/Cart/ContentCart';
 import { FooterCart } from '@/components/Pages/Cart/FooterCart';
 import LayoutContentSecondary from '@/components/Layouts/LayoutContentSecondary';
 import { useRouter } from 'next/router';
+import useLockBodyScroll from '@/hooks/useLockBodyScroll';
 
 const Cart = () => {
 
@@ -19,6 +20,7 @@ const Cart = () => {
     const [orderRequested, setOrderRequested] = useState(false);
     const [openModalMessage, setOpenModalMessage] = useState(false);
     const { back } = useRouter()
+    //useLockBodyScroll(openModalMessage)
 
     const handleRemoveCart = () => {
         removeAllCart()

@@ -144,19 +144,22 @@
     position: fixed;
     border-radius: $border-radius;
     border: 1px solid $color-border;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    box-shadow: $box-shadow-modal;
     z-index: 999999;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    animation: modal-open 0.1s ease-in-out forwards;
+    animation: modal-open 0.2s ease-in-out forwards;
 
     @include respond(phone) {
         width: 100%;
-        top: 100%;
-        left: 0%;
-        transform: translate(0%, -100%);
-        height: fit-content;
+        height: auto;
+        left: 0;
+        bottom: 0%;
+        top: auto;
+        border-radius: $border-radius;
+        transform: translateY(0%);
+        animation: modal-open-mobile 0.2s ease-in-out forwards;
     }
 
     .content {
