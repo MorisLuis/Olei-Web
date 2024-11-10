@@ -68,7 +68,6 @@ export const FiltersProvider = ({ children }: { children: JSX.Element }) => {
     }, [state]);
 
     const UpdatefiltersValues = () => {
-        //console.log("UpdatefiltersValues")
         const filtersArray: [string, string][] = Object.entries(state.filters)
             .filter(([_, value]) => value !== undefined && value !== false)
             .map(([key, value]) => [key, value as string]);

@@ -29,7 +29,6 @@ const Pedidos = () => {
         try {
             setOpenModalRequest(true)
             const order = await getOrderDetails(query.receipt as string)
-            console.log({order})
             if (order.error) {
                 handleError(order.error);
                 return;
@@ -40,7 +39,7 @@ const Pedidos = () => {
         }
     }, [handleError, query.receipt])
 
-    const handleGetOrders = async () => {
+    const handleGetOrders = useCallback(async () => {
         try {
             const data = await getOrders();
             if (data.error) {
@@ -51,7 +50,7 @@ const Pedidos = () => {
         } catch (error) {
             handleError(error)
         }
-    }
+    }, [handleError])
 
     const onSubmitOrderToCart = useCallback(async () => {
 
@@ -84,7 +83,7 @@ const Pedidos = () => {
 
     useEffect(() => {
         handleGetOrders();
-    }, []);
+    }, [handleGetOrders]);
 
     useEffect(() => {
         if (!query.receipt) return;

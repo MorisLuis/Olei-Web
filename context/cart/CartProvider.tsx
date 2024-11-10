@@ -111,8 +111,6 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
 
         }, 0);
 
-        console.log({total, subTotal})
-
         const orderSummary = {
             numberOfItems,
             total,

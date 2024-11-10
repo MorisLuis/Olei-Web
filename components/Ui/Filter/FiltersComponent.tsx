@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import ButtonSmall from '../../Buttons/ButtonSmall';
 import { FilterType } from '@/interfaces/filters';
@@ -66,7 +66,7 @@ export default function FiltersComponent({
         return customRender ? customRender[filter] : null;
     };
 
-    const onGetDataFromAPI = async () => {
+    const onGetDataFromAPI = useCallback(async () => {
         if (!apiCall) return;
 
         try {
@@ -75,7 +75,7 @@ export default function FiltersComponent({
         } catch (error) {
             console.error("Error fetching filter data:", error);
         }
-    };
+    }, [apiCall])
 
     // First menu
     const renderMenuFilters = () => {
@@ -135,7 +135,7 @@ export default function FiltersComponent({
 
     useEffect(() => {
         if (open) onGetDataFromAPI();
-    }, [apiCall, open]);
+    }, [apiCall, open, onGetDataFromAPI]);
 
     useEffect(() => {
         setFilterOptionLocal(filterOptionSelected?.value)

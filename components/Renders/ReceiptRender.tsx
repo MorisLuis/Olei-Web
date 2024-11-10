@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import styles from "../../styles/Pages/Receipt.module.scss";
 
 import ProductInterface from '@/interfaces/product';
@@ -27,7 +27,7 @@ export const ReceiptRender = () => {
     const { Fecha, Cantidad, Vendedor, Folio, Cliente, Total } = orderSelect ?? {};
     const isEmployee = user?.TipoUsuario === 2;
 
-    const handleGetOrderDetails = async () => {
+    const handleGetOrderDetails = useCallback(async () => {
         if (loadingOrder || orderDetailsSelect) return;
         setLoadingOrder(true);
         try {
@@ -42,9 +42,9 @@ export const ReceiptRender = () => {
         } finally {
             setLoadingOrder(false);
         }
-    };
+    }, [handleError, loadingOrder, orderDetailsSelect, receipt])
 
-    const handleGetOrder = async () => {
+    const handleGetOrder = useCallback(async () => {
         try {
             const order = await getOrder(receipt as string);
             if (order.error) {
@@ -55,7 +55,7 @@ export const ReceiptRender = () => {
         } catch (error) {
             handleError(error);
         }
-    };
+    }, [handleError, receipt])
 
     // Evitar llamadas duplicadas usando el ref `fetchedData`
     useEffect(() => {
@@ -63,7 +63,7 @@ export const ReceiptRender = () => {
         fetchedData.current = true; // Se marca que ya se hizo la solicitud
         handleGetOrder();
         handleGetOrderDetails();
-    }, [receipt]);
+    }, [receipt, handleGetOrder, handleGetOrderDetails]);
 
     return orderDetailsSelect ? (
         <div className={styles.receiptRender}>

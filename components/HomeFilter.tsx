@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useContext, useEffect, useState } from 'react';
 import { Tag } from './Ui/Tag';
 import HomeFiltersSkeleton from './Skeletons/HomeFiltersSkeleton';
 import { AuthContext, FiltersContext } from '@/context';
@@ -20,7 +20,7 @@ const HomeFilter = ({
     const { removeFilter, filtersValues, removeAllFilters } = useContext(FiltersContext);
     const { user } = useContext(AuthContext);
     const [visible, setVisible] = useState(false);
-    const setGrid = () => setShowGrid(showGrid)
+    const setGrid = useCallback(() => setShowGrid(showGrid), [setShowGrid, showGrid])
 
     const cleanFiltersRender = () => {
         return filtersValues.length > 0 && <Tag close cursor color='gray' onClose={removeAllFilters}>Limpiar filtros</Tag>
@@ -45,7 +45,7 @@ const HomeFilter = ({
 
     useEffect(() => {
         setGrid()
-    }, [showGrid, setShowGrid])
+    }, [showGrid, setShowGrid, setGrid])
 
 
 
