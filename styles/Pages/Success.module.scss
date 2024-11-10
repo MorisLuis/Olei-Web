@@ -1,45 +1,48 @@
 @import "../main.scss";
 
-.success{
-    padding: 8em 16em;
+.success {
     height: 85svh;
+    padding: $padding*2 $padding*10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-    @include respond(tab-land) {
-        padding: 8em;
+    @include respond(tab-port) {
+        padding: $padding*3;
     }
 
     @include respond(phone) {
-        padding: 2em;
+        padding: $padding*2;
     }
 
-
-    h1{
-        font-size: 80px;
+    h1 {
+        font-size: $font-big;
         color: $color-tertiary;
-        width: 80%;
-        line-height: 80px;
-        padding-bottom: 1rem;
-    
+        width: 60%;
+        line-height: $font-big;
+        padding-bottom: $padding-bottom/2;
+
         @include respond(phone) {
-            font-size: 45px;
-            color: $color-blue;
-            width: 80%;
-            line-height: 50px;
             padding-bottom: 1rem;
+            width: 80%;
         }
     }
 
-    
 
-    .message{
+
+    .message {
         padding-bottom: 1em;
     }
 
-    .actions{
+    .actions {
+        display: flex;
+        gap: $gap;
 
-        :nth-child(2){
-            margin-left: 1em;
+        @include respond(phone) {
+            flex-direction: column;
+            width: 100%;
         }
+
     }
 
 }

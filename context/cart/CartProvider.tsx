@@ -84,12 +84,11 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
         }, 0);
 
         const total = state.cart.reduce((prev, current: ProductInterface) => {
-
             if (current?.Existencia >= 1) {
                 if (productWithTaxInPrice) {
                     return prev + (current.Precio * current.Cantidad);
                 } else {
-                    const Impuesto = current.Precio * current.Cantidad * (current.Impuesto ?? 0 / 100)
+                    const Impuesto = (current.Precio * current.Cantidad) * ((current.Impuesto ?? 0)/100)
                     return prev + (current.Precio * current.Cantidad) + Impuesto;
                 }
             }
@@ -102,7 +101,7 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
 
             if (current?.Existencia >= 1) {
                 if (productWithTaxInPrice) {
-                    const Impuesto = current.Precio * current.Cantidad * (current.Impuesto ?? 0 / 100)
+                    const Impuesto = (current.Precio * current.Cantidad) * ((current.Impuesto ?? 0)/100)
                     return prev + (current.Precio * current.Cantidad) - Impuesto;
                 } else {
                     return prev + (current.Precio * current.Cantidad);
@@ -111,6 +110,8 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
             return prev;
 
         }, 0);
+
+        console.log({total, subTotal})
 
         const orderSummary = {
             numberOfItems,

@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Success.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
-import { faArrowUp, faExpand } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExpand } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { ClientContext } from '@/context';
 import PageTransition from '@/components/PageTranstion';
@@ -29,19 +28,19 @@ const Success = () => {
                     <div className={styles.message}>
                         <p className={styles.text}>Tu pedido con el folio {query.order} ha sido realizado y {client.Nombre} lo ha recibido.</p>
                     </div>
-                    <div className={`${styles.actions} display-flex`}>
+                    <div className={styles.actions}>
                         <ButtonSmall
                             text='Ver recibo'
                             onClick={() => push(`/request/${query.order}`)}
                             icon={faExpand}
-                            color='black'
+                            color='blue'
                         />
 
                         <ButtonSmall
                             text='Regresar a Inicio'
                             onClick={() => push("/products")}
                             icon={faExpand}
-                            color='black'
+                            color='white'
                         />
 
                     </div>
