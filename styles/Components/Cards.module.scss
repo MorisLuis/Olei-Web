@@ -158,10 +158,17 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                color: $text-color-secondary;
+                font-size: $font-normal;
 
-                >div {
+                .price{
                     width: 50%;
                 }
+
+
+                /* >div {
+                    width: 50%;
+                } */
             }
         }
 

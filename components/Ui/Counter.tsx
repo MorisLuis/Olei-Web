@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef } from 'react';
-import styles from "../../styles/UI.module.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import styles from "../../styles/UI.module.scss";
 
 interface CounterInterface {
     counter: number;

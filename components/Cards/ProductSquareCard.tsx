@@ -88,11 +88,14 @@ export const ProductSquareCard = ({ product, onClick, handleAddProduct }: Props)
 
 
                     <div className={styles.counter}>
-                        {
-                            product?.Precio ?
-                                <h3>{format(product?.Precio)}</h3> :
-                                <Tag color="blue">No tiene precio</Tag>
-                        }
+
+                        <div className={styles.price}>
+                            {
+                                product?.Precio ?
+                                    <p>{format(product?.Precio)}</p> :
+                                    <Tag color="blue">No tiene precio</Tag>
+                            }
+                        </div>
 
                         <Counter
                             counter={product?.Cantidad}

@@ -83,11 +83,13 @@
     }
 
 }
+
 .counter {
     width: 100%;
     height: auto;
     display: flex;
     gap: $gap;
+    align-items: center;
 
     .action {
         background-color: $background-color-tertiary;
@@ -97,6 +99,7 @@
         cursor: pointer;
         display: flex;
         height: 30px;
+
 
         svg {
             color: $color-border-tertiary;
