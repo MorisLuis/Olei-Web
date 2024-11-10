@@ -94,9 +94,9 @@ const Login = () => {
 
                                 <Button
                                     text='Iniciar sesión'
-                                    textDisabled='Cargando...'
-                                    disabled={loggingIn}
+                                    textDisabled='Iniciando...'
                                     typeSubmit
+                                    disabled={loggingIn}
                                 />
 
                             </form>

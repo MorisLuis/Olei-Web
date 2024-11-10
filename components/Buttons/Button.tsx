@@ -7,7 +7,7 @@ interface ButtonInterface {
     icon?: IconDefinition;
     onClick?: () => void;
     textDisabled?: string;
-    disabled?: boolean;
+    disabled: boolean;
 
     typeSubmit?: boolean;
     className?: string;
@@ -29,7 +29,7 @@ export default function Button({
     return (
         <button
             disabled={disabled}
-            className={`button ${className}`}
+            className={disabled ? `button ${className} disabled` : `button ${className}`}
             type={typeSubmit ? "submit" : 'button'}
             onClick={() => onClick?.()}
             aria-label={text}

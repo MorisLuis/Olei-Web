@@ -71,6 +71,7 @@ const Table = <T,>({
                         buttonText='Ver más'
                         onClick={handleLoadMore}
                         loading={loadingMoreData}
+                        color='white'
                     />
                 </div>
             }

@@ -1,19 +1,14 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import ResultsContainer from './ResultsContainer';
 import { searchProducts } from '@/services/search';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import styles from "../../styles/Pages/Products.module.scss";
 
-interface HomeSearchInterface {
-    setLoadingData: Dispatch<SetStateAction<boolean>>
-}
 
-const HomeSearch = ({
-    setLoadingData
-}: HomeSearchInterface) => {
+const HomeSearch = () => {
 
     const { handleError } = useErrorHandler();
     const { query } = useRouter();
@@ -73,12 +68,12 @@ const HomeSearch = ({
 
             <FontAwesomeIcon icon={faSearch} className={`${styles.iconSearch} icon`} />
 
-            {
+            {/* {
                 inputValue !== "" &&
                 <div className="iconClean display-flex allCenter cursor" onClick={() => setInputValue("")}>
                     <FontAwesomeIcon icon={faXmark} className={`icon__small`} style={{ zIndex: "99999999" }} />
                 </div>
-            }
+            } */}
 
             {/* RESULTS CONTAINER */}
             <ResultsContainer
@@ -88,7 +83,6 @@ const HomeSearch = ({
 
                 setModalSearchVisible={setModalSearchVisible}
                 setSearchActive={setSearchActive}
-                setLoadingData={setLoadingData}
             />
 
             {/* BACKGROUND */}

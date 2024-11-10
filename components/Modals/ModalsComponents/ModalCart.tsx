@@ -108,6 +108,7 @@ const ModalCart = ({
                             onClick={() => push("/cart")}
                             icon={faArrowUp}
                             iconClassName="rotate45"
+                            disabled={false}
                         />
                     </div>
                 </div>

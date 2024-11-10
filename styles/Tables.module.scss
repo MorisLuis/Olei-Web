@@ -302,11 +302,11 @@
         border: 1px solid $color-border;
         font-size: $font-medium;
 
-        &:not(:last-child){
+        &:not(:last-child) {
             border-bottom: 0px;
         }
 
-        .item__label{
+        .item__label {
             color: $text-color-secondary;
         }
 
@@ -323,17 +323,17 @@
 
 
 .grid {
-
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    align-content: center;
 
     .contentGrid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: $gap*3;
         background-color: $background-color;
-        margin-bottom: $margin-horizontal;
+        margin-bottom: $margin-horizontal*2;
 
         @include respond(tab-port) {
             grid-template-columns: repeat(3, 1fr);
@@ -345,14 +345,12 @@
             padding: 0em;
         }
 
-    }
+        .laodMore {
+            width: 30%;
 
-
-    .laodMore {
-        width: 30%;
-
-        @include respond(phone) {
-            width: 100%;
+            @include respond(phone) {
+                width: 100%;
+            }
         }
     }
 

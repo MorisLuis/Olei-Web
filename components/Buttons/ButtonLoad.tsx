@@ -6,24 +6,27 @@ interface Props {
     onClick: () => void,
     loading: boolean,
     buttonText: string,
-    buttonTextLoading?: string
+    buttonTextLoading?: string;
+    color?: "red" | "black" | "white" | "blue";
+
 }
 
 const ButtonLoad = ({
     onClick,
     loading,
     buttonText,
-    buttonTextLoading = "Cargando..."
+    buttonTextLoading = "Cargando...",
+    color
 }: Props) => {
 
     return (
         <button
-            className={`button ${loading ? 'loading' : ''} display-flex allCenter`}
+            className={`button ${color} ${loading ? 'loading' : ''} display-flex allCenter`}
             onClick={onClick}
             disabled={loading}
         >
             {loading ? buttonTextLoading : buttonText}
-            <FontAwesomeIcon icon={faPlus} className={`icon__small`} />
+            {!loading && <FontAwesomeIcon icon={faPlus} className={`icon__small`} />}
         </button>
     );
 }

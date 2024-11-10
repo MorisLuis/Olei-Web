@@ -17,7 +17,6 @@ import { useLoadMoreData } from '@/hooks/useLoadMoreData';
 import FiltersInterface from '@/interfaces/filters';
 import GridProducts from '@/components/Ui/Tables/TableComponents/GridProducts';
 
-
 export default function Home() {
    const { filters } = useContext(FiltersContext);
    const { productDelete } = useContext(CartContext);
@@ -27,10 +26,8 @@ export default function Home() {
    const { handleError } = useErrorHandler();
    const { nombre, enStock, marca, folio, familia } = filters;
    const [productDetails, setProductDetails] = useState<ProductInterface>();
-   const [openModalFilter, setOpenModalFilter] = useState<boolean>(false);
    const [openModalProduct, setOpenModalProduct] = useState<boolean>(false);
    const [showGrid, setShowGrid] = useState(true);
-   const [loadingData, setLoadingData] = useState(true);
 
    // Handle data showed
    const { data, isLoading, isButtonLoading, total, handleResetData, handleLoadMore } = useLoadMoreData(
@@ -76,10 +73,8 @@ export default function Home() {
          <Layout>
             <div className={styles.products}>
                <HomeFilter
-                  setOpenModalFilter={setOpenModalFilter}
                   setShowGrid={setShowGrid}
                   showGrid={showGrid}
-                  setLoadingData={setLoadingData}
                />
                {
                   (showGrid && user?.SwImagenes) ? (

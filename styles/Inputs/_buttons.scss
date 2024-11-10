@@ -17,11 +17,12 @@
 
     &.white {
         background-color: $background-color;
+        border: 1px solid $color-border;
         color: $text-color;
-        border: 1px solid $color-border-secondary;
 
         &:hover {
-            opacity: 70%;
+            background-color: $background-color-secondary;
+            border: 1px solid $color-border;
         }
     }
 
@@ -120,6 +121,14 @@
                 text-decoration: underline;
             }
         }
+    }
+}
+
+.disabled{
+    opacity: 50%;
+
+    &:hover{
+        opacity: 50%;
     }
 }
 

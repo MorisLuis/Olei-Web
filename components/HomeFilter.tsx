@@ -9,16 +9,12 @@ import styles from "../styles/Pages/Products.module.scss";
 
 interface Props {
     showGrid: boolean;
-    setOpenModalFilter: Dispatch<SetStateAction<boolean>>;
     setShowGrid: Dispatch<SetStateAction<boolean>>;
-    setLoadingData: Dispatch<SetStateAction<boolean>>;
 }
 
 const HomeFilter = ({
     showGrid,
     setShowGrid,
-    setOpenModalFilter,
-    setLoadingData,
 }: Props) => {
 
     const { removeFilter, filtersValues, removeAllFilters } = useContext(FiltersContext);
@@ -59,7 +55,7 @@ const HomeFilter = ({
         <div className={styles.header}>
 
             <div className={styles.header__container}>
-                <HomeSearch setLoadingData={setLoadingData} />
+                <HomeSearch />
 
                 <div className={styles.rightContent}>
 

@@ -12,7 +12,7 @@ interface GridProductsInterface {
     loadMoreProducts: () => Promise<void>;
     handleSelectData: (product: ProductInterface) => Promise<void>;
     loadingData: boolean;
-    buttonIsLoading?: boolean;
+    buttonIsLoading: boolean;
 }
 
 export default function GridProducts({
@@ -51,7 +51,7 @@ export default function GridProducts({
             data={productsWithCartInfo}
             handleLoadMore={loadMoreProducts}
             handleSelectData={handleSelectData}
-            loadingMoreData={loadingData}
+            loadingMoreData={buttonIsLoading}
             noMoreData={NoMoreProductToShow}
             handleAddProduct={handleAddProduct}
         />

@@ -9,8 +9,7 @@
     min-height: 85svh;
 
     .header {
-        margin-bottom: 1em;
-        //position: sticky;
+        margin-bottom: $margin-horizontal;
         top: 60px;
         width: 100%;
         background-color: $background-color;
@@ -21,7 +20,7 @@
         }
 
         .company {
-            margin-bottom: 5px;
+            margin-bottom: $margin-horizontal/2;
             font-size: $font-medium;
             color: $color-gray;
         }
@@ -52,7 +51,6 @@
                     display: none;
                 }
 
-
                 @include respond(tab-port) {
                     min-width: 60%;
                 }
@@ -75,6 +73,8 @@
                     z-index: 9999;
                     height: 40px;
                     display: flex;
+                    box-shadow: $box-shadow-button;
+
 
                     &:valid {
                         padding: 0em $padding*2.5;
@@ -92,20 +92,19 @@
                 .iconSearch {
                     position: absolute;
                     top: 0%;
-                    left: 2%;
+                    left: 10px;
                     height: 100%;
                     z-index: 9999;
 
                     @include respond(phone) {
                         left: 5%;
-
                     }
                 }
 
                 .resultsSearch {
                     background-color: $background-color;
                     border: 1px solid $color-border;
-                    border-radius: 5px;
+                    border-radius: $border-radius;
                     padding: $padding;
                     position: absolute;
                     top: 150%;

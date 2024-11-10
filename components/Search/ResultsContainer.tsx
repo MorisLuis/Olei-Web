@@ -13,7 +13,6 @@ interface ResultsContainerInterface {
 
     setModalSearchVisible: React.Dispatch<React.SetStateAction<boolean>>,
     setSearchActive: React.Dispatch<React.SetStateAction<boolean>>,
-    setLoadingData: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ResultsContainer = ({
@@ -22,7 +21,6 @@ const ResultsContainer = ({
     inputValue,
     searchResults,
     modalSearchVisible,
-    setLoadingData
 }: ResultsContainerInterface) => {
 
     const { push } = useRouter();
@@ -34,11 +32,9 @@ const ResultsContainer = ({
     };
 
     const onSelectProduct = (value: string) => {
-        setLoadingData(false)
         addFilters({ nombre: value })
         setModalSearchVisible(false)
         setSearchActive(false)
-        setLoadingData(true)
     }
 
     const handleRemoveAllFilters = () => {

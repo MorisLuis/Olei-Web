@@ -3,7 +3,6 @@ import styles from "../../../styles/Tables.module.scss";
 import { ProductSquareCard } from '../../Cards/ProductSquareCard';
 import ProductInterface from '@/interfaces/product';
 import ButtonLoad from '../../Buttons/ButtonLoad';
-import GridSkeleton from '@/components/Skeletons/GridSkeleton';
 
 interface GridInterface {
     data: ProductInterface[];
@@ -39,7 +38,6 @@ export default function Grid({
                     })
                 }
             </div>
-
             {
                 !noMoreData &&
                 <div className={styles.laodMore}>
@@ -47,9 +45,11 @@ export default function Grid({
                         buttonText='Ver más'
                         onClick={handleLoadMore}
                         loading={loadingMoreData}
+                        color='white'
                     />
                 </div>
             }
+
 
             {
                 noMoreData &&
