@@ -83,27 +83,6 @@
     }
 
 }
-
-.tagHover {
-    position: absolute;
-    bottom: 110%;
-    background-color: $color-tertiary;
-    color: $text-color-secondary;
-    padding: 0.5em;
-    width: max-content;
-    border-radius: 5px;
-    transition: 0.3s ease-in-out;
-
-    p {
-        font-size: 10px;
-    }
-
-    button {
-        background-color: none;
-        border: none;
-    }
-}
-
 .counter {
     width: 100%;
     height: auto;

@@ -6,7 +6,6 @@ import styles from "../styles/Pages/Products.module.scss";
 import { Layout } from '@/components/Layouts/Layout';
 import HomeFilter from '@/components/HomeFilter';
 import Modal from '@/components/Modals/Modal';
-import FiltersModalContent from '@/components/Modals/ModalsComponents/FiltersModalContent';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
 
 import ProductInterface from '@/interfaces/product';
@@ -23,7 +22,7 @@ export default function Home() {
    const { filters } = useContext(FiltersContext);
    const { productDelete } = useContext(CartContext);
    const { clientChanged } = useContext(ClientContext);
-   const { user, modalBackgroundOpen } = useContext(AuthContext);
+   const { user } = useContext(AuthContext);
    const { push, query } = useRouter();
    const { handleError } = useErrorHandler();
    const { nombre, enStock, marca, folio, familia } = filters;
@@ -74,8 +73,6 @@ export default function Home() {
 
    return (
       <>
-
-
          <Layout>
             <div className={styles.products}>
                <HomeFilter
@@ -107,21 +104,6 @@ export default function Home() {
                }
             </div>
          </Layout>
-
-         <Modal
-            visible={openModalFilter}
-            title="Filtros"
-            small
-            modalBlack
-            decisionVisible
-
-            //Methods
-            onClose={() => setOpenModalFilter(false)}
-         >
-            <FiltersModalContent
-               visible={openModalFilter}
-            />
-         </Modal>
 
          <Modal
             visible={(query.product && openModalProduct) ? true : false}
