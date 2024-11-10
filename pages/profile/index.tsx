@@ -1,22 +1,29 @@
 import { AuthContext } from '@/context';
 import React, { useContext } from 'react'
-import styles from "../../styles/Pages/Profile.module.scss";
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
+import TableTertiaryProfile from '@/components/Ui/Tables/TableComponents/TableTertiaryProfile';
 
 const Profile = () => {
 
-    const { user } = useContext(AuthContext)
-
     return (
-        <LayoutProfile>
-            <div className={styles.account}>
-                <section className={styles.info}>
-                    <div className={styles.header}>
-                        <h2>Tu cuenta</h2>
-                        <p>Para cambiar la información, habla con tu administrador.</p>
-                    </div>
-                    <div className={styles.form}>
+        <LayoutProfile
+            headerContent={{
+                title: "Tu cuenta",
+                subtitle: "Para cambiar la información, habla con tu administrador."
+            }}
+        >
+            <TableTertiaryProfile/>
+        </LayoutProfile >
+    )
+}
 
+export default Profile
+
+
+/* 
+                <div className={styles.account}>
+                <section className={styles.info}>
+                    <div className={styles.form}>
                         <div className={styles.item}>
                             <label htmlFor="Cuenta">Cuenta</label>
                             <p>{user?.Id_UsuarioOOL}</p>
@@ -34,8 +41,4 @@ const Profile = () => {
                     </div>
                 </section>
             </div >
-        </LayoutProfile >
-    )
-}
-
-export default Profile
+*/

@@ -15,9 +15,9 @@
         margin-bottom: $margin-horizontal;
         border-radius: $border-radius;
 
-        -webkit-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
-        -moz-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
-        box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+        -webkit-box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
+        -moz-box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
+        box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
 
         thead {
             background-color: $background-color;
@@ -161,9 +161,9 @@
         margin-bottom: $margin-horizontal;
         border-radius: $border-radius;
 
-        -webkit-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
-        -moz-box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
-        box-shadow: 10px 10px 15px -5px rgba(6,12,25,0.05);
+        -webkit-box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
+        -moz-box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
+        box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
 
         tbody {
             tr {
@@ -177,7 +177,7 @@
                     @include respond(phone) {
                         text-align: end;
 
-                        span{
+                        span {
                             display: none;
                         }
 
@@ -283,6 +283,44 @@
         }
     }
 }
+
+.tableTertiary {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: $border-radius;
+
+    -webkit-box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
+    -moz-box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
+    box-shadow: 10px 10px 15px -5px rgba(6, 12, 25, 0.05);
+
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        padding: $padding;
+        border: 1px solid $color-border;
+        font-size: $font-medium;
+
+        &:not(:last-child){
+            border-bottom: 0px;
+        }
+
+        .item__label{
+            color: $text-color-secondary;
+        }
+
+        &:first-child {
+            border-radius: $border-radius $border-radius 0px 0px;
+        }
+
+        &:last-child {
+            border-radius: 0px 0px $border-radius $border-radius;
+        }
+    }
+
+}
+
 
 .grid {
 

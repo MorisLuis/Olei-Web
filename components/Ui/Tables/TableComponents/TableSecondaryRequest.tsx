@@ -1,5 +1,4 @@
 import React from 'react'
-import TableSkeleton from '@/components/Skeletons/TableSkeleton';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import TableSecondary, { ColumnSecondaryConfig } from '../TableSecondary';
 import OrderInterface from '@/interfaces/order';

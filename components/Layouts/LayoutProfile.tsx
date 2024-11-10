@@ -2,13 +2,19 @@ import React, { ReactNode } from 'react'
 import NavigationProfile from '../Navigation/NavigationProfile'
 import LayoutContentSecondary from './LayoutContentSecondary';
 import { useRouter } from 'next/router';
-import styles  from '../../styles/Layouts.module.scss'
+import styles from '../../styles/Layouts.module.scss'
 
-interface Props {
-    children: ReactNode
+type headerContent = {
+    title: string;
+    subtitle: string
 }
 
-const LayoutProfile = ({ children }: Props) => {
+interface Props {
+    children: ReactNode;
+    headerContent?: headerContent;
+}
+
+const LayoutProfile = ({ children, headerContent }: Props) => {
 
     const { push } = useRouter()
 
@@ -19,12 +25,22 @@ const LayoutProfile = ({ children }: Props) => {
         >
             <NavigationProfile />
 
+
             <div className={styles.LayoutProfile}>
+                {
+                    headerContent &&
+                    <div className={styles.header}>
+                        <h2>{headerContent.title}</h2>
+                        <p>{headerContent.subtitle}</p>
+                    </div>
+                }
                 {children}
             </div>
 
         </LayoutContentSecondary>
     )
 }
+
+
 
 export default LayoutProfile

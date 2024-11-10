@@ -93,7 +93,7 @@ const Pedidos = () => {
     if (!orders) {
         return (
             <LayoutProfile>
-                <TableSecondarySkeleton body={[2, 2, 2]}/>
+                <TableSecondarySkeleton body={[2, 2, 2]} />
             </LayoutProfile>
         )
     }
@@ -108,20 +108,19 @@ const Pedidos = () => {
 
     return (
         <>
-            <LayoutProfile>
-                <>
-                    <div className='mb-medium'>
-                        <h2>Pedidos actuales</h2>
-                        <p>Para cambiar la información, habla con tu administrador.</p>
-                    </div>
+            <LayoutProfile
+                headerContent={{
+                    title: "Pedidos actuales",
+                    subtitle: "Para cambiar la información, habla con tu administrador/"
+                }}
+            >
 
-                    <TableRequest
-                        products={orders}
-                        totalProducts={orders.length}
-                        buttonIsLoading={false}
-                        loadingData={false}
-                    />
-                </>
+                <TableRequest
+                    products={orders}
+                    totalProducts={orders.length}
+                    buttonIsLoading={false}
+                    loadingData={false}
+                />
             </LayoutProfile>
 
             <Modal
