@@ -169,6 +169,10 @@
             tr {
                 border-radius: $border-radius;
 
+                #counter{
+                    background-color: rebeccapurple;
+                }
+
                 .column {
                     display: flex;
                     flex-direction: column;
@@ -176,19 +180,15 @@
 
                     @include respond(phone) {
                         text-align: end;
+                        align-items: end;
 
                         span {
                             display: none;
                         }
-
-                        p:nth-child(2) {
+                        
+                        > :nth-child(2) {
                             display: none;
                         }
-
-                        div &:nth-child(2) {
-                            display: none;
-                        }
-
                     }
                 }
 

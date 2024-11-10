@@ -46,7 +46,6 @@ export default function TableSecondaryRequestDetails({
                 <>
                     <p style={{ color: "black" }}><span>Familia:</span> {item.Familia}</p>
                     <p style={{ color: "black" }}><span>Marca:</span> {item.Marca}</p>
-
                 </>
             )
         },

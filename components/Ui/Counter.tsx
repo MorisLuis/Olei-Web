@@ -51,7 +51,7 @@ const Counter = forwardRef<HTMLInputElement, CounterInterface>(({
     };
 
     return (
-        <div className={styles.counter} id="counter">
+        <div className={styles.counter} id="counter" >
             <div
                 className={
                     counter < 1 ? `${styles.action} disabled` :

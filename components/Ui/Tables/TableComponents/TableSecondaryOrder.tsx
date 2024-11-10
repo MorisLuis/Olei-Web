@@ -61,10 +61,12 @@ export default function TableOrders({
             key: 'Cantidad',
             label: 'Cantidad',
             render: (value: number, item: ProductInterface) => (
-                <Counter
-                    counter={value ?? 0}
-                    setCounter={(newValue: number) => handleAddProduct(item, newValue)}
-                />
+                <div>
+                    <Counter
+                        counter={value ?? 0}
+                        setCounter={(newValue: number) => handleAddProduct(item, newValue)}
+                    />
+                </div>
             ),
             width: "20%"
         },

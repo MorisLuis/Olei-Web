@@ -37,7 +37,6 @@ export default function TableRequest({
                     <Tag>
                         {item.Entregado ? "Entregado" : "En revisión"}
                     </Tag>
-
                 </>
             )
         },
