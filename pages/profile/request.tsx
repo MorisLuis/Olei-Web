@@ -92,7 +92,7 @@ const Pedidos = () => {
 
     if (!orders) {
         return (
-            <LayoutProfile>
+            <LayoutProfile titleLP='Pedidos'>
                 <TableSecondarySkeleton body={[2, 2, 2]} />
             </LayoutProfile>
         )
@@ -109,6 +109,7 @@ const Pedidos = () => {
     return (
         <>
             <LayoutProfile
+            titleLP='Pedidos'
                 headerContent={{
                     title: "Pedidos actuales",
                     subtitle: "Para cambiar la información, habla con tu administrador."

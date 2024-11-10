@@ -10,7 +10,7 @@ const Custum404 = () => {
     const { replace } = useRouter();
 
     return (
-        <Layout>
+        <Layout title='404'>
             <div className={styles.NotFound}>
                 <motion.div
                     initial={{ scale: 0 }}

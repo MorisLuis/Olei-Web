@@ -22,7 +22,7 @@ const Success = () => {
 
     return (
         <PageTransition key="login-transition" isEntering={isEntering === false}>
-            <Layout>
+            <Layout title='Orden Finalizada'>
                 <div className={styles.success}>
                     <h1>Tu pedido ha sido exitoso</h1>
                     <div className={styles.message}>

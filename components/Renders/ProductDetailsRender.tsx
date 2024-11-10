@@ -18,7 +18,7 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
     const isEmployee = user?.TipoUsuario === 2;
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface | null>(null);
 
-    const { Precio, Descripcion, Codigo, Existencia, Familia, Marca, imagen, Observaciones, Cantidad } = productWithCartInfo || {};
+    const { Precio, Descripcion, Codigo, Familia, Marca, Observaciones, Cantidad } = productWithCartInfo || {};
 
     const onUpdateQuantity = async (newPiezas: number) => {
         if (productWithCartInfo) {

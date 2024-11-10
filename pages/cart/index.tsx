@@ -50,6 +50,7 @@ const Cart = () => {
                             onBack={back}
                             backText="Regresar"
                             footer={<FooterCart setOrderRequested={setOrderRequested} />}
+                            titleLS='Carrito'
                         >
                             <HeaderCart />
                             <ContentCart setOpenModalMessage={setOpenModalMessage} />

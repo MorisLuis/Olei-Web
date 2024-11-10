@@ -12,9 +12,10 @@ type headerContent = {
 interface Props {
     children: ReactNode;
     headerContent?: headerContent;
+    titleLP: string
 }
 
-const LayoutProfile = ({ children, headerContent }: Props) => {
+const LayoutProfile = ({ children, headerContent, titleLP }: Props) => {
 
     const { push } = useRouter()
 
@@ -22,6 +23,7 @@ const LayoutProfile = ({ children, headerContent }: Props) => {
         <LayoutContentSecondary
             onBack={() => push('/products')}
             backText='Regresar'
+            titleLS={`Perfil > ${titleLP}`}
         >
             <NavigationProfile />
 

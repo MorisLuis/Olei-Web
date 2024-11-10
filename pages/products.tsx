@@ -70,7 +70,7 @@ export default function Home() {
 
    return (
       <>
-         <Layout>
+         <Layout title='Productos'>
             <div className={styles.products}>
                <HomeFilter
                   setShowGrid={setShowGrid}

@@ -11,7 +11,7 @@ const PedidosAnteriores = () => {
 
     return (
         <>
-            <LayoutProfile>
+            <LayoutProfile titleLP='Pedidos Anteriores'>
                 <MessageCard
                     title="No hay pedidos anteriores"
                 >

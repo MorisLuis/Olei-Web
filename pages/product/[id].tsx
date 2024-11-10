@@ -22,20 +22,24 @@ const ProductDetails = () => {
 
         const handleGetProduct = async () => {
             const productData = await getProductById({Codigo: id, Marca});
+            console.log({productData})
             setProduct(productData)
         }
 
         handleGetProduct()
     }, [Marca, id])
 
+    if(!product) return;
+
     return (
         <LayoutContentSecondary
             onBack={handleGoBack}
             backText='Regresar'
+            titleLS={product?.Descripcion ?? "Producto"}
         >
             <div className={styles.pageDetails}>
                 <section className={styles.page}>
-                    <ProductDetailsRender product={product as ProductInterface} />
+                    <ProductDetailsRender product={product} />
                 </section>
             </div>
         </LayoutContentSecondary>

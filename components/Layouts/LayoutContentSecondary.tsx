@@ -9,7 +9,8 @@ interface LayoutContentSecondaryInterface {
     onBack: () => void;
     backText: string;
     footer?: ReactNode;
-    topbar?: ReactNode
+    topbar?: ReactNode;
+    titleLS: string
 }
 
 export default function LayoutContentSecondary({
@@ -17,10 +18,11 @@ export default function LayoutContentSecondary({
     onBack,
     backText,
     footer,
-    topbar
+    topbar,
+    titleLS
 }: LayoutContentSecondaryInterface) {
     return (
-        <Layout>
+        <Layout title={titleLS}>
             <div className={styles.LayoutContentSecondary}>
                 <div className={styles.content}>
                     <div className={styles.header}>

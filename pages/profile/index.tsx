@@ -7,12 +7,13 @@ const Profile = () => {
 
     return (
         <LayoutProfile
+            titleLP='Cuenta'
             headerContent={{
                 title: "Tu cuenta",
                 subtitle: "Para cambiar la información, habla con tu administrador."
             }}
         >
-            <TableTertiaryProfile/>
+            <TableTertiaryProfile />
         </LayoutProfile >
     )
 }
