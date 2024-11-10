@@ -131,6 +131,7 @@ const Pedidos = () => {
                 onClose={handleCloseReceiptRender}
                 handleActionTopOne={() => push(`/request/${query?.receipt}`)}
                 handleActionTopTwo={() => setOpenModalMessage(true)}
+                modalSize='medium'
             >
                 <ReceiptRender />
             </Modal>

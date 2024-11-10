@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faClose } from '@fortawesome/free-solid-svg-icons';
 import ButtonSmall from '../Buttons/ButtonSmall';
@@ -12,7 +12,8 @@ interface Props {
     title: string;
 
     //Conditions
-    small?: boolean;
+    //small?: boolean;
+    modalSize?: "medium" | "small" | "normal";
     actionsVisible?: boolean;
     decisionVisible?: boolean;
     modalBlack?: boolean;
@@ -22,6 +23,7 @@ interface Props {
     handleActionTopOne?: () => void;
     handleActionTopTwo?: () => void;
     handleActionBottomOne?: () => void;
+    extraStyles?: CSSProperties
 }
 
 const Modal = ({
@@ -29,7 +31,7 @@ const Modal = ({
     children,
     title = '',
 
-    small = false,
+    modalSize = "normal",
     actionsVisible = false,
     decisionVisible = false,
     modalBlack = false,
@@ -38,6 +40,7 @@ const Modal = ({
     handleActionTopOne,
     handleActionTopTwo,
     handleActionBottomOne,
+    extraStyles
 }: Props) => {
 
     const [isClosing, setIsClosing] = useState(false);
@@ -98,7 +101,7 @@ const Modal = ({
                     <div className={styles.modalBackgroundSecondary} onClick={handleClose}></div>
             }
 
-            <div className={`${styles.Modal} ${small ? styles.small : ''} ${isClosing ? styles.closing : ''}`}>
+            <div className={`${styles.Modal} ${styles[modalSize]} ${isClosing ? styles.closing : ''}`} style={extraStyles}>
 
                 <div className={styles.header} >
                     <div className={styles.left}>

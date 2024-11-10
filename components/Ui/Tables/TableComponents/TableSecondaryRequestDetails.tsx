@@ -1,13 +1,10 @@
 import React from 'react'
 import { MessageCard } from '@/components/Cards/MessageCard';
 import TableSecondary, { ColumnSecondaryConfig } from '../TableSecondary';
-import OrderInterface from '@/interfaces/order';
 import { useRouter } from 'next/router';
-import { Tag } from '../../Tag';
-import { capitalizarTexto } from '@/utils/textCapitalize';
-import { dateFormat } from '@/utils/dateFormat';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
+import { Tag } from '../../Tag';
 
 interface TableSecondaryRequestDetailsInterface {
     products: ProductInterface[];
@@ -30,8 +27,8 @@ export default function TableSecondaryRequestDetails({
 
     const columns: ColumnSecondaryConfig<ProductInterface>[] = [
         {
-            key: 'Codigo',
-            label: 'Fecha',
+            key: 'Descripcion',
+            label: 'Descripcion',
             render: (_: string, item: ProductInterface) => (
                 <>
                     <h4 style={{ color: "black", fontWeight: 'bold' }}>{item.Descripcion}</h4>
@@ -44,7 +41,11 @@ export default function TableSecondaryRequestDetails({
             label: 'Familia',
             render: (_: string, item: ProductInterface) => (
                 <>
-                    <p style={{ color: "black" }}><span>Familia:</span> {item.Familia}</p>
+                    {
+                        item.Familia ?
+                        <p style={{ color: "black" }}><span>Familia:</span> {item.Familia}</p> :
+                        <Tag color='green'>Sin Familia</Tag>
+                    }
                     <p style={{ color: "black" }}><span>Marca:</span> {item.Marca}</p>
                 </>
             )
@@ -55,7 +56,11 @@ export default function TableSecondaryRequestDetails({
             render: (_: string, item: ProductInterface) => (
                 <>
                     <p><span>Precio:</span> {format(item.Precio)}</p>
-                    <p><span>Cantidad:</span> {item.Cantidad}</p>
+                    {
+                        item.Cantidad ?
+                        <p><span>Cantidad:</span> {item.Cantidad}</p> :
+                        <Tag color='red'>Sin Cantidad</Tag>
+                    }
 
                 </>
             )
@@ -81,7 +86,7 @@ export default function TableSecondaryRequestDetails({
             noMoreData={NoMoreProductToShow}
             loadingMoreData={buttonIsLoading}
             handleLoadMore={loadMoreProducts}
-            onClick={(item) => handleSelectRequest(item)}
+           //onClick={(item) => handleSelectRequest(item)}
         />
     )
 }

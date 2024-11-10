@@ -5,7 +5,7 @@ import styles from "../../styles/UI.module.scss";
 
 interface Props {
     children: ReactNode;
-    color?: string;
+    color?: "green" | "yellow" | "red" | "blue" | "gray";
     close?: boolean;
     onClose?: () => void;
     cursor?: boolean
@@ -18,7 +18,6 @@ export const Tag = ({
     onClose,
     cursor = false
 }: Props) => {
-
 
     return (
         <div className={cursor ? `${styles.tag} ${styles.option}` : `${styles.tag}`} onClick={onClose}>
