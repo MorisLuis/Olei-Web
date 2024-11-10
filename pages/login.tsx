@@ -1,6 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import styles from "../styles/Pages/Login.module.scss";
-
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from 'react-hook-form';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +8,7 @@ import Image from 'next/image';
 import PageTransition from '@/components/PageTranstion';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import Button from '@/components/Buttons/Button';
+import styles from "../styles/Pages/Login.module.scss";
 
 
 type FormData = {
@@ -40,8 +39,9 @@ const Login = () => {
 
         <PageTransition key="login-transition" isEntering={isEntering === false}>
             <LayoutOnboarding>
-                <div className={`${styles.login}`}>
-                    <div className={`${styles.content} display-flex column allCenter`}>
+                <div className={styles.login}>
+                    <div className={styles.content}>
+
                         <Image
                             src={"/Logo_vertical.png" || ""}
                             alt="Olei online"
@@ -50,15 +50,22 @@ const Login = () => {
                             priority={true}
                             unoptimized
                         />
-                        <div className={`${styles.form} display-flex column justify`}>
 
-                            <div className={`${styles.iconLogin} mb-small display-flex allCenter`}>
+                        <div className={styles.form}>
+
+                            <div className={styles.iconLogin}>
                                 <FontAwesomeIcon icon={faArrowRightToBracket} className={`icon`} />
                             </div>
 
-                            <h1>Bienvenido!</h1>
-                            <p className='mb-medium'>Por favor, inicia sesión abajo</p>
-                            <form onSubmit={handleSubmit(onLoginUser)} noValidate className="animation display-flex column">
+                            <div className={styles.header}>
+                                <h1>Bienvenido!</h1>
+                                <p className='mb-medium'>Por favor, inicia sesión abajo</p>
+                            </div>
+                            <form
+                                onSubmit={handleSubmit(onLoginUser)}
+                                noValidate
+                                className={styles.form__content}
+                            >
                                 <input
                                     {...register("email", {
                                         required: {
@@ -67,7 +74,7 @@ const Login = () => {
                                         }
                                     })}
                                     type="text"
-                                    className='input mb-small'
+                                    className='input'
                                     placeholder='Escribe tu e-mail...'
                                 />
                                 {errors.email && <span className='warning-message'>La cuenta es requerida</span>}
@@ -80,7 +87,7 @@ const Login = () => {
                                         }
                                     })}
                                     type="password"
-                                    className='input mb-small'
+                                    className='input'
                                     placeholder='Escribe la contraseña...'
                                 />
                                 {errors.password && <span className='warning-message'>La contraseña es requerida</span>}
