@@ -23,7 +23,7 @@ const LayoutProfile = ({ children, headerContent, titleLP }: Props) => {
         <LayoutContentSecondary
             onBack={() => push('/products')}
             backText='Regresar'
-            titleLS={`Perfil > ${titleLP}`}
+            titleLS={`Perfil › ${titleLP}`}
         >
             <NavigationProfile />
 

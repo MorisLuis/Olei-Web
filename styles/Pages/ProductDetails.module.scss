@@ -26,10 +26,10 @@
         }
 
         .back {
-            margin-bottom: 20px;
+            margin-bottom: $margin-vertical;
             display: flex;
             align-items: center;
-            gap: 1em;
+            gap: $gap;
 
             &:hover {
                 text-decoration: underline;
@@ -38,31 +38,42 @@
         }
     }
 
-    .content {
+    .pageDetails__content {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 100%;
-        padding-left: 2em;
+        padding-left: $padding-horizontal;
 
         @include respond(phone) {
-            padding: 0em 1em;
+            padding: 0em $padding;
             display: flex;
             flex-direction: column;
             justify-content: none;
+            height: 100%;
         }
 
         .header {
-            margin-bottom: 30px;
+            margin-bottom: $margin-vertical;
         }
 
         .observations {
-            padding: 1em 2em;
+            padding: $padding;
             background-color: $background-color-secondary;
-            border: 1px solid rgba($color: $color-border, $alpha: 0.3);
-            border-radius: 0.25em;
-            margin-bottom: 30px;
+            border: 1px solid rgba($color: $color-border, $alpha: 1);
+            border-radius: $border-radius;
+            margin-bottom: $margin-vertical;
             
+            
+            p{
+                font-weight: bold;
+                color: $text-color-secondary;
+                margin-bottom: $margin-vertical;
+            }
+
+            span{
+                font-weight: normal;
+            }
 
             @include respond(phone) {
                 padding: 1em;
@@ -70,23 +81,31 @@
         }
 
         .details {
-            padding: 1em 2em;
+            padding: $padding;
             background-color: $background-color-secondary;
-            border: 1px solid rgba($color: $color-border, $alpha: 0.3);
-            border-radius: 0.25em;
-            margin-bottom: 30px;
+            border: 1px solid rgba($color: $color-border, $alpha: 1);
+            border-radius: $border-radius;
+            margin-bottom: $margin-vertical;
+            
 
             @include respond(phone) {
                 padding: 1em;
             }
 
-
             div {
                 display: flex;
-                padding: 1em 0em;
+                padding: $padding 0em;
                 position: relative;
 
-                p{margin-right: 1em}
+                p{
+                    margin-right: $margin-horizontal;
+                    font-weight: bold;
+                    color: $text-color-secondary;
+                }
+
+                span{
+                    font-weight: normal;
+                }
 
                 &:not(:last-child) {
                     p {
@@ -97,7 +116,7 @@
                             position: absolute;
                             bottom: 0px;
                             left: 0px;
-                            background-color: rgba($color: $color-tertiary, $alpha: 0.25);
+                            background-color: rgba($color: $color-border, $alpha: 1);
                         }
                     }
                 }
@@ -116,11 +135,11 @@
             background-color: $background-color;
 
             @include respond(phone) {
-                position: fixed;
+                position: sticky;
                 bottom: 0px;
                 left: 0px;
                 width: 100%;
-                padding: 1em;
+                padding: $padding;
                 height: 70px;
 
                 &::before {
@@ -130,7 +149,7 @@
                     position: absolute;
                     top: 0px;
                     left: 0px;
-                    background-color: rgba($color: $color-tertiary, $alpha: 0.25);
+                    background-color: rgba($color: $color-border, $alpha: 1);
                 }
             }
 
@@ -142,11 +161,11 @@
                 align-items: center;
                 
                 p{
-                    margin-right: 1em;
+                    margin-right: $padding;
                 }
 
                 strong{
-                    margin-left: 10px;
+                    margin-left: $margin-horizontal;
                 }
             }
 
@@ -157,7 +176,6 @@
 
                 @include respond(phone) {
                     width: 100%;
-
                 }
 
                 p{
@@ -171,4 +189,5 @@
             font-weight: bold;
         }
     }
+
 }

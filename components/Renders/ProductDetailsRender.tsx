@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import styles from './../../styles/Pages/ProductDetails.module.scss';
-
 import ProductInterface from '@/interfaces/product';
 import Counter from '../Ui/Counter';
 import { AuthContext, CartContext } from '@/context';
@@ -9,6 +7,7 @@ import { ImageGallery } from './ImageGallery';
 import { format } from '@/utils/currency';
 import { ProductDetailsRenderSkeleton } from '../Skeletons/ProductDetailsRenderSkeleton';
 import { Tag } from '../Ui/Tag';
+import styles from './../../styles/Pages/ProductDetails.module.scss';
 
 export const ProductDetailsRender = ({ product }: { product: ProductInterface }) => {
 
@@ -48,7 +47,7 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
 
                         <ImageGallery images={product.imagenes} />
 
-                        <div className={styles.content}>
+                        <div className={styles.pageDetails__content}>
 
                             <div className={styles.header}>
                                 <h1>{Descripcion}</h1>
@@ -61,8 +60,8 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
                             {
                                 Observaciones &&
                                 <div className={styles.observations}>
-                                    <span>Obervaciones: </span>
-                                    <p>{Observaciones}</p>
+                                    <p>Obervaciones: </p>
+                                    <span>{Observaciones}</span>
                                 </div>
                             }
 
