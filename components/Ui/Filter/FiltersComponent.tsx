@@ -41,13 +41,7 @@ export default function FiltersComponent({
     const [filterOptionLocal, setFilterOptionLocal] = useState<string | undefined>()
     const filterOptionSelected = filterOptions.find(filterOption => filterOption.type === selectedFilterCategory);
     const filterOptionLabel = filterOptionSelected?.type as string;
-    const { openModalBackground } = useContext(AuthContext);
 
-
-    const openModalFilters = ( ) => {
-        openModalBackground()
-        onOpenFilters()
-    }
 
     const handleSelectFilterCategory = (filter: string) => {
         setSelectedFilterCategory(filter);
@@ -152,9 +146,10 @@ export default function FiltersComponent({
 
             <ButtonSmall
                 text='Filtros'
-                onClick={openModalFilters}
+                onClick={onOpenFilters}
                 icon={faSliders}
                 color='white'
+                extraStyles={{ zIndex: 9999 }}
             />
 
             {open && (

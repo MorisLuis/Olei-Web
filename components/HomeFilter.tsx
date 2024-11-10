@@ -68,7 +68,6 @@ const HomeFilter = ({
                         <FilterHome />
                     </div>
 
-
                     {
                         user?.SwImagenes &&
                         <ToggleSquareSwitch

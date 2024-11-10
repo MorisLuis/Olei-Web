@@ -8,7 +8,7 @@
     position: fixed;
     border-radius: $border-radius;
     border: 1px solid $color-border;
-    box-shadow: $box-shadow-modal;
+    box-shadow:$box-shadow-modal;
     z-index: 999999;
     left: 50%;
     top: 50%;
@@ -204,11 +204,11 @@
         @include respond(tab-land) {
             width: 50%;
         }
-
+    
         @include respond(tab-port) {
             width: 75%;
         }
-
+    
         @include respond(phone) {
             width: 100%;
             top: 3%;
@@ -224,11 +224,11 @@
         @include respond(tab-land) {
             width: 50%;
         }
-
+    
         @include respond(tab-port) {
             width: 75%;
         }
-
+    
         @include respond(phone) {
             width: 100%;
             top: 3%;

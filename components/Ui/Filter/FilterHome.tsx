@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import FiltersComponent, { FilterData } from './FiltersComponent'
 import { FilterType } from '@/interfaces/filters';
 import { api } from '@/api/api';
-import { FiltersContext } from '@/context';
+import { AuthContext, FiltersContext } from '@/context';
 import Input from '@/components/Inputs/inputs';
 
 
@@ -10,6 +10,7 @@ export default function FilterHome() {
 
     const [openModal, setOpenModal] = useState(false);
     const { addFilters, filters } = useContext(FiltersContext);
+    const [openModalBackground, setopenModalBackground] = useState(false)
 
     // Call API ( optional ).
     const getDataOfFilters = async (): Promise<FilterData[]> => {
@@ -39,6 +40,11 @@ export default function FilterHome() {
         )
     };
 
+    const handleOpenModalFilters = () => {
+        setopenModalBackground(!openModalBackground);
+        setOpenModal(!openModal)
+    }
+
     // Filter type.
     const Filters: FilterType[] = ['Marca', 'Folio', 'Familia'] // Filters
 
@@ -54,15 +60,23 @@ export default function FilterHome() {
     ];
 
     return (
-        <FiltersComponent
-            open={openModal}
-            filters={Filters}
-            onOpenFilters={() => setOpenModal(!openModal)}
-            onSelectFilter={onSelectFilterValue}
+        <>
+            <FiltersComponent
+                open={openModal}
+                filters={Filters}
+                onOpenFilters={handleOpenModalFilters}
+                onSelectFilter={onSelectFilterValue}
 
-            apiCall={getDataOfFilters}
-            customFilters={CustumFilters}
-            customRenders={CustumRenders}
-        />
+                apiCall={getDataOfFilters}
+                customFilters={CustumFilters}
+                customRenders={CustumRenders}
+            />
+
+            {
+                openModalBackground &&
+                <div onClick={handleOpenModalFilters} className='backgroundModal'></div>
+            }
+
+        </>
     )
 }

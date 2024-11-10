@@ -56,8 +56,8 @@ export const Layout = ({ children }: Props) => {
                         opacity: "50%"
                     }}
                 ></div>
-            }
- */}
+            } */}
+
             {
                 pathname === '/products' &&
                 <div className='banner'>
