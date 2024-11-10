@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-    label?: string,
-    onChange?: (arg: string) => void,
     value: string,
     name: string
+    label?: string,
+    onChange?: (arg: string) => void,
     extraStyles?: CSSProperties
     clearInput?: () => void
 }

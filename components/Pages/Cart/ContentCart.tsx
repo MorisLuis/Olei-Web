@@ -7,23 +7,17 @@ import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 
 import { MessageCard } from '@/components/Cards/MessageCard';
-import ToggleSwitch from '@/components/Inputs/toggleSwitch';
-import ButtonSmall from '@/components/Buttons/ButtonSmall';
 import TableOrders from '@/components/Ui/Tables/TableComponents/TableSecondaryOrder';
+import ActionCard from '@/components/Cards/ActionCard';
+import Input from '@/components/Inputs/inputs';
 
-interface ContentCartInterface {
-    setOpenModalMessage: React.Dispatch<React.SetStateAction<boolean>>
-}
 
-export const ContentCart = ({
-    setOpenModalMessage
-}: ContentCartInterface) => {
+export const ContentCart = () => {
 
     const { cart, cartPending, total, subTotal } = useContext(CartContext);
     const { user } = useContext(AuthContext);
 
     const [requestOpen, setRequestOpen] = useState(false);
-    const [requestCartPending, setRequestCartPending] = useState(true);
     const [cartShowed, setCartShowed] = useState(cart);
     const [inputValue, setInputValue] = useState("");
 
@@ -33,9 +27,9 @@ export const ContentCart = ({
         setCartShowed(productFiltered)
     }
 
-    const handleOnChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        searchProductInCart(e.target.value)
-        setInputValue(e.target.value)
+    const handleOnChangeInput = (e: string) => {
+        searchProductInCart(e)
+        setInputValue(e)
     }
 
     const handleCleanInput = () => {
@@ -57,14 +51,11 @@ export const ContentCart = ({
             <div className={styles.content}>
                 {
                     cartWithProducts &&
-                    <div className={styles.orderConfig}>
-                        <p><span>Solicitar productos inexistentes.</span> En la orden enviar solicitud de los productos actualmente inexistentes.</p>
-                        
-                        <ToggleSwitch
-                            initialState={requestCartPending}
-                            onToggle={(value: boolean) => setRequestCartPending(value)}
-                        />
-                    </div>
+                    <ActionCard
+                        title='Solicitar productos inexistentes'
+                        subtitle='En la orden enviar solicitud de los productos actualmente inexistentes.'
+                        toggle={true}
+                    />
                 }
 
                 {
@@ -72,21 +63,12 @@ export const ContentCart = ({
                         <>
                             <div className={`${styles.search} display-flex space-between`}>
                                 <div className={`${styles.inputSearch} inputClean display-flex`}>
-                                    <input
-                                        type="text"
-                                        className='input'
+                                    <Input
                                         value={inputValue}
-                                        placeholder='Buscar producto...'
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChangeInput(e)}
+                                        name='search'
+                                        onChange={(e) => handleOnChangeInput(e)}
+                                        clearInput={handleCleanInput}
                                     />
-                                    {
-                                        inputValue !== "" &&
-                                        <div
-                                            className="iconClean display-flex allCenter cursor"
-                                            onClick={handleCleanInput}>
-                                            <FontAwesomeIcon icon={faXmark} className={`icon__small`} />
-                                        </div>
-                                    }
                                 </div>
                             </div>
 
@@ -156,24 +138,15 @@ export const ContentCart = ({
                     </div>
                 }
 
+                <div className='divider'></div>
+
                 {
                     showDeleteCart &&
-                    <>
-                        <div className='divider'></div>
-
-                        <div className={`${styles.deleteCart} display-flex align`}>
-                            <div className={styles.text}>
-                                <p>Vaciar Carrito</p>
-                                <p>Si eliminas este carrito ya no podras recuperarlo.</p>
-                            </div>
-
-                            <ButtonSmall
-                                text='Vaciar'
-                                onClick={() => setOpenModalMessage(true)}
-                                color='red'
-                            />
-                        </div>
-                    </>
+                    <ActionCard
+                        title='Vaciar Carrito'
+                        subtitle='Si eliminas este carrito ya no podras recuperarlo.'
+                        color="red"
+                    />
                 }
             </div>
         </div>

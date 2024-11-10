@@ -20,7 +20,7 @@ const Cart = () => {
     const [orderRequested, setOrderRequested] = useState(false);
     const [openModalMessage, setOpenModalMessage] = useState(false);
     const { back } = useRouter()
-    //useLockBodyScroll(openModalMessage)
+    useLockBodyScroll(openModalMessage)
 
     const handleRemoveCart = () => {
         removeAllCart()
@@ -52,7 +52,7 @@ const Cart = () => {
                             footer={<FooterCart setOrderRequested={setOrderRequested} />}
                         >
                             <HeaderCart />
-                            <ContentCart setOpenModalMessage={setOpenModalMessage} />
+                            <ContentCart/>
                         </LayoutContentSecondary>
                         :
                         <animated.div style={fadeIn} className={styles.proccesingCart}>

@@ -227,3 +227,25 @@
         margin-bottom: $margin-vertical / 2;
     }
 }
+
+.ActionCard{
+    display: flex;
+    justify-content: space-between;
+    padding: $padding;
+    background-color: $background-color-secondary;
+    margin-bottom: $margin-vertical;
+    border-radius: $border-radius;
+    border: 1px solid $color-border;
+    align-items: center;
+
+    &.red{
+        border: 1px solid $color-red;
+    }
+
+    .message{
+        &__title{
+            font-weight: bold;
+        }
+    }
+
+}
