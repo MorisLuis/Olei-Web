@@ -35,7 +35,7 @@ export default function TableRequest({
                 <>
                     <h4 style={{ color: "black", fontWeight: 'bold' }}>Fecha: {dateFormat(item.Fecha)}</h4>
                     <Tag>
-                        <p>{item.Entregado ? "Entregado" : "En revisión"}</p>
+                        {item.Entregado ? "Entregado" : "En revisión"}
                     </Tag>
 
                 </>

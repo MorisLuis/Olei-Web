@@ -135,13 +135,14 @@
 // button animated
 .mainbutton {
     position: relative;
-    padding: 0em 1em;
-    height: 36px;
+    padding: 0em $padding;
+    height: 40px;
     width: 100%;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: $border-radius;
     border: 1px solid $color-tertiary;
     overflow: hidden;
+    font-size: $font-medium;
 }
 
 .fillbutton {

@@ -9,13 +9,17 @@ interface ActionCardInterface {
 
     color?: 'red' | "white";
     toggle?: boolean;
+    onChange?: (arg: boolean) => void;
+    onClick?: (arg: boolean) => void;
 }
 
 export default function ActionCard({
     title,
     subtitle,
     toggle,
-    color = "white"
+    color = "white",
+    onChange,
+    onClick
 }: ActionCardInterface) {
 
     const renderAction = () => {
@@ -24,15 +28,15 @@ export default function ActionCard({
             (
                 <ToggleSwitch
                     initialState={false}
-                    onToggle={(value: boolean) => console.log(value)}
+                    onToggle={(value: boolean) => onChange?.(value)}
                 />
             )
             :
             (
                 <ButtonSmall
                     text='Vaciar'
-                    onClick={() => console.log(true)}
                     color='red'
+                    onClick={() => onClick?.(true)}
                 />
             )
 

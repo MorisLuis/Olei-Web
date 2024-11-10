@@ -11,8 +11,14 @@ import TableOrders from '@/components/Ui/Tables/TableComponents/TableSecondaryOr
 import ActionCard from '@/components/Cards/ActionCard';
 import Input from '@/components/Inputs/inputs';
 
+interface ContentCartInterface {
+    setOpenModalMessage: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export const ContentCart = () => {
+export const ContentCart = ({
+    setOpenModalMessage
+}: ContentCartInterface) => {
+
 
     const { cart, cartPending, total, subTotal } = useContext(CartContext);
     const { user } = useContext(AuthContext);
@@ -20,6 +26,7 @@ export const ContentCart = () => {
     const [requestOpen, setRequestOpen] = useState(false);
     const [cartShowed, setCartShowed] = useState(cart);
     const [inputValue, setInputValue] = useState("");
+    const [requestCartPending, setRequestCartPending] = useState(true);
 
     const searchProductInCart = (term: string) => {
         if (term === "") return setCartShowed(cart);
@@ -55,6 +62,7 @@ export const ContentCart = () => {
                         title='Solicitar productos inexistentes'
                         subtitle='En la orden enviar solicitud de los productos actualmente inexistentes.'
                         toggle={true}
+                        onChange={() => setRequestCartPending(false)}
                     />
                 }
 
@@ -146,6 +154,7 @@ export const ContentCart = () => {
                         title='Vaciar Carrito'
                         subtitle='Si eliminas este carrito ya no podras recuperarlo.'
                         color="red"
+                        onClick={() => setOpenModalMessage(true)}
                     />
                 }
             </div>

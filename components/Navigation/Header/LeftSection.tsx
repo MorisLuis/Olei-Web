@@ -37,9 +37,10 @@ export const LeftSection = ({
         <div className={styles.left}>
             <div className={styles.logo} onClick={handleClickLogo} >
                 <Image
-                    fill
-                    alt="logo"
+                    alt={user.Company ?? "olei"}
                     src={getLogo()}
+                    width={200}
+                    height={200}
                     priority
                 />
             </div>

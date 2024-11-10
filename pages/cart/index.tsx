@@ -52,7 +52,7 @@ const Cart = () => {
                             footer={<FooterCart setOrderRequested={setOrderRequested} />}
                         >
                             <HeaderCart />
-                            <ContentCart/>
+                            <ContentCart setOpenModalMessage={setOpenModalMessage} />
                         </LayoutContentSecondary>
                         :
                         <animated.div style={fadeIn} className={styles.proccesingCart}>
