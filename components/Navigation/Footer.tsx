@@ -7,7 +7,7 @@ const Footer = () => {
         <div className={styles.footer}>
             <div className={styles.image}>
                 <Image
-                    src={'/logo02.png'}
+                    src={'/Logo_horizontal.png'}
                     alt="photo"
                     width={200}
                     height={200}

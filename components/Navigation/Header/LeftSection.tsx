@@ -29,7 +29,7 @@ export const LeftSection = ({
         const database = user?.Baseweb
         const databaseSplit = database?.split('_')
         const newPath = databaseSplit?.[1]?.toLowerCase().trim();
-        const logo = newPath ? `https://oleistorage.blob.core.windows.net/${newPath}/LOGO.png` : '/logoOlei.png'
+        const logo = newPath ? `https://oleistorage.blob.core.windows.net/${newPath}/LOGO.png` : '/Logo_horizontal2.png'
         return logo;
     }
 

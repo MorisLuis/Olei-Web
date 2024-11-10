@@ -43,8 +43,8 @@ const Login = () => {
                 <div className={`${styles.login}`}>
                     <div className={`${styles.content} display-flex column allCenter`}>
                         <Image
-                            src={"/logo01.png" || ""}
-                            alt="photo"
+                            src={"/Logo_vertical.png" || ""}
+                            alt="Olei online"
                             width={200}
                             height={200}
                             priority={true}
