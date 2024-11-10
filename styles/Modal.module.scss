@@ -26,11 +26,11 @@
         left: 0;
         top: 0;
         max-height: none;
-        animation: modal-open-mobil 0.1s ease-in-out forwards;
+        animation: modal-open-mobile 0.1s ease-in-out forwards;
         border-radius: $border-radius $border-radius 0 0;
 
         &.closing {
-            animation: modal-close-mobil 0.2s ease-in-out forwards;
+            animation: modal-close-mobile 0.2s ease-in-out forwards;
         }
     }
 

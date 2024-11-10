@@ -29,6 +29,7 @@ const Pedidos = () => {
         try {
             setOpenModalRequest(true)
             const order = await getOrderDetails(query.receipt as string)
+            console.log({order})
             if (order.error) {
                 handleError(order.error);
                 return;

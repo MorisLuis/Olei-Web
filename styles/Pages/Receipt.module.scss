@@ -8,29 +8,29 @@
 
         .header{
             height: 60px;
-            padding: 1em 16em;
+            padding: $padding $padding*15;
             position: sticky;
             top: 0px;
             z-index: 9999;
 
             @include respond(tab-land) {
-                padding: 1em 8em;
+                padding: $padding $padding*8;
             }
         
             @include respond(tab-port) {
-                padding: 1em 4em;
+                padding: $padding $padding*4;
             }
         
             @include respond(phone) {
-                padding: 1em 2em;
+                padding: $padding $padding*2;
             }
-
 
             .close{
                 :hover{
                     opacity: 70%;
                 }
             }
+    
             ::before{
                 content: "";
                 width: 100%;
@@ -47,15 +47,15 @@
             padding: $padding*2 $padding*18;
 
             @include respond(tab-land) {
-                padding: 2em 8em;
+                padding: $padding*2 $padding*8;
             }
         
             @include respond(tab-port) {
-                padding: 2em 4em;
+                padding: $padding*2 $padding*4;
             }
         
             @include respond(phone) {
-                padding: 2em;
+                padding: $padding*2;
             }
         }
     }
@@ -64,10 +64,11 @@
 
 .receiptRender{
     height: 100svh;
+    font-family: "VictorMono";
 
     .brief{
-        font-family: "VictorMono";
         padding: 0em;
+        margin-bottom: $margin-vertical*2;
 
 
         @include respond(tab-land) {
@@ -75,15 +76,15 @@
         }
     
         @include respond(tab-port) {
-            margin-bottom: 4em;
+            margin-bottom: $margin-vertical*4;
         }
     
         @include respond(phone) {
-            margin-bottom: 1em;
+            margin-bottom: $margin-vertical;
         }
 
         h4{
-            margin-bottom: 1em;
+            margin-bottom: $margin-vertical;
         }
 
         .details{

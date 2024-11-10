@@ -10,6 +10,7 @@ import { AuthContext } from '@/context';
 import ReceiptRenderSkeleton from '../Skeletons/ReceiptRenderSkeleton';
 import { getOrder, getOrderDetails } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import TableSecondaryRequestDetails from '../Ui/Tables/TableComponents/TableSecondaryRequestDetails';
 
 export const ReceiptRender = () => {
     const { user } = useContext(AuthContext);
@@ -19,8 +20,6 @@ export const ReceiptRender = () => {
     const [orderSelect, setOrderSelect] = useState<OrderInterface>();
     const [orderDetailsSelect, setOrderDetailsSelect] = useState<ProductInterface[]>();
     const [loadingOrder, setLoadingOrder] = useState(false);
-
-    console.log({orderDetailsSelect})
 
     // Utilizamos un ref para controlar si ya se ha hecho la solicitud
     const fetchedData = useRef(false);
@@ -99,8 +98,13 @@ export const ReceiptRender = () => {
                 </div>
             </div>
 
-            <div className={styles.productsDetails}>
-            </div>
+            <TableSecondaryRequestDetails
+                products={orderDetailsSelect}
+                totalProducts={orderDetailsSelect.length}
+                buttonIsLoading={false}
+                loadingData={false}
+            />
+
         </div>
     ) : (
         <ReceiptRenderSkeleton />

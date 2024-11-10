@@ -19,7 +19,7 @@ export const TableSecondarySkeleton = ({ body }: TableSecondarySkeletonInterface
                                             <p key={i} className={styles.skeleton}></p>
                                         ))}
                                     </td>
-                                    <td className={styles.mobil}>
+                                    <td className={styles.mobile}>
                                         {Array.from({ length: 1 }, (_, i) => (
                                             <p key={i} className={styles.skeleton}></p>
                                         ))}

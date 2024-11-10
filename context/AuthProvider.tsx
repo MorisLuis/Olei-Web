@@ -96,6 +96,8 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
             Cookies.remove("token")
             dispatch({ type: '[Auth] - Logout', user: AUTH_INITIAL_STATE.user });
         } catch (error) {
+            push("/")
+            Cookies.remove("token")
             handleError(error);
         } finally {
             setLoggingIn(false);

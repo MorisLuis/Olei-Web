@@ -30,7 +30,7 @@ export const RightSection = ({ setOpenModalMenu, setOpenModalCart }: RightSectio
 
             {
                 pathname !== '/cart' &&
-                <div className={`${styles.item} ${styles.cart} display-flex allCenter`} onClick={() => setOpenModalCart(true)}>
+                <div className={styles.cart} onClick={() => setOpenModalCart(true)}>
                     <div className={styles.circle}>
                         <p>{numberOfItems}</p>
                     </div>

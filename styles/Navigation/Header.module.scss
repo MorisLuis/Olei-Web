@@ -166,7 +166,6 @@
             }
 
             .profile {
-                padding: 0em;
                 position: relative;
                 background-color: transparent;
                 border-radius: $border-radius;
@@ -199,7 +198,7 @@
                 }
 
                 .circle {
-                    background-color: $color-primary;
+                    background-color: $background-color-secondary;
                     padding: $padding/5;
                     border-radius: $border-radius;
                     display: flex;
@@ -208,14 +207,10 @@
                     box-shadow: $box-shadow-button;
 
                     .content {
-                        background-color: $color-tertiary;
-                        padding: 1px;
-                        border-radius: $border-radius;
 
                         p {
                             font-size: $font-medium;
-                            color: $text-color;
-                            background-color: $color-primary;
+                            color: $text-color-secondary;
                             min-width: 18px;
                             height: 18px;
                             border-radius: $border-radius / 1.25;
@@ -260,41 +255,16 @@
                 &:hover {
                     opacity: 70%;
                 }
-
-            }
-
-            .search {
-                height: 100%;
-
-                button {
-                    padding: $padding;
-                    background-color: transparent;
-                    border: 0px;
-                    opacity: 100%;
-                    height: 100%;
-                    font-size: $font-medium;
-
-                    p {
-                        color: $text-color;
-                        font-family: poppins;
-                    }
-
-                    svg {
-                        width: 18px;
-                        height: 18px;
-                        padding: $padding;
-                    }
-
-                    &:hover {
-                        opacity: 100%;
-                    }
-                }
             }
 
             .cart {
                 position: relative;
                 margin-left: $margin-horizontal;
                 width: fit-content;
+                height: fit-content;
+                padding: $padding/5;
+                border-radius: $border-radius;
+                border: 1px solid transparent;
 
                 .circle {
                     width: 18px;
@@ -306,13 +276,18 @@
                     justify-content: center;
                     align-items: center;
 
-                    top: -50%;
-                    right: -75%;
+                    top: -30%;
+                    right: -50%;
 
                     p {
                         font-size: $font-small;
                         color: $text-color-light
                     }
+                }
+
+                &:hover{
+                    border: 1px solid rgba($color: $color-border, $alpha: 0.2);
+                    background-color: rgba($color: $color-blue, $alpha: 0.1);
                 }
             }
 
