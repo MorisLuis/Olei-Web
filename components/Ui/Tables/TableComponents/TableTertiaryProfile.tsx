@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import TableTertiary, { ColumnTertiaryConfig } from '../TableTertiary';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faUser, faAddressCard, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faAddressCard, faUserTag } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../../../styles/Pages/Profile.module.scss'
 import { AuthContext } from '@/context';
 
@@ -36,7 +36,7 @@ export default function TableTertiaryProfile() {
             label: 'Tipo de usuario',
             renderLabel: (_: string, item: ProfileInterface) => (
                 <div className={styles.account__item}>
-                    <FontAwesomeIcon icon={faAddressCard} className="icon__small" />
+                    <FontAwesomeIcon icon={faUserTag} className="icon__small" />
                     <p>Tipo de usuario</p>
                 </div>
             )

@@ -25,7 +25,6 @@ const LayoutProfile = ({ children, headerContent }: Props) => {
         >
             <NavigationProfile />
 
-
             <div className={styles.LayoutProfile}>
                 {
                     headerContent &&

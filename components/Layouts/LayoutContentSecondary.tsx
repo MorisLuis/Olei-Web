@@ -29,7 +29,6 @@ export default function LayoutContentSecondary({
                             text={backText}
                             icon={faArrowLeftLong}
                             color='white'
-                            extraStyles={{ marginBottom: 10 }}
                         />
                     </div>
 

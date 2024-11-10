@@ -109,10 +109,12 @@
         border: 1px solid transparent;
         background-color: $background-color;
         padding: 0px;
+        box-shadow: none;
 
         &:hover {
             border: 1px solid transparent;
             opacity: 100%;
+            background-color: transparent;
 
             p{
                 text-decoration: underline;
