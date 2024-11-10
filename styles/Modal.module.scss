@@ -13,6 +13,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    animation: modal-open 0.1s ease-in-out forwards;
 
     &.closing {
         animation: modal-close 0.2s ease-in-out forwards;
@@ -140,7 +141,7 @@
     background-color: $background-color;
     width: 425px;
     height: 215px;
-    position: absolute;
+    position: fixed;
     border-radius: $border-radius;
     border: 1px solid $color-border;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
@@ -148,6 +149,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    animation: modal-open 0.1s ease-in-out forwards;
 
     @include respond(phone) {
         width: 100%;

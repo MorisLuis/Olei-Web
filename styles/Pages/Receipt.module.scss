@@ -5,6 +5,7 @@
     min-height: 70svh;
 
     .content{
+
         .header{
             height: 60px;
             padding: 1em 16em;
@@ -43,7 +44,7 @@
         }
 
         .render{
-            padding: 2em 26em;
+            padding: $padding*2 $padding*18;
 
             @include respond(tab-land) {
                 padding: 2em 8em;
@@ -68,8 +69,9 @@
         font-family: "VictorMono";
         padding: 0em;
 
+
         @include respond(tab-land) {
-            margin-bottom: 2em;
+            margin-bottom: $margin-vertical;
         }
     
         @include respond(tab-port) {
@@ -85,34 +87,35 @@
         }
 
         .details{
-            border-radius: 1em;
-            padding: 2em 1em;
-            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            border-radius: $border-radius;
+            padding: $padding;
+            box-shadow: $box-shadow-button;
             
-            font-size: $font-medium;
+            font-size: $font-small;
             background-color: $background-color;
-            gap: 10px;
+            gap: $gap;
+            border: 1px solid $color-border;
 
             .item{
-                margin-bottom: 0.5em;
+                margin-bottom: $margin-vertical;
             }
 
             .totalprice{
-                padding: 0.25em 0.5em;
+                padding: $padding / 2;
                 font-weight: bold;
                 background: rgba($color: $color-yellow, $alpha: 0.5);
-                border-radius: 3px;
+                border-radius: $border-radius;
             }
         }
     }
 
     .productsDetails{
         font-family: "VictorMono";
-        padding: 2em 0em;
+        padding: $padding;
         height: auto;
 
         >div{
-            margin-bottom: 15px;
+            margin-bottom: $margin-vertical;
 
             &:nth-child(odd) {
                 background-color: $background-color-secondary;

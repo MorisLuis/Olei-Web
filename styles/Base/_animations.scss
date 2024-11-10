@@ -1,12 +1,4 @@
-@keyframes appear {
-    0% {
-        opacity: 0;
-    }
 
-    100% {
-        opacity: 1;
-    }
-}
 
 @keyframes appear-Right-to-Left {
     0% {
@@ -86,7 +78,6 @@
     }
 }
 
-// Modal Background
 @keyframes loadingSkeleton {
     0% {
         opacity: 0.6;
@@ -101,6 +92,17 @@
     }
 }
 
+// Modal Background
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+};
+
 @keyframes fadeOut {
     from {
         opacity: 1;
@@ -108,4 +110,4 @@
     to {
         opacity: 0;
     }
-}
+};

@@ -111,7 +111,7 @@ const Pedidos = () => {
             <LayoutProfile
                 headerContent={{
                     title: "Pedidos actuales",
-                    subtitle: "Para cambiar la información, habla con tu administrador/"
+                    subtitle: "Para cambiar la información, habla con tu administrador."
                 }}
             >
 
