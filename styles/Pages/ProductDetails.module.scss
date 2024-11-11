@@ -116,6 +116,15 @@
 
     @include respond(phone) {
         display: flex;
-    
+    }
+
+    &::after {
+        content: "";
+        height: 1px;
+        width: 100%;
+        background: radial-gradient(circle, rgba($color-yellow, 100%) 0%, rgba($color-yellow, 100%) 0%, rgba(249, 249, 249, 1) 100%);
+        position: absolute;
+        top: 0px;
+        right: 0px
     }
 }
