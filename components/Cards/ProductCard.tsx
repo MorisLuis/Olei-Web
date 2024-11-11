@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from "../../styles/Components/Cards.module.scss";
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Counter from '../Ui/Counter';
 import ProductInterface from '@/interfaces/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from "../../styles/Components/Cards.module.scss";
 
 type RenderableValue = string | number | { url: string; id: number; } | [{ url: string; id: number; }] | any;
 

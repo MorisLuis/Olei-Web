@@ -9,6 +9,11 @@
     font-size: $font-medium;
 
     .content {
+        > div{
+            &:not(:last-child){
+                margin-bottom: $margin-vertical*2;
+            }
+        }
 
         @include respond(phone) {
             padding: $padding;

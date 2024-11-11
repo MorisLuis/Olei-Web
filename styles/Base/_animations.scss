@@ -55,15 +55,6 @@
 
 @keyframes modal-open-mobile {
 
-    /* 0% {
-        opacity: 0;
-        transform: translate(0%, 0%) scale(0.8);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translate(0%, 0%) scale(1);
-    } */
     from {
         transform: translateY(100%);
         opacity: 0;

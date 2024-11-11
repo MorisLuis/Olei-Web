@@ -243,6 +243,7 @@
         color: $color-gray;
         font-size: $font-medium;
     }
+    
 
     @include respond(phone) {
 
@@ -256,7 +257,6 @@
                     display: block;
                     border-bottom: 1px solid $color-border;
                     padding: $padding;
-                    font-size: $font-small;
 
                     td {
                         display: flex;
@@ -269,7 +269,7 @@
 
                         &:before {
                             content: attr(data-label);
-                            color: $color-gray;
+                            color: $text-color-secondary;
                             flex-basis: 50%;
                             text-align: left;
                         }

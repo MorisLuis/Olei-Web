@@ -45,7 +45,6 @@
 }
 
 .button-small {
-    //height: 30px;
     background-color: $color-primary;
     border: 1px solid transparent;
     border-radius: $border-radius;
@@ -62,6 +61,7 @@
     min-height: 30px;
     border: 1px solid $color-border-secondary;
     box-shadow: $box-shadow-button;
+    color: $text-color;
 
     &.opacity{
         opacity: 40%;
@@ -111,6 +111,7 @@
         background-color: $background-color;
         padding: 0px;
         box-shadow: none;
+        color: $text-color;
 
         &:hover {
             border: 1px solid transparent;

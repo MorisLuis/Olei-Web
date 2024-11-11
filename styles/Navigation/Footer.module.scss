@@ -3,7 +3,7 @@
 .footer {
     height: 40px;
     width: 100%;
-    padding: 3em 10em 3em 10em;
+    padding: $padding*3 $padding*10 $padding*3 $padding*10;
     justify-content: flex-end;
     color: $text-color-light;
     position: relative;
@@ -12,7 +12,7 @@
 
     p{
         z-index: 1;
-        font-size: 14px;
+        font-size: $font-normal;
     }
 
     .image{
@@ -38,11 +38,11 @@
     }
 
     @include respond(tab-port) {
-        padding: 0em 4em;
+        padding: 0em $padding*4;
     }
 
     @include respond(phone) {
-        padding: 0em 1em;
+        padding: 0em $padding;
     }
 
 
