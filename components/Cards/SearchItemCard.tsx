@@ -16,18 +16,19 @@ export const SearchItemCard = ({ productName, inputValue, onclick, highlightSear
 
     return (
         <div
-            className={`${styles.searchItemCard} cursor display-flex align`}
-            onClick={() => {
-                onclick(productName)
-            }}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} className={`icon__small`} style={{ zIndex: "99999999", marginRight: "0.75em" }} />
-            <p dangerouslySetInnerHTML={{
-                __html:
-                    highlightSearchTerm(
-                        capitalizarTexto(productName),
-                        typeof inputValue === "string" ? inputValue : inputValue || ""
-                    ),
-            }} />
+            className={styles.SearchItemCard}
+            onClick={() => onclick(productName)}
+        >
+            <FontAwesomeIcon icon={faMagnifyingGlass} className={`icon__small`} />
+            <p
+                dangerouslySetInnerHTML={{
+                    __html:
+                        highlightSearchTerm(
+                            capitalizarTexto(productName),
+                            typeof inputValue === "string" ? inputValue : inputValue || ""
+                        ),
+                }}
+            />
         </div>
     )
 }

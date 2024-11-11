@@ -1,7 +1,9 @@
 export default interface FiltersInterface {
-    nombre: string | null,
-    marca: string | null,
-    familia: string | null,
-    folio: string | null,
-    enStock: boolean
+    nombre?: string,
+    marca?: string,
+    familia?: string,
+    folio?: string,
+    enStock?: boolean
 }
+
+export type FilterType = "Nombre" | "Marca" | "Familia" | "Folio" | "EnStock"

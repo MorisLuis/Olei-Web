@@ -3,13 +3,14 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import styles from './../styles/Pages/NotFound.module.scss';
 import { useRouter } from 'next/router';
+import ButtonSmall from '@/components/Buttons/ButtonSmall';
 
 const Custum404 = () => {
 
-    const { push, replace, back } = useRouter();
+    const { replace } = useRouter();
 
     return (
-        <Layout>
+        <Layout title='404'>
             <div className={styles.NotFound}>
                 <motion.div
                     initial={{ scale: 0 }}
@@ -31,11 +32,10 @@ const Custum404 = () => {
                         className={styles.message}
                     >
                         Lo sentimos, la página que buscas no existe o hubo un problema con el servidor. 😞
-
-                        <button className='button-small' onClick={() => back()}>
-                            Volver
-                        </button>
-
+                        <ButtonSmall
+                            text='Volver'
+                            onClick={() => replace('/products')}
+                        />
                     </motion.p>
                 </motion.div>
             </div>

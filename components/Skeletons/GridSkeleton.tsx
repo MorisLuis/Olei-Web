@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "../../styles/Components/Skeleton.module.scss";
+import { ProductSquareCardSkeleton } from './Cards/ProductSquareCardSkeleton';
 
 const GridSkeleton = () => {
     return (
@@ -7,24 +8,7 @@ const GridSkeleton = () => {
             <div className={styles.content}>
                 {
                     Array.from({ length: 20 }, (_, i) =>
-                        <div className={styles.productWithImageSkeleton} key={i}>
-                            <div className={styles.image}>
-                            </div>
-                            <div className={styles.info}>
-                                <div className={styles.description}>
-                                    <p className={styles.first}></p>
-                                    <p className={styles.second}></p>
-                                </div>
-
-                                <p className={styles.first}></p>
-                                <p className={styles.second}></p>
-
-                                <div className={styles.counter}>
-                                    <p className={styles.price}></p>
-                                    <p className={styles.counterNumber}></p>
-                                </div>
-                            </div>
-                        </div>
+                        <ProductSquareCardSkeleton key={i} />
                     )
                 }
             </div>

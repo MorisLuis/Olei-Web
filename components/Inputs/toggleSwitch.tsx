@@ -1,44 +1,31 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
 
-interface ToggleSwitchProps {
-    label?: string;
-    name?: string;
-    onChange: any;
-    value: boolean
+interface ToggleProps {
+    initialState: boolean;
+    onToggle: (newState: boolean) => void;
 }
 
-const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
-    label,
-    name,
-    onChange,
-    value
-}) => {
-    const [checked, setChecked] = useState(value);
-
-    useEffect(() => {
-        setChecked(value)
-    },  [value])
-
-    const handleToggle = () => {
-        const newChecked = !checked;
-        setChecked(newChecked)
-        onChange(newChecked);
+const ToggleSwitch: React.FC<ToggleProps> = ({ initialState, onToggle }) => {
+    const [isChecked, setIsChecked] = useState(initialState);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newState = e.target.checked;
+        setIsChecked(newState);
+        onToggle(newState);
     };
 
-    return (
-        <label htmlFor={name || "enStock"} className="toggleSwitch">
-            {
-                label && <p className="label">{label}</p>
-            }
+    useEffect(() => {
+        setIsChecked(initialState);
+    }, [initialState]);
 
+    return (
+        <label className="toggleSwitch">
             <div className="toggle">
                 <input
                     type="checkbox"
-                    name={name}
-                    id={name}
-                    checked={checked || value}
-                    onChange={handleToggle}
-                    className="checkbox"
+                    checked={isChecked}
+                    onChange={handleChange}
+                    className='checkbox'
+                    style={{ display: 'none' }}
                 />
                 <span className="slider"></span>
             </div>
@@ -46,4 +33,4 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
     );
 };
 
-export default ToggleSwitch
+export default ToggleSwitch;

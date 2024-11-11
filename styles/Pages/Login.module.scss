@@ -6,29 +6,47 @@
     position: relative;
 
     .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
         width: 100%;
-        height: 100%;
+        height: 100svh;
 
-        svg{
-            fill: black;
-        }
-
-        img{
+        img {
             height: 15%;
+            width: auto;
             object-fit: contain;
-            margin-bottom: 1.5em;
+            margin-bottom: $margin-horizontal;
         }
 
         .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             width: 30%;
-            height: 65%;
+            height: 55%;
             max-height: 600px;
-            padding: 2.5%;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;            
+            padding: $padding;
+            box-shadow: $box-shadow-modal;
             position: relative;
             z-index: 9999;
-            border-radius: 1em;
+            border-radius: $border-radius;
             background-color: transparent;
+            border: 1px solid $color-border-secondary;
+
+            .header {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: $margin-vertical*2;
+            }
+
+            .form__content {
+                display: flex;
+                flex-direction: column;
+                gap: $gap;
+            }
 
             .iconLogin {
                 background-color: $background-color;
@@ -36,10 +54,10 @@
                 border: 1px solid $color-border;
                 width: 40px;
                 height: 40px;
-            }
-
-            p {
-                color: $text-color-light;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: $margin-vertical;
             }
 
             @include respond(tab-port) {
@@ -47,30 +65,15 @@
                 height: 70%;
 
                 .iconLogin {
-                    padding: 1em;
+                    padding: $padding;
                 }
             }
 
             @include respond(phone) {
                 width: 90%;
                 height: 70%;
-                padding: 1em 1.5em;
-
+                padding: $padding;
             }
-        }
-
-        .blur {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 30px;
-            margin: 0 auto;
-            background-position: center -100px;
-            -webkit-filter: blur(7px);
-            z-index: -1;
-            border-radius: 1em;
         }
     }
 }

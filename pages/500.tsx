@@ -3,13 +3,14 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import styles from './../styles/Pages/NotFound.module.scss';
 import { useRouter } from 'next/router';
+import ButtonSmall from '@/components/Buttons/ButtonSmall';
 
 const Custum404 = () => {
 
-    const { push } = useRouter();
+    const { replace } = useRouter();
 
     return (
-        <Layout>
+        <Layout title='500'>
             <div className={styles.NotFound}>
                 <motion.div
                     initial={{ scale: 0 }}
@@ -32,10 +33,10 @@ const Custum404 = () => {
                     >
                         Lo sentimos, hubo un error en el servidor intentalo más tarde. 😞
 
-                        <button className='button-small' onClick={() => push('/products')}>
-                            Volver al inicio
-                        </button>
-
+                        <ButtonSmall
+                            text='Volver al inicio'
+                            onClick={() => replace('/products')}
+                        />
                     </motion.p>
                 </motion.div>
             </div>

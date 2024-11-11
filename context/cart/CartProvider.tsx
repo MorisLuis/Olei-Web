@@ -31,7 +31,7 @@ const CART_INITIAL_STATE: CartState = {
 
 }
 
-export const CartProvider = ({ children }: any) => {
+export const CartProvider = ({ children }: { children: JSX.Element }) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
     const [productDelete, setProductDelete] = useState(false)
@@ -84,12 +84,11 @@ export const CartProvider = ({ children }: any) => {
         }, 0);
 
         const total = state.cart.reduce((prev, current: ProductInterface) => {
-
             if (current?.Existencia >= 1) {
                 if (productWithTaxInPrice) {
                     return prev + (current.Precio * current.Cantidad);
                 } else {
-                    const Impuesto = current.Precio * current.Cantidad * (current.Impuesto / 100)
+                    const Impuesto = (current.Precio * current.Cantidad) * ((current.Impuesto ?? 0)/100)
                     return prev + (current.Precio * current.Cantidad) + Impuesto;
                 }
             }
@@ -101,8 +100,8 @@ export const CartProvider = ({ children }: any) => {
         const subTotal = state.cart.reduce((prev, current: ProductInterface) => {
 
             if (current?.Existencia >= 1) {
-                if(productWithTaxInPrice){
-                    const Impuesto = current.Precio * current.Cantidad * (current.Impuesto / 100)
+                if (productWithTaxInPrice) {
+                    const Impuesto = (current.Precio * current.Cantidad) * ((current.Impuesto ?? 0)/100)
                     return prev + (current.Precio * current.Cantidad) - Impuesto;
                 } else {
                     return prev + (current.Precio * current.Cantidad);
@@ -128,7 +127,7 @@ export const CartProvider = ({ children }: any) => {
             return current?.Cantidad + prev;
         }, 0);
 
-        const subTotalPending = state.cartPending.reduce((prev, current: any) => {
+        const subTotalPending = state.cartPending.reduce((prev, current: ProductInterface) => {
             return prev + current.Precio * current.Cantidad;
         }, 0);
 

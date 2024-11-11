@@ -1,96 +1,88 @@
-import React, { useContext } from 'react';
-import styles from "../../../styles/Tables.module.scss";
+import React from 'react';
+import styles from '../../../styles/Tables.module.scss'
+import ButtonLoad from '@/components/Buttons/ButtonLoad';
 
-import { ProductCard, ProductCardMovil } from '../../Cards/ProductCard';
-import { AuthContext } from '@/context';
-import ProductInterface from '@/interfaces/product';
-import { MessageCard } from '../../Cards/MessageCard';
-import TableSkeleton from '../../Skeletons/TableSkeleton';
-import ButtonAnimated from '@/components/Buttons/ButtonAnimated';
-import { useProductsWithCartInfo } from '@/hooks/useProductsWithCartInfo';
-import { useWindowWith } from '@/hooks/useWindowWith';
-
-interface Props {
-    data: ProductInterface[],
-    loadMoreProducts: () => Promise<void>,
-    buttonIsLoading: boolean,
-    loadingData: boolean,
-    totalItems: number
+export interface ColumnConfig<T> {
+    key: keyof T;
+    label: string;
+    render?: (value: any, item: T) => React.ReactNode;
+    className?: string;
+    width?: string;
 }
 
-const Table = ({ data, loadMoreProducts, buttonIsLoading, loadingData, totalItems }: Props) => {
+interface TableProps<T> {
+    data: T[];
+    columns: ColumnConfig<T>[];
+    handleLoadMore: () => void;
+    loadingMoreData: boolean;
+    noMoreData: boolean
+}
 
-    const { productsWithCartInfo } = useProductsWithCartInfo(data)
-    const { user } = useContext(AuthContext);
-
-    const windowWidth = useWindowWith();
-    const isTable = windowWidth && windowWidth <= 920;
-    const isEmployee = user?.TipoUsuario === 2
-    const NoMoreProductToShow = !(productsWithCartInfo.length >= 20 && productsWithCartInfo.length % 20 === 0)
+const Table = <T,>({
+    data,
+    columns,
+    handleLoadMore,
+    loadingMoreData,
+    noMoreData = false
+}: TableProps<T>) => {
 
     return (
-        <>
+        <div className={styles.table}>
+            <table>
+                <thead>
+                    <tr>
+                        {columns.map((col, index) => (
+                            <th
+                                key={index}
+                                className={col.className || ''}
+                                style={{ width: col.width }}
+                            >
+                                {col.label}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        data.map((item, rowIndex) => (
+                            <tr key={rowIndex}>
+                                {columns.map((col, colIndex) => (
+                                    <td
+                                        key={colIndex}
+                                        className={col.className || ''}
+                                        data-label={col.label}
+                                        style={{ width: col.width }}
+                                    >
+                                        {col.render
+                                            ? col.render(item[col.key], item)
+                                            : (item[col.key] as React.ReactNode)}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+
             {
-                loadingData ?
-                    <TableSkeleton />
-                    :
-                    !loadingData && productsWithCartInfo.length === 0 ?
-                        <MessageCard title='No hay coincidencias exactas'>
-                            <p>Cambia o elimina algunos de los filtros o modifica el área de búsqueda.</p>
-                        </MessageCard>
-                        :
-                        <>
-                            <div className={`${styles.table}`}>
-                                <div className={styles.content}>
-                                    <div className={
-                                        isTable ? `${styles.headers} none` :
-                                            `${styles.headers} display-flex space-between`
-                                    }>
-                                        <p className={styles.name}>Nombre</p>
-                                        <div className={styles.otherInformation}>
-                                            <div>Codigo</div>
-                                            <div>Marca</div>
-                                            <div>Familia</div>
-                                            {isEmployee  && <div>Existencias</div>}
-                                            <div>Precio (MXN)</div>
-                                            <div></div>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.data}>
-                                        {
-                                            productsWithCartInfo?.map((product: ProductInterface) => {
-                                                return (
-                                                    isTable ?
-                                                        <ProductCardMovil product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
-                                                        :
-                                                        <ProductCard product={product} key={product.Codigo && (product.Codigo + product.Id_Marca)} />
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-
-                                {/* LOAD MORE PRODUCTS */}
-                                {
-                                    (productsWithCartInfo.length < totalItems) &&
-                                    <div className={styles.loadMore}>
-                                        <ButtonAnimated
-                                            onclick={loadMoreProducts}
-                                            disabled={buttonIsLoading}
-                                        />
-                                    </div>
-                                }
-                            </div>
-
-                            {
-                                NoMoreProductToShow &&
-                                <p className={styles.message}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
-                            }
-                        </>
+                !noMoreData &&
+                <div className={styles.laodMore}>
+                    <ButtonLoad
+                        buttonText='Ver más'
+                        onClick={handleLoadMore}
+                        loading={loadingMoreData}
+                        color='white'
+                    />
+                </div>
             }
-        </>
-    )
-}
+
+            {
+                noMoreData &&
+                <p className={styles.message}>Ya no hay mas productos, cambia los filtros para ver otros resultados</p>
+            }
+        </div>
+    );
+};
+
 
 export default Table;

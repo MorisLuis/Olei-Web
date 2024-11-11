@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
-import styles from "../../styles/Modal.module.scss";
-
+import React, { CSSProperties, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faClose } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/router';
+import ButtonSmall from '../Buttons/ButtonSmall';
+import styles from "../../styles/Modal.module.scss";
+import useLockBodyScroll from '@/hooks/useLockBodyScroll';
 
 
 interface Props {
     visible: boolean;
     children: React.ReactNode;
-    title?: string;
+    title: string;
 
     //Conditions
-    small?: boolean;
-    receipt?: boolean;
+    //small?: boolean;
+    modalSize?: "medium" | "small" | "normal";
     actionsVisible?: boolean;
     decisionVisible?: boolean;
     modalBlack?: boolean;
 
     //Methods
     onClose: () => void;
-    handleOpenUseCart?: () => void;
-    handleFiltersToQuery?: () => void;
-    handleCleanAllFilters?: () => void;
+    handleActionTopOne?: () => void;
+    handleActionTopTwo?: () => void;
+    handleActionBottomOne?: () => void;
+    extraStyles?: CSSProperties
 }
 
 const Modal = ({
@@ -30,20 +31,20 @@ const Modal = ({
     children,
     title = '',
 
-    small = false,
-    receipt = false,
+    modalSize = "normal",
     actionsVisible = false,
     decisionVisible = false,
     modalBlack = false,
 
     onClose,
-    handleOpenUseCart,
-    handleFiltersToQuery,
-    handleCleanAllFilters
+    handleActionTopOne,
+    handleActionTopTwo,
+    handleActionBottomOne,
+    extraStyles
 }: Props) => {
 
-    const { push, query } = useRouter();
     const [isClosing, setIsClosing] = useState(false);
+    useLockBodyScroll(visible);
 
     const handleClose = () => {
         setIsClosing(true);
@@ -53,46 +54,42 @@ const Modal = ({
         }, 300);
     };
 
+    const handleCleanFilters = () => {
+        handleClose();
+        handleActionBottomOne?.();
+    }
+
     const renderActions = () => (
-        <>
-            <button
-                className={`${styles.expand} button-small display-flex align m-right`}
-                onClick={() => push(`/request/${query?.receipt}`)}
-            >
-                Expandir
-                <FontAwesomeIcon icon={faExpand} className="icon__small cursor display-flex align rotat45" />
-            </button>
-            <button
-                className={`${styles.expand} button-small display-flex align`}
-                onClick={handleOpenUseCart}
-            >
-                Usar en carrito
-                <FontAwesomeIcon icon={faExpand} className="icon__small cursor display-flex align rotat45" />
-            </button>
-        </>
+        <div className={styles.topactions}>
+            <ButtonSmall
+                text='Expandir'
+                onClick={() => handleActionTopOne?.()}
+                icon={faExpand}
+                color='blue'
+            />
+
+            <ButtonSmall
+                text='Usar en carrito'
+                onClick={() => handleActionTopTwo?.()}
+                icon={faExpand}
+                color='blue'
+            />
+        </div>
     );
 
     const renderFooter = () => (
-        <div className={`${styles.footer} display-flex space-between`}>
-            <button
-                className="button-small transparent"
-                onClick={() => {
-                    handleClose();
-                    handleCleanAllFilters?.();
-                }}
-            >
-                Quitar filtros
-            </button>
-            <button
-                style={{ width: "30%" }}
-                className="button-small"
-                onClick={() => {
-                    handleClose();
-                    handleFiltersToQuery?.();
-                }}
-            >
-                Filtrar
-            </button>
+        <div className={styles.footer}>
+            <ButtonSmall
+                text='Quitar filtros'
+                onClick={handleCleanFilters}
+                transparent
+            />
+
+            <ButtonSmall
+                text='Filtrar'
+                onClick={handleClose}
+                extraStyles={{ width: "30%" }}
+            />
         </div>
     );
 
@@ -104,16 +101,16 @@ const Modal = ({
                     <div className={styles.modalBackgroundSecondary} onClick={handleClose}></div>
             }
 
-            <div className={`${styles.modalPrincipal} ${receipt ? styles.receipt : ''} ${small ? styles.small : ''} ${isClosing ? styles.closing : ''}`}>
+            <div className={`${styles.Modal} ${styles[modalSize]} ${isClosing ? styles.closing : ''}`} style={extraStyles}>
 
-                <div className={`${styles.header} display-flex space-between align`} >
-                    <div className={`${styles.left} display-flex align`}>
+                <div className={styles.header} >
+                    <div className={styles.left}>
                         {title && <h3>{title}</h3>}
                         {actionsVisible && renderActions()}
                     </div>
 
                     <div className={`${styles.close} cursor`} onClick={handleClose}>
-                        <FontAwesomeIcon icon={faClose} className={`icon cursor display-flex align`} />
+                        <FontAwesomeIcon icon={faClose} className={'icon'} />
                     </div>
                 </div>
 

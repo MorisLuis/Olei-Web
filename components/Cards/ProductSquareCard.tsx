@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styles from "../../styles/Components/Cards.module.scss";
 
 import ProductInterface from '@/interfaces/product';
 import { Tag } from '../Ui/Tag';
-import Counter from '../Ui/Counter';
-import { AuthContext, CartContext } from '@/context';
+import { AuthContext } from '@/context';
 import { format } from '../../utils/currency';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,51 +12,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from "framer-motion";
 import { useRouter } from 'next/router';
+import Counter from '../Ui/Counter';
 
 interface Props {
     product: ProductInterface,
-    onClick?: any
+    onClick?: (arg: ProductInterface) => void;
+    handleAddProduct?: (item: ProductInterface, newValue: number) => void
 }
 
 
-export const ProductSquareCard = ({ product, onClick }: Props) => {
+export const ProductSquareCard = ({ product, onClick, handleAddProduct }: Props) => {
 
-    const { addProductToCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
-    const isEmployee = user?.TipoUsuario === 2;
     const { pathname, query } = useRouter();
-
-
-    const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
-        Precio: product.Precio,
-        Cantidad: 0,
-
-        Id_Familia: product.Id_Familia,
-        Id_Marca: product.Id_Marca,
-
-        Descripcion: product.Descripcion,
-        Codigo: product.Codigo,
-        Existencia: product.Existencia,
-        Familia: product.Familia,
-        Marca: product.Marca,
-        Impuesto: product.Impuesto
-    })
-
-    const onUpdateQuantity = async (Cantidad: number) => {
-
-        setTempCartProduct(currentProduct => ({
-            ...currentProduct,
-            Cantidad
-        }));
-
-        addProductToCart({
-            ...tempCartProduct,
-            Cantidad
-        });
-    }
+    const isEmployee = user?.TipoUsuario === 2;
 
     return (
-        <div className={styles.productSquareCard} >
+        <div className={styles.ProductSquareCard} >
             <div className={styles.content}>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -70,7 +41,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         shallow
                         href={{ pathname, query: { ...query, product: `/products?product=${product.Codigo}&Marca=${product.Marca}` } }}
                         as={`/product/${product.Codigo}?Marca=${product.Marca}`}
-                        onClick={() => onClick(product)}
+                        onClick={() => onClick?.(product)}
                     >
                         {
                             product?.imagen ?
@@ -79,6 +50,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                                     alt={product.Descripcion}
                                     width={200}
                                     height={200}
+                                    
                                 />
                                 :
                                 <div className={styles.notImage}>
@@ -88,7 +60,6 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         }
                     </Link>
                 </motion.div>
-
 
                 <div className={styles.info}>
                     <div className={styles.description}>
@@ -103,7 +74,7 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
                         <p>Marca: {product.Marca}</p>
                         {isEmployee &&
                             <div>
-                                <p className={`${styles.stock} display-flex text-ellipsis align`}>
+                                <p className={styles.stock}>
                                     Existencia:
                                     {
                                         product?.Existencia < 0 ?
@@ -117,17 +88,18 @@ export const ProductSquareCard = ({ product, onClick }: Props) => {
 
 
                     <div className={styles.counter}>
-                        {
-                            product?.Precio ?
-                                <h3>{format(product?.Precio)}</h3> :
-                                <Tag color="blue">No tiene precio</Tag>
-                        }
-                        <Counter
-                            currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
-                            maxValue={
-                                product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
+
+                        <div className={styles.price}>
+                            {
+                                product?.Precio ?
+                                    <p>{format(product?.Precio)}</p> :
+                                    <Tag color="blue">No tiene precio</Tag>
                             }
-                            updatedQuantity={onUpdateQuantity}
+                        </div>
+
+                        <Counter
+                            counter={product?.Cantidad}
+                            setCounter={(value: number) => handleAddProduct?.(product, value)}
                         />
                     </div>
                 </div>

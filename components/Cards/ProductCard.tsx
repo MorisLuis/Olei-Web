@@ -1,206 +1,77 @@
-import React, { useContext, useState } from 'react'
-import styles from "../../styles/Tables.module.scss";
-
-import { AuthContext, CartContext } from '@/context';
-import ProductInterface from '@/interfaces/product';
+import React from 'react';
+import styles from "../../styles/Components/Cards.module.scss";
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Counter from '../Ui/Counter';
-import { Tag } from '../Ui/Tag';
-import Skeleton from 'react-loading-skeleton';
-import { format } from '@/utils/currency';
-import { capitalizarTexto } from '@/utils/textCapitalize';
+import ProductInterface from '@/interfaces/product';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+type RenderableValue = string | number | { url: string; id: number; } | [{ url: string; id: number; }] | any;
+
+export interface DataCardConfig<T> {
+    key: keyof T;
+    label: string;
+    render?: (value: RenderableValue) => React.ReactNode;
+    className?: string;
+    width?: string;
+}
 
 interface Props {
-    product: ProductInterface
+    product: ProductInterface;
+    onRemove?: (product: ProductInterface) => void;
+    onAdd?: (item: ProductInterface, newValue: number) => void;
+    data: DataCardConfig<ProductInterface>[];
 }
 
-// ProductCard - IS USED PRINCIPAL IN INDEX PAGE
-
-const ProductCard = ({ product }: Props) => {
-
-    const { addProductToCart } = useContext(CartContext);
-    const { user } = useContext(AuthContext);
-    const isEmployee = user?.TipoUsuario === 2
-
-
-    const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
-        Precio: product.Precio,
-        Cantidad: 0,
-
-        Id_Familia: product.Id_Familia,
-        Id_Marca: product.Id_Marca,
-
-        Descripcion: product.Descripcion,
-        Codigo: product.Codigo,
-        Existencia: product.Existencia,
-        Familia: product.Familia,
-        Marca: product.Marca,
-        Impuesto: product.Impuesto
-    })
-
-    const onUpdateQuantity = async (Cantidad: number) => {
-
-        setTempCartProduct(currentProduct => ({
-            ...currentProduct,
-            Cantidad
-        }));
-
-        addProductToCart({
-            ...tempCartProduct,
-            Cantidad
-        });
-    }
+const ProductCard = ({
+    product,
+    onRemove,
+    onAdd,
+    data
+}: Props) => {
 
     return (
-        <div className={`${styles.item} cursor display-flex`}>
-            <div className={`${styles.principalData} display-flex align`}>
-                <div className='display-flex align'>
-                    {product ? (
-                        <p>{capitalizarTexto(product.Descripcion)}</p>
-                    ) : (
-                        <Skeleton width={200} height={20} />
-                    )}
+        <div className={styles.ProductCard}>
+            <div className={styles.productHeader}>
+                <div className={styles.delete} onClick={() => onRemove?.(product)}>
+                    <FontAwesomeIcon icon={faTrashCan} className={'icon__small'} />
                 </div>
             </div>
 
-            <div className={`${styles.secondaryData} display-flex space-between`}>
-                <div>
-                    <p className='text-ellipsis display-flex align'><strong>Codigo: </strong>{product.Codigo}</p>
+            <div className={styles.productInfo}>
+                <div className={styles.data}>
+                    {data.map((col, index) => (
+                        <div className={styles.item}
+                            key={index}
+                            style={{ width: col.width }}
+                        >
+                            <p className={col.className}>
+                                <span>{col.label ? `${col.label}: ` : ``}</span>
+                                {Array.isArray(product[col.key])
+                                    ? (product[col.key] as RenderableValue[]).map((item, idx) => (
+                                        <div key={idx}>
+                                            {col.render
+                                                ? col.render(item)
+                                                : <span>{JSON.stringify(item)}</span>}
+                                        </div>
+                                    ))
+                                    : col.render
+                                        ? col.render(product[col.key] as RenderableValue)
+                                        : <span>{String(product[col.key])}</span>
+                                }
+                            </p>
+                        </div>
+                    ))}
                 </div>
 
-                <div>
-                    <p className="align"><strong>Marca: </strong>{product.Marca}</p>
+                <div className={styles.counter}>
+                    <Counter
+                        counter={product?.Cantidad || 0}
+                        setCounter={(value: number) => onAdd?.(product, value)}
+                    />
                 </div>
-
-                <div>
-                    <p className='text-ellipsis align'><strong>Familia: </strong>{product?.Familia}</p>
-                </div>
-
-                {isEmployee &&
-                    <div>
-                        <p className='text-ellipsis align'>
-                            {
-                                product?.Existencia < 0 ?
-                                    <Tag>No Stock</Tag> :
-                                    product?.Existencia
-                            }
-                        </p>
-                    </div>
-                }
-
-                <div className={`${styles.price} display-flex align`}>
-                    {
-                        product?.Precio ?
-                            <p>{format(product?.Precio)}</p> :
-                            <Tag color="blue">No tiene precio</Tag>
-                    }
-                </div>
-
-                <Counter
-                    currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
-                    maxValue={
-                        product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
-                    }
-                    updatedQuantity={onUpdateQuantity}
-                />
             </div>
         </div>
-    )
+    );
 }
 
-const ProductCardMovil = ({ product }: Props) => {
-
-    const { addProductToCart } = useContext(CartContext);
-    const { user } = useContext(AuthContext);
-    const isEmployee = user?.TipoUsuario === 2
-
-    const [tempCartProduct, setTempCartProduct] = useState<ProductInterface>({
-        Precio: product.Precio,
-        Cantidad: 0,
-
-        Id_Familia: product.Id_Familia,
-        Id_Marca: product.Id_Marca,
-
-        Descripcion: product.Descripcion,
-        Codigo: product.Codigo,
-        Existencia: product.Existencia,
-        Familia: product.Familia,
-        Marca: product.Marca,
-        Impuesto: product.Impuesto
-    })
-
-    const onUpdateQuantity = async (Cantidad: number) => {
-
-        setTempCartProduct(currentProduct => ({
-            ...currentProduct,
-            Cantidad
-        }));
-
-        addProductToCart({
-            ...tempCartProduct,
-            Cantidad
-        });
-    }
-
-    return (
-        <div className={`${styles.itemMovil} cursor display-flex`}>
-            <div className={`${styles.principalData} display-flex align`}>
-                <div className='display-flex align'>
-                    {product ? (
-                        <p>{capitalizarTexto(product.Descripcion)}</p>
-                    ) : (
-                        <Skeleton width={200} height={20} />
-                    )}
-                </div>
-            </div>
-
-            <div className={`${styles.secondaryData} display-flex space-between`}>
-                <div>
-                    <p className='text-ellipsis display-flex align'>Codigo: <strong>{product.Codigo}</strong></p>
-                </div>
-
-                <div>
-                    <p className="align">Marca: <strong>{product.Marca}</strong></p>
-                </div>
-
-                <div>
-                    <p className='text-ellipsis align'>Familia: <strong>{product?.Familia}</strong></p>
-                </div>
-
-                {isEmployee &&
-                    <div>
-                        <p className={`${styles.stock} display-flex text-ellipsis align`}>
-                            Existencia:
-                            {
-                                product?.Existencia < 0 ?
-                                    <Tag>No Stock</Tag> :
-                                    <strong>{product?.Existencia}</strong>
-                            }
-                        </p>
-                    </div>
-                }
-            </div>
-
-            <div className={`${styles.tertiaryData} display-flex space-between`}>
-                <div className={`${styles.price} display-flex align`}>
-                    {
-                        product?.Precio ?
-                            <p>{format(product?.Precio)}</p> :
-                            <Tag color="blue">No tiene precio</Tag>
-                    }
-                </div>
-
-                <Counter
-                    currentValue={product?.Cantidad > 0 ? product?.Cantidad : tempCartProduct.Cantidad || 0}
-                    maxValue={
-                        product?.Existencia && product?.Existencia < 0 ? null : product?.Existencia
-                    }
-                    updatedQuantity={onUpdateQuantity}
-                />
-            </div>
-        </div>
-    )
-}
-
-
-export { ProductCard, ProductCardMovil }
+export default ProductCard;

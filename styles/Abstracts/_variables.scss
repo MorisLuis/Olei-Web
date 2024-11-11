@@ -1,52 +1,49 @@
-$color-primary: #f1f1f1;
-$color-secondary: hsla(207, 20%, 76%, 0.1);
-$color-tertiary: #0E1727;
-$color-cuaternary: #F9FAFA;
-
+$color-primary: #FFFFFF;
+$color-secondary: #0e1727;
+$color-tertiary: #1C3873;
+$color-cuaternary: #FAFAFA;
 
 $color-red: #ff0000;
 $color-blue: #068FFF;
 $color-green: #1F8A70;
-$color-gray: gray;
+$color-gray: #ccc;
 $color-yellow: #EDBD42;
 
-
 $color-border: #dfdfdf;
-$color-border-secondary: #cacaca;
-$color-border-tertiary: #0E1727;
+$color-border-secondary: #f1f1f1;
+$color-border-tertiary: #0e1727;
 
-$text-color:rgb(29 42 54/1);
-$text-color-light: rgb(101 116 130/1);
-$text-color-secondary: #f9f9f9;
+$text-color: #1D2A36;
+$text-color-secondary: #657482;
+$text-color-light: #F9FAFA;
 
-$background-color: white;
-$background-color-secondary: #f9f9f9;
+$background-color: #FFFFFF;
+$background-color-secondary: #FAFAFA;
 $background-color-tertiary: #f1f1f1;
 
-$background-color-gradient: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 47%, rgba(237,237,237,1) 59%, rgba(245,147,212,0.05) 86%, rgba(9,118,223,0.05) 98%);
-$background-color-gradient-second: radial-gradient(circle, rgba(6,143,255,1) 0%, rgba(255,0,0,1) 50%, rgba(6,143,255,1) 100%);
+$box-shadow-button: rgba(0, 0, 0, 0.12) 1.5px 1.5px 1px;
+$box-shadow-modal:  rgba(0, 0, 0, 0.1) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+$box-shadow-input:  0px 10px 10px -15px rgba(101, 116, 130, 1);
 
-.dark {
-  $background-color: black;
-  $color-primary: #769d8d;
-  $text-color: white;
-}
+/* $box-shadow-modal: rgba(0, 0, 0, 0.05) 0px 3px 12px;*/
 
-.blur{
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.2);
-}
+//Padding
+$padding: 1em;
+$padding-horizontal: 1em;
+$padding-bottom: 1em;
+$padding-top: 1em;
 
+// Margin
+$margin: 1em;
+$margin-horizontal: 1em;
+$margin-vertical: 1em / 2;
+
+//UI
+$border-radius: 0.5em;
+$gap: 10px;
 
 //Font-size
 $font-big: 60px;
-$font-med: 2em;
-
-//Desktop
-$font-normal: 12px;
-$font-sm: 10px;
-
-//Phone
-$font-normal-phone: 16px;
-$font-sm-phone: 14px;
+$font-normal: 16px;
+$font-medium: 14px;
+$font-small: 12px;

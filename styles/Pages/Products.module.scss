@@ -1,40 +1,42 @@
 @import "../main.scss";
 
 .products {
-    padding: 2em 10em;
+    padding: $padding*2 $padding*10;
     display: flex;
     flex-direction: column;
     width: 100%;
     position: relative;
-    z-index: 1;
     min-height: 85svh;
 
     .header {
-        margin-bottom: 1em;
-        position: sticky;
+        margin-bottom: $margin-horizontal;
         top: 60px;
         width: 100%;
         background-color: $background-color;
-        padding: 1em 0em 2em 0em;
         z-index: 999;
 
-        .company{
-            margin-bottom: 5px;
-            font-size: $font-sm;
+        @include respond(phone) {
+            width: fit-content;
+        }
+
+        .company {
+            margin-bottom: $margin-horizontal/2;
+            font-size: $font-medium;
             color: $color-gray;
         }
 
-        .container{
+        .header__container {
+            display: flex;
             justify-content: space-between;
-            height: 30px;
+            align-items: center;
             width: 100%;
 
             @include respond(phone) {
-                gap: 5px;
+                gap: $gap;
             }
 
             span {
-                margin-left: 1em;
+                margin-left: $margin-horizontal;
             }
 
             .search {
@@ -43,40 +45,42 @@
                 width: fit-content;
                 position: relative;
                 transition: width 0.6s ease-in-out;
-                z-index: 9999;
+                z-index: 9;
+
+                @include respond(phone) {
+                    display: none;
+                }
 
                 @include respond(tab-port) {
                     min-width: 60%;
                 }
-        
+
                 @include respond(phone) {
                     width: 60%;
                 }
-        
+
                 &.active {
                     width: 50%;
                     animation: appear-Left-to-Right 0.1s ease-in-out;
                 }
-        
+
                 .inputSearch {
-                    position: relative;
                     border: none;
                     width: 100%;
                     position: relative;
                     border: 1px solid $color-border;
-                    border-radius: 5px;
+                    border-radius: $border-radius;
                     z-index: 9999;
+                    height: 40px;
+                    display: flex;
+                    box-shadow: $box-shadow-button;
 
-                    @include respond(phone) {
-                        font-size: $font-normal-phone;
-                    }
-                    
 
                     &:valid {
-                        padding: 0em 3.5em;
+                        padding: 0em $padding*2.5;
 
                         @include respond(phone) {
-                            padding: 0em 2.5em;
+                            padding: 0em $padding*2.5;
                         }
                     }
 
@@ -87,20 +91,23 @@
 
                 .iconSearch {
                     position: absolute;
-                    top: 0px;
-                    left: 0px;
-                    transform: translate(100%, 0%);
+                    top: 0%;
+                    left: 10px;
                     height: 100%;
                     z-index: 9999;
+
+                    @include respond(phone) {
+                        left: 5%;
+                    }
                 }
 
                 .resultsSearch {
                     background-color: $background-color;
                     border: 1px solid $color-border;
-                    border-radius: 5px;
-                    padding: 1em;
+                    border-radius: $border-radius;
+                    padding: $padding;
                     position: absolute;
-                    top: 110%;
+                    top: 150%;
                     width: 100%;
                     z-index: 9999;
 
@@ -109,109 +116,38 @@
                         position: absolute;
                         left: 0px;
                     }
-        
+
                     .filtersSearch {
                         background-color: $background-color-secondary;
                         border: 1px solid $color-border;
-                        border-radius: 5px;
-                        padding: 0.5em;
-                        margin-bottom: 0.5em;
-        
+                        border-radius: $border-radius;
+                        padding: $padding;
+                        margin-bottom: $margin-vertical;
+
                         div:not(:first-child) {
-                            margin-left: 0.75em;
+                            margin-left: $margin-horizontal;
                         }
                     }
                 }
             }
 
-            .rightContent{
+            .rightContent {
+                display: flex;
 
-                @include respond(phone) {
-                    width: 40%;
-                    margin-right: 0em;
+                .filtersTag {
                     display: flex;
-                    justify-content: flex-end;
+                    align-items: center;
+                    height: auto;
+                    gap: $gap;
+
+                    @include respond(phone) {
+                        width: 100%;
+                        flex-wrap: wrap-reverse;
+                    }
                 }
 
-                .filters {
-                    display: flex;
-                    height: 100%;
-                    margin-right: 1em;
-
-                    .buttonFilter {
-                        display: flex;
-                        position: relative;
-                        border-radius: 5px;
-        
-                        @include respond(phone) {
-                            width: 30px;
-                            height: 30px;
-                        }
-        
-                        button {
-                            background-color: $color-primary;
-                            border: 1px solid $color-border;
-                            height: 100%;
-    
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-    
-                            @include respond(phone) {
-                                border-radius: 100%;
-                                width: 100%;
-                                height: 100%;
-                            }
-                        }
-    
-                        &.active {
-                            button {
-                                border: 1px solid black;
-                            }
-                        }
-    
-                        p {
-                            @include respond(phone) {
-                                display: none;
-                            }
-                        }
-    
-                        svg {
-                            @include respond(phone) {
-                                margin: 0px;
-                            }
-                        }
-        
-                        .filtersCount {
-                            background-color: black;
-                            color: $text-color-secondary;
-                            position: absolute;
-                            top: 0px;
-                            right: 0px;
-                            border-radius: 1em;
-                            transform: translate(50%, -50%);
-                            border: 1px solid $color-border;
-        
-                            p {
-                                width: 16px;
-                                height: 16px;
-                                font-size: 10px;
-                            }
-                        }
-                    }
-
-                    .filtersTag {
-                        display: flex;
-        
-                        div {
-                            height: 100%;
-                            margin-right: 0.5em;
-                        }
-        
-                        @include respond(phone) {
-                            display: none;
-                        }
-                    }
+                @include respond(phone) {
+                    align-items: center;
                 }
             }
         }
@@ -238,10 +174,10 @@
     }
 
     @include respond(tab-port) {
-        padding: 3em;
+        padding: $padding*3;
     }
 
     @include respond(phone) {
-        padding: 1em ;
+        padding: $padding;
     }
 }

@@ -1,12 +1,17 @@
 import React from 'react'
 import Select, { StylesConfig } from 'react-select'
 
+export type OptionType = {
+    label: string
+    value: string
+}
+
 interface Props {
-    options: any,
+    options: OptionType[],
     placeholder?: string,
     label?: string,
-    onChange: any,
-    value: any,
+    onChange: (arg: OptionType) => void,
+    value: OptionType | null
     name: string
 }
 
@@ -31,13 +36,23 @@ const SelectReact = ({
                 placeholder={placeholder}
                 options={optionsWithNull}
                 isClearable
-                styles={customStyles}
+                className='select'
                 onChange={(value) => {
                     if (typeof onChange === 'function') {
-                        onChange(value);
+                        onChange(value as OptionType);
                     }
                 }}
                 value={value}
+                styles={customStyles}
+                theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 0,
+                    colors: {
+                        ...theme.colors,
+                        primary25: '#F9FAFA',
+                        primary: '#EDBD42',
+                    },
+                })}
             />
         </div>
     )
@@ -46,14 +61,9 @@ const SelectReact = ({
 export default SelectReact
 
 const customStyles: StylesConfig = {
-    control: ({ isDisabled, isFocused }) => ({
-        backgroundColor: "white",
+    control: () => ({
         width: "100%",
-        height: "40px",
-        border: isFocused ? '1px solid #aaa' : '1px solid #ccc',
-        borderRadius: "5px",
         display: "flex",
-        fontSize: "14px",
-        marginBottom: "1em"
+        color: "white"
     })
 };

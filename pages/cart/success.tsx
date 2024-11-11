@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Success.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
-import { faArrowUp, faExpand } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExpand } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { ClientContext } from '@/context';
 import PageTransition from '@/components/PageTranstion';
+import ButtonSmall from '@/components/Buttons/ButtonSmall';
 
 
 const Success = () => {
@@ -22,21 +22,27 @@ const Success = () => {
 
     return (
         <PageTransition key="login-transition" isEntering={isEntering === false}>
-            <Layout>
+            <Layout title='Orden Finalizada'>
                 <div className={styles.success}>
                     <h1>Tu pedido ha sido exitoso</h1>
                     <div className={styles.message}>
                         <p className={styles.text}>Tu pedido con el folio {query.order} ha sido realizado y {client.Nombre} lo ha recibido.</p>
                     </div>
-                    <div className={`${styles.actions} display-flex`}>
-                        <button className="button-small black display-flex allCenter" onClick={() => push(`/request/${query.order}`)}>
-                            Ver recibo
-                            <FontAwesomeIcon icon={faExpand} className={`icon__small cursor display-flex align`} />
-                        </button>
-                        <button className="button-small display-flex allCenter" onClick={() => push("/products")}>
-                            Regresar a Inicio
-                            <FontAwesomeIcon icon={faArrowUp} className={`icon__small cursor display-flex align rotate45`} />
-                        </button>
+                    <div className={styles.actions}>
+                        <ButtonSmall
+                            text='Ver recibo'
+                            onClick={() => push(`/request/${query.order}`)}
+                            icon={faExpand}
+                            color='blue'
+                        />
+
+                        <ButtonSmall
+                            text='Regresar a Inicio'
+                            onClick={() => push("/products")}
+                            icon={faExpand}
+                            color='white'
+                        />
+
                     </div>
                 </div>
             </Layout>

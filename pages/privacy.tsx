@@ -6,7 +6,7 @@ const Privacy = () => {
 
 
     return (
-        <Layout>
+        <Layout title='Privacidad'>
             <div style={{ padding: "100px 200px" }}>
                 <h2 style={{ marginBottom: "10px" }} >
                     Última modificación: {privacyPolicy.lastModified}

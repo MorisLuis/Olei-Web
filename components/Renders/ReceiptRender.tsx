@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import styles from "../../styles/Pages/Receipt.module.scss";
 
 import ProductInterface from '@/interfaces/product';
-import { ProductCardShort } from '../Cards/ProductCardShort';
 import { useRouter } from 'next/router';
 import OrderInterface from '@/interfaces/order';
 import { format } from '@/utils/currency';
@@ -11,6 +10,7 @@ import { AuthContext } from '@/context';
 import ReceiptRenderSkeleton from '../Skeletons/ReceiptRenderSkeleton';
 import { getOrder, getOrderDetails } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import TableSecondaryRequestDetails from '../Ui/Tables/TableComponents/TableSecondaryRequestDetails';
 
 export const ReceiptRender = () => {
     const { user } = useContext(AuthContext);
@@ -27,7 +27,7 @@ export const ReceiptRender = () => {
     const { Fecha, Cantidad, Vendedor, Folio, Cliente, Total } = orderSelect ?? {};
     const isEmployee = user?.TipoUsuario === 2;
 
-    const handleGetOrderDetails = async () => {
+    const handleGetOrderDetails = useCallback(async () => {
         if (loadingOrder || orderDetailsSelect) return;
         setLoadingOrder(true);
         try {
@@ -42,9 +42,9 @@ export const ReceiptRender = () => {
         } finally {
             setLoadingOrder(false);
         }
-    };
+    }, [handleError, loadingOrder, orderDetailsSelect, receipt])
 
-    const handleGetOrder = async () => {
+    const handleGetOrder = useCallback(async () => {
         try {
             const order = await getOrder(receipt as string);
             if (order.error) {
@@ -55,7 +55,7 @@ export const ReceiptRender = () => {
         } catch (error) {
             handleError(error);
         }
-    };
+    }, [handleError, receipt])
 
     // Evitar llamadas duplicadas usando el ref `fetchedData`
     useEffect(() => {
@@ -63,7 +63,7 @@ export const ReceiptRender = () => {
         fetchedData.current = true; // Se marca que ya se hizo la solicitud
         handleGetOrder();
         handleGetOrderDetails();
-    }, [receipt]);
+    }, [receipt, handleGetOrder, handleGetOrderDetails]);
 
     return orderDetailsSelect ? (
         <div className={styles.receiptRender}>
@@ -98,11 +98,13 @@ export const ReceiptRender = () => {
                 </div>
             </div>
 
-            <div className={styles.productsDetails}>
-                {orderDetailsSelect.map((product: ProductInterface, index: number) => (
-                    <ProductCardShort key={index} product={product} counterVisible={false} />
-                ))}
-            </div>
+            <TableSecondaryRequestDetails
+                products={orderDetailsSelect}
+                totalProducts={orderDetailsSelect.length}
+                buttonIsLoading={false}
+                loadingData={false}
+            />
+
         </div>
     ) : (
         <ReceiptRenderSkeleton />

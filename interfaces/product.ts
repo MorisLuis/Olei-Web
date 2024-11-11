@@ -14,8 +14,7 @@ export default interface ProductInterface {
     Marca?: string;
     Id_Marca?: number;
     Id_ListaPrecios?: number;
-    Impuesto?: any;
-    Importe?: any;
+    Impuesto?: number;
     imagen?: string;   
     imagenes?: [{
         url: string;

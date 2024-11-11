@@ -7,6 +7,8 @@
     justify-content: flex-end;
     color: $text-color-light;
     position: relative;
+    display: flex;
+    align-items: center;
 
     p{
         z-index: 1;

@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import styles from "./../../../styles/Navigation/Header.module.scss";
 
 import { ClientContext } from '@/context';
 import { ModalSearch } from '../../Modals/ModalSearch';
@@ -12,9 +11,11 @@ import { useRouter } from 'next/router';
 import { getClients } from '@/services/clients';
 import useErrorHandler from '@/hooks/useErrorHandler';
 
+import styles from "./../../../styles/Navigation/Header.module.scss";
+
 interface Props {
     setOpenModalCart: React.Dispatch<React.SetStateAction<boolean>>;
-    setOpenModalMenu?: React.Dispatch<React.SetStateAction<boolean>>;
+    setOpenModalMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header = ({
@@ -33,8 +34,8 @@ const Header = ({
 
 
     // Clients
-    const onSelectClient = (product: any) => {
-        setSelectedClient(product);
+    const onSelectClient = (client: ClientInterface) => {
+        setSelectedClient(client);
         setOpenModalMessage(true);
     }
 
@@ -58,12 +59,12 @@ const Header = ({
             const Clients = await getClients(term);
             if (Clients.error) {
                 handleError(Clients.error);
-                return { products: [] };
+                return { clients: [] };
             }
-            return { products: Clients };
+            return { clients: Clients };
         } catch (error) {
             handleError(error);
-            return { products: [] };
+            return { clients: [] };
         }
     }
 
@@ -74,8 +75,8 @@ const Header = ({
 
     return (
         <>
-            <div className={`${styles.header}  blur`}>
-                <div className={`${styles.content} display-flex space-between`}>
+            <div className={styles.header}>
+                <div className={styles.content}>
                     <LeftSection
                         setModalClientsVisible={setModalClientsVisible}
                     />

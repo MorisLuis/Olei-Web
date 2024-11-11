@@ -1,271 +1,130 @@
 @import "./main.scss";
 
-.modalSide {
+.Modal {
     background-color: $background-color;
-    width: 32.5%;
-    height: 98%;
-    position: absolute;
-    right: 0.5%;
-    top: 1%;
-    border-radius: 1em;
-    animation: appear-Right-to-Left 0.3s ease-in-out;
+    width: 75%;
+    max-width: 1200px;
+    position: fixed;
+    border-radius: $border-radius;
     border: 1px solid $color-border;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    z-index: 99999;
-    padding-bottom: 7em;
-    overflow: hidden;
+    box-shadow:$box-shadow-modal;
+    z-index: 999999;
+    left: 50%;
+    top: 50%;
+    max-height: 80%;
+    transform: translate(-50%, -50%);
+    overflow-y: scroll;
+    animation: modal-open 0.2s ease-in-out forwards;
 
-    @include respond(tab-land) {
-        width: 50%;
-    }
-
-    @include respond(tab-port) {
-        width: 75%;
+    &.closing {
+        animation: modal-close 0.2s ease-in-out forwards;
     }
 
     @include respond(phone) {
         width: 100%;
-        top: 3%;
-        border-radius: 0.5em;
-        height: calc(100svh - 3%);
-    }
+        transform: translate(0, 0) scale(0.8);
+        left: 0px;
+        bottom: 0px;
+        top: 0px;
+        animation: modal-open-mobile 0.2s ease-in-out forwards;
+        border-radius: $border-radius $border-radius 0 0;
+        max-height: 100%;
 
-    &.menu {
-        width: 20%;
-
-        @include respond(tab-land) {
-            width: 40%;
-        }
-
-        @include respond(phone) {
-            width: 100%;
+        &.closing {
+            animation: modal-close-mobile 0.2s ease-in-out forwards;
         }
     }
 
     .header {
-        border-radius: 1em 1em 0em 0em;
-        padding: 1em;
-        border: 1px solid $color-border;
-        border-style: none none solid none;
+        background-color: $background-color;
+        padding: $padding;
+        border-bottom: 1px solid $color-border;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        max-height: 70px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: $border-radius;
 
         @include respond(phone) {
-            border-radius: 0.5em 0.5em 0em 0em;
+            margin-bottom: $margin-vertical;
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            gap: $gap;
+
+            .topactions {
+                display: flex;
+                flex-direction: row;
+                gap: $gap;
+            }
+
+            h3 {
+                margin-right: $margin-horizontal;
+            }
         }
 
         .close {
             width: fit-content;
-            padding: 0.5em;
-            border-radius: 3px;
+            padding: $padding / 2;
+            border-radius: $border-radius;
+            height: fit-content;
+            cursor: pointer;
             border: 1px solid transparent;
 
-            p {
-                padding-left: 0.75em;
-            }
+            display: flex;
+            justify-content: center;
 
             &:hover {
-                background-color: $color-secondary;
+                background-color: $background-color-secondary;
                 border: 1px solid $color-border;
             }
         }
     }
 
     .content {
-        padding: 1em 2.5em;
-        height: 80%;
-        overflow: scroll;
-        overflow-x: hidden;
-
-
-        &.menu {
-            padding: 1em 1.5em;
-
-            .profile {
-                .icon {
-                    
-                    background-color: $color-tertiary;
-                    width: 24px;
-                    height: 24px;
-                    border-radius: 100%;
-
-                    p {
-                        color: $text-color-secondary;
-                        font-size: 16px;
-                    }
-                }
-
-                .text {
-                    padding-left: 1em;
-
-                    p {
-                        margin: 0px;
-                    }
-
-                    .user {
-                        opacity: 50%;
-                    }
-                }
-            }
-
-            .item {
-                padding: 0.5em;
-                border-radius: 0.5em;
-                cursor: pointer;
-
-                p {
-                    padding-left: 1em;
-                }
-
-                &:hover {
-                    background-color: $color-secondary;
-                }
-            }
-        }
-
-        @include respond(phone) {
-            padding: 1em 1.5em;
-        }
+        padding: $padding;
+        height: 100%;
 
         &::-webkit-scrollbar {
-            width: 0.5em;
+            width: 0.6em;
             background-color: transparent;
         }
 
         &::-webkit-scrollbar-thumb {
-            background-color: $color-primary;
-            border-radius: 1em;
+            background-color: rgba($text-color-light, 0.75);
+            border-radius: $border-radius;
         }
 
-        &::-webkit-scrollbar-thumb:hover {
-            background-color: $color-border;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: transparent;
+        @include respond(phone) {
+            padding: 0px $padding;
+            //margin-top: 70px;
         }
     }
 
     .footer {
-        min-height: 10%;
-        width: 100%;
-        padding: 1em 2em 2em 2em;
+        padding: $padding;
         border-top: 1px solid $color-border;
-        justify-content: flex-end;
-        position: absolute;
-        bottom: 0px;
-        background-color: $color-primary;
-        box-shadow: rgba(0, 0, 0, 0.025) 0px -3px 3px 0px;
-
-        .productsPendingMessage {
-            padding: 1em 0em;
-        }
-
-        .pricing {
-            display: flex;
-            flex-direction: column;
-
-            .seeCart {
-                width: 100%;
-                margin-top: 1em;
-            }
-
-            h4 {
-                width: 100%;
-                height: fit-content;
-                border-radius: 3px;
-                padding: 0.5em;
-                background: linear-gradient(90deg,
-                        rgba($color-yellow, 0.2) 0%,
-                        $color-yellow 50%,
-                        rgba($color-yellow, 0.2) 100%);
-                border: 1px solid $color-yellow;
-
-                @include respond(phone) {
-                    font-size: 14px;
-                }
-            }
-        }
-    }
-
-    &.closing {
-        animation: disappear-Left-to-Right 0.3s ease-in-out;
-    }
-}
-
-.modalPrincipal {
-    background-color: $background-color;
-    width: 75%;
-    max-height: 80%;
-    max-width: 1200px;
-    position: absolute;
-    border-radius: 1em;
-    border: 1px solid $color-border;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    //overflow: hidden;
-    z-index: 999999;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    animation: modal-open 0.1s ease-in-out forwards;
-    opacity: 0;
-    overflow: scroll;
-
-    &.closing {
-        animation: modal-close 0.2s ease-in-out forwards;
-    }
-
-    @include respond(tab-land) {
-        width: 75%;
-    }
-
-    @include respond(tab-port) {
-        width: 75%;
-    }
-
-    @include respond(phone) {
-        width: 100%;
-        height: 100svh;
-        transform: translate(0%, 0%) scale(0.8);
-        left: 0%;
-        top: 0%;
-        max-height: none;
-
-        animation: modal-open-mobil 0.1s ease-in-out forwards;
-        border-radius: 1em 1em 0em 0em;
-
-        &.closing {
-            transform: translate(0%, 0%) scale(0.8);
-            left: 0%;
-            top: 0%;
-            animation: modal-close-mobil 0.2s ease-in-out forwards;
-        }
-    }
-
-    &.receipt {
-        font-family: "VictorMono";
-        width: 60%;
-        max-height: 90%;
-
-        @include respond(phone) {
-            width: 100%;
-        }
+        display: flex;
+        justify-content: space-between;
+        height: 10%;
     }
 
     &.small {
         width: 30%;
 
-        @include respond(tab-land) {
-            width: 45%;
-        }
-
         @include respond(phone) {
-            background-color: $background-color;
             width: 100%;
-            height: 85%;
+            height: 100%;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%) scale(0.8);
-            animation: modal-open 0.1s ease-in-out forwards;
-            opacity: 0;
+            //animation: modal-open 0.1s ease-in-out forwards;
         }
 
         .content {
@@ -285,58 +144,192 @@
         }
     }
 
-    .header {
-        border-radius: 1em 1em 0em 0em;
-        background-color: $background-color;
-        padding: 1em;
-        border: 1px solid $color-border;
-        border-style: none none solid none;
+    &.medium {
+        width: 60%;
 
         @include respond(phone) {
-            border-radius: 0.5em 0.5em 0em 0em;
-            padding: 0.5em 1em;
+            width: 100%;
+            height: 100%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            //animation: modal-open 0.1s ease-in-out forwards;
         }
 
-        .left {
-            h3 {
-                margin-right: 1em;
-            }
+        .content {
+            height: 75%;
 
             @include respond(phone) {
-                .expand {
-                    display: none;
-                }
+                height: 80%;
             }
+        }
+
+        .footer {
+            height: 25%;
+
+            @include respond(phone) {
+                height: 20%;
+            }
+        }
+    }
+
+}
+
+.ModalMessage {
+    background-color: $background-color;
+    width: 425px;
+    height: 215px;
+    position: fixed;
+    border-radius: $border-radius;
+    border: 1px solid $color-border;
+    box-shadow: $box-shadow-modal;
+    z-index: 999999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: modal-open 0.2s ease-in-out forwards;
+
+    @include respond(phone) {
+        width: 100%;
+        height: auto;
+        left: 0;
+        bottom: 0%;
+        top: auto;
+        border-radius: $border-radius;
+        transform: translateY(0%);
+        animation: modal-open-mobile 0.2s ease-in-out forwards;
+    }
+
+    .content {
+        height: 70%;
+        padding: $padding;
+        margin-bottom: $margin-vertical;
+
+        p {
+            font-size: $font-medium;
+        }
+
+        h2 {
+            margin-bottom: $margin-vertical;
+        }
+    }
+
+    .footer {
+        border-top: 1px solid $color-border;
+        height: 30%;
+        padding: $padding;
+        display: flex;
+        justify-content: space-between;
+        border-radius: $border-radius;
+
+    }
+}
+
+.ModalSideways {
+    background-color: $background-color;
+    height: 98%;
+    position: fixed;
+    right: 0.5%;
+    top: 1%;
+    border-radius: $border-radius;
+    animation: appear-Right-to-Left 0.3s ease-in-out;
+    border: 1px solid $color-border;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
+    z-index: 999999;
+    overflow: hidden;
+    font-size: $font-medium;
+
+    &.primary {
+        width: 32.5%;
+
+        @include respond(tab-land) {
+            width: 50%;
+        }
+    
+        @include respond(tab-port) {
+            width: 75%;
+        }
+    
+        @include respond(phone) {
+            width: 100%;
+            top: 3%;
+            border-radius: $border-radius;
+            height: calc(100svh - 3%);
+        }
+    }
+
+    &.secondary {
+        width: fit-content;
+        min-width: 300px;
+
+        @include respond(tab-land) {
+            width: 50%;
+        }
+    
+        @include respond(tab-port) {
+            width: 75%;
+        }
+    
+        @include respond(phone) {
+            width: 100%;
+            top: 3%;
+            border-radius: $border-radius;
+            height: calc(100svh - 3%);
+        }
+    }
+
+    .header {
+        border-radius: $border-radius $border-radius 0em 0em;
+        padding: $padding;
+        border: 1px solid $color-border;
+        border-style: none none solid none;
+        background-color: $background-color-secondary;
+        border-radius: $border-radius;
+
+        @include respond(phone) {
+            border-radius: $border-radius $border-radius 0em 0em;
         }
 
         .close {
             width: fit-content;
-            padding: 0.5em;
-            border-radius: 3px;
-            height: fit-content;
+            padding: $padding / 2;
+            border-radius: $border-radius;
             border: 1px solid transparent;
+            font-size: $font-small;
+            cursor: pointer;
+            gap: $gap;
+
+            display: flex;
 
             &:hover {
-                background-color: $color-secondary;
+                background-color: $background-color-secondary;
                 border: 1px solid $color-border;
             }
         }
     }
 
     .content {
-        padding: 1em 1em 6em 1em;
-        overflow-y: scroll;
+        padding: $padding;
+        height: 80%;
+        overflow: scroll;
         overflow-x: hidden;
-        height: 90%;
+
+        @include respond(phone) {
+            padding: $padding;
+        }
 
         &::-webkit-scrollbar {
-            width: 0.6em;
+            width: 0.5em;
             background-color: transparent;
         }
 
         &::-webkit-scrollbar-thumb {
-            background-color: rgba($text-color-light, 0.75);
-            border-radius: 1em;
+            background-color: $color-primary;
+            border-radius: $border-radius;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: $color-border;
         }
 
         &::-webkit-scrollbar-track {
@@ -345,10 +338,19 @@
     }
 
     .footer {
-        height: 10%;
+        min-height: 10%;
         width: 100%;
-        padding: 1em;
+        padding: $padding;
         border-top: 1px solid $color-border;
+        justify-content: flex-end;
+        position: absolute;
+        bottom: 0px;
+        background-color: $background-color-secondary;
+        border-radius: $border-radius;
+    }
+
+    &.closing {
+        animation: disappear-Left-to-Right 0.3s ease-in-out forwards;
     }
 }
 
@@ -356,7 +358,7 @@
     height: auto;
     width: 500px;
     position: absolute;
-    border-radius: 0.5em;
+    border-radius: $border-radius;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
     z-index: 999999;
     top: 10%;
@@ -365,9 +367,9 @@
 
     .headerSearch {
         background-color: $color-primary;
-        padding: 1em 1em 0em 1em;
-        margin-bottom: 1em;
-        border-radius: 0.5em 0.5em 0em 0em;
+        padding: $padding;
+        margin-bottom: $margin-vertical;
+        border-radius: $border-radius;
         background-color: $background-color;
         height: fit-content;
 
@@ -381,10 +383,10 @@
                 height: 40px;
                 position: relative;
                 background-color: transparent;
-                font-size: $font-normal-phone;
+                font-size: $font-normal;
 
                 &:valid {
-                    padding: 0em 2.5em;
+                    padding: 0em $padding-horizontal;
                     border: transparent;
                 }
             }
@@ -399,21 +401,21 @@
         }
 
         .filtersSearch {
-            padding: 0.75em 0.5em;
+            padding: $padding;
 
             >div :first-child {
-                margin-right: 1em;
+                margin-right: $margin-horizontal;
             }
         }
     }
 
     .resultsSearch {
-        padding: 1em;
+        padding: $padding;
         background-color: $background-color;
-        border-radius: 0em 0em 0.5em 0.5em;
+        border-radius: $border-radius;
 
         .messageEmpty {
-            padding: 1em 0em;
+            padding: $padding 0em;
         }
     }
 
@@ -421,7 +423,6 @@
         top: 5%;
         left: 50%;
         transform: translateX(-50%);
-
         border-radius: 0px;
         width: 95%;
         max-width: none;
@@ -430,49 +431,12 @@
     }
 }
 
-.modalMessage {
-    background-color: $background-color;
-    width: 425px;
-    height: 215px;
-    position: absolute;
-    border-radius: 1em;
-    border: 1px solid $color-border;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-    z-index: 999999;
-
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    animation: modal-open 0.1s ease-in-out forwards;
-    opacity: 0;
-
-    @include respond(phone) {
-        width: 100%;
-    }
-
-    .content {
-        height: 70%;
-        padding: 2em;
-
-
-        h2{
-            margin-bottom: 1em;
-        }
-    }
-
-    .footer {
-        border-top: 1px solid $color-border;
-        height: 30%;
-        padding: 2em;
-    }
-}
-
 //Backgrounds
 
 .modalBackground {
     width: 100%;
     height: 100svh;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     animation: appear 0.6s ease-in-out;
@@ -480,12 +444,16 @@
     backdrop-filter: blur(1px);
     background-color: rgba(255, 255, 255, 0.2);
     z-index: 99999;
+
+    &.closing {
+        animation: fadeOut 0.3s ease-in-out forwards;
+    }
 }
 
 .modalBackgroundSecondary {
     width: 100%;
-    height: 100svh;
-    position: absolute;
+    height: 100vh;
+    position: fixed;
     top: 0px;
     left: 0px;
     animation: appear 0.6s ease-in-out;
@@ -493,4 +461,8 @@
     backdrop-filter: blur(1px);
     background-color: rgba(0, 0, 0, 0.1);
     z-index: 999999;
+
+    &.closing {
+        animation: fadeOut 0.3s ease-in-out forwards;
+    }
 }

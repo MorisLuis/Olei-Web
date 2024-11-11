@@ -6,12 +6,12 @@ import { useRouter } from 'next/router';
 import UserInterface from '@/interfaces/user';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import toast from 'react-hot-toast';
+import { ApiError } from '@/interfaces/error';
 
 export interface AuthState {
     isLoggedIn: boolean;
     user: UserInterface;
 }
-
 
 export const AUTH_INITIAL_STATE: AuthState = {
     isLoggedIn: false,
@@ -30,11 +30,12 @@ export const AUTH_INITIAL_STATE: AuthState = {
     }
 }
 
-export const AuthProvider = ({ children }: any) => {
+export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
-    const [loggingIn, setLoggingIn] = useState(false)
-    const { pathname } = useRouter()
+    const [loggingIn, setLoggingIn] = useState(false);
+    const [modalBackgroundOpen, setModalBackgroundOpen] = useState(false)
+    const { pathname } = useRouter();
     const { handleError } = useErrorHandler()
 
     const { push } = useRouter()
@@ -59,49 +60,64 @@ export const AuthProvider = ({ children }: any) => {
     }
 
     const loginUser = async (email: string, password: string) => {
-        setLoggingIn(true)
+        setLoggingIn(true);
         try {
             const data = await api.post('/api/auth/loginWeb', { email, password });
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
+            
             if (user.TipoUsuario === 2) {
                 push("/onboarding/selectClient");
             } else {
                 push("/products");
             }
-
-        } catch (error: any) {
-            toast(error.response.data.errors[0].message, {
+        } catch (error) {
+            const apiError = error as ApiError;
+            
+            // Accede de forma segura al mensaje de error dentro de `errors`
+            const message = apiError.response?.data?.errors?.[0]?.message ?? "An unexpected error occurred";
+    
+            toast(message, {
                 position: "top-center",
-                icon: <span style={{ fontSize: '20px', color: "red"}}>⚠️</span>,
+                icon: <span style={{ fontSize: '20px', color: "red" }}>⚠️</span>,
             });
-            setLoggingIn(false)
-            handleError(error);
-        } 
-    }
+    
+            setLoggingIn(false);
+            handleError(apiError);
+        }
+    };
+    
 
     const logoutUser = async () => {
         try {
             await api.get('/api/auth/logout');
-            Cookies.remove("token")
             push("/")
+            Cookies.remove("token")
             dispatch({ type: '[Auth] - Logout', user: AUTH_INITIAL_STATE.user });
-        } catch (error: any) {
+        } catch (error) {
+            push("/")
+            Cookies.remove("token")
             handleError(error);
-        } finally{
+        } finally {
             setLoggingIn(false);
         }
     }
+
+    const openModalBackground = () => {
+        setModalBackgroundOpen(!modalBackgroundOpen)
+    };
 
     return (
         <AuthContext.Provider value={{
             ...state,
             loggingIn,
+            modalBackgroundOpen,
 
             // Methods
             loginUser,
-            logoutUser
+            logoutUser,
+            openModalBackground
         }}>
             {children}
         </AuthContext.Provider>

@@ -1,11 +1,11 @@
 import { api } from '@/api/api';
-import { ParsedUrlQuery } from 'querystring';
+import FiltersInterface from '@/interfaces/filters';
 
-export const getProducts = async (query: ParsedUrlQuery, nextPage?: number) => {
+export const getProducts = async (query: FiltersInterface, nextPage?: number) => {
 
     try {
         const { nombre, enStock, marca, folio, familia } = query;
-        let url = `api/product?page=${nextPage ? nextPage : 1}&limit=20`;
+        let url = `api/product?page=${nextPage ? nextPage : 1}&limit=10`;
 
         if (nombre) url += `&nombre=${nombre}`;
         if (enStock) url += `&enStock=${enStock}`;
@@ -37,7 +37,7 @@ export const getProductById = async ({ Codigo, Marca }: getProductById) => {
 }
 
 
-export const getTotalProducts = async (query: ParsedUrlQuery) => {
+export const getTotalProducts = async (query: FiltersInterface) => {
 
     try {
         const { nombre, enStock, marca, folio, familia } = query;

@@ -1,7 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import styles from "../../styles/Pages/Request.module.scss";
 
-import TableRequest from '@/components/Ui/Tables/TableRequest';
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import Modal from '@/components/Modals/Modal';
 import { useRouter } from 'next/router';
@@ -11,13 +9,14 @@ import { ModalMessage } from '@/components/Modals/ModalMessage';
 import { CartContext } from '@/context';
 import toast from 'react-hot-toast';
 import { MessageCard } from '@/components/Cards/MessageCard';
-import { TableRequestSkeleton } from '@/components/Skeletons/TableRequestSkeleton';
+import { TableSecondarySkeleton } from '@/components/Skeletons/TableSecondarySkeleton';
 import { getOrderDetails, getOrders } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import TableRequest from '@/components/Ui/Tables/TableComponents/TableSecondaryRequest';
 
 const Pedidos = () => {
 
-    const { query, back } = useRouter();
+    const { query, back, push } = useRouter();
     const { addOrderToCart } = useContext(CartContext)
     const { handleError } = useErrorHandler()
 
@@ -40,7 +39,7 @@ const Pedidos = () => {
         }
     }, [handleError, query.receipt])
 
-    const handleGetOrders = async () => {
+    const handleGetOrders = useCallback(async () => {
         try {
             const data = await getOrders();
             if (data.error) {
@@ -51,7 +50,7 @@ const Pedidos = () => {
         } catch (error) {
             handleError(error)
         }
-    }
+    }, [handleError])
 
     const onSubmitOrderToCart = useCallback(async () => {
 
@@ -77,7 +76,6 @@ const Pedidos = () => {
         }
     }, [handleGetOrderDetails, addOrderToCart, back, handleError]);
 
-
     const handleCloseReceiptRender = useCallback(() => {
         setOpenModalRequest(false)
         back()
@@ -85,46 +83,56 @@ const Pedidos = () => {
 
     useEffect(() => {
         handleGetOrders();
-    }, []);
+    }, [handleGetOrders]);
 
     useEffect(() => {
         if (!query.receipt) return;
         setOpenModalRequest(true)
     }, [query])
 
+    if (!orders) {
+        return (
+            <LayoutProfile titleLP='Pedidos'>
+                <TableSecondarySkeleton body={[2, 2, 2]} />
+            </LayoutProfile>
+        )
+    }
+
+    if (orders.length < 0) {
+        return (
+            <MessageCard title="No hay pedidos actuales">
+                No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
+            </MessageCard>
+        )
+    }
+
     return (
         <>
-            <LayoutProfile>
-                <div className={styles.request}>
-                    <section className={styles.info}>
-                        {
-                            !orders ?
-                                <TableRequestSkeleton /> :
-                                orders.length > 0 ?
-                                    <>
-                                        <div className={styles.header}>
-                                            <h2>Pedidos actuales</h2>
-                                            <p>Para cambiar la información, habla con tu administrador.</p>
-                                        </div>
-                                        <div className={styles.item}>
-                                            <TableRequest order={orders} />
-                                        </div>
-                                    </>
-                                    :
-                                    <MessageCard title="No hay pedidos actuales">
-                                        No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
-                                    </MessageCard>
-                        }
-                    </section>
-                </div>
+            <LayoutProfile
+            titleLP='Pedidos'
+                headerContent={{
+                    title: "Pedidos actuales",
+                    subtitle: "Para cambiar la información, habla con tu administrador."
+                }}
+            >
+
+                <TableRequest
+                    products={orders}
+                    totalProducts={orders.length}
+                    buttonIsLoading={false}
+                    loadingData={false}
+                />
             </LayoutProfile>
 
             <Modal
+                title=""
                 visible={(query.receipt && openModalRequest) ? true : false}
-                onClose={handleCloseReceiptRender}
-                handleOpenUseCart={() => setOpenModalMessage(true)}
-                receipt
                 actionsVisible
+
+                onClose={handleCloseReceiptRender}
+                handleActionTopOne={() => push(`/request/${query?.receipt}`)}
+                handleActionTopTwo={() => setOpenModalMessage(true)}
+                modalSize='medium'
             >
                 <ReceiptRender />
             </Modal>
@@ -136,7 +144,7 @@ const Pedidos = () => {
                 disabled={loadingOrdeInCart}
                 title="Usar esta lista en carrito"
             >
-                Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.
+                <p>Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.</p>
             </ModalMessage>
         </>
 

@@ -1,0 +1,95 @@
+@import "./main.scss";
+
+.filters {
+    display: flex;
+    height: 100%;
+    margin-right: $margin-horizontal;
+    position: relative;
+    align-items: center;
+
+    .modalFilter {
+        position: absolute;
+        top: 120%;
+        right: 0%;
+        background-color: $background-color;
+        border: 1px solid $color-border-secondary;
+        border-radius: $border-radius;
+        padding: $padding / 3;
+        min-width: 300px;
+        box-shadow: $box-shadow-modal;
+        z-index: 9999;
+
+        @include respond(phone) {
+            left: 0px;
+        }
+
+        .filterList {
+
+            div {
+                cursor: pointer;
+                padding: $padding / 3;
+                border-radius: $border-radius;
+                font-size: $font-medium;
+
+                &:hover {
+                    background-color: $background-color-tertiary;
+                }
+            }
+
+            :not(:last-child) {
+                margin-bottom: $margin-vertical;
+            }
+        }
+
+        .filterOptions {
+
+            .filterOptions__Header {
+                display: flex;
+                gap: $gap / 2;
+                margin-bottom: $margin-vertical;
+
+                cursor: pointer;
+                padding: $padding / 3;
+                border-radius: $border-radius;
+                font-size: $font-medium;
+                border: 1px solid transparent;
+
+                button {
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                    cursor: pointer;
+                }
+
+                &:hover {
+                    background-color: $background-color-secondary;
+                    border: 1px solid $color-border;
+
+                }
+            }
+
+            .inputCheck {
+                cursor: pointer;
+                padding: $padding / 3;
+                border-radius: $border-radius;
+                font-size: $font-medium;
+
+                label {
+                    display: flex;
+                    align-items: center;
+                    gap: $gap;
+
+                    input[type="checkbox"] {
+                        width: $font-medium;
+                        height: $font-medium;
+                        accent-color: $color-blue;
+                    }
+                }
+
+                &:hover {
+                    background-color: $background-color-tertiary;
+                }
+            }
+        }
+    }
+
+}

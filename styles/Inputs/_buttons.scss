@@ -1,25 +1,28 @@
 
 .button {
-    height: 36px;
-    background-color: $color-tertiary;
-    border: 1px solid transparent;
-    border-radius: 0.5em;
-    cursor: pointer;
-    padding: 0em 1em;
-    width: 100%;
-    color: $text-color-secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    svg {
-        margin-right: 0.5em;
-    }
+    height: 48px;
+    background-color: $color-secondary;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+    cursor: pointer;
+    padding: 0em $padding;
+    width: 100%;
+    gap: $gap;
+    color: $text-color-light;
+    box-shadow: $box-shadow-button;
 
     &.white {
-        background-color: $color-primary;
+        background-color: $background-color;
+        border: 1px solid $color-border;
         color: $text-color;
-        border: 1px solid $color-border-secondary;
 
         &:hover {
-            opacity: 70%;
+            background-color: $background-color-secondary;
+            border: 1px solid $color-border;
         }
     }
 
@@ -28,9 +31,7 @@
         border: 1px solid rgba($color: $color-border-tertiary, $alpha: 1);
         color: $text-color;
 
-        p{
-            padding: 0px;
-        }
+        p{ padding: 0px; }
     
         :hover {
             border: 1px solid rgba($color: $color-border-tertiary, $alpha: 0.25);;
@@ -44,16 +45,23 @@
 }
 
 .button-small {
-    height: 26px;
-    background-color: #c6d1f6;
+    //height: 30px;
+    background-color: $color-primary;
     border: 1px solid transparent;
-    border-radius: 0.5em;
+    border-radius: $border-radius;
     cursor: pointer;
-    padding: 0em 1em;
-    font-size: 12px;
+    padding: 0em $padding;
+    font-size: $font-medium;
     width: 100%;
     width: fit-content;
-    color: $color-tertiary;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $gap;
+    min-height: 30px;
+    border: 1px solid $color-border-secondary;
+    box-shadow: $box-shadow-button;
 
     &.opacity{
         opacity: 40%;
@@ -64,16 +72,23 @@
     }
 
     &.black {
-        background-color: $color-tertiary;
-        color: $text-color-secondary;
+        background-color: $color-secondary;
+        color: $text-color-light;
+    }
+
+    &.blue {
+        background-color: rgba($color: $color-tertiary, $alpha: 0.3);
+        border: 1px solid rgba($color: $color-tertiary, $alpha: 0.5);
+        color: $text-color;
     }
 
     &.white {
-        background-color: $color-secondary;
-        border: 1px solid $color-border;
-
+        background-color: $background-color;
+        border: 1px solid $color-border-secondary;
+    
         &:hover {
-            border: 1px solid $color-border-tertiary;
+            background-color: $background-color-secondary;
+            border: 1px solid $color-border;
         }
     }
 
@@ -87,24 +102,47 @@
         text-decoration: underline;
     }
 
-    svg {
-        margin-left: 0.5em;
-    }
-
     &:hover {
         opacity: 70%;
     }
+
+    &.back{
+        border: 1px solid transparent;
+        background-color: $background-color;
+        padding: 0px;
+        box-shadow: none;
+
+        &:hover {
+            border: 1px solid transparent;
+            opacity: 100%;
+            background-color: transparent;
+
+            p{
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
+.disabled{
+    opacity: 50%;
+
+    &:hover{
+        opacity: 50%;
+    }
+}
+
+// button animated
 .mainbutton {
     position: relative;
-    padding: 0em 1em;
-    height: 36px;
+    padding: 0em $padding;
+    height: 40px;
     width: 100%;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: $border-radius;
     border: 1px solid $color-tertiary;
     overflow: hidden;
+    font-size: $font-medium;
 }
 
 .fillbutton {
@@ -126,11 +164,4 @@
     align-items: center;
     justify-content: center;
     color: #272727;
-}
-
-.containerbutton {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    justify-content: center;
 }

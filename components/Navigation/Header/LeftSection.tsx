@@ -29,36 +29,32 @@ export const LeftSection = ({
         const database = user?.Baseweb
         const databaseSplit = database?.split('_')
         const newPath = databaseSplit?.[1]?.toLowerCase().trim();
-        const logo = newPath ? `https://oleistorage.blob.core.windows.net/${newPath}/LOGO.png` : '/logoOlei.png'
+        const logo = newPath ? `https://oleistorage.blob.core.windows.net/${newPath}/LOGO.png` : '/Logo_horizontal2.png'
         return logo;
     }
 
     return (
-        <div className={`${styles.left} display-flex align`}>
-
-            <div
-                className={`${styles.logo} cursor`}
-                onClick={handleClickLogo}
-            >
+        <div className={styles.left}>
+            <div className={styles.logo} onClick={handleClickLogo} >
                 <Image
-                    fill
-                    alt="logo"
+                    alt={user.Company ?? "olei"}
                     src={getLogo()}
+                    width={200}
+                    height={200}
                     priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                />
             </div>
 
             {
                 showClientOfTheCompany && (
-                    <div className={`${styles.client} display-flex align cursor`} onClick={() => setModalClientsVisible(true)}>
+                    <div className={styles.client} onClick={() => setModalClientsVisible(true)}>
                         <span>|</span>
-                        <div className={`${styles.circular} display-flex allCenter`}>
+                        <div className={styles.circular}>
                             <div className={styles.content}>
                                 <p>{client.Nombre.slice(0, 1)}</p>
                             </div>
                         </div>
-                        <p className={`${styles.name} display-flex align`}>{client.Nombre}</p>
+                        <p className={styles.name}>{client.Nombre}</p>
                         <p className={styles.description}>Cliente</p>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="icon">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18" />

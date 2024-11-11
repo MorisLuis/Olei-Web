@@ -1,6 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import styles from "../styles/Pages/Login.module.scss";
-
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from 'react-hook-form';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +7,8 @@ import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
 import Image from 'next/image';
 import PageTransition from '@/components/PageTranstion';
 import useErrorHandler from '@/hooks/useErrorHandler';
+import Button from '@/components/Buttons/Button';
+import styles from "../styles/Pages/Login.module.scss";
 
 
 type FormData = {
@@ -26,9 +26,7 @@ const Login = () => {
     const onLoginUser = async ({ email, password }: FormData) => {
         try {
             const resp = await loginUser(email, password);
-            console.log({resp})
         } catch (error) {
-            console.log({errorLogin: error})
             handleError(error)
         }
     }
@@ -41,25 +39,33 @@ const Login = () => {
 
         <PageTransition key="login-transition" isEntering={isEntering === false}>
             <LayoutOnboarding>
-                <div className={`${styles.login}`}>
-                    <div className={`${styles.content} display-flex column allCenter`}>
+                <div className={styles.login}>
+                    <div className={styles.content}>
+
                         <Image
-                            src={"/logo01.png" || ""}
-                            alt="photo"
+                            src={"/Logo_vertical.png" || ""}
+                            alt="Olei online"
                             width={200}
                             height={200}
                             priority={true}
                             unoptimized
                         />
-                        <div className={`${styles.form} display-flex column justify`}>
 
-                            <div className={`${styles.iconLogin} mb-small display-flex allCenter`}>
+                        <div className={styles.form}>
+
+                            <div className={styles.iconLogin}>
                                 <FontAwesomeIcon icon={faArrowRightToBracket} className={`icon`} />
                             </div>
 
-                            <h1>Bienvenido!</h1>
-                            <p className='mb-medium'>Por favor, inicia sesión abajo</p>
-                            <form onSubmit={handleSubmit(onLoginUser)} noValidate className="animation display-flex column">
+                            <div className={styles.header}>
+                                <h1>Bienvenido!</h1>
+                                <p className='mb-medium'>Por favor, inicia sesión abajo</p>
+                            </div>
+                            <form
+                                onSubmit={handleSubmit(onLoginUser)}
+                                noValidate
+                                className={styles.form__content}
+                            >
                                 <input
                                     {...register("email", {
                                         required: {
@@ -68,10 +74,10 @@ const Login = () => {
                                         }
                                     })}
                                     type="text"
-                                    className='input mb-small'
+                                    className='input'
                                     placeholder='Escribe tu e-mail...'
                                 />
-                                {errors.email && <span className='warning'>La cuenta es requerida</span>}
+                                {errors.email && <span className='warning-message'>La cuenta es requerida</span>}
 
                                 <input
                                     {...register("password", {
@@ -81,11 +87,18 @@ const Login = () => {
                                         }
                                     })}
                                     type="password"
-                                    className='input mb-small'
+                                    className='input'
                                     placeholder='Escribe la contraseña...'
                                 />
-                                {errors.password && <span className='warning'>La contraseña es requerida</span>}
-                                <button disabled={loggingIn} className='button' type="submit">{loggingIn ? "Cargando..." : "Iniciar sesión"}</button>
+                                {errors.password && <span className='warning-message'>La contraseña es requerida</span>}
+
+                                <Button
+                                    text='Iniciar sesión'
+                                    textDisabled='Iniciando...'
+                                    typeSubmit
+                                    disabled={loggingIn}
+                                />
+
                             </form>
 
                             <div className={styles.blur}></div>

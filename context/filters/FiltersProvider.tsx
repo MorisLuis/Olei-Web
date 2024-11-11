@@ -6,12 +6,12 @@ import { filtersReducer } from "./filtersReducer";
 import useErrorHandler from "@/hooks/useErrorHandler";
 
 export interface FilterState {
-    filtersValues: string[],
-    filters: FiltersInterface | Partial<FiltersInterface>
+    filtersValues: [string, string][],
+    filters: FiltersInterface;
 }
 
 
-const FILTERS_INITIAL_STATE: FilterState = {
+export const FILTERS_INITIAL_STATE: FilterState = {
     filters: {
         nombre: undefined,
         marca: undefined,
@@ -22,7 +22,7 @@ const FILTERS_INITIAL_STATE: FilterState = {
     filtersValues: []
 }
 
-export const FiltersProvider = ({ children }: any) => {
+export const FiltersProvider = ({ children }: { children: JSX.Element }) => {
 
     const [state, dispatch] = useReducer(filtersReducer, FILTERS_INITIAL_STATE);
     const { handleError } = useErrorHandler();
@@ -60,34 +60,32 @@ export const FiltersProvider = ({ children }: any) => {
     }, []);
 
     useEffect(() => {
-        const filterArray = [];
-        const filtersItems = state.filters as any;
-        for (const prop in filtersItems) {
-            if (filtersItems[prop] !== null && filtersItems[prop] !== false && filtersItems[prop] !== undefined) {
-                filterArray.push([prop, filtersItems[prop].toString()]);
-            }
-        }
-
-        dispatch({ type: '[Filters] - Update filtersValues', payload: filterArray as string[] | [] })
-
+        UpdatefiltersValues()
     }, [state.filters]);
 
     useEffect(() => {
-
         Cookies.set('activeFilters', JSON.stringify(state.filters));
     }, [state]);
 
-    const addFilters = (Filters: FiltersInterface | Partial<FiltersInterface>) => {
-        dispatch({ type: '[Filters] - Update filters', payload: Filters });
-    }
+    const UpdatefiltersValues = () => {
+        const filtersArray: [string, string][] = Object.entries(state.filters)
+            .filter(([_, value]) => value !== undefined && value !== false)
+            .map(([key, value]) => [key, value as string]);
 
-    const removeFilters = (partialFilter: Partial<FiltersInterface>) => {
-        dispatch({ type: '[Filters] - Remove filter', payload: partialFilter })
-    }
+        dispatch({ type: '[Filters] - Update filtersValues', payload: filtersArray })
+    };
+
+    const addFilters = (Filters: FiltersInterface) => {
+        dispatch({ type: '[Filters] - Update filters', payload: Filters });
+    };
+
+    const removeFilter = (filter: string) => {
+        dispatch({ type: '[Filters] - Remove filter', payload: filter })
+    };
 
     const removeAllFilters = () => {
         dispatch({ type: '[Filters] - Remove all filters', payload: FILTERS_INITIAL_STATE.filters })
-    }
+    };
 
     return (
         <FiltersContext.Provider value={{
@@ -95,7 +93,7 @@ export const FiltersProvider = ({ children }: any) => {
 
             // Methods
             addFilters,
-            removeFilters,
+            removeFilter,
             removeAllFilters
         }}>
             {children}
