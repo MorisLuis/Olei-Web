@@ -33,6 +33,20 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
         }
     };
 
+    const renderBottom = (type: "mobile" | "desktop") => {
+        return (
+            <section className={type === "desktop" ? styles.counterMobile : styles.counter}>
+                <div className={styles.action}>
+                    <p>Agregar al carrito:</p>
+                    <Counter
+                        counter={Cantidad > 0 ? Cantidad : (tempCartProduct?.Cantidad || 0)}
+                        setCounter={(value: number) => onUpdateQuantity(value)}
+                    />
+                </div>
+            </section>
+        )
+    }
+
     // Set the tempCartProduct with productWithCartInfo.
     useEffect(() => {
         if (!productWithCartInfo) return;
@@ -43,71 +57,53 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
         <>
             {
                 product ? (
-                    <div className={styles.pageDetails}>
+                    <>
+                        <div className={styles.pageDetails}>
 
-                        <ImageGallery images={product.imagenes} />
+                            <ImageGallery images={product.imagenes} />
 
-                        <div className={styles.pageDetails__content}>
+                            <div className={styles.pageDetails__content}>
 
-                            <div className={styles.header}>
-                                <h1>{Descripcion}</h1>
-                                <div className={styles.price}>
-                                    <span>Precio</span>
-                                    <p>{format(Precio)}</p>
-                                </div>
-                            </div>
-
-                            {
-                                Observaciones &&
-                                <div className={styles.observations}>
-                                    <p>Obervaciones: </p>
-                                    <span>{Observaciones}</span>
-                                </div>
-                            }
-
-                            <section className={styles.details}>
-                                <div>
-                                    <p>Codigo: </p>
-                                    <span>{Codigo}</span>
+                                <div className={styles.header}>
+                                    <h1>{Descripcion}</h1>
+                                    <div className={styles.price}>
+                                        <span>Precio</span>
+                                        <p>{format(Precio)}</p>
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <p>Marca: </p>
-                                    <span>{Marca}</span>
-                                </div>
-
-                                <div>
-                                    <p>Familia: </p>
-                                    <span>{Familia}</span>
-                                </div>
-                            </section>
-
-                            <section className={styles.counter}>
                                 {
-                                    isEmployee &&
-                                    <div className={styles.stock}>
-                                        <p className={`display-flex  align`}>
-                                            Existencia:
-                                        </p>
-                                        <div>
-                                            {
-                                                product?.Existencia < 0 ?
-                                                    <Tag>No Stock</Tag> :
-                                                    <strong>{product?.Existencia}</strong>
-                                            }
-                                        </div>
+                                    Observaciones &&
+                                    <div className={styles.observations}>
+                                        <p>Obervaciones: </p>
+                                        <span>{Observaciones}</span>
                                     </div>
                                 }
-                                <div className={styles.action}>
-                                    <p>Agregar al carrito:</p>
-                                    <Counter
-                                        counter={Cantidad > 0 ? Cantidad : (tempCartProduct?.Cantidad || 0)}
-                                        setCounter={(value: number) => onUpdateQuantity(value)}
-                                    />
-                                </div>
-                            </section>
+
+                                <section className={styles.details}>
+                                    <div>
+                                        <p>Codigo: </p>
+                                        <span>{Codigo}</span>
+                                    </div>
+
+                                    <div>
+                                        <p>Marca: </p>
+                                        <span>{Marca}</span>
+                                    </div>
+
+                                    <div>
+                                        <p>Familia: </p>
+                                        <span>{Familia}</span>
+                                    </div>
+                                </section>
+
+                                {renderBottom('mobile')}
+
+                            </div>
                         </div>
-                    </div>
+
+                        {renderBottom('desktop')}
+                    </>
                 ) :
                     <ProductDetailsRenderSkeleton />
             }
