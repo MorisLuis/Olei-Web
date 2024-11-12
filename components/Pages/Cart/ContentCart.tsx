@@ -26,7 +26,6 @@ export const ContentCart = ({
     const [requestOpen, setRequestOpen] = useState(false);
     const [cartShowed, setCartShowed] = useState(cart);
     const [inputValue, setInputValue] = useState("");
-    const [requestCartPending, setRequestCartPending] = useState(true);
 
     const searchProductInCart = (term: string) => {
         if (term === "") return setCartShowed(cart);
@@ -62,7 +61,7 @@ export const ContentCart = ({
                         title='Solicitar productos inexistentes'
                         subtitle='En la orden enviar solicitud de los productos actualmente inexistentes.'
                         toggle={true}
-                        onChange={() => setRequestCartPending(false)}
+                        onChange={() => console.log(false)}
                     />
                 }
 

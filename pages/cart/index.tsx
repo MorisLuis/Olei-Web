@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Cart.module.scss";
 
 import { CartContext } from '@/context';
-
 import { HeaderCart } from '@/components/Pages/Cart/HeaderCart';
 import PageTransition from '@/components/PageTranstion';
 import { useSpring, animated } from 'react-spring';

@@ -39,8 +39,6 @@ export default function Home() {
       }
    );
 
-   console.log({data})
-
    // Used to fetch product when this is selected.
    const handleSelectProduct = async (product: ProductInterface) => {
 

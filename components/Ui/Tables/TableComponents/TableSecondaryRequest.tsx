@@ -125,7 +125,6 @@ export default function TableSecondaryRequest({
         }
     }, [handleGetOrderDetails, addOrderToCart, back, handleError]);
 
-    console.log({ loadingData })
 
     if (loadingData) return <TableSkeleton />;
 

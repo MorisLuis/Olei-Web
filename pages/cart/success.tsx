@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from "../../styles/Pages/Success.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
-import { faExpand } from '@fortawesome/free-solid-svg-icons';
+import { faExpand, faHandPointLeft } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import { ClientContext } from '@/context';
 import PageTransition from '@/components/PageTranstion';
@@ -39,7 +39,7 @@ const Success = () => {
                         <ButtonSmall
                             text='Regresar a Inicio'
                             onClick={() => push("/products")}
-                            icon={faExpand}
+                            icon={faHandPointLeft}
                             color='white'
                         />
 
