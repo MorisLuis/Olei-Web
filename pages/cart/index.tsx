@@ -19,7 +19,8 @@ const Cart = () => {
     const [orderRequested, setOrderRequested] = useState(false);
     const [openModalMessage, setOpenModalMessage] = useState(false);
     const { back } = useRouter()
-    useLockBodyScroll(openModalMessage)
+    const orderSubmitedAndCartExisting = cart.length > 0 || !orderRequested;
+    useLockBodyScroll(openModalMessage);
 
     const handleRemoveCart = () => {
         removeAllCart()
@@ -38,28 +39,30 @@ const Cart = () => {
         to: { opacity: 1 },
     });
 
-    const orderSubmitedAndCartExisting = cart.length > 0 || !orderRequested;
+
+    if (!orderSubmitedAndCartExisting) {
+        return (
+            <PageTransition key="login-transition" isEntering={isEntering === false}>
+                <animated.div style={fadeIn} className={styles.proccesingCart}>
+                    <MoonLoader color="#EDBD42" loading={true} size={30} />
+                    <h1>Procesando pedido...</h1>
+                </animated.div>
+            </PageTransition>
+        )
+    }
 
     return (
         <>
             <PageTransition key="login-transition" isEntering={isEntering === false}>
-                {
-                    orderSubmitedAndCartExisting ?
-                        <LayoutContentSecondary
-                            onBack={back}
-                            backText="Regresar"
-                            footer={<FooterCart setOrderRequested={setOrderRequested} />}
-                            titleLS='Carrito'
-                        >
-                            <HeaderCart />
-                            <ContentCart setOpenModalMessage={setOpenModalMessage} />
-                        </LayoutContentSecondary>
-                        :
-                        <animated.div style={fadeIn} className={styles.proccesingCart}>
-                            <MoonLoader color="#EDBD42" loading={true} size={30} />
-                            <h1>Procesando pedido...</h1>
-                        </animated.div>
-                }
+                <LayoutContentSecondary
+                    onBack={back}
+                    backText="Regresar"
+                    footer={<FooterCart setOrderRequested={setOrderRequested} />}
+                    titleLS='Carrito'
+                >
+                    <HeaderCart />
+                    <ContentCart setOpenModalMessage={setOpenModalMessage} />
+                </LayoutContentSecondary>
             </PageTransition>
 
             <ModalMessage

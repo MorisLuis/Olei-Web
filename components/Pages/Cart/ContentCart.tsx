@@ -68,8 +68,8 @@ export const ContentCart = ({
                 {
                     cartWithProducts ?
                         <>
-                            <div className={`${styles.search} display-flex space-between`}>
-                                <div className={`${styles.inputSearch} inputClean display-flex`}>
+                            <div className={styles.search}>
+                                <div className={styles.inputSearch}>
                                     <Input
                                         value={inputValue}
                                         name='search'
@@ -98,8 +98,11 @@ export const ContentCart = ({
                 {
                     cartPendingWithProducts &&
                     <div className={styles.request}>
-                        <div className={`${styles.handleRequest} cursor`} onClick={() => setRequestOpen(!requestOpen)}>
-                            <div className={`${styles.content} display-flex space-between align`}>
+                        <div
+                            className={styles.handleRequest}
+                            onClick={() => setRequestOpen(!requestOpen)}
+                        >
+                            <div className={styles.content}>
                                 <p className={styles.text}>
                                     Ver peticiones de productos actualmente inexistentes
                                 </p>
@@ -121,7 +124,7 @@ export const ContentCart = ({
 
                 {
                     cartWithProducts &&
-                    <div className={`${styles.cost} display-flex column`}>
+                    <div className={styles.cost}>
                         {
                             productsWithIVA ?
                                 <>
