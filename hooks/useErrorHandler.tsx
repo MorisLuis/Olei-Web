@@ -2,11 +2,12 @@ import { AuthContext } from '@/context';
 import { sendError } from '@/services/errors';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import toast from 'react-hot-toast';
+import useToast from '@/hooks/useToast';
 
 export const useErrorHandler = () => {
     const router = useRouter();
     const { user, logoutUser } = useContext(AuthContext);
+    const { showError } = useToast()
 
     const handleError = async (error: any) => {
         // Accede de forma segura a las propiedades de error
@@ -46,7 +47,7 @@ export const useErrorHandler = () => {
                     break;
             }
         } else {
-            toast.error("Algo salió mal!");
+            showError("Algo salió mal!");
         }
     };
     

@@ -24,7 +24,7 @@ const Login = () => {
     const [isEntering, setIsEntering] = useState(true);
     const { handleError } = useErrorHandler();
 
-    const { showSuccess, showError } = useToast()
+    const { showSuccess, showError, showSuccessData } = useToast()
 
     const onLoginUser = async ({ email, password }: FormData) => {
         try {

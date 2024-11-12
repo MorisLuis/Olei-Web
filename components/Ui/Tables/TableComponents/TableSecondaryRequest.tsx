@@ -13,8 +13,8 @@ import { ReceiptRender } from '@/components/Renders/ReceiptRender';
 import { getOrderDetails } from '@/services/order';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import { CartContext } from '@/context';
-import toast from 'react-hot-toast';
 import TableSkeleton from '@/components/Skeletons/TableSkeleton';
+import useToast from '@/hooks/useToast';
 
 interface TableRequestInterface {
     products: OrderInterface[];
@@ -36,6 +36,7 @@ export default function TableSecondaryRequest({
     const { query, back, push } = useRouter();
     const { handleError } = useErrorHandler()
     const { addOrderToCart } = useContext(CartContext)
+    const { showPromise } = useToast()
 
     const [openModalMessage, setOpenModalMessage] = useState(false);
     const [openModalRequest, setOpenModalRequest] = useState(false);
@@ -116,15 +117,15 @@ export default function TableSecondaryRequest({
             if (!orderDetails) return;
             const myPromise = addOrderToCart(orderDetails);
             setLoadingOrdeInCart(false);
-            toast.promise(myPromise, {
-                loading: 'Cargando carrito...',
-                success: 'Listo! Ya tienes tu carrito lleno',
-                error: 'Error when fetching',
-            });
+            showPromise(
+                "Cargando carrito...",
+                "Listo! Ya tienes tu carrito lleno",
+                myPromise
+            )
         }
     }, [handleGetOrderDetails, addOrderToCart, back, handleError]);
 
-    console.log({loadingData})
+    console.log({ loadingData })
 
     if (loadingData) return <TableSkeleton />;
 
