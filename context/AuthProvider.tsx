@@ -5,8 +5,8 @@ import { AuthContext, authReducer } from '.';
 import { useRouter } from 'next/router';
 import UserInterface from '@/interfaces/user';
 import useErrorHandler from '@/hooks/useErrorHandler';
-import toast from 'react-hot-toast';
 import { ApiError } from '@/interfaces/error';
+import useToast from '@/hooks/useToast';
 
 export interface AuthState {
     isLoggedIn: boolean;
@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const [modalBackgroundOpen, setModalBackgroundOpen] = useState(false)
     const { pathname } = useRouter();
     const { handleError } = useErrorHandler()
+    const { showError } = useToast()
 
     const { push } = useRouter()
 
@@ -78,11 +79,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
             // Accede de forma segura al mensaje de error dentro de `errors`
             const message = apiError.response?.data?.errors?.[0]?.message ?? "An unexpected error occurred";
     
-            toast(message, {
-                position: "top-center",
-                icon: <span style={{ fontSize: '20px', color: "red" }}>⚠️</span>,
-            });
-    
+            showError(message)
             setLoggingIn(false);
             handleError(apiError);
         }

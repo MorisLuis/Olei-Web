@@ -83,6 +83,7 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
             return prev;
         }, 0);
 
+
         const total = state.cart.reduce((prev, current: ProductInterface) => {
             if (current?.Existencia >= 1) {
                 if (productWithTaxInPrice) {
@@ -192,6 +193,7 @@ export const CartProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     const addOrderToCart = (products: ProductInterface[]): Promise<void> => {
+
         //Simulate a promise to react hot toas. We dont really need a promise.
         return new Promise((resolve, reject) => {
             setTimeout(() => {

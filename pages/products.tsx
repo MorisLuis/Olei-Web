@@ -81,10 +81,10 @@ export default function Home() {
                      <GridProducts
                         products={data}
                         loadMoreProducts={handleLoadMore}
+                        totalProducts={total ?? 0}
+                        
                         loadingData={isLoading}
                         buttonIsLoading={isButtonLoading}
-                        totalProducts={total ?? 0}
-
                         handleSelectData={handleSelectProduct}
                      />
                   ) : (

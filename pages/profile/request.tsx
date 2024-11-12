@@ -1,96 +1,27 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
-import Modal from '@/components/Modals/Modal';
-import { useRouter } from 'next/router';
-import { ReceiptRender } from '@/components/Renders/ReceiptRender';
-import OrderInterface from '@/interfaces/order';
-import { ModalMessage } from '@/components/Modals/ModalMessage';
-import { CartContext } from '@/context';
-import toast from 'react-hot-toast';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import { TableSecondarySkeleton } from '@/components/Skeletons/TableSecondarySkeleton';
-import { getOrderDetails, getOrders } from '@/services/order';
-import useErrorHandler from '@/hooks/useErrorHandler';
-import TableRequest from '@/components/Ui/Tables/TableComponents/TableSecondaryRequest';
+import { getOrders, getTotalOrders } from '@/services/order';
+import TableSecondaryRequest from '@/components/Ui/Tables/TableComponents/TableSecondaryRequest';
+import { useLoadMoreData } from '@/hooks/useLoadMoreData';
 
 const Pedidos = () => {
 
-    const { query, back, push } = useRouter();
-    const { addOrderToCart } = useContext(CartContext)
-    const { handleError } = useErrorHandler()
-
-    const [openModalMessage, setOpenModalMessage] = useState(false);
-    const [openModalRequest, setOpenModalRequest] = useState(false);
-    const [loadingOrdeInCart, setLoadingOrdeInCart] = useState(false)
-    const [orders, setOrders] = useState<OrderInterface[]>();
-
-    const handleGetOrderDetails = useCallback(async () => {
-        try {
-            setOpenModalRequest(true)
-            const order = await getOrderDetails(query.receipt as string)
-            if (order.error) {
-                handleError(order.error);
-                return;
-            }
-            return order;
-        } catch (error) {
-            handleError(error)
+    const { data, isLoading, isButtonLoading, total, handleResetData, handleLoadMore } = useLoadMoreData(
+        {
+            fetchInitialData: () => getOrders(),
+            fetchPaginatedData: (arg, nextPage) => getOrders(nextPage),
+            fetchTotalCount: () => getTotalOrders(),
         }
-    }, [handleError, query.receipt])
-
-    const handleGetOrders = useCallback(async () => {
-        try {
-            const data = await getOrders();
-            if (data.error) {
-                handleError(data.error);
-                return;
-            }
-            setOrders(data)
-        } catch (error) {
-            handleError(error)
-        }
-    }, [handleError])
-
-    const onSubmitOrderToCart = useCallback(async () => {
-
-        let orderDetails;
-        try {
-            setLoadingOrdeInCart(true)
-            const data = await handleGetOrderDetails();
-            orderDetails = data;
-        } catch (error) {
-            setLoadingOrdeInCart(false)
-            handleError(error)
-        } finally {
-            back();
-            setOpenModalMessage(false);
-            if (!orderDetails) return;
-            const myPromise = addOrderToCart(orderDetails);
-            setLoadingOrdeInCart(false);
-            toast.promise(myPromise, {
-                loading: 'Cargando carrito...',
-                success: 'Listo! Ya tienes tu carrito lleno',
-                error: 'Error when fetching',
-            });
-        }
-    }, [handleGetOrderDetails, addOrderToCart, back, handleError]);
-
-    const handleCloseReceiptRender = useCallback(() => {
-        setOpenModalRequest(false)
-        back()
-    }, [back])
+    );
 
     useEffect(() => {
-        handleGetOrders();
-    }, [handleGetOrders]);
+        handleResetData()
+    }, [handleResetData])
 
-    useEffect(() => {
-        if (!query.receipt) return;
-        setOpenModalRequest(true)
-    }, [query])
-
-    if (!orders) {
+    if (!data) {
         return (
             <LayoutProfile titleLP='Pedidos'>
                 <TableSecondarySkeleton body={[2, 2, 2]} />
@@ -98,7 +29,7 @@ const Pedidos = () => {
         )
     }
 
-    if (orders.length < 0) {
+    if (data.length < 0) {
         return (
             <MessageCard title="No hay pedidos actuales">
                 No hay pedidos actuales en este momento, apareceran una vez que hagas pedidos.
@@ -107,46 +38,21 @@ const Pedidos = () => {
     }
 
     return (
-        <>
             <LayoutProfile
-            titleLP='Pedidos'
+                titleLP='Pedidos'
                 headerContent={{
                     title: "Pedidos actuales",
                     subtitle: "Para cambiar la información, habla con tu administrador."
                 }}
             >
-
-                <TableRequest
-                    products={orders}
-                    totalProducts={orders.length}
-                    buttonIsLoading={false}
-                    loadingData={false}
+                <TableSecondaryRequest
+                    products={data}
+                    totalProducts={total ?? 0}
+                    buttonIsLoading={isButtonLoading}
+                    loadMoreProducts={handleLoadMore}
+                    loadingData={isLoading}
                 />
             </LayoutProfile>
-
-            <Modal
-                title=""
-                visible={(query.receipt && openModalRequest) ? true : false}
-                actionsVisible
-
-                onClose={handleCloseReceiptRender}
-                handleActionTopOne={() => push(`/request/${query?.receipt}`)}
-                handleActionTopTwo={() => setOpenModalMessage(true)}
-                modalSize='medium'
-            >
-                <ReceiptRender />
-            </Modal>
-
-            <ModalMessage
-                visible={openModalMessage}
-                onClose={() => setOpenModalMessage(false)}
-                onAccept={onSubmitOrderToCart}
-                disabled={loadingOrdeInCart}
-                title="Usar esta lista en carrito"
-            >
-                <p>Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.</p>
-            </ModalMessage>
-        </>
 
     )
 }

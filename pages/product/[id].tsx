@@ -22,7 +22,6 @@ const ProductDetails = () => {
 
         const handleGetProduct = async () => {
             const productData = await getProductById({Codigo: id, Marca});
-            console.log({productData})
             setProduct(productData)
         }
 

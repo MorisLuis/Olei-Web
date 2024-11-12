@@ -28,7 +28,7 @@ export const FooterCart = ({
             const result = await postOrder({ subTotal, total, numberOfItems, cart });
             if (result.error) return handleError(result.error);
             removeAllCart();
-            push(`/cart/success?order=${result.folio}`);
+            push(`/cart/success?order=${result}`);
         } catch (error) {
             handleError(error);
             setBlockPostOrder(true);

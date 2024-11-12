@@ -9,6 +9,7 @@ import PageTransition from '@/components/PageTranstion';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import Button from '@/components/Buttons/Button';
 import styles from "../styles/Pages/Login.module.scss";
+import useToast from '@/hooks/useToast';
 
 
 type FormData = {
@@ -21,7 +22,9 @@ const Login = () => {
     const { loginUser, loggingIn } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [isEntering, setIsEntering] = useState(true);
-    const { handleError } = useErrorHandler()
+    const { handleError } = useErrorHandler();
+
+    const { showSuccess, showError, showSuccessData } = useToast()
 
     const onLoginUser = async ({ email, password }: FormData) => {
         try {
@@ -98,9 +101,8 @@ const Login = () => {
                                     typeSubmit
                                     disabled={loggingIn}
                                 />
-
                             </form>
-
+                            
                             <div className={styles.blur}></div>
                         </div>
                     </div>

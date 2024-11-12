@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { AuthContext, CartContext } from '@/context';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
-import toast from 'react-hot-toast';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 import ProductCard, { DataCardConfig } from '@/components/Cards/ProductCard';
 import { MessageCard } from '@/components/Cards/MessageCard';
@@ -12,6 +11,7 @@ import Button from '@/components/Buttons/Button';
 import ModalSideways from '../ModalSideways';
 import ProductCardSkeleton from '@/components/Skeletons/Cards/ProductCardSkeleton';
 import styles from "../../../styles/Cart.module.scss";
+import useToast from '@/hooks/useToast';
 
 interface Props {
     visible: boolean;
@@ -27,7 +27,8 @@ const ModalCart = ({
     const [productDeleteFromCart, setProductDeleteFromCart] = useState(false)
     const { cart, cartPending, numberOfItems, subTotal, total, setProductDelete } = useContext(CartContext);
     const { user } = useContext(AuthContext);
-    const { removeCartProduct, addProductToCart } = useContext(CartContext)
+    const { removeCartProduct, addProductToCart } = useContext(CartContext);
+    const { showSuccessData } = useToast()
 
     const handleCloseModal = () => {
         if (productDeleteFromCart) {
@@ -47,10 +48,7 @@ const ModalCart = ({
     const handleRemoveCartProduct = (product: ProductInterface) => {
         setProductDeleteFromCart(true)
         removeCartProduct(product)
-        toast.success(`Se elimino del carrito ${product.Descripcion}`, {
-            duration: 4000,
-            position: "bottom-left"
-        })
+        showSuccessData(`Se elimino del carrito ${product.Descripcion}`)
     }
 
     const handleAddProduct = (item: ProductInterface, newValue: number) => {

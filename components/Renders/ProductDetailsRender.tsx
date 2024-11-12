@@ -52,60 +52,42 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
         setTempCartProduct(productWithCartInfo);
     }, [productWithCartInfo]);
 
+    if (!product) return <ProductDetailsRenderSkeleton />
+
     return (
         <>
-            {
-                product ? (
-                    <>
-                        <div className={styles.pageDetails}>
+            <div className={styles.pageDetails}>
 
-                            <ImageGallery images={product.imagenes} />
+                <ImageGallery images={product.imagenes} />
 
-                            <div className={styles.pageDetails__content}>
+                <div className={styles.pageDetails__content}>
 
-                                <div className={styles.header}>
-                                    <h1>{Descripcion}</h1>
-                                    <div className={styles.price}>
-                                        <span>Precio</span>
-                                        <p>{format(Precio)}</p>
-                                    </div>
-                                </div>
-
-                                {
-                                    Observaciones &&
-                                    <div className={styles.observations}>
-                                        <p>Obervaciones: </p>
-                                        <span>{Observaciones}</span>
-                                    </div>
-                                }
-
-                                <section className={styles.details}>
-                                    <div>
-                                        <p>Codigo: </p>
-                                        <span>{Codigo}</span>
-                                    </div>
-
-                                    <div>
-                                        <p>Marca: </p>
-                                        <span>{Marca}</span>
-                                    </div>
-
-                                    <div>
-                                        <p>Familia: </p>
-                                        <span>{Familia}</span>
-                                    </div>
-                                </section>
-
-                                {renderBottom('mobile')}
-
-                            </div>
+                    <div className={styles.header}>
+                        <h1>{Descripcion}</h1>
+                        <div className={styles.price}>
+                            <span>Precio</span> <p>{format(Precio)}</p>
                         </div>
+                    </div>
 
-                        {renderBottom('desktop')}
-                    </>
-                ) :
-                    <ProductDetailsRenderSkeleton />
-            }
+                    {
+                        Observaciones &&
+                        <div className={styles.observations}>
+                            <p>Obervaciones: </p> <span>{Observaciones}</span>
+                        </div>
+                    }
+
+                    <section className={styles.details}>
+                        <div><p>Codigo: </p> <span>{Codigo}</span></div>
+                        <div><p>Marca: </p><span>{Marca}</span></div>
+                        <div><p>Familia: </p><span>{Familia}</span></div>
+                    </section>
+
+                    {renderBottom('mobile')}
+
+                </div>
+            </div>
+
+            {renderBottom('desktop')}
         </>
     );
 };

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { MessageCard } from '@/components/Cards/MessageCard';
 import TableSecondary, { ColumnSecondaryConfig } from '../TableSecondary';
 import OrderInterface from '@/interfaces/order';
@@ -7,25 +7,40 @@ import { Tag } from '../../Tag';
 import { capitalizarTexto } from '@/utils/textCapitalize';
 import { dateFormat } from '@/utils/dateFormat';
 import { format } from '@/utils/currency';
+import Modal from '@/components/Modals/Modal';
+import { ModalMessage } from '@/components/Modals/ModalMessage';
+import { ReceiptRender } from '@/components/Renders/ReceiptRender';
+import { getOrderDetails } from '@/services/order';
+import useErrorHandler from '@/hooks/useErrorHandler';
+import { CartContext } from '@/context';
+import TableSkeleton from '@/components/Skeletons/TableSkeleton';
+import useToast from '@/hooks/useToast';
 
 interface TableRequestInterface {
     products: OrderInterface[];
     totalProducts: number;
     buttonIsLoading: boolean;
-    loadingData: boolean;
     loadMoreProducts?: () => Promise<void>;
+    loadingData: boolean;
 }
 
-export default function TableRequest({
+export default function TableSecondaryRequest({
     products,
     totalProducts,
-    loadingData,
     buttonIsLoading,
-    loadMoreProducts
+    loadMoreProducts,
+    loadingData
 }: TableRequestInterface) {
 
     const NoMoreProductToShow = products.length === totalProducts;
-    const { push } = useRouter();
+    const { query, back, push } = useRouter();
+    const { handleError } = useErrorHandler()
+    const { addOrderToCart } = useContext(CartContext)
+    const { showPromise } = useToast()
+
+    const [openModalMessage, setOpenModalMessage] = useState(false);
+    const [openModalRequest, setOpenModalRequest] = useState(false);
+    const [loadingOrdeInCart, setLoadingOrdeInCart] = useState(false)
 
     const columns: ColumnSecondaryConfig<OrderInterface>[] = [
         {
@@ -63,8 +78,55 @@ export default function TableRequest({
     ];
 
     const handleSelectRequest = (item: OrderInterface) => {
+        setOpenModalRequest(true)
         push(`/profile/request/?receipt=${item.Folio}`);
     }
+
+    const handleCloseReceiptRender = useCallback(() => {
+        setOpenModalRequest(false)
+        back()
+    }, [back])
+
+    const handleGetOrderDetails = useCallback(async () => {
+        try {
+            setOpenModalRequest(true)
+            const order = await getOrderDetails(query.receipt as string)
+            if (order.error) {
+                handleError(order.error);
+                return;
+            }
+            return order;
+        } catch (error) {
+            handleError(error)
+        }
+    }, [handleError, query.receipt])
+
+    const onSubmitOrderToCart = useCallback(async () => {
+
+        let orderDetails;
+        try {
+            setLoadingOrdeInCart(true)
+            const data = await handleGetOrderDetails();
+            orderDetails = data;
+        } catch (error) {
+            setLoadingOrdeInCart(false)
+            handleError(error)
+        } finally {
+            back();
+            setOpenModalMessage(false);
+            if (!orderDetails) return;
+            const myPromise = addOrderToCart(orderDetails);
+            setLoadingOrdeInCart(false);
+            showPromise(
+                "Cargando carrito...",
+                "Listo! Ya tienes tu carrito lleno",
+                myPromise
+            )
+        }
+    }, [handleGetOrderDetails, addOrderToCart, back, handleError, showPromise]);
+
+
+    if (loadingData) return <TableSkeleton />;
 
     if (products.length === 0) {
         return (
@@ -75,13 +137,38 @@ export default function TableRequest({
     };
 
     return (
-        <TableSecondary
-            columns={columns}
-            data={products}
-            noMoreData={NoMoreProductToShow}
-            loadingMoreData={buttonIsLoading}
-            handleLoadMore={loadMoreProducts}
-            onClick={(item) => handleSelectRequest(item)}
-        />
+        <>
+            <TableSecondary
+                columns={columns}
+                data={products}
+                noMoreData={NoMoreProductToShow}
+                loadingMoreData={buttonIsLoading}
+                handleLoadMore={loadMoreProducts}
+                onClick={(item) => handleSelectRequest(item)}
+            />
+
+            <Modal
+                title=""
+                visible={(query.receipt && openModalRequest) ? true : false}
+                actionsVisible
+
+                onClose={handleCloseReceiptRender}
+                handleActionTopOne={() => push(`/request/${query?.receipt}`)}
+                handleActionTopTwo={() => setOpenModalMessage(true)}
+                modalSize='medium'
+            >
+                <ReceiptRender />
+            </Modal>
+
+            <ModalMessage
+                visible={openModalMessage}
+                onClose={() => setOpenModalMessage(false)}
+                onAccept={onSubmitOrderToCart}
+                disabled={loadingOrdeInCart}
+                title="Usar esta lista en carrito"
+            >
+                <p>Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.</p>
+            </ModalMessage>
+        </>
     )
 }

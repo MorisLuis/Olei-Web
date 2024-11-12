@@ -2,7 +2,6 @@
 
 .cart {
     position: relative;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +18,7 @@
 
     .header {
         position: relative;
-        margin-bottom: $margin-vertical;
+        margin-bottom: $margin-vertical*2;
         width: 100%;
 
         .back {
@@ -27,7 +26,7 @@
 
             p {
                 text-decoration: underline;
-                margin-left: 0.5em;
+                margin-left: $margin-horizontal;
             }
 
             &:hover {
@@ -38,59 +37,40 @@
 
     .content {
         width: 100%;
-
-        p{
-            font-size: $font-medium;
-        }
-
-        .orderConfig {
-            display: flex;
-            justify-content: space-between;
-            padding: $padding;
-            border: 1px solid $color-border;
-            background-color: $background-color-secondary;
-            margin-bottom: $margin-vertical;
-            border-radius: $border-radius;
-
-
-            span {
-                font-weight: bold;
-            }
-        }
+        font-size: $font-medium;
 
         .search {
-            padding-bottom: 1em;
+            padding-bottom: $padding;
+            margin-bottom: $margin-vertical*2;
 
             .inputSearch {
                 width: 100%;
 
                 input {
                     width: 100%;
-
                 }
             }
-
-        }
-
-        .table {
-            padding-bottom: 3em;
         }
 
         .request {
             background-color: $background-color;
             box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 12px;
-            border-radius: 0.5em;
+            border-radius: $border-radius;
             border: 1px solid $color-border;
-            margin-bottom: 2em;
-
-            .content {
-                padding: 1em;
-            }
+            margin-bottom: $margin-vertical*2;
         }
 
         .cost {
+            display: flex;
+            flex-direction: column;
             align-items: flex-end;
             width: 100%;
+            gap: $gap / 2;
+            color: $text-color-secondary;
+
+            span{
+                color: $text-color;
+            }
 
             &__data {
                 span {
@@ -98,42 +78,6 @@
                 }
             }
         }
-
-        .deleteCart {
-            width: 100%;
-            padding: $padding;
-            border-radius: $border-radius;
-            border: 1px solid rgba($color: $color-red, $alpha: 0.5);
-            background-color: $background-color-secondary;
-
-
-            @include respond(phone) {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .text {
-                width: 80%;
-
-                @include respond(phone) {
-                    width: 100%;
-                    margin-bottom: $margin-vertical;
-                }
-
-                :first-child {
-                    font-weight: bold;
-                }
-            }
-
-            button {
-                width: 20%;
-
-                @include respond(phone) {
-                    width: 100%;
-                }
-            }
-        }
-
     }
 
     .footer {
@@ -160,11 +104,10 @@
             @include respond(phone) {
                 width: 90%;
             }
-    
 
             .total {
-                font-size: 14px;
-                margin-right: 1em;
+                font-size: $font-medium;
+                margin-right: $margin-horizontal;
             }
 
             .buttonConfirm {
