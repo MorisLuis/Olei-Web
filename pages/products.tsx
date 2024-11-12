@@ -39,6 +39,8 @@ export default function Home() {
       }
    );
 
+   console.log({data})
+
    // Used to fetch product when this is selected.
    const handleSelectProduct = async (product: ProductInterface) => {
 
@@ -81,10 +83,10 @@ export default function Home() {
                      <GridProducts
                         products={data}
                         loadMoreProducts={handleLoadMore}
+                        totalProducts={total ?? 0}
+                        
                         loadingData={isLoading}
                         buttonIsLoading={isButtonLoading}
-                        totalProducts={total ?? 0}
-
                         handleSelectData={handleSelectProduct}
                      />
                   ) : (

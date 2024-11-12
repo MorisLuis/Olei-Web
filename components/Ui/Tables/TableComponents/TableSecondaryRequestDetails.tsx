@@ -23,7 +23,6 @@ export default function TableSecondaryRequestDetails({
 }: TableSecondaryRequestDetailsInterface) {
 
     const NoMoreProductToShow = products.length === totalProducts;
-    const { push } = useRouter();
 
     const columns: ColumnSecondaryConfig<ProductInterface>[] = [
         {
@@ -66,10 +65,6 @@ export default function TableSecondaryRequestDetails({
             )
         },
     ];
-
-    const handleSelectRequest = (item: ProductInterface) => {
-        push(`/profile/request/?receipt=${item.Codigo}`);
-    }
 
     if (products.length === 0) {
         return (

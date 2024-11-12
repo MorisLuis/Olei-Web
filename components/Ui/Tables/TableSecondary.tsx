@@ -58,17 +58,16 @@ const TableSecondary = <T,>({
 
             {
                 (!noMoreData && handleLoadMore) &&
-                <div className={styles.loadMore}>
-                    <ButtonLoad
-                        buttonText='Ver más'
-                        onClick={handleLoadMore}
-                        loading={loadingMoreData}
-                    />
-                </div>
+                <ButtonLoad
+                    buttonText='Ver más'
+                    onClick={handleLoadMore}
+                    loading={loadingMoreData}
+                    color='white'
+                />
             }
 
             {
-                (!noMoreData && handleLoadMore) &&
+                (noMoreData && handleLoadMore) &&
                 <p className={styles.message}>Ya no hay más productos, cambia los filtros para ver otros resultados</p>
             }
         </div>

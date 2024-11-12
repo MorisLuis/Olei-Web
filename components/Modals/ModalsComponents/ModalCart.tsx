@@ -49,7 +49,7 @@ const ModalCart = ({
         removeCartProduct(product)
         toast.success(`Se elimino del carrito ${product.Descripcion}`, {
             duration: 4000,
-            position: "bottom-left"
+            position: "bottom-left",
         })
     }
 
