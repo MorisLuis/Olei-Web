@@ -123,7 +123,7 @@ export default function TableSecondaryRequest({
                 myPromise
             )
         }
-    }, [handleGetOrderDetails, addOrderToCart, back, handleError]);
+    }, [handleGetOrderDetails, addOrderToCart, back, handleError, showPromise]);
 
 
     if (loadingData) return <TableSkeleton />;
