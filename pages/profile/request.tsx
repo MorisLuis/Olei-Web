@@ -19,7 +19,7 @@ const Pedidos = () => {
 
     useEffect(() => {
         handleResetData()
-    }, [handleResetData])
+    }, [])
 
     if (!data) {
         return (
