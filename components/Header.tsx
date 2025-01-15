@@ -6,18 +6,22 @@ import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
 import HomeSearch from './Search/HomeSearch';
 import FilterHome from './Ui/Filter/FilterHome';
 import styles from "../styles/Pages/Products.module.scss";
+import { handleQuery } from './Ui/Filter/RenderMarcaFilter';
+import { useRouter } from 'next/router';
+import FiltersInterface, { FiltersLabelType, validFiltersLabel } from '@/interfaces/filters';
 
 interface Props {
     showGrid: boolean;
     setShowGrid: Dispatch<SetStateAction<boolean>>;
 }
 
-const HomeFilter = ({
+const HomeHeader = ({
     showGrid,
     setShowGrid,
 }: Props) => {
 
-    const { removeFilter, filtersValues, removeAllFilters } = useContext(FiltersContext);
+    const { removeFilter, filtersValues, removeAllFilters, filters} = useContext(FiltersContext);
+    const { query, push } = useRouter()
     const { user } = useContext(AuthContext);
     const [visible, setVisible] = useState(false);
     const setGrid = useCallback(() => setShowGrid(showGrid), [setShowGrid, showGrid])
@@ -26,16 +30,34 @@ const HomeFilter = ({
         return filtersValues.length > 0 && <Tag close cursor color='gray' onClose={removeAllFilters}>Limpiar filtros</Tag>
     }
 
+    const handleDeleteFilter = (filter: [keyof FiltersInterface, string]) => {
+        let result = filter[0].charAt(0).toUpperCase() + filter[0].slice(1);
+
+        const isValidFilterLabel = (value: string): value is FiltersLabelType => {
+            return validFiltersLabel.includes(value as FiltersLabelType);
+        };
+
+        if (!isValidFilterLabel(result)) return;
+
+        const newQuery = handleQuery({
+            query,
+            option: null,
+            entryLabel: result
+        });
+
+        push(newQuery)
+        removeFilter(filter[0])
+    }
+
     const tagsRender = () => {
         return (
-            filtersValues.map((filter: string[], Index: number) => (
-                <Tag color='yellow' key={Index} onClose={() => removeFilter(filter[0])} close cursor>
+            filtersValues.map((filter: [keyof FiltersInterface, string], Index: number) => (
+                <Tag color='yellow' key={Index} onClose={() => handleDeleteFilter(filter)} close cursor>
                     {filter[1] === "true" ? "En Stock" : filter[1]}
                 </Tag>
             ))
         )
     };
-
 
     useEffect(() => {
         setTimeout(() => {
@@ -78,4 +100,4 @@ const HomeFilter = ({
     )
 }
 
-export default HomeFilter
+export default HomeHeader

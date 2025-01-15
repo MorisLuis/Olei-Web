@@ -4,7 +4,7 @@ import ClientInterface from "@/interfaces/client"
 export const getClients = async (term: string) => {
 
     try {
-        const { data: { Clients } } = await api.get(`/api/search/client?term=${term}`);
+        const { data: { Clients } } = await api.get(`/api/client/search?term=${term}`);
         return Clients;
     } catch (error) {
         return { error: error };

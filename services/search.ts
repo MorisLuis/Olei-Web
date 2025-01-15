@@ -1,26 +1,19 @@
 import { api } from "@/api/api";
-import { ParsedUrlQuery } from "querystring";
 
-
-
-export const searchProducts = async (term: string, query: ParsedUrlQuery) => {
-
-
-    
+export const searchFamilia = async (searchTerm: string) => {
     try {
-        let url = `/api/search?nombre=${term}`
-        const { nombre, enStock, marca, folio, familia } = query;
-    
-        if (nombre) url += `&nombre=${nombre}`;
-        if (enStock) url += `&enStock=${enStock}`;
-        if (marca !== undefined) url += `&marca=${marca}`;
-        if (folio) url += `&folio=${folio}`;
-        if (familia) url += `&familia=${familia}`;
-        const { data: { products } } = await api.get(`${url}`);
-        return products;
+        const { data } = await api.get(`/api/search/familias?searchTerm=${searchTerm}`);
+        return data;
     } catch (error) {
         return { error: error };
     }
-
 }
 
+export const searchMarcas = async (searchTerm: string) => {
+    try {
+        const { data } = await api.get(`/api/search/marcas?searchTerm=${searchTerm}`);
+        return data;
+    } catch (error) {
+        return { error: error };
+    }
+}

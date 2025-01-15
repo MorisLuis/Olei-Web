@@ -3,16 +3,16 @@ import Select, { StylesConfig } from 'react-select'
 
 export type OptionType = {
     label: string
-    value: string
+    value: string | number
 }
 
 interface Props {
     options: OptionType[],
-    placeholder?: string,
-    label?: string,
     onChange: (arg: OptionType) => void,
     value: OptionType | null
     name: string
+    placeholder?: string,
+    label?: string,
 }
 
 const SelectReact = ({
@@ -25,13 +25,13 @@ const SelectReact = ({
 }: Props) => {
 
     const optionsWithNull = [
-        { value: null, label: 'SIN VALOR' },
+        { value: null, label: 'Sin valor' },
         ...options
     ];
 
     return (
         <div>
-            <label htmlFor={name}>{label}</label>
+            <label htmlFor={name} className='label'>{label}</label>
             <Select
                 placeholder={placeholder}
                 options={optionsWithNull}
@@ -46,11 +46,11 @@ const SelectReact = ({
                 styles={customStyles}
                 theme={(theme) => ({
                     ...theme,
-                    borderRadius: 0,
+                    borderRadius: 6,
                     colors: {
                         ...theme.colors,
                         primary25: '#F9FAFA',
-                        primary: '#EDBD42',
+                        primary: '#1C3873',
                     },
                 })}
             />
@@ -64,6 +64,6 @@ const customStyles: StylesConfig = {
     control: () => ({
         width: "100%",
         display: "flex",
-        color: "white"
+        color: "white",
     })
 };

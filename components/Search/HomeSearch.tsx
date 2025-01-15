@@ -1,17 +1,18 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 import ResultsContainer from './ResultsContainer';
-import { searchProducts } from '@/services/search';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import styles from "../../styles/Pages/Products.module.scss";
-
+import { searchProducts } from '@/services/product';
+import { FiltersContext } from '@/context';
 
 const HomeSearch = () => {
 
     const { handleError } = useErrorHandler();
     const { query } = useRouter();
+    const { filters } = useContext(FiltersContext);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -24,7 +25,7 @@ const HomeSearch = () => {
         setInputValue(event.target.value);
         const term = event.target.value === '' ? " " : event.target.value;
         try {
-            const products = await searchProducts(term, query);
+            const products = await searchProducts({term, filters});
             if (products.error) return handleError(products.error);
             setSearchResults(products)
         } catch (error) {
@@ -44,7 +45,8 @@ const HomeSearch = () => {
 
         const resetInputValue = () => {
             setInputValue(query?.nombre as string)
-        }
+        };
+
         resetInputValue()
 
     }, [query]);

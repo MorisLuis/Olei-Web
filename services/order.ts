@@ -8,7 +8,7 @@ interface postOrderInterface {
     total: number,
     numberOfItems: number,
     cart: ProductInterface[]
-}
+};
 
 export const postOrder = async ({
     subTotal,
@@ -85,7 +85,7 @@ export const getOrderDetails = async (receipt: string) => {
 
 export const getTotalOrders = async () => {
     try {
-        const { data } = await api.get(`/api/order/count`);
+        const { data } = await api.get(`/api/order/all/count`);
         const total = data;
         return total.total;
     } catch (error) {

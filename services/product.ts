@@ -1,24 +1,17 @@
 import { api } from '@/api/api';
 import FiltersInterface from '@/interfaces/filters';
 
-export const getProducts = async (query: FiltersInterface, nextPage?: number) => {
+export const getProducts = async (query: any, nextPage?: number) => {
 
     try {
         const { nombre, enStock, marca, folio, familia } = query;
-        let url = `api/product?page=${nextPage ? nextPage : 1}&limit=10`;
-
-        if (nombre) url += `&nombre=${nombre}`;
-        if (enStock) url += `&enStock=${enStock}`;
-        if (marca !== undefined) url += `&marca=${marca}`;
-        if (folio) url += `&folio=${folio}`;
-        if (familia) url += `&familia=${familia}`;
-
+        let url = `api/product?page=${nextPage ? nextPage : 1}&limit=10&nombre=${nombre}&enStock=${enStock}&marca=${marca}&folio=${folio}&familia=${familia}`;
         const { data } = await api.get(url);
-
         return data.products;
     } catch (error) {
         return { error: error };
     }
+
 }
 
 type getProductById = {
@@ -34,6 +27,7 @@ export const getProductById = async ({ Codigo, Marca }: getProductById) => {
     } catch (error) {
         return { error: error };
     }
+
 }
 
 
@@ -60,6 +54,28 @@ export const getTotalProducts = async (query: FiltersInterface) => {
 
         const { data } = await api.get(url);
         return data.total;
+    } catch (error) {
+        return { error: error };
+    }
+
+};
+
+interface searchProductsInterface {
+    term: string;
+    filters: FiltersInterface
+}
+
+export const searchProducts = async ({
+    term,
+    filters
+}: searchProductsInterface) => {
+
+    try {
+        const { enStock, marca, folio, familia } = filters;
+        let url = `api/product/search?nombre=${term}&enStock=${enStock}&marca=${marca}&folio=${folio}&familia=${familia}`;
+        const { data } = await api.get(url);
+
+        return data.products;
     } catch (error) {
         return { error: error };
     }

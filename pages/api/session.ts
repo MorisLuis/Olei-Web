@@ -2,6 +2,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
+//API??
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // Aquí obtienes las cookies de la solicitud
     const cookies = req.cookies;
