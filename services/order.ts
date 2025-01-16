@@ -73,21 +73,31 @@ export const getOrder = async (receipt: string) => {
     }
 }
 
-export const getOrderDetails = async (receipt: string) => {
+export const getOrderDetails = async (receipt: string, page?: number) => {
     try {
-        const { data } = await api.get(`/api/order/details?folio=${receipt}`);
+        const { data } = await api.get(`/api/order/details?folio=${receipt}&PageNumber=${page}`);
         const orderDetails = data;
         return orderDetails;
     } catch (error) {
         return { error: { ...error as AxiosError } };
     }
-} 
+}
 
 export const getTotalOrders = async () => {
     try {
         const { data } = await api.get(`/api/order/all/count`);
         const total = data;
         return total.total;
+    } catch (error) {
+        return { error: { ...error as AxiosError } };
+    }
+};
+
+export const getTotalOrderDetails = async (receipt: string) => {
+    try {
+        const { data } = await api.get(`/api/order/details/total?folio=${receipt}`);
+        const totalOrderDetails = data;
+        return totalOrderDetails;
     } catch (error) {
         return { error: { ...error as AxiosError } };
     }
