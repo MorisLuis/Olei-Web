@@ -90,7 +90,7 @@ export default function TableSecondaryRequest({
     const handleGetOrderDetails = useCallback(async () => {
         try {
             setOpenModalRequest(true)
-            const order = await getOrderDetails(query.receipt as string)
+            const order = await getOrderDetails(query.receipt as string, 999)
             if (order.error) {
                 handleError(order.error);
                 return;
@@ -107,8 +107,10 @@ export default function TableSecondaryRequest({
         try {
             setLoadingOrdeInCart(true)
             const data = await handleGetOrderDetails();
+            console.log({data})
             orderDetails = data;
         } catch (error) {
+            console.log({error})
             setLoadingOrdeInCart(false)
             handleError(error)
         } finally {
@@ -167,7 +169,7 @@ export default function TableSecondaryRequest({
                 disabled={loadingOrdeInCart}
                 title="Usar esta lista en carrito"
             >
-                <p>Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.</p>
+                Si aceptas y tienes productos anteriores se cambiaron por los de esta lista.
             </ModalMessage>
         </>
     )
