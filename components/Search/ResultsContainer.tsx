@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { Tag } from '../Ui/Tag';
 import FiltersInterface from '@/interfaces/filters';
+import { handleQuery } from '../Ui/Filter/RenderMarcaFilter';
 
 interface ResultsContainerInterface {
     inputValue: string,
@@ -24,8 +25,8 @@ const ResultsContainer = ({
     modalSearchVisible,
 }: ResultsContainerInterface) => {
 
-    const { push } = useRouter();
-    const { removeFilter, removeAllFilters, filtersValues, addFilters } = useContext(FiltersContext);
+    const { push, query } = useRouter();
+    const { removeFilter, removeAllFilters, filtersValues } = useContext(FiltersContext);
 
     const highlightSearchTerm = (text: string, term: string) => {
         const regex = new RegExp(`(${term})`, 'gi');
@@ -33,7 +34,16 @@ const ResultsContainer = ({
     };
 
     const onSelectProduct = (value: string) => {
-        //addFilters({ nombre: value })
+        const newQuery = handleQuery({
+            query,
+            entryLabel: 'Nombre',
+            option: {
+                label: 'Nombre',
+                value: value
+            }
+        });
+
+        push(newQuery);
         setModalSearchVisible(false)
         setSearchActive(false)
     }

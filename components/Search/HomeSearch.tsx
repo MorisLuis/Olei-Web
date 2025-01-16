@@ -13,7 +13,6 @@ const HomeSearch = () => {
     const { handleError } = useErrorHandler();
     const { query } = useRouter();
     const { filters } = useContext(FiltersContext);
-
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [inputValue, setInputValue] = useState('');
@@ -24,6 +23,7 @@ const HomeSearch = () => {
     const onSearchProduct = async (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
         const term = event.target.value === '' ? " " : event.target.value;
+
         try {
             const products = await searchProducts({term, filters});
             if (products.error) return handleError(products.error);
