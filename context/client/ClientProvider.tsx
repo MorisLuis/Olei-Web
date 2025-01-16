@@ -1,4 +1,3 @@
-import { api } from "@/api/api";
 import ClientInterface from "@/interfaces/client";
 import Cookies from "js-cookie";
 import { useEffect, useReducer, useState } from "react";
@@ -6,6 +5,7 @@ import { ClientContext } from "./ClientContext"
 import { clientReducer } from "./clientReducer";
 import { postClient } from "@/services/clients";
 import useErrorHandler from "@/hooks/useErrorHandler";
+
 
 export interface ClientState {
     client: ClientInterface

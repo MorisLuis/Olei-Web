@@ -20,7 +20,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <CartProvider>
           <ClientProvider>
             <FiltersProvider>
-              
               <Component {...pageProps} />
             </FiltersProvider>
           </ClientProvider>

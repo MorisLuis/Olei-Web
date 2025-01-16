@@ -5,6 +5,7 @@ import { FiltersContext } from '@/context';
 import { useRouter } from 'next/router';
 import { SearchItemCard } from '../Cards/SearchItemCard';
 import { Tag } from '../Ui/Tag';
+import FiltersInterface from '@/interfaces/filters';
 
 interface ResultsContainerInterface {
     inputValue: string,
@@ -32,7 +33,7 @@ const ResultsContainer = ({
     };
 
     const onSelectProduct = (value: string) => {
-        addFilters({ nombre: value })
+        //addFilters({ nombre: value })
         setModalSearchVisible(false)
         setSearchActive(false)
     }
@@ -49,7 +50,7 @@ const ResultsContainer = ({
             {
                 filtersValues && filtersValues?.length > 0 && !(filtersValues.length === 1 && filtersValues[0][0] === 'nombre') && (
                     <div className={`${styles.filtersSearch} display-flex`}>
-                        {filtersValues.map((filter: string[], index) => (
+                        {filtersValues.map((filter: [keyof FiltersInterface, string], index) => (
                             filter[0] === 'nombre' ? null : (
                                 <Tag key={index} onClose={() => removeFilter(filter[0])} close cursor>
                                     {filter[1] === 'true' ? 'En Stock' : filter[1]}

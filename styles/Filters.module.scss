@@ -3,41 +3,59 @@
 .filters {
     display: flex;
     height: 100%;
-    margin-right: $margin-horizontal;
     position: relative;
     align-items: center;
 
     .modalFilter {
         position: absolute;
         top: 120%;
-        right: 0%;
+        left: 0%;
         background-color: $background-color;
         border: 1px solid $color-border-secondary;
         border-radius: $border-radius;
-        padding: $padding / 3;
+        padding: calc($padding / 3);
         min-width: 300px;
         box-shadow: $box-shadow-modal;
         z-index: 9999;
+
+        &.right {
+            left: auto;
+            right: 0%;
+        }
 
         @include respond(phone) {
             left: 0px;
         }
 
         .filterList {
+            
 
-            div {
+            .filterItem {
                 cursor: pointer;
-                padding: $padding / 3;
+                padding: calc($padding / 3);
                 border-radius: $border-radius;
                 font-size: $font-medium;
+                display: flex;
+                gap: calc($gap / 1.5);
+                align-items: center;
+                position: relative;
+
+                &:not(:last-child) {
+                    margin-bottom: calc($margin-vertical/2);
+                }
+
+                p{
+                    height: auto;
+                }
+
+                &__icon{
+                    height: $font-small;
+                    color: $color-tertiary;
+                }
 
                 &:hover {
                     background-color: $background-color-tertiary;
                 }
-            }
-
-            :not(:last-child) {
-                margin-bottom: $margin-vertical;
             }
         }
 
@@ -45,11 +63,11 @@
 
             .filterOptions__Header {
                 display: flex;
-                gap: $gap / 2;
-                margin-bottom: $margin-vertical;
+                gap: calc($gap / 2);
+                margin-bottom: calc($margin-vertical/2);
 
                 cursor: pointer;
-                padding: $padding / 3;
+                padding: calc($padding / 3);
                 border-radius: $border-radius;
                 font-size: $font-medium;
                 border: 1px solid transparent;
@@ -69,7 +87,7 @@
 
             .inputCheck {
                 cursor: pointer;
-                padding: $padding / 3;
+                padding: calc($padding / 3);
                 border-radius: $border-radius;
                 font-size: $font-medium;
 
@@ -81,7 +99,7 @@
                     input[type="checkbox"] {
                         width: $font-medium;
                         height: $font-medium;
-                        accent-color: $color-blue;
+                        accent-color: $color-tertiary;
                     }
                 }
 
@@ -91,5 +109,4 @@
             }
         }
     }
-
 }

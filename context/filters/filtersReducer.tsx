@@ -1,18 +1,15 @@
 import FiltersInterface from "@/interfaces/filters"
-import { FilterState } from "./FiltersProvider"
-
+import { FILTERS_INITIAL_STATE, FilterState } from "./FiltersProvider"
 
 type FiltersActionType =
-    { type: '[Filters] - LoadFilters from cookies | storage', payload: FiltersInterface | Partial<FiltersInterface> } |
+    { type: '[Filters] - LoadFilters from cookies | storage', payload: FiltersInterface } |
     { type: '[Filters] - Update filters', payload: FiltersInterface | Partial<FiltersInterface> } |
-    { type: '[Filters] - Update filtersValues', payload: [string, string][] } |
-    { type: '[Filters] - Remove filter', payload: string } |
-    { type: '[Filters] - Remove all filters', payload: FiltersInterface | Partial<FiltersInterface> }
-
+    { type: '[Filters] - Update filtersValues', payload: [keyof FiltersInterface, string][] } |
+    { type: '[Filters] - Remove filter', payload: keyof FiltersInterface } |
+    { type: '[Filters] - Remove all filters' }
 
 
 export const filtersReducer = (state: FilterState, action: FiltersActionType): FilterState => {
-
 
     switch (action.type) {
 
@@ -26,7 +23,7 @@ export const filtersReducer = (state: FilterState, action: FiltersActionType): F
             return {
                 ...state,
                 filters: { ...state.filters, ...action.payload }
-            }
+            };
 
         case '[Filters] - Update filtersValues':
             return {
@@ -39,14 +36,14 @@ export const filtersReducer = (state: FilterState, action: FiltersActionType): F
                 ...state,
                 filters: {
                     ...state.filters,
-                    [action.payload]: action.payload === "enStock" ? false : undefined
+                    [action.payload]: action.payload === "enStock" ? false : ''
                 }
             }
 
         case '[Filters] - Remove all filters':
             return {
                 ...state,
-                filters: { ...action.payload }
+                filters: FILTERS_INITIAL_STATE.filters
             }
 
         default:

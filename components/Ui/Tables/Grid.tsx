@@ -1,8 +1,8 @@
 import React from 'react'
-import styles from "../../../styles/Tables.module.scss";
 import { ProductSquareCard } from '../../Cards/ProductSquareCard';
 import ProductInterface from '@/interfaces/product';
 import ButtonLoad from '../../Buttons/ButtonLoad';
+import styles from "../../../styles/Tables.module.scss";
 
 interface GridInterface {
     data: ProductInterface[];

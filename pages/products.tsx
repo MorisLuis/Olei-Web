@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import styles from "../styles/Pages/Products.module.scss";
 
 import { Layout } from '@/components/Layouts/Layout';
-import HomeFilter from '@/components/HomeFilter';
 import Modal from '@/components/Modals/Modal';
 import { ProductDetailsRender } from '@/components/Renders/ProductDetailsRender';
 
@@ -16,6 +15,7 @@ import TableProducts from '@/components/Ui/Tables/TableComponents/TableProducts'
 import { useLoadMoreData } from '@/hooks/useLoadMoreData';
 import FiltersInterface from '@/interfaces/filters';
 import GridProducts from '@/components/Ui/Tables/TableComponents/GridProducts';
+import HomeHeader from '@/components/Header';
 
 export default function Home() {
    const { filters } = useContext(FiltersContext);
@@ -24,7 +24,6 @@ export default function Home() {
    const { user } = useContext(AuthContext);
    const { push, query } = useRouter();
    const { handleError } = useErrorHandler();
-   const { nombre, enStock, marca, folio, familia } = filters;
    const [productDetails, setProductDetails] = useState<ProductInterface>();
    const [openModalProduct, setOpenModalProduct] = useState<boolean>(false);
    const [showGrid, setShowGrid] = useState(true);
@@ -51,7 +50,6 @@ export default function Home() {
       } catch (error) {
          handleError(error);
       }
-
    }
 
    const handleCloseProduct = () => {
@@ -62,17 +60,13 @@ export default function Home() {
 
    useEffect(() => {
       handleResetData()
-   }, [nombre, enStock, marca, folio, familia, productDelete, clientChanged]);
-
-   useEffect(() => {
-      handleResetData()
-   }, [])
+   }, [filters, productDelete, clientChanged]);
 
    return (
       <>
          <Layout title='Productos'>
             <div className={styles.products}>
-               <HomeFilter
+               <HomeHeader
                   setShowGrid={setShowGrid}
                   showGrid={showGrid}
                />

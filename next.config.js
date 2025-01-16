@@ -1,5 +1,5 @@
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: ['oleistorage.blob.core.windows.net', 'm.media-amazon.com'],
   },

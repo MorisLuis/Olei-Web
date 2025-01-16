@@ -1,22 +1,22 @@
 import FiltersInterface from "@/interfaces/filters";
-import Cookies from "js-cookie";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { FiltersContext } from "./FiltersContext";
 import { filtersReducer } from "./filtersReducer";
 import useErrorHandler from "@/hooks/useErrorHandler";
+import { useRouter } from "next/router";
 
 export interface FilterState {
-    filtersValues: [string, string][],
+    filtersValues: [keyof FiltersInterface, string][],
     filters: FiltersInterface;
 }
 
 
 export const FILTERS_INITIAL_STATE: FilterState = {
     filters: {
-        nombre: undefined,
-        marca: undefined,
-        familia: undefined,
-        folio: undefined,
+        nombre: '',
+        marca: '',
+        familia: '',
+        folio: '',
         enStock: false
     },
     filtersValues: []
@@ -26,65 +26,58 @@ export const FiltersProvider = ({ children }: { children: JSX.Element }) => {
 
     const [state, dispatch] = useReducer(filtersReducer, FILTERS_INITIAL_STATE);
     const { handleError } = useErrorHandler();
+    const { query } = useRouter();
+
+    const filtersReady = useRef(false);
 
     useEffect(() => {
+        const filtersQuery: FiltersInterface = {
+            nombre: query.Nombre ? String(query.Nombre) : '',
+            familia: query.Familia ? String(query.Familia) : '',
+            marca: query.Marca ? String(query.Marca) : '',
+            folio: query.Folio ? String(query.Folio) : '',
+            enStock: query.enStock === 'true' || false
+        };
 
-        const savedFiltersString = Cookies.get('activeFilters');
+        // Verificar si hay cambios reales en los filtros
+        const hasChanges = Object.entries(filtersQuery).some(
+            ([key, value]) => state.filters[key as keyof FiltersInterface] !== value
+        );
 
-        // Check if savedFiltersString is not undefined.
-        // To avoid set cookies more than once and as undefined.
-        if (savedFiltersString !== "undefined") {
-            // If savedFiltersString is empty or falsy, no action is needed.
-            if (!savedFiltersString) return;
-            // Parse the saved filters string into a JavaScript object.
-            const parsedFilters = JSON.parse(savedFiltersString);
-            // Compare the parsed filters with the current filter state.
-            const areFiltersEqual =
-                parsedFilters.nombre === FILTERS_INITIAL_STATE.filters.nombre &&
-                parsedFilters.marca === FILTERS_INITIAL_STATE.filters.marca &&
-                parsedFilters.familia === FILTERS_INITIAL_STATE.filters.familia &&
-                parsedFilters.folio === FILTERS_INITIAL_STATE.filters.folio &&
-                parsedFilters.enStock === FILTERS_INITIAL_STATE.filters.enStock;
-
-            // If the parsed filters are equal to the current filter state, no action is needed.
-            if (areFiltersEqual) return;
+        if (hasChanges) {
+            filtersReady.current = true; // Marca que los filtros han cambiado
+            dispatch({ type: '[Filters] - Update filters', payload: filtersQuery });
         }
-
-        try {
-            const cookieFilters = Cookies.get('activeFilters') ? JSON.parse(Cookies.get('activeFilters')!) : []
-            dispatch({ type: '[Filters] - LoadFilters from cookies | storage', payload: cookieFilters });
-        } catch (error) {
-            dispatch({ type: '[Filters] - LoadFilters from cookies | storage', payload: FILTERS_INITIAL_STATE.filters });
-            handleError(error);
-        }
-    }, []);
+    }, [query]);
 
     useEffect(() => {
-        UpdatefiltersValues()
+        if (filtersReady.current) {
+            handleUpdateFiltersValues();
+        }
     }, [state.filters]);
 
-    useEffect(() => {
-        Cookies.set('activeFilters', JSON.stringify(state.filters));
-    }, [state]);
+    const handleUpdateFiltersValues = ( ) => {
+        // Filtrar y transformar los filtros válidos
+        const filtersArray: [keyof FiltersInterface, string][] = Object.entries(state.filters)
+            .filter(([_, value]) => value !== undefined && value !== false && value !== "")
+            .map(([key, value]) => [key as keyof FiltersInterface, String(value)]);
 
-    const UpdatefiltersValues = () => {
-        const filtersArray: [string, string][] = Object.entries(state.filters)
-            .filter(([_, value]) => value !== undefined && value !== false)
-            .map(([key, value]) => [key, value as string]);
+        dispatch({ type: '[Filters] - Update filtersValues', payload: filtersArray });
+        filtersReady.current = false; // Resetea el flag después de sincronizar
+    }
+    
 
-        dispatch({ type: '[Filters] - Update filtersValues', payload: filtersArray })
-    };
-
-    const addFilters = (Filters: FiltersInterface) => {
+    const addFilters = (Filters: FiltersInterface | Partial<FiltersInterface>) => {
         dispatch({ type: '[Filters] - Update filters', payload: Filters });
     };
 
-    const removeFilter = (filter: string) => {
+    const removeFilter = (filter: keyof FiltersInterface) => {
+        filtersReady.current = true;
         dispatch({ type: '[Filters] - Remove filter', payload: filter })
     };
 
     const removeAllFilters = () => {
-        dispatch({ type: '[Filters] - Remove all filters', payload: FILTERS_INITIAL_STATE.filters })
+        dispatch({ type: '[Filters] - Remove all filters' })
     };
 
     return (

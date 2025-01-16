@@ -330,7 +330,7 @@
         background-color: $background-color;
         margin-bottom: $margin-horizontal*2;
 
-        @include respond(tab-port) {
+        @include respond(tab-land) {
             grid-template-columns: repeat(3, 1fr);
             padding: 0em $padding;
         }

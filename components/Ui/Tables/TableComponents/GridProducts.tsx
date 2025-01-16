@@ -44,7 +44,7 @@ export default function GridProducts({
                 <p>Cambia o elimina algunos de los filtros o modifica el área de búsqueda.</p>
             </MessageCard>
         )
-    }
+    };
 
     return (
         <Grid
