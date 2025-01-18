@@ -1,36 +1,24 @@
-import React, { ReactNode, useContext, useState } from 'react';
-
+import React, { ReactNode, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Toaster } from 'react-hot-toast';
 import Footer from '../Navigation/Footer';
 import Header from '../Navigation/Header/Header';
 import Image from 'next/image';
-import { AuthContext } from '@/context';
+import styles from '../../styles/Layouts.module.scss';
 import ModalCart from '../Modals/ModalsComponents/ModalCart';
 import ModalMenu from '../Modals/ModalsComponents/ModalMenu';
-import styles from '../../styles/Layouts.module.scss'
 
 interface Props {
     children: ReactNode;
-    title: string
+    title: string;
+    banner?: string; // Aquí recibimos el banner desde las props
 }
 
-export const Layout = ({ children, title }: Props) => {
-
-    const [openModalCart, setOpenModalCart] = useState(false)
-    const [openModalMenu, setOpenModalMenu] = useState(false)
-    const { pathname } = useRouter()
-    const { user } = useContext(AuthContext);
-
-
-    const getBanner = () => {
-        const database = user?.Baseweb
-        const databaseSplit = database?.split('_')
-        const newPath = databaseSplit?.[1]?.toLowerCase().trim();
-        const banner = newPath ? `https://oleistorage.blob.core.windows.net/${newPath}/BANNER.png` : '/Banner_olei.png';
-        return banner;
-    }
+export const Layout = ({ children, title, banner }: Props) => {
+    const [openModalCart, setOpenModalCart] = useState(false);
+    const [openModalMenu, setOpenModalMenu] = useState(false);
+    const { pathname } = useRouter();
 
     return (
         <>
@@ -50,23 +38,17 @@ export const Layout = ({ children, title }: Props) => {
                         <Image
                             fill
                             alt="Banner"
-                            src={getBanner()}
-                            priority
-                            quality={100}
+                            src={banner ?? '/Banner_olei.png'}
+                            quality={75}
+                            loading="lazy"
                         />
                     </div>
                 }
 
-                <div>
-                    {children}
-                </div>
+                <div>{children}</div>
             </div>
 
-
-            {
-                pathname !== "/cart" &&
-                <Footer />
-            }
+            {pathname !== "/cart" && <Footer />}
 
             <ModalCart
                 visible={openModalCart}
@@ -80,5 +62,6 @@ export const Layout = ({ children, title }: Props) => {
 
             <Toaster />
         </>
-    )
-}
+    );
+};
+
