@@ -16,8 +16,15 @@ import { useLoadMoreData } from '@/hooks/useLoadMoreData';
 import FiltersInterface from '@/interfaces/filters';
 import GridProducts from '@/components/Ui/Tables/TableComponents/GridProducts';
 import HomeHeader from '@/components/Header';
+import { api } from '@/api/api';
+import { parseCookies } from 'nookies';
+import { GetServerSidePropsContext } from 'next';
 
-export default function Home() {
+interface HomeInterface {
+   banner: string
+}
+
+export default function Home({ banner }: HomeInterface) {
    const { filters } = useContext(FiltersContext);
    const { productDelete } = useContext(CartContext);
    const { clientChanged } = useContext(ClientContext);
@@ -27,6 +34,7 @@ export default function Home() {
    const [productDetails, setProductDetails] = useState<ProductInterface>();
    const [openModalProduct, setOpenModalProduct] = useState<boolean>(false);
    const [showGrid, setShowGrid] = useState(true);
+   console.log({ banner })
 
    // Handle data showed
    const { data, isLoading, isButtonLoading, total, handleResetData, handleLoadMore } = useLoadMoreData(
@@ -64,7 +72,7 @@ export default function Home() {
 
    return (
       <>
-         <Layout title='Productos'>
+         <Layout title='Productos' banner={banner}>
             <div className={styles.products}>
                <HomeHeader
                   setShowGrid={setShowGrid}
@@ -76,7 +84,7 @@ export default function Home() {
                         products={data}
                         loadMoreProducts={handleLoadMore}
                         totalProducts={total ?? 0}
-                        
+
                         loadingData={isLoading}
                         buttonIsLoading={isButtonLoading}
                         handleSelectData={handleSelectProduct}
@@ -106,4 +114,28 @@ export default function Home() {
          </Modal>
       </>
    )
+};
+
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+   const cookies = parseCookies(context); 
+   const token = cookies.token;
+
+   try {
+      const { data: { banner } } = await api.get('/api/utils/banner', {
+         headers: {
+            Authorization: token ? `Bearer ${token}` : '',
+         },
+      });
+
+      return {
+         props: {
+            banner
+         },
+      };
+   } catch (error) {
+      return {
+         props: { banner: '/default-banner.png' },
+      };
+   }
 }
