@@ -133,6 +133,7 @@
 
             .rightContent {
                 display: flex;
+                gap: $gap;
 
                 .filtersTag {
                     display: flex;

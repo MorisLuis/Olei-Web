@@ -5,10 +5,10 @@ import { AuthContext, FiltersContext } from '@/context';
 import ToggleSquareSwitch from './Inputs/toggleSquareSwitch';
 import HomeSearch from './Search/HomeSearch';
 import FilterHome from './Ui/Filter/FilterHome';
-import styles from "../styles/Pages/Products.module.scss";
 import { handleQuery } from './Ui/Filter/RenderMarcaFilter';
 import { useRouter } from 'next/router';
 import FiltersInterface, { FiltersLabelType, validFiltersLabel } from '@/interfaces/filters';
+import styles from "../styles/Pages/Products.module.scss";
 
 interface Props {
     showGrid: boolean;
