@@ -64,7 +64,7 @@ const Login = () => {
                                 <h1>Bienvenido!</h1>
                                 <p className='mb-medium'>Por favor, inicia sesión abajo</p>
                             </div>
-                            <form
+                            {/* <form
                                 onSubmit={handleSubmit(onLoginUser)}
                                 noValidate
                                 className={styles.form__content}
@@ -96,12 +96,19 @@ const Login = () => {
                                 {errors.password && <span className='warning-message'>La contraseña es requerida</span>}
 
                                 <Button
-                                    text='Iniciar sesión'
+                                    text='Iniciar Demo'
                                     textDisabled='Iniciando...'
-                                    typeSubmit
+                                    onClick={() => onLoginUser({email: 'idaliahc@gmail.com', password: '1234'})}
                                     disabled={loggingIn}
                                 />
-                            </form>
+                            </form> */}
+
+                            <Button
+                                    text='Iniciar Demo'
+                                    textDisabled='Iniciando...'
+                                    onClick={() => onLoginUser({email: 'idaliahc@gmail.com', password: '1234'})}
+                                    disabled={loggingIn}
+                                />
                             
                             <div className={styles.blur}></div>
                         </div>
