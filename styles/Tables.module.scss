@@ -1,4 +1,7 @@
-@import "./main.scss";
+@use "sass:math";
+@use "./main.scss" as *;
+@use "./Abstracts/variables" as *;
+@use "./Abstracts/mixins" as *;
 
 .table {
     width: 100%;
@@ -62,7 +65,7 @@
                 }
 
                 td {
-                    padding: $padding / 2 $padding;
+                    padding: math.div($padding, 2) $padding;
                     border-bottom: 1px solid $color-border;
                     cursor: pointer;
 
@@ -173,7 +176,8 @@
                 .column {
                     display: flex;
                     flex-direction: column;
-                    gap: $gap / 2;
+                    gap: math.div($gap, 2);
+                    font-size: $font-normal;
 
                     @include respond(phone) {
                         text-align: end;

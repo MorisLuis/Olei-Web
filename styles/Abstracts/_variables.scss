@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $color-primary: #FFFFFF;
 $color-secondary: #0e1727;
 $color-tertiary: #1C3873;
@@ -36,7 +38,7 @@ $padding-top: 1em;
 // Margin
 $margin: 1em;
 $margin-horizontal: 1em;
-$margin-vertical: 1em / 2;
+$margin-vertical: math.div(1em, 2);
 
 //UI
 $border-radius: 0.5em;

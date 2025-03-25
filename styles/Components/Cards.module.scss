@@ -1,4 +1,7 @@
-@import "../main.scss";
+@use "sass:math";
+@forward "../main.scss";
+@use "../Abstracts/variables" as *;
+@use "../Abstracts/mixins" as *;
 
 .ProductCard {
     width: 100%;
@@ -22,7 +25,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: normal;
-            margin-bottom: $margin-vertical / 2;
+            margin-bottom: math.div($margin-vertical, 2)
         }
 
         .delete {
@@ -135,7 +138,7 @@
             .description {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: $margin-horizontal / 2;
+                margin-bottom: math.div($margin-horizontal, 2);
                 gap: $gap;
 
                 h4 {
@@ -152,7 +155,7 @@
             }
 
             .data {
-                margin-bottom: $margin-horizontal / 2;
+                margin-bottom: math.div($margin-horizontal, 2);
                 font-size: $font-medium;
 
                 .stock {
@@ -184,12 +187,12 @@
 
 .SearchItemCard {
     width: 100%;
-    padding: $padding/2 $padding;
+    padding: math.div($padding, 2) $padding;
     border-radius: $border-radius;
     border: 1px solid $color-border-secondary;
     font-size: $font-medium;
     background-color: $background-color-secondary;
-    margin-bottom: $margin-horizontal / 2;
+    margin-bottom: math.div($margin-horizontal, 2);
 
     display: flex;
     align-items: center;
@@ -231,7 +234,7 @@
     }
 
     h2 {
-        margin-bottom: $margin-vertical / 2;
+        margin-bottom: math.div($margin-vertical, 2)
     }
 }
 

@@ -107,10 +107,8 @@ export default function TableSecondaryRequest({
         try {
             setLoadingOrdeInCart(true)
             const data = await handleGetOrderDetails();
-            console.log({data})
             orderDetails = data;
         } catch (error) {
-            console.log({error})
             setLoadingOrdeInCart(false)
             handleError(error)
         } finally {

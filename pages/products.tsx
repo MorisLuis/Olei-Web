@@ -25,6 +25,7 @@ interface HomeInterface {
 }
 
 export default function Home({ banner }: HomeInterface) {
+
    const { filters } = useContext(FiltersContext);
    const { productDelete } = useContext(CartContext);
    const { clientChanged } = useContext(ClientContext);
@@ -34,7 +35,6 @@ export default function Home({ banner }: HomeInterface) {
    const [productDetails, setProductDetails] = useState<ProductInterface>();
    const [openModalProduct, setOpenModalProduct] = useState<boolean>(false);
    const [showGrid, setShowGrid] = useState(true);
-   console.log({ banner })
 
    // Handle data showed
    const { data, isLoading, isButtonLoading, total, handleResetData, handleLoadMore } = useLoadMoreData(
@@ -106,7 +106,6 @@ export default function Home({ banner }: HomeInterface) {
             visible={(query.product && openModalProduct) ? true : false}
             title="Producto"
             modalBlack
-
             //Methods
             onClose={handleCloseProduct}
          >

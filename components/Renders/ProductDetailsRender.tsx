@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ProductInterface from '@/interfaces/product';
 import Counter from '../Ui/Counter';
-import { AuthContext, CartContext } from '@/context';
+import { CartContext } from '@/context';
 import { useProductWithCartInfo } from '@/hooks/useProductWithCartInfo';
 import { ImageGallery } from './ImageGallery';
 import { format } from '@/utils/currency';
@@ -12,11 +12,8 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
 
     const { productWithCartInfo } = useProductWithCartInfo(product);
     const { addProductToCart } = useContext(CartContext);
-    const { user } = useContext(AuthContext);
-    const isEmployee = user?.TipoUsuario === 2;
     const [tempCartProduct, setTempCartProduct] = useState<ProductInterface | null>(null);
 
-    const { Precio, Descripcion, Codigo, Familia, Marca, Observaciones, Cantidad } = productWithCartInfo || {};
 
     const onUpdateQuantity = async (newPiezas: number) => {
         if (productWithCartInfo) {
@@ -52,7 +49,13 @@ export const ProductDetailsRender = ({ product }: { product: ProductInterface })
         setTempCartProduct(productWithCartInfo);
     }, [productWithCartInfo]);
 
+    if(!productWithCartInfo) return
+
+    const { Precio, Descripcion, Codigo, Familia, Marca, Observaciones, Cantidad } = productWithCartInfo || {};
+
+
     if (!product) return <ProductDetailsRenderSkeleton />
+
 
     return (
         <>

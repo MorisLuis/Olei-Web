@@ -1,4 +1,7 @@
-@import "./main.scss";
+@use "sass:math";
+@use "./main.scss" as *;
+@use "./Abstracts/variables" as *;
+@use "./Abstracts/mixins" as *;
 
 .filters {
     display: flex;
@@ -13,7 +16,7 @@
         background-color: $background-color;
         border: 1px solid $color-border-secondary;
         border-radius: $border-radius;
-        padding: calc($padding / 3);
+        padding: math.div($padding,3);
         min-width: 300px;
         box-shadow: $box-shadow-modal;
         z-index: 9999;
@@ -41,7 +44,7 @@
                 position: relative;
 
                 &:not(:last-child) {
-                    margin-bottom: calc($margin-vertical/2);
+                    margin-bottom: math.div($margin-vertical, 2);
                 }
 
                 p{
@@ -64,7 +67,7 @@
             .filterOptions__Header {
                 display: flex;
                 gap: calc($gap / 2);
-                margin-bottom: calc($margin-vertical/2);
+                margin-bottom: math.div($margin-vertical, 2);
 
                 cursor: pointer;
                 padding: calc($padding / 3);

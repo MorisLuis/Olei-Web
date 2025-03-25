@@ -1,4 +1,7 @@
-@import "../main.scss";
+@use "sass:math";
+@forward "../main.scss";
+@use "../Abstracts/variables" as *;
+@use "../Abstracts/mixins" as *;
 
 .products {
     padding: $padding*2 $padding*10;
@@ -20,7 +23,7 @@
         }
 
         .company {
-            margin-bottom: $margin-horizontal/2;
+            margin-bottom:math.div($margin-horizontal, 2);
             font-size: $font-medium;
             color: $color-gray;
         }

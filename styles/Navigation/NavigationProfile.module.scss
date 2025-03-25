@@ -1,4 +1,7 @@
-@import "../main.scss";
+@use "sass:math";
+@forward "../main.scss";
+@use "../Abstracts/variables" as *;
+@use "../Abstracts/mixins" as *;
 
 .navigationProfile{
     width: 100%;
@@ -14,7 +17,7 @@
         border-radius: $border-radius;
 
         .link{
-            padding: $padding / 2;
+            padding: math.div($padding, 2);
             border-radius: $border-radius;
             font-size: $font-medium;
             border: 1px solid transparent;

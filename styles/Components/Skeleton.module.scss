@@ -1,5 +1,7 @@
-@import "../main.scss";
-
+@use "sass:math";
+@forward "../main.scss";
+@use "../Abstracts/variables" as *;
+@use "../Abstracts/mixins" as *;
 
 .tableSkeleton {
     background-color: $background-color;
@@ -631,7 +633,7 @@
             .description {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: $margin-horizontal / 2;
+                margin-bottom: math.div($margin-horizontal, 2);
                 gap: $gap;
 
                 h4 {
@@ -640,7 +642,7 @@
                 }
 
                 span {
-                    height: calc($font-medium + $padding/2);
+                    height: calc($font-medium + math.div($padding, 2));
                     width: 30%;
                 }
             }
@@ -648,7 +650,7 @@
             .data {
                 display: flex;
                 flex-direction: column;
-                margin-bottom: $margin-horizontal / 2;
+                margin-bottom: math.div($margin-horizontal, 2);
                 font-size: $font-medium;
                 gap: $gap;
 
@@ -696,7 +698,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: normal;
-            margin-bottom: $margin-vertical / 2;
+            margin-bottom: math.div($margin-vertical, 2)
         }
 
         .delete {
@@ -828,7 +830,7 @@
 
 
                 td {
-                    padding: $padding / 2 $padding;
+                    padding: math.div($padding, 2) $padding;
                     border-bottom: 1px solid $color-border;
                     height: $font-medium;
 
@@ -969,7 +971,7 @@
                 }
 
                 td {
-                    padding: $padding / 2 $padding;
+                    padding: math.div($padding, 2) $padding;
                     border-bottom: 1px solid $color-border;
                     height: $font-medium;
 

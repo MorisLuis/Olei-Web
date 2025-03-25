@@ -1,4 +1,6 @@
-@import "./main.scss";
+@use "./main.scss" as *;
+@use "./Abstracts/variables" as *;
+@use "./Abstracts/mixins" as *;
 
 .Cart {
     background-color: $background-color;

@@ -1,4 +1,6 @@
-@import "../main.scss";
+@forward "../main.scss";
+@use "../Abstracts/variables" as *;
+@use "../Abstracts/mixins" as *;
 
 .login {
     width: 100vw;

@@ -2,7 +2,7 @@ import { CartContext } from '@/context';
 import ProductInterface from '@/interfaces/product'
 import React, { useContext, useEffect, useState } from 'react'
 
-export const useProductWithCartInfo = (data: ProductInterface) => {
+export const useProductWithCartInfo = (data: ProductInterface): { productWithCartInfo: ProductInterface | undefined } => {
     const { cart, cartPending } = useContext(CartContext);
     const [productWithCartInfo, setProductWithCartInfo] = useState<ProductInterface | undefined>(undefined);
 
@@ -23,6 +23,6 @@ export const useProductWithCartInfo = (data: ProductInterface) => {
     }, [data, cart, cartPending]);
 
     return {
-        productWithCartInfo: productWithCartInfo || {} as ProductInterface,
+        productWithCartInfo
     };
 };

@@ -1,3 +1,5 @@
+@use "../Abstracts/variables" as *;
+
 .input {
     height: 48px;
     width: 100%;
@@ -215,8 +217,8 @@
                 width: 10px;
                 position: absolute;
                 z-index: 9;
-                left: calc(5px + (22px/2));
-                bottom: calc(3px + (22px/2));
+                left: calc(5px + 12px);
+                bottom: calc(3px + 12px);
                 transform: translate(-50%, 50%);
             }
 
@@ -224,8 +226,8 @@
                 width: 10px;
                 position: absolute;
                 z-index: 9;
-                left: calc((70px - 6px) - (22px/2));
-                bottom: calc(3px + (22px/2));
+                left: calc((70px - 6px) - 12px);
+                bottom: calc(3px + 12px);
                 transform: translate(-50%, 50%);
             }
         }

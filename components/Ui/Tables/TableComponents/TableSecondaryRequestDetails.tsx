@@ -1,7 +1,6 @@
 import React from 'react'
 import { MessageCard } from '@/components/Cards/MessageCard';
 import TableSecondary, { ColumnSecondaryConfig } from '../TableSecondary';
-import { useRouter } from 'next/router';
 import { format } from '@/utils/currency';
 import ProductInterface from '@/interfaces/product';
 import { Tag } from '../../Tag';
@@ -10,18 +9,17 @@ interface TableSecondaryRequestDetailsInterface {
     products: ProductInterface[];
     totalProducts: number;
     buttonIsLoading: boolean;
-    loadingData: boolean;
     loadMoreProducts?: () => Promise<void>;
 }
 
 export default function TableSecondaryRequestDetails({
     products,
     totalProducts,
-    loadingData,
     buttonIsLoading,
     loadMoreProducts
 }: TableSecondaryRequestDetailsInterface) {
 
+    console.log({totalProducts})
     const NoMoreProductToShow = products.length === totalProducts;
 
     const columns: ColumnSecondaryConfig<ProductInterface>[] = [

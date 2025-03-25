@@ -1,37 +1,31 @@
-import { NextRequest, NextResponse } from "next/server";
-import { jwtVerify } from "jose";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { jwtVerify } from 'jose';
 
-export default async function Middleware(req: NextRequest) {
-    const jwtCookie = req.cookies.get("token");
-    const jwt = jwtCookie && jwtCookie.value;
+const SECRET_KEY = new TextEncoder().encode('access_secret');
 
-    if (!jwt) {
-        return NextResponse.redirect(new URL("/login", req.url));
-    }
+export async function middleware(req: NextRequest) {
+    const token = req.cookies.get('token')?.value;
 
-    if (req.url.includes("login")) {
-        if (jwt) {
-            return NextResponse.redirect(new URL("/", req.url))
-        }
-        return NextResponse.next()
+    if (!token) {
+        console.log("🚫 No hay token, redirigiendo a login...");
+        return NextResponse.redirect(new URL('/login', req.url));
     }
 
     try {
-        await jwtVerify(jwt, new TextEncoder().encode("s3Cr3t"));
-
+        await jwtVerify(token, SECRET_KEY); // Verifica el token con `jose`
         return NextResponse.next();
     } catch (error) {
-        return NextResponse.redirect(new URL("/login", req.url));
+        return NextResponse.redirect(new URL('/login', req.url));
     }
 }
 
 export const config = {
     matcher: [
-        "/",
-        '/products',
+        /* '/products',
         '/onboarding/:path*',
         '/profile/:path*',
         '/cart/:path*',
-        '/receipt/:path*',
+        '/receipt/:path*', */
     ],
-}
+};

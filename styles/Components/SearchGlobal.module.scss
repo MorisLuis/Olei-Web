@@ -1,5 +1,6 @@
-@import "../main.scss";
-
+@forward "../main.scss";
+@use "../Abstracts/variables" as *;
+@use "../Abstracts/mixins" as *;
 
 .messageEmpty {
     padding: 1em;

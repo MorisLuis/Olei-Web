@@ -4,10 +4,24 @@ import { motion } from 'framer-motion';
 import styles from './../styles/Pages/NotFound.module.scss';
 import { useRouter } from 'next/router';
 import ButtonSmall from '@/components/Buttons/ButtonSmall';
+import Cookies from 'js-cookie';
 
 const Custum404 = () => {
 
     const { replace } = useRouter();
+
+
+    const handleNavigate = () => {
+        const token = Cookies.get('token');
+
+        console.log({token})
+        if (!token) {
+            replace('/login')
+        } else {
+            replace('/products')
+        }
+    }
+
 
     return (
         <Layout title='500'>
@@ -35,7 +49,7 @@ const Custum404 = () => {
 
                         <ButtonSmall
                             text='Volver al inicio'
-                            onClick={() => replace('/products')}
+                            onClick={handleNavigate}
                         />
                     </motion.p>
                 </motion.div>

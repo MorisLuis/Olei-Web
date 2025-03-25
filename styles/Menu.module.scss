@@ -1,4 +1,7 @@
-@import "./main.scss";
+@use "sass:math";
+@use "./main.scss" as *;
+@use "./Abstracts/variables" as *;
+@use "./Abstracts/mixins" as *;
 
 .Menu {
 
@@ -32,7 +35,7 @@
 
     .item {
         display: flex;
-        padding: $padding/2;
+        padding: math.div($padding,2);
         align-items: center;
         gap: $gap;
         border: 1px solid transparent;

@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const { handleError } = useErrorHandler()
     const { showError } = useToast()
 
-    const { push } = useRouter()
+    const { push, replace } = useRouter()
 
     useEffect(() => {
         checkToken();
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
             const { token, user } = data.data;
             Cookies.set('token', token);
             dispatch({ type: '[Auth] - Login', payload: user });
-            
+
             if (user.TipoUsuario === 2) {
                 push("/onboarding/selectClient");
             } else {
@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const logoutUser = async () => {
         try {
             await api.get('/api/auth/logout');
-            push("/")
+            replace("/login")
             Cookies.remove("token")
             dispatch({ type: '[Auth] - Logout', user: AUTH_INITIAL_STATE.user });
         } catch (error) {

@@ -1,4 +1,7 @@
-@import "../main.scss";
+@use "sass:math";
+@forward "../main.scss";
+@use "../Abstracts/variables" as *;
+@use "../Abstracts/mixins" as *;
 
 .header {
     height: 60px;
@@ -73,7 +76,7 @@
                             background-color: $color-yellow;
                             min-width: 18px;
                             height: 18px;
-                            border-radius: $border-radius / 1.25;
+                            border-radius: math.div($border-radius, 1.25);
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -95,7 +98,7 @@
 
                 .description {
                     background-color: $color-cuaternary;
-                    padding: $padding / 2;
+                    padding:math.div($padding, 2);
                     font-size: $font-small;
                     border-radius: $border-radius;
                     color: $text-color;
@@ -200,7 +203,7 @@
 
                 .circle {
                     background-color: $background-color-secondary;
-                    padding: $padding/5;
+                    padding: math.div($padding, 5);
                     border-radius: $border-radius;
                     display: flex;
                     justify-content: center;
@@ -214,7 +217,7 @@
                             color: $text-color-secondary;
                             min-width: 18px;
                             height: 18px;
-                            border-radius: $border-radius / 1.25;
+                            border-radius: math.div($border-radius, 1.25);
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -263,7 +266,7 @@
                 margin-left: $margin-horizontal;
                 width: fit-content;
                 height: fit-content;
-                padding: $padding/5;
+                padding: math.div($padding, 5);
                 border-radius: $border-radius;
                 border: 1px solid transparent;
 

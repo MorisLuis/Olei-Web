@@ -23,7 +23,7 @@ export const getProductById = async ({ Codigo, Marca }: getProductById) => {
 
     try {
         const { data } = await api.get(`/api/product/web/${Codigo}?Marca=${Marca}`);
-        return data;
+        return data.product;
     } catch (error) {
         return { error: error };
     }

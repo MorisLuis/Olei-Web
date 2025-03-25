@@ -1,4 +1,7 @@
-@import "../main.scss";
+@use "sass:math";
+@forward "../main.scss";
+@use "../Abstracts/variables" as *;
+@use "../Abstracts/mixins" as *;
 
 .success {
     height: 85svh;
@@ -20,7 +23,7 @@
         color: $color-tertiary;
         width: 60%;
         line-height: $font-big;
-        padding-bottom: $padding-bottom/2;
+        padding-bottom: math.div($padding-bottom, 2);
 
         @include respond(phone) {
             padding-bottom: 1rem;

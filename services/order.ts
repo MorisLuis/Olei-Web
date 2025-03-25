@@ -97,7 +97,7 @@ export const getTotalOrderDetails = async (receipt: string) => {
     try {
         const { data } = await api.get(`/api/order/details/total?folio=${receipt}`);
         const totalOrderDetails = data;
-        return totalOrderDetails;
+        return totalOrderDetails.total;
     } catch (error) {
         return { error: { ...error as AxiosError } };
     }

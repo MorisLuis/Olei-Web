@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useForm } from 'react-hook-form';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LayoutOnboarding } from '@/components/Layouts/LayoutOnboarding';
@@ -9,7 +8,7 @@ import PageTransition from '@/components/PageTranstion';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import Button from '@/components/Buttons/Button';
 import styles from "../styles/Pages/Login.module.scss";
-import useToast from '@/hooks/useToast';
+import { useForm } from 'react-hook-form';
 
 
 type FormData = {
@@ -23,8 +22,6 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [isEntering, setIsEntering] = useState(true);
     const { handleError } = useErrorHandler();
-
-    const { showSuccess, showError, showSuccessData } = useToast()
 
     const onLoginUser = async ({ email, password }: FormData) => {
         try {
@@ -44,7 +41,6 @@ const Login = () => {
             <LayoutOnboarding>
                 <div className={styles.login}>
                     <div className={styles.content}>
-
                         <Image
                             src={"/Logo_vertical.png" || ""}
                             alt="Olei online"

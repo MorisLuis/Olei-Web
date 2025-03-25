@@ -17,10 +17,11 @@ export const ReceiptRender = () => {
     const { query: { receipt } } = useRouter();
     const { handleError } = useErrorHandler()
     const [orderSelect, setOrderSelect] = useState<OrderInterface>();
+    console.log({orderSelect})
     const { Fecha, Cantidad, Vendedor, Folio, Cliente, Total } = orderSelect ?? {};
     const isEmployee = user?.TipoUsuario === 2;
 
-    const { data, isLoading, isButtonLoading, total, handleResetData, handleLoadMore } = useLoadMoreData(
+    const { data, isButtonLoading, total, handleResetData, handleLoadMore } = useLoadMoreData(
         {
             fetchInitialData: () => getOrderDetails(receipt as string, 1),
             fetchPaginatedData: (arg, nextPage) => getOrderDetails(receipt as string, nextPage),
@@ -52,7 +53,8 @@ export const ReceiptRender = () => {
         handleResetData()
     }, []);
 
-    if (!data) {
+
+    if (data.length <= 0) {
         return (
             <ReceiptRenderSkeleton />
         )
@@ -73,7 +75,7 @@ export const ReceiptRender = () => {
                             </div>
                         )}
                         <div className={styles.item}>
-                            <p><span>Cliente:</span> {Cliente}</p>
+                            <p><span>Cliente:</span> {Cliente ? Cliente : "Sin información"}</p>
                         </div>
                     </div>
 
@@ -95,10 +97,8 @@ export const ReceiptRender = () => {
                 products={data}
                 totalProducts={total ?? 0}
                 buttonIsLoading={isButtonLoading}
-                loadingData={isLoading}
                 loadMoreProducts={handleLoadMore}
             />
-
         </div>
     )
 };

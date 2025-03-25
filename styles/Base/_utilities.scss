@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "../Abstracts/variables" as *;
+
 .display-flex {
     display: flex;
 
@@ -63,7 +66,7 @@
     background-color: $color-border;
     animation: loadingSkeleton 1s infinite;
     height: $font-normal;
-    border-radius: $border-radius /3;
+    border-radius: math.div($border-radius, 2);
 }
 
 .backgroundModal {
