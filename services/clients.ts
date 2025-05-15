@@ -1,14 +1,10 @@
 import { api } from "@/api/api"
 import ClientInterface from "@/interfaces/client"
 
-export const getClients = async (term: string) => {
+export const getClients = async (term: string): Promise<{ clients: ClientInterface[] }> => {
 
-    try {
-        const { data: { Clients } } = await api.get(`/api/client/search?term=${term}`);
-        return Clients;
-    } catch (error) {
-        return { error: error };
-    }
+    const { data: { clients } } = await api.get<{ clients: ClientInterface[] }>(`/api/client/search?term=${term}`);
+    return { clients };
 }
 
 export const postClient = async (client: ClientInterface) => {

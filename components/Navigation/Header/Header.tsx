@@ -40,7 +40,7 @@ const Header = ({
     }
 
     const onAcceptClientSelected = async () => {
-        if(!selectedClient) return;
+        if (!selectedClient) return;
         setChangingClient(true)
         await selectClient(selectedClient)
         setTimeout(() => {
@@ -55,17 +55,8 @@ const Header = ({
     }
 
     const onInputClientChange = async (term: string) => {
-        try {
-            const Clients = await getClients(term);
-            if (Clients.error) {
-                handleError(Clients.error);
-                return { clients: [] };
-            }
-            return { clients: Clients };
-        } catch (error) {
-            handleError(error);
-            return { clients: [] };
-        }
+        const { clients } = await getClients(term);
+        return { clients };
     }
 
     const handleCloseModal = () => {

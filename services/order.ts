@@ -1,6 +1,7 @@
 import { api } from "@/api/api";
 import OrderInterface from "@/interfaces/order";
 import ProductInterface from "@/interfaces/product";
+import { SellsDetailsInterface } from "@/interfaces/sells";
 import { AxiosError } from "axios";
 
 interface postOrderInterface {
@@ -74,13 +75,10 @@ export const getOrder = async (receipt: string) => {
 }
 
 export const getOrderDetails = async (receipt: string, page?: number) => {
-    try {
-        const { data } = await api.get(`/api/order/details?folio=${receipt}&PageNumber=${page}`);
-        const orderDetails = data;
-        return orderDetails;
-    } catch (error) {
-        return { error: { ...error as AxiosError } };
-    }
+
+    const { data: { orderDetails } } = await api.get(`/api/order/details?folio=${receipt}&PageNumber=${page}`);
+    return orderDetails ?? [];
+
 }
 
 export const getTotalOrders = async () => {

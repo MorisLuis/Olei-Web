@@ -14,7 +14,6 @@ const Custum404 = () => {
     const handleNavigate = () => {
         const token = Cookies.get('token');
 
-        console.log({token})
         if (!token) {
             replace('/login')
         } else {

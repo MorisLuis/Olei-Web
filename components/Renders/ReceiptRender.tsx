@@ -17,7 +17,6 @@ export const ReceiptRender = () => {
     const { query: { receipt } } = useRouter();
     const { handleError } = useErrorHandler()
     const [orderSelect, setOrderSelect] = useState<OrderInterface>();
-    console.log({orderSelect})
     const { Fecha, Cantidad, Vendedor, Folio, Cliente, Total } = orderSelect ?? {};
     const isEmployee = user?.TipoUsuario === 2;
 
@@ -47,11 +46,12 @@ export const ReceiptRender = () => {
     useEffect(() => {
         if (!receipt) return;
         handleGetOrder();
-    }, [receipt]);
+    }, [handleGetOrder, receipt]);
 
     useEffect(() => {
+        if(!receipt) return
         handleResetData()
-    }, []);
+    }, [handleResetData, receipt]);
 
 
     if (data.length <= 0) {

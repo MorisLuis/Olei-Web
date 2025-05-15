@@ -6,25 +6,15 @@ import { SearchOnboarding } from '@/components/Inputs/searchOnboarding';
 import ClientInterface from '@/interfaces/client';
 import PageTransition from '@/components/PageTranstion';
 import { getClients } from '@/services/clients';
-import useErrorHandler from '@/hooks/useErrorHandler';
 
 const OnboardingSearch = () => {
 
     const [searchResults, setSearchResults] = useState<ClientInterface[]>([]);
     const [isEntering, setIsEntering] = useState(true);
-    const { handleError } = useErrorHandler()
 
     const handleSearchTerm = async (term: string) => {
-        try {
-            const Clients = await getClients(term);
-            if (Clients.error) {
-                handleError(Clients.error);
-                return;
-            }
-            setSearchResults(Clients)
-        } catch (error) {
-            handleError(error)
-        }
+        const { clients } = await getClients(term);
+        setSearchResults(clients)
     };
 
     useEffect(() => {

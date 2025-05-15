@@ -19,7 +19,6 @@ export default function TableSecondaryRequestDetails({
     loadMoreProducts
 }: TableSecondaryRequestDetailsInterface) {
 
-    console.log({totalProducts})
     const NoMoreProductToShow = products.length === totalProducts;
 
     const columns: ColumnSecondaryConfig<ProductInterface>[] = [
@@ -79,7 +78,6 @@ export default function TableSecondaryRequestDetails({
             noMoreData={NoMoreProductToShow}
             loadingMoreData={buttonIsLoading}
             handleLoadMore={loadMoreProducts}
-           //onClick={(item) => handleSelectRequest(item)}
         />
     )
 }

@@ -33,7 +33,7 @@ const TableSecondary = <T,>({
             <table>
                 <tbody>
                     {
-                        data.map((item, rowIndex) => (
+                        data?.map((item, rowIndex) => (
                             <tr key={rowIndex}>
                                 {columns.map((col, colIndex) => (
                                     <td
