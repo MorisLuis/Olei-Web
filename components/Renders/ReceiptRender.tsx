@@ -46,12 +46,14 @@ export const ReceiptRender = () => {
     useEffect(() => {
         if (!receipt) return;
         handleGetOrder();
-    }, [handleGetOrder, receipt]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [receipt]);
 
     useEffect(() => {
         if(!receipt) return
         handleResetData()
-    }, [handleResetData, receipt]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ receipt]);
 
 
     if (data.length <= 0) {

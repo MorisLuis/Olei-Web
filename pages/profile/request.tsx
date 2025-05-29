@@ -19,7 +19,8 @@ const Pedidos = () => {
 
     useEffect(() => {
         handleResetData()
-    }, [handleResetData])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     if (!data) {
         return (
