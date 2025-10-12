@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import UserInterface from '@/interfaces/user';
 import useErrorHandler from '@/hooks/useErrorHandler';
 import { ApiError } from '@/interfaces/error';
-import useToast from '@/hooks/useToast';
+import { useToast } from '@/hooks';
 
 //API??
 
