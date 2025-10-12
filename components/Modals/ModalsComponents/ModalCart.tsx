@@ -11,7 +11,7 @@ import Button from '@/components/Buttons/Button';
 import ModalSideways from '../ModalSideways';
 import ProductCardSkeleton from '@/components/Skeletons/Cards/ProductCardSkeleton';
 import styles from "../../../styles/Cart.module.scss";
-import useToast from '@/hooks/useToast';
+import { useToast } from '@/hooks';
 
 interface Props {
     visible: boolean;
