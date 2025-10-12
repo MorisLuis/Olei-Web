@@ -2,7 +2,7 @@ import { AuthContext } from '@/context';
 import { sendError } from '@/services/errors';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import useToast from '@/hooks/useToast';
+import { useToast } from './useToast';
 
 export const useErrorHandler = () => {
     const router = useRouter();
