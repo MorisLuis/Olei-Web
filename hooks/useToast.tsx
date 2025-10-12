@@ -1,7 +1,7 @@
 // hooks/useToast.ts
 import { toast } from 'react-hot-toast';
 
-const useToast = () => {
+export const useToast = () => {
     const showSuccess = (message: string) => {
         toast.success(message,
             {
@@ -96,4 +96,3 @@ const useToast = () => {
     };
 };
 
-export default useToast;
