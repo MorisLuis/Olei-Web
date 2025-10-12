@@ -1,8 +1,18 @@
-module.exports = {
+// next.config.js o next.config.ts
+
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+const nextConfig = {
   reactStrictMode: false,
+
   images: {
     domains: ['oleistorage.blob.core.windows.net', 'm.media-amazon.com'],
   },
+
   async headers() {
     return [
       {
@@ -10,22 +20,24 @@ module.exports = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://www.oleionline.com', // Cambia por tu dominio de producción
+            value: 'https://www.oleionline.com',
           },
           {
             key: 'Access-Control-Allow-Credentials',
-            value: 'true', // Permite enviar cookies con solicitudes cross-origin
+            value: 'true',
           },
           {
             key: 'Access-Control-Allow-Methods',
-            value: 'GET,POST,PUT,DELETE,OPTIONS', // Métodos permitidos
+            value: 'GET,POST,PUT,DELETE,OPTIONS',
           },
           {
             key: 'Access-Control-Allow-Headers',
-            value: 'X-Requested-With, Accept, Content-Type, Authorization', // Cabeceras permitidas
+            value: 'X-Requested-With, Accept, Content-Type, Authorization',
           },
         ],
       },
     ];
   },
 };
+
+export default bundleAnalyzer(nextConfig);
