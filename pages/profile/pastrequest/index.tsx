@@ -2,7 +2,7 @@ import React from 'react';
 import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import ModalRequest from '@/components/Modals/Modal';
 import { useRouter } from 'next/router';
-import { ReceiptRender } from '@/pages/request/components/ReceiptRender';
+import ReceiptRender from '@/components/Renders/ReceiptRender';
 import { MessageCard } from '@/components/Cards/MessageCard';
 
 const PedidosAnteriores = () => {

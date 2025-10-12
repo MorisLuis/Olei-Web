@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import styles from "../../../styles/Pages/Receipt.module.scss";
+import styles from "../../styles/Pages/Receipt.module.scss";
 
 import { useRouter } from 'next/router';
 import OrderInterface from '@/interfaces/order';
@@ -12,7 +12,7 @@ import { useLoadMoreData } from '@/hooks/useLoadMoreData';
 import ReceiptRenderSkeleton from '@/components/Skeletons/ReceiptRenderSkeleton';
 import TableSecondaryRequestDetails from '@/components/Ui/Tables/TableComponents/TableSecondaryRequestDetails';
 
-export const ReceiptRender = () => {
+const ReceiptRender = () => {
     const { user } = useContext(AuthContext);
     const { query: { receipt, tipoDoc } } = useRouter();
     const { handleError } = useErrorHandler()
@@ -104,3 +104,5 @@ export const ReceiptRender = () => {
         </div>
     )
 };
+
+export default ReceiptRender

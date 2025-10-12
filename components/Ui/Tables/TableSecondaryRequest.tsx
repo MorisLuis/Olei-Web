@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { useRouter } from 'next/router';
 
-import TableSecondary, { ColumnSecondaryConfig } from '../../../../components/Ui/Tables/TableSecondary';
+import TableSecondary, { ColumnSecondaryConfig } from './TableSecondary';
 import OrderInterface from '@/interfaces/order';
-import { ReceiptRender } from '@/pages/request/components/ReceiptRender';
+import ReceiptRender from '@/components/Renders/ReceiptRender';
 import { getOrderDetails } from '@/services/order';
 import { CartContext } from '@/context';
 import TableSkeleton from '@/components/Skeletons/TableSkeleton';
