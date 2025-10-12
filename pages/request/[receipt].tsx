@@ -4,7 +4,7 @@ import styles from "../../styles/Pages/Receipt.module.scss";
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
-import { ReceiptRender } from '@/components/Renders/ReceiptRender';
+import { ReceiptRender } from './components/ReceiptRender';
 
 const ReceiptPage = () => {
 
