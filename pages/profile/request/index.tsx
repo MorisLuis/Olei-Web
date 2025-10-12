@@ -4,7 +4,7 @@ import LayoutProfile from '@/components/Layouts/LayoutProfile';
 import { MessageCard } from '@/components/Cards/MessageCard';
 import { TableSecondarySkeleton } from '@/components/Skeletons/TableSecondarySkeleton';
 import { getOrders, getTotalOrders } from '@/services/order';
-import TableSecondaryRequest from '@/components/Ui/Tables/TableComponents/TableSecondaryRequest';
+import TableSecondaryRequest from '@/pages/profile/request/components/TableSecondaryRequest';
 import { useLoadMoreData } from '@/hooks/useLoadMoreData';
 
 const Pedidos = () => {
