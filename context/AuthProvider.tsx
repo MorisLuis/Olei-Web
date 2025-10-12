@@ -8,8 +8,6 @@ import useErrorHandler from '@/hooks/useErrorHandler';
 import { ApiError } from '@/interfaces/error';
 import { useToast } from '@/hooks';
 
-//API??
-
 export interface AuthState {
     isLoggedIn: boolean;
     user: UserInterface;
