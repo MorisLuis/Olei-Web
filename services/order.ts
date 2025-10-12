@@ -74,9 +74,9 @@ export const getOrder = async (receipt: string) => {
     }
 }
 
-export const getOrderDetails = async (receipt: string, page?: number) => {
+export const getOrderDetails = async (receipt: string, tipoDoc: string, page?: number) => {
 
-    const { data: { orderDetails } } = await api.get(`/api/order/details?folio=${receipt}&PageNumber=${page}`);
+    const { data: { orderDetails } } = await api.get(`/api/order/details?folio=${receipt}&PageNumber=${page}&TipoDoc=${tipoDoc}`);
     return orderDetails ?? [];
 
 }
