@@ -24,7 +24,7 @@ const ReceiptRender = () => {
         {
             fetchInitialData: () => getOrderDetails(receipt as string, tipoDoc as string,  1),
             fetchPaginatedData: (arg, nextPage) => getOrderDetails(receipt as string, tipoDoc as string, nextPage),
-            fetchTotalCount: () => getTotalOrderDetails(receipt as string),
+            fetchTotalCount: () => getTotalOrderDetails(receipt as string, tipoDoc as string),
         }
     );
 

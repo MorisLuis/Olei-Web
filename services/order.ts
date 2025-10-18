@@ -91,9 +91,9 @@ export const getTotalOrders = async () => {
     }
 };
 
-export const getTotalOrderDetails = async (receipt: string) => {
+export const getTotalOrderDetails = async (receipt: string, tipoDoc: string) => {
     try {
-        const { data } = await api.get(`/api/order/details/total?folio=${receipt}`);
+        const { data } = await api.get(`/api/order/details/total?folio=${receipt}&TipoDoc=${tipoDoc}`);
         const totalOrderDetails = data;
         return totalOrderDetails.total;
     } catch (error) {
