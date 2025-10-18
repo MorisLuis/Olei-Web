@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { errorResponseInterceptor, responseInterceptor } from './responseInterceptor';
 
 export const api = axios.create(
     {
@@ -7,7 +8,7 @@ export const api = axios.create(
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
         },
-        withCredentials: true,  // Esto permite enviar las cookies con cada solicitud
+        withCredentials: true,
     }
 )
 
@@ -23,7 +24,14 @@ api.interceptors.request.use(
 
         return config;
     },
+
     error => {
         return Promise.reject(error);
     }
+);
+
+// 🚀 interceptores de respuesta
+api.interceptors.response.use(
+    responseInterceptor,
+    errorResponseInterceptor
 );
