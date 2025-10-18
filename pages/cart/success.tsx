@@ -31,7 +31,7 @@ const Success = () => {
                     <div className={styles.actions}>
                         <ButtonSmall
                             text='Ver recibo'
-                            onClick={() => push(`/request/${query.order}`)}
+                            onClick={() => push(`/request/${query.order}?tipoDoc=${query.tipoDoc}`)}
                             icon={faExpand}
                             color='blue'
                         />

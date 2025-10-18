@@ -45,7 +45,12 @@ export const postOrder = async ({
 
         const folioData = await api.post('/api/order', { sellsData, sellsDetails });
         const folio = folioData.data.folio;
-        return folio;
+        const tipoDoc = folioData.data.TipoDoc;
+
+        return {
+            folio,
+            tipoDoc
+        };
 
     } catch (error) {
         return { error: { ...error as AxiosError } };

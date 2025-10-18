@@ -150,7 +150,7 @@ export default function TableSecondaryRequest({
                 actionsVisible
 
                 onClose={handleCloseReceiptRender}
-                handleActionTopOne={() => push(`/request/${query?.receipt}`)}
+                handleActionTopOne={() => push(`/request/${query?.receipt}?tipoDoc=${query.tipoDoc}`)}
                 handleActionTopTwo={() => setOpenModalMessage(true)}
                 modalSize='medium'
             >
