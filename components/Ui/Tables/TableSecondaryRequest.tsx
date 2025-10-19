@@ -87,7 +87,7 @@ export default function TableSecondaryRequest({
     const handleGetOrderDetails = useCallback(async () => {
         try {
             setOpenModalRequest(true)
-            const order = await getOrderDetails(query.receipt as string, query.TipoDoc as string, 999)
+            const order = await getOrderDetails(query.receipt as string, query.tipoDoc as string, 999)
             if (order.error) {
                 handleError(order.error);
                 return;
