@@ -52,6 +52,17 @@ export const ContentCart = ({
     const showDeleteCart = cartWithProducts || cartPendingWithProducts;
     const productsWithIVA = user?.PrecioIncIVA === 1;
 
+    if (!cartWithProducts) {
+        return (
+            <MessageCard
+                title="No has agregado productos aún."
+                icon={faFileInvoice}
+            >
+                No hay productos en tu orden, apareceran una vez que agregues productos.
+            </MessageCard>
+        )
+    }
+
     return (
         <div className={styles.cart}>
             <div className={styles.content}>
@@ -65,35 +76,23 @@ export const ContentCart = ({
                     />
                 }
 
-                {
-                    cartWithProducts ?
-                        <>
-                            <div className={styles.search}>
-                                <div className={styles.inputSearch}>
-                                    <Input
-                                        value={inputValue}
-                                        name='search'
-                                        onChange={(e) => handleOnChangeInput(e)}
-                                        clearInput={handleCleanInput}
-                                    />
-                                </div>
-                            </div>
+                <div className={styles.search}>
+                    <div className={styles.inputSearch}>
+                        <Input
+                            value={inputValue}
+                            name='search'
+                            onChange={(e) => handleOnChangeInput(e)}
+                            clearInput={handleCleanInput}
+                        />
+                    </div>
+                </div>
 
-                            <TableOrders
-                                products={cartShowed}
-                                totalProducts={cartShowed.length}
-                                loadingData={false}
-                                buttonIsLoading={false}
-                            />
-                        </>
-                        :
-                        <MessageCard
-                            title="No has agregado productos aún."
-                            icon={faFileInvoice}
-                        >
-                            No hay productos en tu orden, apareceran una vez que agregues productos.
-                        </MessageCard>
-                }
+                <TableOrders
+                    products={cartShowed}
+                    totalProducts={cartShowed.length}
+                    loadingData={false}
+                    buttonIsLoading={false}
+                />
 
                 {
                     cartPendingWithProducts &&

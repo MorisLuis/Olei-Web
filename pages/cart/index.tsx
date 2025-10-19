@@ -19,7 +19,6 @@ const Cart = () => {
     const [orderRequested, setOrderRequested] = useState(false);
     const [openModalMessage, setOpenModalMessage] = useState(false);
     const { back } = useRouter()
-    const orderSubmitedAndCartExisting = cart.length > 0 || !orderRequested;
     useLockBodyScroll(openModalMessage);
 
     const handleRemoveCart = () => {
@@ -40,7 +39,7 @@ const Cart = () => {
     });
 
 
-    if (!orderSubmitedAndCartExisting) {
+    if (orderRequested) {
         return (
             <PageTransition key="login-transition" isEntering={isEntering === false}>
                 <animated.div style={fadeIn} className={styles.proccesingCart}>

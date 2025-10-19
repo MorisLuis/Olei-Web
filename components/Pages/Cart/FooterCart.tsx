@@ -33,7 +33,9 @@ export const FooterCart = ({
             handleError(error);
             setBlockPostOrder(true);
         } finally {
-            setOrderRequested(false);
+            setTimeout(() => {
+                setOrderRequested(false);
+            }, 500);
         }
 
     }
